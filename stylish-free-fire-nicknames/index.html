@@ -24,24 +24,46 @@
     <!-- Header Navigation -->
     <header class="site-header">
       <div class="container nav-container">
-        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Pro">
           <div class="brand-icon">🔥</div>
           <div class="brand-text">
-            <span class="brand-title">FF Studio</span>
-            <span class="brand-badge stylish-badge">Style Gallery</span>
+            <span class="brand-title">FreeFireNicknamePro</span>
           </div>
         </a>
 
-        <nav aria-label="Main Navigation">
-          <ul class="nav-links">
-            <li><a href="../" class="nav-link">Nickname Creator</a></li>
-            <li><a href="#stylish-app" class="nav-link active">Stylish Names</a></li>
-            <li><a href="../free-fire-nicknames-for-boys/" class="nav-link">Boys Nicknames</a></li>
-            <li><a href="../free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
-            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+        <!-- Desktop & Mobile Navigation -->
+        <nav class="site-nav" aria-label="Main Navigation">
+          <ul class="nav-links" id="main-nav-links">
+            <li><a href="../" class="nav-link">Home</a></li>
+
+            <!-- Nicknames Dropdown -->
+            <li class="nav-item-dropdown">
+              <button 
+                type="button" 
+                class="nav-link nav-dropdown-btn active" 
+                aria-expanded="false" 
+                aria-haspopup="true" 
+                aria-controls="nav-dropdown-nicknames"
+                id="btn-nicknames-dropdown"
+              >
+                <span>Nicknames</span>
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="nav-dropdown-menu" id="nav-dropdown-nicknames" role="region" aria-labelledby="btn-nicknames-dropdown">
+                <ul class="dropdown-links-list">
+                  <li><a href="../free-fire-nicknames-for-boys/" class="dropdown-link">Boys Nicknames</a></li>
+                  <li><a href="../free-fire-nicknames-for-girls/" class="dropdown-link">Girls Nicknames</a></li>
+                  <li><a href="../cool-free-fire-nicknames/" class="dropdown-link">Cool Nicknames</a></li>
+                  <li><a href="./" class="dropdown-link active">Stylish Nicknames</a></li>
+                  <li><a href="../attitude-free-fire-nicknames/" class="dropdown-link">Attitude Nicknames</a></li>
+                </ul>
+              </div>
+            </li>
+
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols</a></li>
             <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
             <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
-            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio</a></li>
           </ul>
         </nav>
 
@@ -55,6 +77,20 @@
             <span>★</span>
             <span>Shortlist</span>
             <span id="shortlist-count-badge" style="display: none; background: #ffaa00; color: #000; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button 
+            type="button" 
+            class="mobile-menu-toggle" 
+            id="mobile-menu-toggle" 
+            aria-label="Toggle mobile menu" 
+            aria-expanded="false" 
+            aria-controls="main-nav-links"
+          >
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
           </button>
         </div>
       </div>
@@ -581,20 +617,81 @@
       <span id="toast-message">Stylish nickname copied.</span>
     </div>
 
-    <!-- Clean Gaming Footer -->
+    <!-- Sitewide Footer -->
     <footer class="site-footer" style="margin-top: 3.5rem;">
       <div class="container">
-        <div class="footer-disclaimer-box">
-          <strong>Disclaimer:</strong> This website is an independent fan-made gaming tool and is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All trademarks and brand names are property of their respective owners.
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="../" class="brand-logo" style="margin-bottom: 0.75rem;">
+              <div class="brand-icon">🔥</div>
+              <div class="brand-text">
+                <span class="brand-title">FreeFireNicknamePro</span>
+              </div>
+            </a>
+            <p class="footer-brand-desc">
+              Free Fire nickname and gaming identity tools. Generate, customize, and style battle-ready nicknames, symbols, and guild names.
+            </p>
+          </div>
+
+          <!-- 1. NICKNAME TOOLS -->
+          <div class="footer-col">
+            <h4>Nickname Tools</h4>
+            <ul class="footer-links">
+              <li><a href="../">Free Fire Nickname Generator</a></li>
+              <li><a href="../free-fire-symbols/">Free Fire Symbols</a></li>
+              <li><a href="../free-fire-invisible-space/">Invisible Space</a></li>
+              <li><a href="../free-fire-guild-name-generator/">Guild Name Generator</a></li>
+              <li><a href="../free-fire-bio-copy/">Free Fire Bio</a></li>
+            </ul>
+          </div>
+
+          <!-- 2. NICKNAME IDEAS -->
+          <div class="footer-col">
+            <h4>Nickname Ideas</h4>
+            <ul class="footer-links">
+              <li><a href="../free-fire-nicknames-for-boys/">Nicknames for Boys</a></li>
+              <li><a href="../free-fire-nicknames-for-girls/">Nicknames for Girls</a></li>
+              <li><a href="../cool-free-fire-nicknames/">Cool Nicknames</a></li>
+              <li><a href="./">Stylish Nicknames</a></li>
+              <li><a href="../attitude-free-fire-nicknames/">Attitude Nicknames</a></li>
+            </ul>
+          </div>
+
+          <!-- 3. RESOURCES -->
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+              <li><a href="../about-us/">About Us</a></li>
+              <li><a href="../contact-us/">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- 4. LEGAL -->
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="../privacy-policy/">Privacy Policy</a></li>
+              <li><a href="../terms-and-conditions/">Terms &amp; Conditions</a></li>
+              <li><a href="../cookie-policy/">Cookie Policy</a></li>
+              <li><a href="../disclaimer/">Disclaimer</a></li>
+              <li><a href="../dmca/">Copyright &amp; DMCA</a></li>
+            </ul>
+          </div>
         </div>
+
+        <div class="footer-disclaimer-box">
+          <strong>Independence Disclosure:</strong> FreeFireNicknamePro.com is an independent utility website and is not affiliated with, endorsed by, sponsored by, or officially associated with Garena or Free Fire. Free Fire and Garena are trademarks or registered trademarks of Garena International.
+        </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Free Fire Nickname Studio. Built for competitive players worldwide.</p>
+          <p>&copy; 2026 FreeFireNicknamePro.com. All rights reserved.</p>
         </div>
       </div>
     </footer>
   </div>
 
   <!-- Application Scripts -->
+  <script src="../js/nav.js"></script>
   <script src="js/stylish-data.js?v=2"></script>
   <script src="js/stylish-engine.js?v=2"></script>
   <script src="js/stylish-app.js?v=2"></script>

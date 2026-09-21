@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cool Free Fire Nicknames – Browse, Style &amp; Copy Cool Gamer Handles</title>
+  <meta name="description" content="Browse cool Free Fire nicknames and IGN ideas. Discover stealth, icy, cyber, and legendary cool names with 1-tap copy and simulated game preview.">
+  <link rel="canonical" href="https://freefirenicknamepro.com/cool-free-fire-nicknames/">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/cool-styles.css">
+</head>
+<body>
+  <!-- Ambient Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="FreeFireNicknamePro Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FreeFireNicknamePro</span>
+          </div>
+        </a>
+
+        <!-- Desktop & Mobile Navigation -->
+        <nav class="site-nav" aria-label="Main Navigation">
+          <ul class="nav-links" id="main-nav-links">
+            <li><a href="../" class="nav-link">Home</a></li>
+
+            <!-- Nicknames Dropdown -->
+            <li class="nav-item-dropdown">
+              <button 
+                type="button" 
+                class="nav-link nav-dropdown-btn active" 
+                aria-expanded="false" 
+                aria-haspopup="true" 
+                aria-controls="nav-dropdown-nicknames"
+                id="btn-nicknames-dropdown"
+              >
+                <span>Nicknames</span>
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="nav-dropdown-menu" id="nav-dropdown-nicknames" role="region" aria-labelledby="btn-nicknames-dropdown">
+                <ul class="dropdown-links-list">
+                  <li><a href="../free-fire-nicknames-for-boys/" class="dropdown-link">Boys Nicknames</a></li>
+                  <li><a href="../free-fire-nicknames-for-girls/" class="dropdown-link">Girls Nicknames</a></li>
+                  <li><a href="../cool-free-fire-nicknames/" class="dropdown-link active">Cool Nicknames</a></li>
+                  <li><a href="../stylish-free-fire-nicknames/" class="dropdown-link">Stylish Nicknames</a></li>
+                  <li><a href="../attitude-free-fire-nicknames/" class="dropdown-link">Attitude Nicknames</a></li>
+                </ul>
+              </div>
+            </li>
+
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio</a></li>
+          </ul>
+        </nav>
+
+        <!-- Mobile Hamburger Toggle Button -->
+        <button 
+          type="button" 
+          class="mobile-menu-toggle" 
+          id="mobile-menu-toggle" 
+          aria-label="Toggle mobile menu" 
+          aria-expanded="false" 
+          aria-controls="main-nav-links"
+        >
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container" style="flex: 1;">
+      <section class="cool-hero">
+        <div class="hero-pill-badge" style="border-color: rgba(0, 229, 255, 0.4); color: #00e5ff; background: rgba(0, 229, 255, 0.1);">
+          <span>❄</span>
+          <span>Cool Gaming Identities</span>
+        </div>
+
+        <h1 class="cool-hero-title">
+          <span class="cool-gradient-text">Cool Free Fire Nicknames</span>
+        </h1>
+
+        <p class="cool-hero-subtitle">
+          Browse cool, icy, stealth, cyber, and legendary Free Fire nicknames. Compare styles and copy with 1-tap.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="cool-search-section">
+          <div class="cool-search-box">
+            <span style="color: #00e5ff;">🔍</span>
+            <input 
+              type="text" 
+              id="cool-search-input" 
+              class="cool-search-input" 
+              placeholder="Search cool names (e.g. Frost, Shadow, Ghost, Matrix, Hunter)..."
+              autocomplete="off"
+              spellcheck="false"
+            >
+          </div>
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="cool-chips-carousel">
+          <button class="cool-filter-chip active" data-category="all">⚡ All Cool Names</button>
+          <button class="cool-filter-chip" data-category="ice">❄ Ice &amp; Frost</button>
+          <button class="cool-filter-chip" data-category="stealth">🥷 Stealth &amp; Phantom</button>
+          <button class="cool-filter-chip" data-category="cyber">⚡ Cyber &amp; Neon</button>
+          <button class="cool-filter-chip" data-category="legendary">👑 Legendary</button>
+          <button class="cool-filter-chip" data-category="sniper">🎯 Sniper</button>
+          <button class="cool-filter-chip" data-category="minimal">🧊 Minimal</button>
+        </div>
+      </section>
+
+      <!-- Grid -->
+      <section id="cool-nickname-grid" class="cool-grid" aria-label="Cool nicknames results"></section>
+
+      <!-- Educational Content Section -->
+      <article style="max-width: 860px; margin: 3rem auto; line-height: 1.7; color: var(--text-high);">
+        <h2 style="font-family: var(--font-gaming); color: #fff; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          What Makes a Free Fire Nickname Truly "Cool"?
+        </h2>
+        <p style="color: var(--text-med); margin-bottom: 1.25rem;">
+          In competitive battle royale matches, a "cool" Free Fire nickname does not simply mean packing dozens of random symbols together. The coolest in-game names balance strong, punchy word choices—like <em>Frost</em>, <em>Ghost</em>, <em>Vortex</em>, or <em>Nox</em>—with restrained decorative accents that remain effortlessly readable in high-speed killfeeds.
+        </p>
+        <p style="color: var(--text-med); margin-bottom: 1.25rem;">
+          Whether you want a stealth identity for solo rank pushes, a high-tech cyber tag for your squad, or a clean one-word handle, explore the categories above, test them in the game client, and always keep a plain fallback saved.
+        </p>
+      </article>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="cool-toast" class="space-toast" role="status" aria-live="polite"></div>
+
+    <!-- Sitewide Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Brand Column -->
+          <div class="footer-brand-col">
+            <a href="../" class="brand-logo" style="margin-bottom: 0.75rem;">
+              <div class="brand-icon">🔥</div>
+              <div class="brand-text">
+                <span class="brand-title">FreeFireNicknamePro</span>
+              </div>
+            </a>
+            <p class="footer-brand-desc">
+              Free Fire nickname and gaming identity tools. Generate, customize, and style battle-ready nicknames, symbols, and guild names.
+            </p>
+          </div>
+
+          <!-- 1. NICKNAME TOOLS -->
+          <div class="footer-col">
+            <h4>Nickname Tools</h4>
+            <ul class="footer-links">
+              <li><a href="../">Free Fire Nickname Generator</a></li>
+              <li><a href="../free-fire-symbols/">Free Fire Symbols</a></li>
+              <li><a href="../free-fire-invisible-space/">Invisible Space</a></li>
+              <li><a href="../free-fire-guild-name-generator/">Guild Name Generator</a></li>
+              <li><a href="../free-fire-bio-copy/">Free Fire Bio</a></li>
+            </ul>
+          </div>
+
+          <!-- 2. NICKNAME IDEAS -->
+          <div class="footer-col">
+            <h4>Nickname Ideas</h4>
+            <ul class="footer-links">
+              <li><a href="../free-fire-nicknames-for-boys/">Nicknames for Boys</a></li>
+              <li><a href="../free-fire-nicknames-for-girls/">Nicknames for Girls</a></li>
+              <li><a href="./">Cool Nicknames</a></li>
+              <li><a href="../stylish-free-fire-nicknames/">Stylish Nicknames</a></li>
+              <li><a href="../attitude-free-fire-nicknames/">Attitude Nicknames</a></li>
+            </ul>
+          </div>
+
+          <!-- 3. RESOURCES -->
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+              <li><a href="../about-us/">About Us</a></li>
+              <li><a href="../contact-us/">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- 4. LEGAL -->
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="../privacy-policy/">Privacy Policy</a></li>
+              <li><a href="../terms-and-conditions/">Terms &amp; Conditions</a></li>
+              <li><a href="../cookie-policy/">Cookie Policy</a></li>
+              <li><a href="../disclaimer/">Disclaimer</a></li>
+              <li><a href="../dmca/">Copyright &amp; DMCA</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer-box">
+          <strong>Independence Disclosure:</strong> FreeFireNicknamePro.com is an independent utility website and is not affiliated with, endorsed by, sponsored by, or officially associated with Garena or Free Fire. Free Fire and Garena are trademarks or registered trademarks of Garena International.
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 FreeFireNicknamePro.com. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script src="js/cool-data.js"></script>
+  <script src="js/cool-app.js"></script>
+</body>
+</html>

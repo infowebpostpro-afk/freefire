@@ -126,27 +126,64 @@
     <!-- Header Navigation -->
     <header class="site-header">
       <div class="container nav-container">
-        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Pro">
           <div class="brand-icon">🔥</div>
           <div class="brand-text">
-            <span class="brand-title">FF Studio</span>
-            <span class="brand-badge">Invisible Space</span>
+            <span class="brand-title">FreeFireNicknamePro</span>
           </div>
         </a>
 
-        <nav aria-label="Main Navigation">
-          <ul class="nav-links">
-            <li><a href="../" class="nav-link">Nickname Generator</a></li>
-            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
-            <li><a href="../stylish-free-fire-nicknames/" class="nav-link">Stylish Names</a></li>
-            <li><a href="#quick-copy" class="nav-link active">Invisible Space</a></li>
-            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Studio</a></li>
+        <!-- Desktop & Mobile Navigation -->
+        <nav class="site-nav" aria-label="Main Navigation">
+          <ul class="nav-links" id="main-nav-links">
+            <li><a href="../" class="nav-link">Home</a></li>
+
+            <!-- Nicknames Dropdown -->
+            <li class="nav-item-dropdown">
+              <button 
+                type="button" 
+                class="nav-link nav-dropdown-btn" 
+                aria-expanded="false" 
+                aria-haspopup="true" 
+                aria-controls="nav-dropdown-nicknames"
+                id="btn-nicknames-dropdown"
+              >
+                <span>Nicknames</span>
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="nav-dropdown-menu" id="nav-dropdown-nicknames" role="region" aria-labelledby="btn-nicknames-dropdown">
+                <ul class="dropdown-links-list">
+                  <li><a href="../free-fire-nicknames-for-boys/" class="dropdown-link">Boys Nicknames</a></li>
+                  <li><a href="../free-fire-nicknames-for-girls/" class="dropdown-link">Girls Nicknames</a></li>
+                  <li><a href="../cool-free-fire-nicknames/" class="dropdown-link">Cool Nicknames</a></li>
+                  <li><a href="../stylish-free-fire-nicknames/" class="dropdown-link">Stylish Nicknames</a></li>
+                  <li><a href="../attitude-free-fire-nicknames/" class="dropdown-link">Attitude Nicknames</a></li>
+                </ul>
+              </div>
+            </li>
+
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols</a></li>
+            <li><a href="./" class="nav-link active">Invisible Space</a></li>
             <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
-            <li><a href="#nickname-builder" class="nav-link">Name Builder</a></li>
-            <li><a href="#troubleshooter" class="nav-link">Troubleshoot</a></li>
-            <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio</a></li>
           </ul>
         </nav>
+
+        <div class="nav-actions">
+          <!-- Mobile Hamburger Toggle Button -->
+          <button 
+            type="button" 
+            class="mobile-menu-toggle" 
+            id="mobile-menu-toggle" 
+            aria-label="Toggle mobile menu" 
+            aria-expanded="false" 
+            aria-controls="main-nav-links"
+          >
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -1206,41 +1243,55 @@
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-top">
-          <div>
-            <div class="brand-logo" style="margin-bottom: 0.75rem;">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="../" class="brand-logo" style="margin-bottom: 0.75rem;">
               <div class="brand-icon">🔥</div>
               <div class="brand-text">
                 <span class="brand-title">FreeFireNicknamePro</span>
-                <span class="brand-badge">Gaming Utility</span>
               </div>
-            </div>
+            </a>
             <p class="footer-brand-desc">
-              An independent gaming identity and text styling utility designed to help players discover, customize, and copy battle-ready nicknames, symbols, and guild names.
+              Free Fire nickname and gaming identity tools. Generate, customize, and style battle-ready nicknames, symbols, and guild names.
             </p>
           </div>
 
+          <!-- 1. NICKNAME TOOLS -->
           <div class="footer-col">
-            <h4>Gaming Tools</h4>
+            <h4>Nickname Tools</h4>
             <ul class="footer-links">
-              <li><a href="../">Nickname Generator</a></li>
-              <li><a href="../free-fire-nicknames-for-boys/">Boys Nicknames</a></li>
-              <li><a href="../free-fire-nicknames-for-girls/">Girls Nicknames</a></li>
-              <li><a href="../free-fire-symbols/">Symbols Studio</a></li>
-              <li><a href="./">Invisible Space Tool</a></li>
+              <li><a href="../">Free Fire Nickname Generator</a></li>
+              <li><a href="../free-fire-symbols/">Free Fire Symbols</a></li>
+              <li><a href="./">Invisible Space</a></li>
               <li><a href="../free-fire-guild-name-generator/">Guild Name Generator</a></li>
-              <li><a href="../free-fire-bio-copy/">Bio Copy Studio</a></li>
+              <li><a href="../free-fire-bio-copy/">Free Fire Bio</a></li>
             </ul>
           </div>
 
+          <!-- 2. NICKNAME IDEAS -->
           <div class="footer-col">
-            <h4>Company</h4>
+            <h4>Nickname Ideas</h4>
+            <ul class="footer-links">
+              <li><a href="../free-fire-nicknames-for-boys/">Nicknames for Boys</a></li>
+              <li><a href="../free-fire-nicknames-for-girls/">Nicknames for Girls</a></li>
+              <li><a href="../cool-free-fire-nicknames/">Cool Nicknames</a></li>
+              <li><a href="../stylish-free-fire-nicknames/">Stylish Nicknames</a></li>
+              <li><a href="../attitude-free-fire-nicknames/">Attitude Nicknames</a></li>
+            </ul>
+          </div>
+
+          <!-- 3. RESOURCES -->
+          <div class="footer-col">
+            <h4>Resources</h4>
             <ul class="footer-links">
               <li><a href="../about-us/">About Us</a></li>
               <li><a href="../contact-us/">Contact Us</a></li>
             </ul>
+          </div>
 
-            <h4 style="margin-top: 1.5rem;">Legal &amp; Trust</h4>
+          <!-- 4. LEGAL -->
+          <div class="footer-col">
+            <h4>Legal</h4>
             <ul class="footer-links">
               <li><a href="../privacy-policy/">Privacy Policy</a></li>
               <li><a href="../terms-and-conditions/">Terms &amp; Conditions</a></li>
@@ -1263,6 +1314,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="../js/nav.js"></script>
   <script src="js/invisible-space-data.js"></script>
   <script src="js/invisible-space-app.js"></script>
 </body>
