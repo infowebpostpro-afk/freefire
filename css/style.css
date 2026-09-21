@@ -165,10 +165,12 @@ body {
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.5px;
+  line-height: 1.2;
   text-transform: uppercase;
   background: var(--fire-gradient-gold);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding-top: 2px;
 }
 
 .brand-badge {
