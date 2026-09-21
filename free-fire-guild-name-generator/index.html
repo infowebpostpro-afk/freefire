@@ -3,16 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Fire Guild Name Generator – Squad &amp; Clan Name Studio</title>
+  <title>Free Fire Guild Name Generator – Names &amp; Tags</title>
+  <meta name="description" content="Generate Free Fire guild names with matching tags, styles, member previews, and plain fallbacks. Customize, save, compare, and copy your favorites.">
+  <link rel="canonical" href="https://ffnicknames.com/free-fire-guild-name-generator/">
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Fire Guild Name Generator – Names &amp; Tags">
+  <meta property="og:description" content="Generate Free Fire guild names with matching tags, styles, member previews, and plain fallbacks. Customize, save, compare, and copy your favorites.">
+  <meta property="og:url" content="https://ffnicknames.com/free-fire-guild-name-generator/">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="css/guild-studio.css">
+
+  <!-- Structured Data: WebApplication, BreadcrumbList, FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Free Fire Guild Name Generator",
+        "url": "https://ffnicknames.com/free-fire-guild-name-generator/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Generate complete Free Fire guild identities including full names, matching clan tags, styled versions, squad member previews, and clean text fallbacks."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ffnicknames.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Free Fire Guild Name Generator",
+            "item": "https://ffnicknames.com/free-fire-guild-name-generator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I generate a Free Fire guild name from my own word?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Enter a theme, existing word, initials, or other idea and generate names around it. If you want to preserve that word while exploring alternatives, lock it before regenerating."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this also a Free Fire clan name generator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. “Clan” and “guild” are commonly used by searchers when looking for team-name ideas. The tool can generate team-level names, matching tags, and member previews rather than individual player nicknames."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can the generator tell me if a guild name is already taken?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The generator does not have access to current Free Fire guild/account data. Save several candidates and check availability in the current game interface."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Free Fire guild name character limit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Current third-party sources publish conflicting figures (such as 12 vs 20 characters), so this page does not present one unverified number as an official universal limit. Use the tool's character counter to compare candidates and verify the exact result in your current Free Fire client."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do some stylish characters look different after I copy them?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Decorative Unicode characters depend on how the receiving app and device render or accept them. Keep a plain-text version of the guild name available and test the styled result before committing to it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should my guild name and guild tag match?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "They do not need to be identical, but a related abbreviation creates a clearer naming system. For example, Night Ravens → NRV keeps the short tag connected to the full guild identity."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Ambient Embers Canvas Background -->
@@ -54,88 +154,113 @@
     </header>
 
     <main id="guild-generator-app" class="container">
-      <!-- Hero Header -->
+      <!-- Architecture: H1 -> Two PAS Intro Paragraphs -> Tool -->
       <section class="guild-hero-section">
         <div class="hero-pill-badge">
           <span>⚡</span>
           <span>Free Fire Guild Identity Studio</span>
         </div>
 
-        <h1 class="hero-title" style="margin-bottom: 0.35rem;">
+        <h1 class="hero-title">
           <span class="gradient-text">Free Fire Guild Name Generator</span>
         </h1>
 
-        <p class="hero-subtitle" style="max-width: 600px; margin: 0 auto;">
-          Create a bold, battle-tested identity your squad will remember.
+        <p class="hero-subtitle">
+          Create a guild identity with matching tags, team previews, styles, and copy-ready alternatives.
         </p>
 
-        <!-- 3 Modes Segmented Control -->
-        <div class="guild-modes-container">
-          <div class="guild-mode-segmented" role="tablist">
-            <button class="guild-mode-btn active" data-mode="quick" role="tab" aria-selected="true">
-              <span>⚡</span> Quick
-            </button>
-            <button class="guild-mode-btn" data-mode="custom" role="tab" aria-selected="false">
-              <span>⚙</span> Custom
-            </button>
-            <button class="guild-mode-btn" data-mode="tagname" role="tab" aria-selected="false">
-              <span>🏷</span> Tag + Name
-            </button>
-          </div>
+        <!-- Two Short PAS Paragraphs (Section 2 & 19 Architecture) -->
+        <div class="hero-pas-intro">
+          <p>
+            Finding one name that an entire squad likes is harder than generating another stylish player nickname. A guild name has to represent the group, stay readable, produce a useful short tag, and still look good when members use that identity together.
+          </p>
+          <p>
+            Use the <strong>Free Fire Guild Name Generator</strong> above to create new guild ideas from a word, theme, or team style. Compare the full name, matching tag, styled option, member preview, and plain fallback before copying your choice and testing it in Free Fire.
+          </p>
         </div>
       </section>
 
-      <!-- Generator Control Card -->
-      <section class="guild-control-card">
-        <!-- Keyword Seed -->
-        <div class="generator-keyword-group">
-          <div class="filter-group-label">Optional Keyword / Seed Concept:</div>
-          <div class="keyword-input-wrap">
+      <!-- Primary Generator Tool Control Box (Section 10 Recommended UI) -->
+      <section class="guild-control-card" aria-label="Guild Identity Generator Controls">
+        <!-- Keyword Seed & Member Name Inputs -->
+        <div class="generator-inputs-grid">
+          <div>
+            <div class="filter-group-label">
+              <span>Create Your Guild Theme or Word:</span>
+              <span style="font-weight: normal; font-size: 0.72rem; color: var(--text-muted);">Optional</span>
+            </div>
             <input 
               type="text" 
               id="guild-keyword-input" 
               class="guild-keyword-input" 
-              placeholder="e.g. Shadow, Apex, Wolf, Storm (or leave blank)..."
+              placeholder="e.g. Shadow, Nova, Frost, Raven, Blaze (or leave blank)..."
               autocomplete="off"
               spellcheck="false"
-              aria-label="Seed keyword input"
+              aria-label="Seed keyword or theme input"
+            >
+          </div>
+          <div>
+            <div class="filter-group-label">
+              <span>Sample Member Handle:</span>
+              <span style="font-weight: normal; font-size: 0.72rem; color: var(--text-muted);">Roster Preview</span>
+            </div>
+            <input 
+              type="text" 
+              id="sample-member-input" 
+              class="guild-keyword-input" 
+              value="Ghost"
+              maxlength="16"
+              placeholder="e.g. Ghost, Luna, Vex..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Sample member handle for roster preview"
             >
           </div>
         </div>
 
-        <!-- Vibe Selector Grid -->
-        <div>
-          <div class="filter-group-label">Choose Your Squad Vibe:</div>
-          <div id="guild-vibes-grid" class="guild-vibes-grid"></div>
-        </div>
-
-        <!-- Advanced Custom Filters (Toggled in Custom / Tag+Name modes) -->
-        <div id="custom-filters-section" class="custom-filters-row" style="display: none;">
-          <div>
-            <div class="filter-group-label">Name Length:</div>
-            <div class="segmented-chips">
-              <button class="btn-segmented-chip btn-len-chip active" data-len="any">Any</button>
-              <button class="btn-segmented-chip btn-len-chip" data-len="short">Short</button>
-              <button class="btn-segmented-chip btn-len-chip" data-len="medium">Medium</button>
-            </div>
-          </div>
-          <div>
-            <div class="filter-group-label">Style Intensity:</div>
-            <div class="segmented-chips">
-              <button class="btn-segmented-chip btn-style-chip active" data-style="clean">Clean</button>
-              <button class="btn-segmented-chip btn-style-chip" data-style="pro">⚡ Pro</button>
-              <button class="btn-segmented-chip btn-style-chip" data-style="extreme">亗 Extreme 亗</button>
-            </div>
+        <!-- Guild Type Selector -->
+        <div class="control-sub-section">
+          <div class="filter-group-label">Guild Type:</div>
+          <div class="guild-types-grid">
+            <button class="btn-team-type-chip active" data-type="competitive" type="button">
+              <span style="font-size: 1.1rem;">⚔️</span>
+              <span>Competitive</span>
+            </button>
+            <button class="btn-team-type-chip" data-type="friends" type="button">
+              <span style="font-size: 1.1rem;">🐺</span>
+              <span>Friends</span>
+            </button>
+            <button class="btn-team-type-chip" data-type="esports" type="button">
+              <span style="font-size: 1.1rem;">⚡</span>
+              <span>Esports</span>
+            </button>
+            <button class="btn-team-type-chip" data-type="creator" type="button">
+              <span style="font-size: 1.1rem;">🎬</span>
+              <span>Creator</span>
+            </button>
           </div>
         </div>
 
-        <!-- Tag Length Row (Visible in Tag+Name mode) -->
-        <div id="tag-length-row" style="display: none; margin-bottom: 1.25rem;">
-          <div class="filter-group-label">Target Tag Length:</div>
-          <div class="segmented-chips" style="max-width: 280px;">
-            <button class="btn-segmented-chip active">2 Letters (SL)</button>
-            <button class="btn-segmented-chip">3 Letters (SHD)</button>
-            <button class="btn-segmented-chip">4 Letters (SLEG)</button>
+        <!-- Style Selector -->
+        <div class="control-sub-section">
+          <div class="filter-group-label">Style:</div>
+          <div class="guild-styles-grid">
+            <button class="btn-style-pill active" data-style="tactical" type="button">🎯 Tactical</button>
+            <button class="btn-style-pill" data-style="aggressive" type="button">💥 Aggressive</button>
+            <button class="btn-style-pill" data-style="elite" type="button">👑 Elite</button>
+            <button class="btn-style-pill" data-style="minimal" type="button">⚡ Minimal</button>
+            <button class="btn-style-pill" data-style="aesthetic" type="button">✨ Aesthetic</button>
+            <button class="btn-style-pill" data-style="funny" type="button">🎭 Funny</button>
+          </div>
+        </div>
+
+        <!-- Decoration Level Selector -->
+        <div class="control-sub-section">
+          <div class="filter-group-label">Decoration:</div>
+          <div class="segmented-chips" style="max-width: 440px;">
+            <button class="btn-segmented-chip btn-decor-chip active" data-decor="plain" type="button">Plain (Clean Text)</button>
+            <button class="btn-segmented-chip btn-decor-chip" data-decor="light" type="button">Light (Brackets)</button>
+            <button class="btn-segmented-chip btn-decor-chip" data-decor="styled" type="button">Styled (Glyphs)</button>
           </div>
         </div>
 
@@ -150,35 +275,33 @@
         </div>
       </section>
 
-      <!-- Word Lock Workbench -->
+      <!-- Word Lock Studio Workbench (Section 10 & 12) -->
       <section id="word-lock-workbench" class="word-lock-workbench">
         <div class="word-lock-header">
           <span>🔒 Word Lock Studio</span>
-          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Lock one word &amp; spin the other</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: normal;">Lock one word &amp; spin the other</span>
         </div>
         <div class="word-lock-chips">
           <div id="lock-card-0" class="word-lock-card locked">
             <span id="lock-word-0-text" style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 800; color: #fff;">SHADOW</span>
-            <button id="btn-lock-toggle-0" class="btn-lock-toggle active">🔒 Locked</button>
+            <button id="btn-lock-toggle-0" class="btn-lock-toggle active" type="button">🔒 Locked</button>
           </div>
           <div id="lock-card-1" class="word-lock-card">
-            <span id="lock-word-1-text" style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 800; color: #fff;">LEGION</span>
-            <button id="btn-lock-toggle-1" class="btn-lock-toggle">↻ Dynamic</button>
+            <span id="lock-word-1-text" style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 800; color: #fff;">UNIT</span>
+            <button id="btn-lock-toggle-1" class="btn-lock-toggle" type="button">↻ Dynamic</button>
           </div>
-          <button id="btn-regen-unlocked" class="btn btn-primary" style="height: 48px; padding: 0 1.25rem; font-size: 0.88rem;">
+          <button id="btn-regen-unlocked" class="btn btn-primary" style="height: 48px; padding: 0 1.25rem; font-size: 0.88rem;" type="button">
             <span>↻</span> Regenerate
           </button>
         </div>
       </section>
 
-      <!-- Results Section -->
-      <section id="guild-results-section" style="margin-top: 1rem;">
+      <!-- Results Grid Section -->
+      <section id="guild-results-section" style="margin-top: 1.5rem;">
         <div class="results-header-toolbar">
-          <div id="results-count-title" class="results-count-title">Guild Ideas Ready</div>
-          <div class="results-toolbar-actions">
-            <button onclick="openComparison()" class="btn btn-secondary" style="height: 38px; padding: 0 0.85rem; font-size: 0.8rem;">
-              <span>⚖</span> Compare Shortlisted
-            </button>
+          <div id="results-count-title" class="results-count-title">Guild Identities Ready</div>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">
+            Click <strong>[ TAG ]</strong> to cycle abbreviations &bull; Click <strong>↻ Spin</strong> to refresh one result
           </div>
         </div>
 
@@ -193,24 +316,46 @@
         </div>
       </section>
 
+      <!-- Section 19 Heading 2: Compare Your Favorite Guild Names -->
+      <section id="compare-section" class="comparison-section-box">
+        <div class="comparison-header-row">
+          <div>
+            <h2 style="font-family: var(--font-gaming); font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
+              Compare Your Favorite Guild Names
+            </h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+              Side-by-side comparison board for your top 3 finalists. Compare readability, matching tags, and plain fallbacks.
+            </p>
+          </div>
+          <button id="btn-clear-comparison" class="btn btn-secondary" style="height: 36px; padding: 0 0.85rem; font-size: 0.78rem;">
+            Clear Board
+          </button>
+        </div>
+
+        <!-- Dynamic Comparison Board Table -->
+        <div id="comparison-board-container"></div>
+      </section>
+
       <!-- Fictional Squad & Identity Preview Sandbox -->
       <section class="guild-identity-sandbox">
         <div class="sandbox-header">
-          <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 700; color: #ffaa00;">
+          <div style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 700; color: #ffaa00;">
             🛡️ Squad &amp; Clan Identity Sandbox
           </div>
-          <span class="simulated-badge">Simulated Preview</span>
+          <span style="font-size: 0.75rem; background: rgba(255, 170, 0, 0.15); color: #ffaa00; padding: 2px 8px; border-radius: 4px; font-weight: 700;">
+            Live Roster Simulation
+          </span>
         </div>
 
         <!-- Guild Banner -->
         <div class="sandbox-guild-banner">
           <div class="guild-crest-badge">⚔️</div>
           <div class="guild-crest-info">
-            <div id="sandbox-guild-name" class="sandbox-guild-name">SHADOW LEGION</div>
+            <div id="sandbox-guild-name" class="sandbox-guild-name">NIGHT RAVENS</div>
             <div class="sandbox-meta-row">
-              <span id="sandbox-tag-pill" class="guild-tag-badge">[ SL ]</span>
-              <span id="sandbox-vibe-pill" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">DARK</span>
-              <span style="font-size: 0.72rem; color: #ffaa00; font-weight: 700;">Level 5 Guild</span>
+              <span id="sandbox-tag-pill" class="guild-tag-badge">[ NRV ]</span>
+              <span id="sandbox-vibe-pill" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">TACTICAL</span>
+              <span style="font-size: 0.75rem; color: #ffaa00; font-weight: 700;">Level 5 Guild</span>
             </div>
           </div>
         </div>
@@ -221,29 +366,389 @@
         </div>
         <div class="squad-roster-grid">
           <div class="squad-member-plate">
-            <span id="roster-ign-1" class="member-ign">[SL] SHADOW</span>
+            <span id="roster-ign-1" class="member-ign">[NRV] GHOST</span>
             <span class="member-role" style="color: #ffaa00;">Leader 👑</span>
           </div>
           <div class="squad-member-plate">
-            <span id="roster-ign-2" class="member-ign">[SL] GHOST</span>
+            <span id="roster-ign-2" class="member-ign">[NRV] LUNA</span>
             <span class="member-role">Officer</span>
           </div>
           <div class="squad-member-plate">
-            <span id="roster-ign-3" class="member-ign">[SL] VIPER</span>
+            <span id="roster-ign-3" class="member-ign">[NRV] VEX</span>
             <span class="member-role">Rusher</span>
           </div>
           <div class="squad-member-plate">
-            <span id="roster-ign-4" class="member-ign">[SL] HUNTER</span>
+            <span id="roster-ign-4" class="member-ign">[NRV] NEO</span>
             <span class="member-role">Sniper</span>
           </div>
         </div>
 
         <!-- Custom Player Handle Input -->
         <div class="custom-player-ign-wrap">
-          <span style="font-size: 0.82rem; color: var(--text-muted);">Personalize Leader Tag:</span>
-          <input type="text" id="sandbox-player-ign" value="Shadow" maxlength="16" placeholder="Your handle..." aria-label="Customize personal player name">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Personalize Leader Tag:</span>
+          <input type="text" id="sandbox-player-ign" value="Ghost" maxlength="16" placeholder="Your handle..." aria-label="Customize personal player name">
         </div>
       </section>
+
+      <!-- =============================================================
+           COMPLETE PUBLICATION-READY ARTICLE (SECTION 19)
+           ============================================================= -->
+      <article class="guild-article-content">
+        <!-- H2: Generated Guild Names With Matching Tags -->
+        <h2>Generated Guild Names With Matching Tags</h2>
+        <p>
+          A useful guild generator should create more than a decorated word.
+        </p>
+        <p>
+          Each result should give you a complete identity:
+        </p>
+
+        <!-- Visual 1: Complete Guild Identity Card (Section 21) -->
+        <div class="visual-identity-card" aria-label="Complete Guild Identity Breakdown">
+          <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 800; color: #ffaa00; margin-bottom: 0.25rem;">
+            ✦ Guild Identity Anatomy: NIGHT RAVENS
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">
+            Free Fire guild name with matching tag and member preview
+          </div>
+          <div class="identity-card-demo-grid">
+            <div class="demo-spec-item">
+              <div class="demo-spec-label">Guild Name:</div>
+              <div class="demo-spec-val" style="color: #ff5722;">NIGHT RAVENS</div>
+            </div>
+            <div class="demo-spec-item">
+              <div class="demo-spec-label">Matching Tag:</div>
+              <div class="demo-spec-val" style="color: #ffaa00;">[ NRV ]</div>
+            </div>
+            <div class="demo-spec-item">
+              <div class="demo-spec-label">Member Preview:</div>
+              <div class="demo-spec-val" style="color: #fff;">[NRV] Ghost</div>
+            </div>
+            <div class="demo-spec-item">
+              <div class="demo-spec-label">Styled Option:</div>
+              <div class="demo-spec-val" style="color: #ffc107;">『NRV』Night Ravens</div>
+            </div>
+            <div class="demo-spec-item" style="grid-column: 1 / -1;">
+              <div class="demo-spec-label">Plain Fallback:</div>
+              <div class="demo-spec-val" style="color: #00e676; font-family: monospace;">NIGHT RAVENS</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          The full name gives the team its identity. The shorter tag gives members a compact way to carry the same identity alongside their individual names.
+        </p>
+        <p>
+          Choose a theme or enter your own word above, then regenerate until you have several combinations worth comparing.
+        </p>
+        <p>
+          If you already know part of the name you want, keep that word locked while changing the rest. For example, locking <strong>Shadow</strong> could produce different directions around the same idea instead of starting over every time.
+        </p>
+
+        <!-- Static Finalists Comparison Table from Section 19 -->
+        <p>
+          Do not choose the first result just because it has the most symbols. Save two or three strong candidates and compare the parts that matter to your team:
+        </p>
+
+        <div class="article-table-wrap">
+          <table class="article-data-table">
+            <thead>
+              <tr>
+                <th>Guild name</th>
+                <th>Tag</th>
+                <th>Style</th>
+                <th>Plain fallback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Night Ravens</strong></td>
+                <td><span style="color: #ffaa00; font-weight: 800;">NRV</span></td>
+                <td>Tactical</td>
+                <td><code>NIGHT RAVENS</code></td>
+              </tr>
+              <tr>
+                <td><strong>Nova Unit</strong></td>
+                <td><span style="color: #ffaa00; font-weight: 800;">NVU</span></td>
+                <td>Esports</td>
+                <td><code>NOVA UNIT</code></td>
+              </tr>
+              <tr>
+                <td><strong>Shadow Crew</strong></td>
+                <td><span style="color: #ffaa00; font-weight: 800;">SHD</span></td>
+                <td>Minimal</td>
+                <td><code>SHADOW CREW</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Ask a simple question: <em>Would the core name still work if every decorative symbol disappeared?</em>
+        </p>
+        <p>
+          If the answer is yes, you probably have a stronger foundation.
+        </p>
+        <p>
+          A shortlist is also useful when your first choice is unavailable in the game. Instead of returning to the generator from scratch, you already have alternatives ready to test.
+        </p>
+
+        <!-- H2: How to Use the Free Fire Guild Name Generator -->
+        <h2>How to Use the Free Fire Guild Name Generator</h2>
+        <p>
+          Start with as much or as little direction as you have.
+        </p>
+
+        <!-- Visual 2: Generator Workflow (Section 21) -->
+        <div class="visual-workflow-container" aria-label="Generator Workflow Process">
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 1</div>
+            <div class="workflow-step-name">Theme</div>
+          </div>
+          <span class="workflow-arrow">→</span>
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 2</div>
+            <div class="workflow-step-name">Style</div>
+          </div>
+          <span class="workflow-arrow">→</span>
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 3</div>
+            <div class="workflow-step-name">Guild Name</div>
+          </div>
+          <span class="workflow-arrow">→</span>
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 4</div>
+            <div class="workflow-step-name">Tag</div>
+          </div>
+          <span class="workflow-arrow">→</span>
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 5</div>
+            <div class="workflow-step-name">Preview</div>
+          </div>
+          <span class="workflow-arrow">→</span>
+          <div class="workflow-step-card">
+            <div class="workflow-step-num">Step 6</div>
+            <div class="workflow-step-name">Copy</div>
+          </div>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">1. Enter a theme or word</div>
+          <p>
+            You can begin with a word such as <strong>Shadow</strong>, <strong>Nova</strong>, <strong>Frost</strong>, <strong>Raven</strong>, or <strong>Blaze</strong>. Or leave the field open and let the generator create a brand new direction.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">2. Choose your team type</div>
+          <p>
+            Select the option that most closely describes the group. A competitive or esports-style team may need a different naming tone from a friends-only guild or creator community. The category changes the ideas you receive rather than simply changing the font.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">3. Pick a style</div>
+          <p>
+            Choose a direction such as Tactical, Aggressive, Elite, Minimal, Aesthetic, or Funny. Treat these as creative filters, not quality rankings. A minimal name can fit one team better than an aggressive one.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">4. Choose the decoration level</div>
+          <p>
+            Start with the name itself. Then choose:
+          </p>
+          <ul>
+            <li><strong>Plain</strong> for clean, unadorned text.</li>
+            <li><strong>Light</strong> for restrained brackets or tag formatting.</li>
+            <li><strong>Styled</strong> for a more decorative result with gaming glyphs.</li>
+          </ul>
+          <p>
+            Keeping these separate makes it easier to judge the actual name instead of choosing only because a Unicode style looks impressive.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">5. Compare the matching tag</div>
+          <p>
+            Each result includes a short abbreviation related to the full guild name. For example:
+          </p>
+          <ul>
+            <li>Night Ravens → <strong>NRV</strong></li>
+            <li>Nova Unit → <strong>NVU</strong></li>
+            <li>Shadow Crew → <strong>SHD</strong></li>
+          </ul>
+          <p>
+            You can click on the suggested tag badge to cycle through alternate abbreviations if your team prefers another option.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">6. Preview a member name</div>
+          <p>
+            Enter a sample player name into the input field to see the identity in context. For example:
+          </p>
+          <ul>
+            <li>Guild: Night Ravens</li>
+            <li>Tag: NRV</li>
+            <li>Member: Ghost</li>
+            <li>Preview: <strong>[NRV] Ghost</strong></li>
+          </ul>
+          <p>
+            This helps you catch a crowded or confusing format before asking the whole squad to change their names.
+          </p>
+        </div>
+
+        <div class="article-step-box">
+          <div class="article-step-title">7. Save, copy, and test</div>
+          <p>
+            Save promising ideas rather than losing them when you regenerate. When you choose a finalist, copy the exact version you want and test it in your current Free Fire client before confirming anything. The generator creates text ideas—it cannot reserve a guild name or see whether another guild is already using your choice.
+          </p>
+        </div>
+
+        <!-- H2: What Makes a Good Free Fire Guild Name? -->
+        <h2>What Makes a Good Free Fire Guild Name?</h2>
+        <p>
+          A useful guild name is easy for the team to recognize, remember, and reuse. There is no single style that every guild should follow. A competitive squad, casual friend group, creator community, and aesthetic guild can reasonably need very different identities.
+        </p>
+        <p>
+          A few practical checks make the decision easier.
+        </p>
+
+        <!-- H3: Keep the Core Name Easy to Read -->
+        <h3>Keep the Core Name Easy to Read</h3>
+        <p>
+          Remove the decoration temporarily. If <code>꧁★NIGHT RAVENS★꧂</code> becomes <code>NIGHT RAVENS</code> and the name still makes sense, the decoration is supporting the identity instead of creating it.
+        </p>
+        <p>
+          This also gives you a clean fallback if a decorative character does not render or is rejected in the field where you try to use it. Shorter is not automatically better, but unnecessary words make a guild identity harder to scan and abbreviate.
+        </p>
+
+        <!-- H3: Create a Tag That Matches the Name -->
+        <h3>Create a Tag That Matches the Name</h3>
+        <p>
+          A useful tag should feel connected to the full name. For example, <strong>Night Ravens → NRV</strong> is easier to understand than assigning an unrelated random tag.
+        </p>
+        <p>
+          The generator can suggest abbreviations automatically, but treat them as editable ideas. Your team may find a shorter or more meaningful version. Also preview the tag beside a real member name: a tag that looks good by itself may feel crowded once combined with a player's nickname.
+        </p>
+
+        <!-- H3: Choose Decoration After the Name -->
+        <h3>Choose Decoration After the Name</h3>
+        <p>
+          Symbols and Unicode styles can make a result visually distinctive, but decoration should be optional. Build the core name first. Then compare:
+        </p>
+        <ul>
+          <li><code>NIGHT RAVENS</code> (Plain)</li>
+          <li><code>『NRV』Night Ravens</code> (Light)</li>
+          <li><code>★NRV★ Night Ravens</code> (Styled)</li>
+        </ul>
+        <p>
+          If you use decorative Unicode, keep the plain version available. Character acceptance and rendering can vary by field, device, version, and future game changes, so the final in-game field is the place to verify the exact result.
+        </p>
+
+        <!-- H2: Guild Name vs. Player Nickname: What's Different? -->
+        <h2>Guild Name vs. Player Nickname: What's Different?</h2>
+        <p>
+          A player nickname identifies one player. A guild name identifies the group. That changes what the generator needs to produce.
+        </p>
+        <p>
+          A personal Free Fire nickname can focus heavily on an individual's word, symbols, or visual style. A guild identity may also need to work as an abbreviation, member prefix, recruitment name, or shared team reference. That is why this page generates the guild identity and matching tag together.
+        </p>
+        <p>
+          If you only need a name for your own player profile, use the <a href="../" style="color: #ffaa00; text-decoration: underline;">Free Fire Nickname Generator</a> instead. If you already have the words and only need decorative characters, the <a href="../free-fire-symbols/" style="color: #ffaa00; text-decoration: underline;">Free Fire symbols</a> tool is the more direct option. If you are trying to separate words or create blank names, visit the <a href="../free-fire-invisible-space/" style="color: #ffaa00; text-decoration: underline;">invisible space</a> guide.
+        </p>
+
+        <!-- H2: Build Matching Names for Your Squad -->
+        <h2>Build Matching Names for Your Squad</h2>
+        <p>
+          Once the guild identity is chosen, you can preview how the same tag looks with different member names. For example:
+        </p>
+        <ul>
+          <li><code>[NRV] Ghost</code></li>
+          <li><code>[NRV] Luna</code></li>
+          <li><code>[NRV] Vex</code></li>
+          <li><code>[NRV] Neo</code></li>
+        </ul>
+        <p>
+          The individual player names remain different while the shared element makes the intended team pattern easy to recognize. Use the same tag format consistently rather than giving every member a different bracket, separator, and font.
+        </p>
+        <p>
+          If one member has a much longer nickname than the others, include that name in your preview before deciding on a heavily decorated format. The generator can help plan the text, but each member still needs to verify that the final version works in the relevant Free Fire field.
+        </p>
+
+        <!-- H2: What the Generator Cannot Check -->
+        <h2>What the Generator Cannot Check</h2>
+        <p>
+          This tool generates and organizes naming ideas. It does not connect to Free Fire account or guild data. That means it cannot guarantee that:
+        </p>
+        <ul>
+          <li>a generated guild name is available;</li>
+          <li>a particular Unicode decoration is accepted;</li>
+          <li>a name will render identically on every device;</li>
+          <li>a specific maximum length applies to every current version or region;</li>
+          <li>a generated name can be reserved for your team.</li>
+        </ul>
+        <p>
+          Current third-party resources publish conflicting information about some guild-name limits (some claiming 12 characters, others stating 20) and other game-specific details. For that reason, this page does not present an unverified number as an official universal limit.
+        </p>
+        <p>
+          Use the live character counter for comparison, then let the current in-game field determine whether the exact final string is accepted.
+        </p>
+
+        <!-- H2: Free Fire Guild Name Generator FAQs -->
+        <h2>Free Fire Guild Name Generator FAQs</h2>
+        <div class="article-faq-container">
+          <div class="article-faq-card">
+            <div class="article-faq-question">Can I generate a Free Fire guild name from my own word?</div>
+            <div class="article-faq-answer">
+              Yes. Enter a theme, existing word, initials, or other idea into the theme box and generate names around it. If you want to preserve that word while exploring alternatives, open the Word Lock Studio to lock it before regenerating.
+            </div>
+          </div>
+
+          <div class="article-faq-card">
+            <div class="article-faq-question">Is this also a Free Fire clan name generator?</div>
+            <div class="article-faq-answer">
+              Yes. “Clan” and “guild” are commonly used by searchers when looking for team-name ideas. The tool generates complete group identities—including full names, matching tags, and member previews—rather than single player nicknames.
+            </div>
+          </div>
+
+          <div class="article-faq-card">
+            <div class="article-faq-question">Can the generator tell me if a guild name is already taken?</div>
+            <div class="article-faq-answer">
+              No. The generator does not have access to current Free Fire guild or account data. We recommend saving several finalists on your comparison board and checking availability directly in the game interface.
+            </div>
+          </div>
+
+          <div class="article-faq-card">
+            <div class="article-faq-question">What is the Free Fire guild name character limit?</div>
+            <div class="article-faq-answer">
+              Current third-party sources publish conflicting figures (some say 12 characters, others 20), so this page does not present one unverified number as an official universal limit. Use the tool's live character counter to compare candidate lengths and test your chosen name in the client.
+            </div>
+          </div>
+
+          <div class="article-faq-card">
+            <div class="article-faq-question">Why do some stylish characters look different after I copy them?</div>
+            <div class="article-faq-answer">
+              Decorative Unicode characters depend on how the receiving app and mobile operating system render them. Always keep the provided plain-text fallback available and test the styled result in your client before confirming changes.
+            </div>
+          </div>
+
+          <div class="article-faq-card">
+            <div class="article-faq-question">Should my guild name and guild tag match?</div>
+            <div class="article-faq-answer">
+              They do not need to be identical, but a related abbreviation creates a clearer naming system. For example, Night Ravens → NRV keeps the short tag connected to the full guild identity.
+            </div>
+          </div>
+        </div>
+
+        <p>
+          A good guild generator should reduce decisions rather than give you hundreds of random words to sort through. Start with a theme, generate several complete name-and-tag combinations, and save the few that remain readable even without decoration.
+        </p>
+        <p>
+          Once your team chooses a finalist, copy the exact version and verify it in the current Free Fire interface. Keep one or two backup names and a plain-text fallback so a failed symbol or unavailable name does not send you back to the beginning.
+        </p>
+      </article>
     </main>
 
     <!-- Shortlist Drawer -->
@@ -252,71 +757,16 @@
         <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 700; color: #ffaa00;">
           <span>★</span> My Squad Shortlist
         </div>
-        <button id="btn-close-shortlist" class="modal-close-btn" style="position: static; font-size: 1rem;">✕ Close</button>
+        <button id="btn-close-shortlist" class="btn btn-secondary" style="height: 32px; padding: 0 0.65rem; font-size: 0.8rem;">✕ Close</button>
       </div>
       <div id="shortlist-items-container" class="shortlist-items-scroll"></div>
       <div class="shortlist-actions-bar">
         <button id="btn-copy-shortlist" class="btn btn-primary" style="flex: 1; height: 44px; font-size: 0.88rem;">
-          <span>📋</span> Copy Shortlist
+          <span>📋</span> Copy All
         </button>
         <button id="btn-share-shortlist" class="btn btn-secondary" style="flex: 1; height: 44px; font-size: 0.88rem;">
-          <span>↗</span> Share with Squad
+          <span>↗</span> Share
         </button>
-      </div>
-    </div>
-
-    <!-- Guild Editor Modal -->
-    <div id="guild-editor-modal" class="guild-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editor-modal-title">
-      <div class="guild-modal-box">
-        <button id="btn-close-editor" class="modal-close-btn" aria-label="Close editor">✕</button>
-        <h3 id="editor-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1.25rem;">
-          ✎ Customize Guild Identity
-        </h3>
-
-        <div style="margin-bottom: 1rem;">
-          <div class="filter-group-label">Guild Name:</div>
-          <input type="text" id="editor-guild-name" class="guild-keyword-input" style="height: 46px; width: 100%;">
-          <div style="text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;" id="editor-char-count">0 Chars</div>
-        </div>
-
-        <div style="margin-bottom: 1rem;">
-          <div class="filter-group-label">Guild Tag:</div>
-          <input type="text" id="editor-guild-tag" class="guild-keyword-input" style="height: 46px; width: 120px; font-family: var(--font-gaming); font-weight: 800; color: #ffaa00;">
-        </div>
-
-        <div style="margin-bottom: 1rem;">
-          <div class="filter-group-label">Style Intensity:</div>
-          <div class="segmented-chips">
-            <button class="btn-segmented-chip btn-editor-style active" data-style="clean">Clean</button>
-            <button class="btn-segmented-chip btn-editor-style" data-style="pro">亗 Pro</button>
-            <button class="btn-segmented-chip btn-editor-style" data-style="extreme">꧁ Extreme ꧂</button>
-          </div>
-        </div>
-
-        <div style="margin-bottom: 1.25rem;">
-          <div class="filter-group-label">Insert Gaming Symbols:</div>
-          <div id="editor-symbols-container" style="display: flex; gap: 0.4rem; flex-wrap: wrap;"></div>
-        </div>
-
-        <div style="background: rgba(10, 12, 18, 0.9); border: 1px dashed rgba(255, 170, 0, 0.4); border-radius: 6px; padding: 1rem; text-align: center; margin-bottom: 1.25rem;">
-          <div id="editor-preview-name" style="font-family: var(--font-gaming); font-size: 1.3rem; font-weight: 800; color: #fff;">NAME</div>
-          <div id="editor-preview-tag" style="font-family: var(--font-gaming); font-size: 0.9rem; font-weight: 800; color: #ffaa00; margin-top: 0.25rem;">[ TAG ]</div>
-        </div>
-
-        <button id="btn-editor-copy" class="btn btn-primary" style="width: 100%; height: 48px;">
-          <span>📋</span> Copy Customized Guild Identity
-        </button>
-      </div>
-    </div>
-
-    <!-- Comparison Modal -->
-    <div id="comparison-modal" class="guild-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="comparison-modal-title">
-      <div class="guild-modal-box" style="max-width: 680px;">
-        <button id="btn-close-comparison" class="modal-close-btn" aria-label="Close comparison">✕</button>
-        <h3 id="comparison-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1.25rem;">
-          ⚖ Compare Guild Candidates
-        </h3>
-        <div id="comparison-table-body" style="overflow-x: auto;"></div>
       </div>
     </div>
 

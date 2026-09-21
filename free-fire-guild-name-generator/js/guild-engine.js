@@ -1,77 +1,86 @@
 /**
- * Free Fire Guild Name Studio - Generation Engine
- * Semantic word banks, multi-formula composition, smart tag extraction,
- * word locking, style intensity, and quality validation.
+ * Free Fire Guild Name Studio - Semantic Generation Engine
+ * Generates complete guild identities:
+ * Guild Name + Matching Tag + Styled Variation + Member Preview + Plain Fallback
+ * 
+ * Team Types: Competitive, Friends, Esports, Creator
+ * Styles: Tactical, Aggressive, Elite, Minimal, Aesthetic, Funny
+ * Decoration Levels: Plain, Light, Styled
  */
 
-const GUILD_VIBES = [
-  { id: 'mixed', label: 'Mixed / All', icon: '🔥' },
-  { id: 'aggressive', label: 'Aggressive', icon: '💥' },
-  { id: 'pro', label: 'Pro / Esports', icon: '⚡' },
-  { id: 'royal', label: 'Royal', icon: '👑' },
-  { id: 'dark', label: 'Dark', icon: '☠' },
-  { id: 'tactical', label: 'Tactical', icon: '🎯' },
-  { id: 'stealth', label: 'Stealth', icon: '🥷' },
-  { id: 'elite', label: 'Elite', icon: '💎' },
-  { id: 'stylish', label: 'Stylish', icon: '✨' },
-  { id: 'squad', label: 'Squad / Clan', icon: '🐺' },
-  { id: 'cyber', label: 'Cyber', icon: '🤖' }
+const GUILD_TYPES = [
+  { id: 'competitive', label: 'Competitive', icon: '⚔️', desc: 'Ranked & high-stakes squads' },
+  { id: 'friends', label: 'Friends', icon: '🐺', desc: 'Casual brotherhood & crew' },
+  { id: 'esports', label: 'Esports', icon: '⚡', desc: 'Tournament-ready roster' },
+  { id: 'creator', label: 'Creator', icon: '🎬', desc: 'Streaming & community clan' }
 ];
 
-const WORD_BANKS = {
-  aggressive: {
-    roots: ['Blaze', 'Fury', 'Rage', 'Blood', 'Savage', 'Vicious', 'Wrath', 'Chaos', 'Havoc', 'Carnage', 'Venom', 'Storm', 'Thunder', 'Inferno', 'Rampage'],
-    creatures: ['Vipers', 'Dragons', 'Beasts', 'Sharks', 'Tigers', 'Demons', 'Titans'],
-    suffixes: ['Force', 'Raiders', 'Strikers', 'Killers', 'Squad', 'Legion', 'Warriors']
-  },
-  pro: {
-    roots: ['Apex', 'Prime', 'Clutch', 'Rush', 'Vertex', 'Zenith', 'Master', 'Alpha', 'Optic', 'Hyper', 'Focus', 'Precision', 'Vector', 'Overdrive'],
-    creatures: ['Hawks', 'Eagles', 'Falcons', 'Panthers', 'Wolves'],
-    suffixes: ['Elite', 'Esports', 'Gaming', 'Core', 'Unit', 'Squad', 'Crew', 'Syndicate']
-  },
-  royal: {
-    roots: ['Empire', 'Reign', 'Crown', 'Throne', 'Dynasty', 'Monarch', 'Imperial', 'Majesty', 'Sovereign', 'Kingdom', 'Regal', 'Golden', 'Tsar'],
-    creatures: ['Lions', 'Dragons', 'Griffins', 'Knights', 'Lords'],
-    suffixes: ['Empire', 'Reign', 'Dynasty', 'Kings', 'Order', 'Guard', 'Crown', 'Realm']
-  },
-  dark: {
-    roots: ['Shadow', 'Void', 'Night', 'Ghost', 'Phantom', 'Eclipse', 'Abyss', 'Grim', 'Shade', 'Sinister', 'Blackout', 'Obsidian', 'Nether', 'Reaper'],
-    creatures: ['Phantoms', 'Reapers', 'Ravens', 'Spectres', 'Crows', 'Ghouls'],
-    suffixes: ['Legion', 'Cult', 'Order', 'Coven', 'Shadows', 'Core', 'Hollow']
-  },
+const GUILD_STYLES = [
+  { id: 'tactical', label: 'Tactical', icon: '🎯' },
+  { id: 'aggressive', label: 'Aggressive', icon: '💥' },
+  { id: 'elite', label: 'Elite', icon: '👑' },
+  { id: 'minimal', label: 'Minimal', icon: '⚡' },
+  { id: 'aesthetic', label: 'Aesthetic', icon: '✨' },
+  { id: 'funny', label: 'Funny', icon: '🎭' }
+];
+
+const GUILD_DECORATIONS = [
+  { id: 'plain', label: 'Plain', desc: 'Clean raw text' },
+  { id: 'light', label: 'Light', desc: 'Subtle brackets & tags' },
+  { id: 'styled', label: 'Styled', desc: 'Gaming symbols & glyphs' }
+];
+
+const STYLE_WORD_BANKS = {
   tactical: {
-    roots: ['Delta', 'Vanguard', 'Strike', 'Recon', 'Bravo', 'Vector', 'Echo', 'Ranger', 'Overwatch', 'Aegis', 'Trigger', 'Siege', 'Bunker', 'Arsenal'],
-    creatures: ['Snipers', 'Commandos', 'Operatives', 'Hunters', 'Scouts'],
-    suffixes: ['Force', 'Squad', 'Division', 'Corps', 'Unit', 'Battalion', 'TaskForce']
+    roots: ['Delta', 'Vanguard', 'Recon', 'Sector', 'Vector', 'Echo', 'Ranger', 'Overwatch', 'Aegis', 'Bunker', 'Arsenal', 'Apex', 'Phantom', 'Night', 'Zero', 'Alpha', 'Bravo', 'Trigger', 'Siege', 'Blackout'],
+    units: ['Unit', 'Force', 'Ops', 'Division', 'Corps', 'Squad', 'Battalion', 'TaskForce', 'Protocol', 'Regiment', 'Network'],
+    creatures: ['Snipers', 'Ravens', 'Commandos', 'Operatives', 'Hunters', 'Scouts', 'Falcons', 'Spiders']
   },
-  stealth: {
-    roots: ['Silent', 'Ninja', 'Covert', 'Wraith', 'Stalker', 'Veil', 'Hollow', 'Mirage', 'Spectral', 'Whisper', 'Mist', 'Smoke', 'Zero'],
-    creatures: ['Ninjas', 'Assassins', 'Spiders', 'Vipers', 'Spectres'],
-    suffixes: ['Clan', 'Shadows', 'Order', 'Ghosts', 'Guild', 'Brotherhood']
+  aggressive: {
+    roots: ['Blaze', 'Fury', 'Rage', 'Blood', 'Savage', 'Vicious', 'Wrath', 'Chaos', 'Havoc', 'Carnage', 'Venom', 'Storm', 'Thunder', 'Inferno', 'Rampage', 'Toxic', 'Lethal', 'Brutal', 'Pyro', 'Vortex'],
+    units: ['Raiders', 'Strikers', 'Killers', 'Squad', 'Legion', 'Warriors', 'Force', 'Assassins', 'Executioners', 'Mob'],
+    creatures: ['Vipers', 'Dragons', 'Beasts', 'Sharks', 'Tigers', 'Demons', 'Titans', 'Wolves', 'Gryphons', 'Hydras']
   },
   elite: {
-    roots: ['Prestige', 'Noble', 'Immortal', 'Exalted', 'Ascent', 'Paradox', 'Legacy', 'Pinnacle', 'Summit', 'Valiant', 'Origin', 'Valhalla'],
-    creatures: ['Champions', 'Gods', 'Heroes', 'Legends', 'Titans'],
-    suffixes: ['Elite', 'Alliance', 'Society', 'Order', 'Circle', 'Pact']
+    roots: ['Monarch', 'Crown', 'Throne', 'Imperial', 'Prestige', 'Noble', 'Immortal', 'Exalted', 'Ascent', 'Prime', 'Supreme', 'Valiant', 'Origin', 'Valhalla', 'Sovereign', 'Dynasty', 'Kingdom', 'Apex', 'Empire', 'Majesty'],
+    units: ['Order', 'Empire', 'Reign', 'Kings', 'Dynasty', 'Elite', 'Alliance', 'Society', 'Syndicate', 'Dominion', 'Circle'],
+    creatures: ['Lions', 'Dragons', 'Griffins', 'Knights', 'Champions', 'Titans', 'Gods', 'Lords', 'Eagles']
   },
-  stylish: {
-    roots: ['Nova', 'Aura', 'Celestial', 'Astral', 'Luminous', 'Valkyrie', 'Nebula', 'Cosmic', 'Solar', 'Lunar', 'Stellar', 'Radiant', 'Velvet'],
-    creatures: ['Stars', 'Angels', 'Sirens', 'Sparks', 'Spirits'],
-    suffixes: ['Aura', 'Collective', 'Club', 'Universe', 'Vibe', 'Kingdom']
+  minimal: {
+    roots: ['Apex', 'Nova', 'Echo', 'Void', 'Flux', 'Aura', 'Zero', 'Onyx', 'Vex', 'Pulse', 'Zenith', 'Core', 'Rush', 'Axis', 'Nexus', 'Shift', 'Volt', 'Byte', 'Clutch', 'Sync'],
+    units: ['Unit', 'Crew', 'Clan', 'Team', 'Corp', 'Hub', 'Line', 'Base', 'Set', 'Grid', 'Link'],
+    creatures: ['Fox', 'Hawk', 'Wolf', 'Crow', 'Bat', 'Lynx', 'Bear', 'Ape']
   },
-  squad: {
-    roots: ['Wolfpack', 'Brotherhood', 'Syndicate', 'Allies', 'Cartel', 'Alliance', 'Brothers', 'Fellowship', 'Crew', 'Clan', 'Bandits'],
-    creatures: ['Wolves', 'Lions', 'Bulls', 'Bears', 'Warriors'],
-    suffixes: ['Brotherhood', 'Syndicate', 'Cartel', 'Alliance', 'Guild', 'Family', 'Brigade']
+  aesthetic: {
+    roots: ['Celestial', 'Astral', 'Luminous', 'Valkyrie', 'Nebula', 'Cosmic', 'Solar', 'Lunar', 'Stellar', 'Radiant', 'Velvet', 'Aurora', 'Mirage', 'Spectral', 'Whisper', 'Serene', 'Ethereal', 'Zephyr', 'Aura', 'Solstice'],
+    units: ['Collective', 'Club', 'Universe', 'Vibe', 'Kingdom', 'Society', 'Coven', 'Harmonics', 'Garden', 'Sanctuary'],
+    creatures: ['Sirens', 'Angels', 'Spirits', 'Butterflies', 'Doves', 'Stars', 'Sparks', 'Nymphs']
   },
-  cyber: {
-    roots: ['Cyber', 'Neon', 'Byte', 'Pulse', 'Glitch', 'Matrix', 'Nexus', 'Protocol', 'Synthetic', 'Digital', 'Zero', 'Quantum', 'Pixel'],
-    creatures: ['Bots', 'Cyborgs', 'Droids', 'Viruses', 'Glitches'],
-    suffixes: ['Core', 'Network', 'Matrix', 'Protocol', 'System', 'Labs', 'Grid']
+  funny: {
+    roots: ['Potato', 'Noob', 'Bot', 'Clutch', 'Lag', 'Ping', 'Panic', 'TapOut', 'Camping', 'Salty', 'Loot', 'Respawn', 'Headshot', 'Banana', 'Choco', 'Boba', 'Couch', 'Sneaky', 'Lazy', 'Wasted'],
+    units: ['Army', 'Brigade', 'Gang', 'Mafia', 'Crew', 'Squad', 'Federation', 'Tribe', 'Party', 'Platoon', 'Cartel'],
+    creatures: ['Potatoes', 'Chickens', 'Ducks', 'Sloths', 'Pandas', 'Pigs', 'Monkeys', 'Koalas', 'Pigeons']
   }
 };
 
-const COMMON_GROUPS = ['Legion', 'Squad', 'Unit', 'Force', 'Order', 'Core', 'Clan', 'Kings', 'Crew', 'Pack', 'Army', 'Guild', 'Empire', 'Division'];
+const TEAM_TYPE_MODIFIERS = {
+  competitive: {
+    suffixes: ['Division', 'Unit', 'Ops', 'Force', 'Sector', 'Squad'],
+    tagStyle: 'phonetic'
+  },
+  friends: {
+    suffixes: ['Crew', 'Brotherhood', 'Clan', 'Family', 'Pact', 'Allies'],
+    tagStyle: 'initials'
+  },
+  esports: {
+    suffixes: ['Esports', 'Gaming', 'GG', 'Prime', 'Core', 'Vanguard'],
+    tagStyle: 'acronym'
+  },
+  creator: {
+    suffixes: ['Hub', 'Studio', 'Network', 'Collective', 'Nation', 'Vibe'],
+    tagStyle: 'initials'
+  }
+};
 
 class GuildNameEngine {
   constructor() {
@@ -79,197 +88,276 @@ class GuildNameEngine {
   }
 
   /**
-   * Generates a batch of unique, high-quality guild names
+   * Generates a batch of unique guild identities
    */
   generateBatch({
     count = 10,
-    keywords = [],
-    vibe = 'mixed',
-    length = 'any', // 'short', 'medium', 'any'
-    style = 'clean' // 'clean', 'pro', 'extreme'
+    themeWord = '',
+    teamType = 'competitive',
+    style = 'tactical',
+    decoration = 'plain',
+    sampleMember = 'Ghost'
   }) {
     const results = [];
     let attempts = 0;
-    const maxAttempts = count * 15;
+    const maxAttempts = count * 20;
 
     while (results.length < count && attempts < maxAttempts) {
       attempts++;
-      const generated = this.generateSingle({ keywords, vibe, length, style });
-      if (!generated) continue;
+      const item = this.generateSingle({ themeWord, teamType, style, decoration, sampleMember });
+      if (!item) continue;
 
-      const norm = generated.name.toLowerCase().trim();
+      const norm = item.rawName.toLowerCase().trim();
       if (this.sessionGenerated.has(norm)) continue;
 
       this.sessionGenerated.add(norm);
-      results.push(generated);
+      results.push(item);
     }
 
     return results;
   }
 
   /**
-   * Generates a single guild name with tags and attributes
+   * Generates a single complete Guild Identity
    */
-  generateSingle({ keywords = [], vibe = 'mixed', length = 'any', style = 'clean' }) {
-    const resolvedVibe = vibe === 'mixed' ? this.getRandomVibe() : vibe;
-    const bank = WORD_BANKS[resolvedVibe] || WORD_BANKS.pro;
+  generateSingle({
+    themeWord = '',
+    teamType = 'competitive',
+    style = 'tactical',
+    decoration = 'plain',
+    sampleMember = 'Ghost'
+  }) {
+    const bank = STYLE_WORD_BANKS[style] || STYLE_WORD_BANKS.tactical;
+    const teamMod = TEAM_TYPE_MODIFIERS[teamType] || TEAM_TYPE_MODIFIERS.competitive;
 
     let words = [];
-    const seedKeyword = (keywords.length > 0 && keywords[0].trim()) ? keywords[0].trim() : null;
+    let derivationDetails = {};
 
-    if (seedKeyword) {
-      words = this.combineWithKeyword(seedKeyword, bank, length);
+    const cleanTheme = themeWord ? themeWord.trim() : '';
+
+    if (cleanTheme) {
+      // User provided a seed theme/word
+      const capitalized = cleanTheme.charAt(0).toUpperCase() + cleanTheme.slice(1);
+      const roll = Math.random();
+
+      if (roll < 0.45) {
+        // Theme + Unit/Suffix (e.g. Shadow Unit, Shadow Ops)
+        const unit = this.getRandomItem(teamMod.suffixes.concat(bank.units));
+        words = [capitalized, unit];
+        derivationDetails = {
+          theme: style,
+          core: capitalized,
+          teamWord: unit
+        };
+      } else if (roll < 0.75) {
+        // Root + Theme (e.g. Night Shadow, Alpha Shadow)
+        const root = this.getRandomItem(bank.roots);
+        words = [root, capitalized];
+        derivationDetails = {
+          theme: style,
+          core: root,
+          teamWord: capitalized
+        };
+      } else {
+        // Theme + Creature (e.g. Shadow Ravens, Shadow Vipers)
+        const creature = this.getRandomItem(bank.creatures);
+        words = [capitalized, creature];
+        derivationDetails = {
+          theme: style,
+          core: capitalized,
+          teamWord: creature
+        };
+      }
     } else {
-      words = this.generateByFormula(bank, resolvedVibe, length);
+      // Procedural generation from style & team type
+      const formulaRoll = Math.random();
+
+      if (style === 'minimal' && formulaRoll > 0.6) {
+        // Single punchy word for minimal
+        const root = this.getRandomItem(bank.roots);
+        words = [root];
+        derivationDetails = {
+          theme: style,
+          core: root,
+          teamWord: ''
+        };
+      } else if (formulaRoll < 0.45) {
+        // Root + Unit (e.g. Night Ravens, Nova Unit, Delta Sector)
+        const root = this.getRandomItem(bank.roots);
+        const unit = this.getRandomItem(bank.units.concat(teamMod.suffixes));
+        words = [root, unit];
+        derivationDetails = {
+          theme: style,
+          core: root,
+          teamWord: unit
+        };
+      } else if (formulaRoll < 0.75) {
+        // Root + Creature (e.g. Night Ravens, Venom Vipers, Storm Hawks)
+        const root = this.getRandomItem(bank.roots);
+        const creature = this.getRandomItem(bank.creatures);
+        words = [root, creature];
+        derivationDetails = {
+          theme: style,
+          core: root,
+          teamWord: creature
+        };
+      } else {
+        // Two atmospheric roots or Root + Team Suffix
+        const root = this.getRandomItem(bank.roots);
+        const suffix = this.getRandomItem(teamMod.suffixes);
+        words = [root, suffix];
+        derivationDetails = {
+          theme: style,
+          core: root,
+          teamWord: suffix
+        };
+      }
     }
 
-    // Quality check on words
     if (!this.validateWords(words)) return null;
 
     const rawName = words.join(' ');
     const tags = this.generateSmartTags(words);
     const primaryTag = tags[0] || 'FF';
+    derivationDetails.tag = primaryTag;
 
-    // Apply decoration style
-    const decoratedName = this.applyStyle(rawName, style);
+    // Generate styled variations based on decoration level
+    const styledName = this.applyDecoration(rawName, primaryTag, decoration);
+    const lightOption = this.applyDecoration(rawName, primaryTag, 'light');
+    const styledOption = this.applyDecoration(rawName, primaryTag, 'styled');
+    const plainFallback = rawName.toUpperCase();
+
+    // Member preview
+    const memberName = sampleMember.trim() || 'Ghost';
+    const memberPreview = `[${primaryTag}] ${memberName}`;
+
+    const charCount = Array.from(rawName).length;
+    const styledCharCount = Array.from(styledOption).length;
 
     return {
-      id: 'guild_' + Math.random().toString(36).substring(2, 9),
-      name: decoratedName,
+      id: 'g_' + Math.random().toString(36).substring(2, 9),
+      name: rawName,
       rawName: rawName,
       words: words,
+      tag: primaryTag,
       tagSuggestions: tags,
-      selectedTag: primaryTag,
-      vibe: resolvedVibe,
+      styledName: styledName,
+      lightOption: lightOption,
+      styledOption: styledOption,
+      plainFallback: plainFallback,
+      memberPreview: memberPreview,
+      derivation: derivationDetails,
+      teamType: teamType,
       style: style,
-      lengthProfile: words.length === 1 ? 'Short' : (rawName.length <= 13 ? 'Medium' : 'Long'),
-      isFavorite: false,
-      isShortlisted: false
+      decoration: decoration,
+      charCount: charCount,
+      styledCharCount: styledCharCount,
+      isPlain: decoration === 'plain',
+      isShortlisted: false,
+      isCompared: false
     };
   }
 
-  getRandomVibe() {
-    const vibes = ['aggressive', 'pro', 'royal', 'dark', 'tactical', 'stealth', 'elite', 'stylish', 'squad', 'cyber'];
-    return vibes[Math.floor(Math.random() * vibes.length)];
-  }
-
-  combineWithKeyword(keyword, bank, length) {
-    const cleanWord = keyword.charAt(0).toUpperCase() + keyword.slice(1);
-    const isSingle = length === 'short' && Math.random() > 0.6;
-
-    if (isSingle) {
-      const suffix = this.getRandomItem(['Nova', 'Core', 'Fire', 'Prime', 'Apex']);
-      return [`${cleanWord}${suffix}`];
-    }
-
-    const roll = Math.random();
-    if (roll < 0.5) {
-      // Keyword + Suffix/Group (e.g. Shadow Legion)
-      const group = this.getRandomItem(bank.suffixes.concat(COMMON_GROUPS));
-      return [cleanWord, group];
-    } else if (roll < 0.8) {
-      // Root + Keyword (e.g. Night Shadow)
-      const root = this.getRandomItem(bank.roots);
-      return [root, cleanWord];
-    } else {
-      // Keyword + Creature (e.g. Shadow Wolves)
-      const creature = this.getRandomItem(bank.creatures);
-      return [cleanWord, creature];
-    }
-  }
-
-  generateByFormula(bank, vibe, length) {
-    const isShort = length === 'short' || (length === 'any' && Math.random() > 0.8);
-
-    if (isShort) {
-      // Single compound word like DarkNova, ApexCore, Blackout
-      const root = this.getRandomItem(bank.roots);
-      const suffix = this.getRandomItem(['Nova', 'Core', 'Strike', 'Zone', 'Peak', 'Fire', 'Reign']);
-      if (Math.random() > 0.4) {
-        return [`${root}${suffix}`];
-      }
-      return [root];
-    }
-
-    const formulaRoll = Math.random();
-
-    if (formulaRoll < 0.4) {
-      // Formula 1: [Concept] + [Group] (e.g. Shadow Legion, Prime Squad)
-      const root = this.getRandomItem(bank.roots);
-      const group = this.getRandomItem(bank.suffixes.concat(COMMON_GROUPS));
-      return [root, group];
-    } else if (formulaRoll < 0.7) {
-      // Formula 2: [Atmosphere/Power] + [Creature] (e.g. Night Wolves, Venom Dragons)
-      const root = this.getRandomItem(bank.roots);
-      const creature = this.getRandomItem(bank.creatures);
-      return [root, creature];
-    } else {
-      // Formula 3: [Tactical/Power] + [Status/Concept] (e.g. Alpha Apex, Apex Reign)
-      const root1 = this.getRandomItem(bank.roots);
-      const root2 = this.getRandomItem(bank.suffixes);
-      return [root1, root2];
-    }
-  }
-
+  /**
+   * Derives short 2-4 letter tags directly linked to the guild name
+   * Example: Night Ravens -> NRV, Nova Unit -> NVU, Shadow Crew -> SHD
+   */
   generateSmartTags(words) {
     const tags = [];
 
     if (words.length === 1) {
-      const w = words[0].toUpperCase();
-      // 2-4 letter tags from single word
+      const w = words[0].toUpperCase().replace(/[^A-Z]/g, '');
       if (w.length >= 2) tags.push(w.substring(0, 2));
       if (w.length >= 3) tags.push(w.substring(0, 3));
       if (w.length >= 4) tags.push(w.substring(0, 4));
-      // Consonants tag
+
+      // Consonant extraction
       const consonants = w.replace(/[AEIOU]/g, '');
-      if (consonants.length >= 2 && !tags.includes(consonants.substring(0, 3))) {
+      if (consonants.length >= 3 && !tags.includes(consonants.substring(0, 3))) {
         tags.push(consonants.substring(0, 3));
       }
     } else if (words.length >= 2) {
-      const w1 = words[0].toUpperCase();
-      const w2 = words[1].toUpperCase();
+      const w1 = words[0].toUpperCase().replace(/[^A-Z]/g, '');
+      const w2 = words[1].toUpperCase().replace(/[^A-Z]/g, '');
 
-      // Tag 1: Initials (SL)
-      tags.push(w1[0] + w2[0]);
+      // Formula A: 3-letter Phonetic (e.g. Night Ravens -> NRV)
+      // First letter of w1 + first letter of w2 + last/second consonant of w2
+      if (w1.length >= 1 && w2.length >= 2) {
+        // If w1 = NIGHT, w2 = RAVENS -> N + R + V (consonant from raVens)
+        const w2Consonants = w2.replace(/[AEIOU]/g, '');
+        if (w2Consonants.length >= 2) {
+          const tNrv = w1[0] + w2[0] + w2Consonants[1];
+          if (!tags.includes(tNrv)) tags.push(tNrv);
+        }
 
-      // Tag 2: 3-letter phonetic (e.g. SHD, SLEG)
-      const t3 = w1.substring(0, 2) + w2[0];
-      if (!tags.includes(t3)) tags.push(t3);
+        // Formula B: Initials + next char (e.g. Nova Unit -> NVU)
+        const tNvu = w1.substring(0, 2) + w2[0];
+        if (!tags.includes(tNvu)) tags.push(tNvu);
 
-      const t4 = w1[0] + w2.substring(0, 2);
-      if (!tags.includes(t4)) tags.push(t4);
+        // Formula C: 2-letter Initials (e.g. NR)
+        const tInit = w1[0] + w2[0];
+        if (!tags.includes(tInit)) tags.push(tInit);
 
-      // Tag 4: 4-letter tag (e.g. SLEG)
-      if (w1.length >= 2 && w2.length >= 2) {
-        const t22 = w1.substring(0, 2) + w2.substring(0, 2);
-        if (!tags.includes(t22)) tags.push(t22);
+        // Formula D: 1st letter of w1 + first 2 of w2 (e.g. N + RA -> NRA)
+        const t3 = w1[0] + w2.substring(0, 2);
+        if (!tags.includes(t3)) tags.push(t3);
+
+        // Formula E: 4-letter tag (e.g. N + RAV or NO + UN -> NOUN / NVUN)
+        if (w1.length >= 2 && w2.length >= 2) {
+          const t4 = w1.substring(0, 2) + w2.substring(0, 2);
+          if (!tags.includes(t4)) tags.push(t4);
+        }
       }
     }
 
-    // Add decorated tag variant
-    if (tags[0]) {
-      tags.push(`亗${tags[0]}`);
-    }
-
+    // Default fallbacks
+    if (tags.length === 0) tags.push('FF');
     return tags.slice(0, 5);
   }
 
-  applyStyle(rawName, style) {
-    if (style === 'pro') {
-      return `亗 ${rawName} 亗`;
-    } else if (style === 'extreme') {
-      return `꧁亗 ${rawName} 亗꧂`;
+  /**
+   * Applies plain, light, or styled decoration
+   */
+  applyDecoration(rawName, tag, level = 'plain') {
+    const caps = rawName.toUpperCase();
+    const titleCase = this.toTitleCase(rawName);
+
+    if (level === 'plain') {
+      return caps;
     }
-    return rawName; // Clean
+
+    if (level === 'light') {
+      // Light: clean brackets or minimal accents
+      const lightPresets = [
+        `『${tag}』${titleCase}`,
+        `[${tag}] ${titleCase}`,
+        `★${tag}★ ${titleCase}`,
+        `‹${tag}› ${titleCase}`
+      ];
+      return lightPresets[0];
+    }
+
+    if (level === 'styled') {
+      // Styled: gaming glyphs & ornaments
+      const styledPresets = [
+        `『${tag}』${titleCase}`,
+        `꧁★${tag}★ ${caps}★꧂`,
+        `亗 ${tag} • ${caps} 亗`,
+        `⚔️ ${tag} | ${caps} ⚔️`,
+        `メ ${tag} ٭ ${caps} メ`
+      ];
+      return styledPresets[1] || styledPresets[0];
+    }
+
+    return caps;
   }
 
-  simplifyStyle(decoratedName) {
-    return decoratedName.replace(/[꧁꧂亗★♛乂〆彡⚡☠\[\]]/g, '').trim();
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
   }
 
   validateWords(words) {
     if (!words || words.length === 0) return false;
-    // Disallow duplicates (e.g. Shadow Shadow)
     if (words.length === 2 && words[0].toLowerCase() === words[1].toLowerCase()) {
       return false;
     }
@@ -281,100 +369,35 @@ class GuildNameEngine {
   }
 
   /**
-   * Word Lock: Replaces only the unlocked word
+   * Word Lock Studio: Regerates only the unlocked word
    */
-  regenerateLocked(words, lockedIndex, vibe = 'pro') {
-    const bank = WORD_BANKS[vibe] || WORD_BANKS.pro;
+  regenerateLocked(words, lockedIndex = 0, style = 'tactical', teamType = 'competitive') {
+    const bank = STYLE_WORD_BANKS[style] || STYLE_WORD_BANKS.tactical;
+    const teamMod = TEAM_TYPE_MODIFIERS[teamType] || TEAM_TYPE_MODIFIERS.competitive;
     const newWords = [...words];
 
     if (lockedIndex === 0) {
-      // Word 0 is locked, regenerate word 1
-      newWords[1] = this.getRandomItem(bank.suffixes.concat(bank.creatures));
+      // Word 0 locked: regenerate Word 1
+      const pool = bank.units.concat(bank.creatures, teamMod.suffixes);
+      newWords[1] = this.getRandomItem(pool);
     } else {
-      // Word 1 is locked, regenerate word 0
+      // Word 1 locked: regenerate Word 0
       newWords[0] = this.getRandomItem(bank.roots);
     }
 
     const rawName = newWords.join(' ');
     const tags = this.generateSmartTags(newWords);
+    const primaryTag = tags[0] || 'FF';
 
     return {
-      name: rawName,
       rawName: rawName,
+      name: rawName,
       words: newWords,
-      tagSuggestions: tags,
-      selectedTag: tags[0] || 'FF',
-      vibe: vibe
+      tag: primaryTag,
+      tagSuggestions: tags
     };
-  }
-
-  /**
-   * Remixes a specific guild name into 4-6 related conceptual variants
-   */
-  remixGuild(nameObj) {
-    const bank = WORD_BANKS[nameObj.vibe] || WORD_BANKS.pro;
-    const baseWord = nameObj.words && nameObj.words.length > 0 ? nameObj.words[0] : 'Shadow';
-    const variations = [];
-
-    const candidateSuffixes = bank.suffixes.concat(bank.creatures, COMMON_GROUPS);
-    for (let i = 0; i < 6; i++) {
-      const suff = this.getRandomItem(candidateSuffixes);
-      if (suff.toLowerCase() !== (nameObj.words[1] || '').toLowerCase()) {
-        const words = [baseWord, suff];
-        variations.push({
-          id: 'remix_' + Math.random().toString(36).substring(2, 9),
-          name: words.join(' '),
-          rawName: words.join(' '),
-          words: words,
-          tagSuggestions: this.generateSmartTags(words),
-          selectedTag: this.generateSmartTags(words)[0],
-          vibe: nameObj.vibe,
-          style: 'clean',
-          lengthProfile: 'Medium',
-          isFavorite: false,
-          isShortlisted: false
-        });
-      }
-    }
-
-    return variations;
-  }
-
-  /**
-   * Generates hybrid names by mixing two selected guild names
-   */
-  mixTwoNames(nameObj1, nameObj2) {
-    const w1 = nameObj1.words || [nameObj1.rawName];
-    const w2 = nameObj2.words || [nameObj2.rawName];
-
-    const combos = [];
-    if (w1.length >= 2 && w2.length >= 2) {
-      combos.push([w1[0], w2[1]]);
-      combos.push([w2[0], w1[1]]);
-      combos.push([w1[0], w2[0]]);
-    } else {
-      combos.push([w1[0], w2[0]]);
-    }
-
-    return combos.map(pair => {
-      const raw = pair.join(' ');
-      const tags = this.generateSmartTags(pair);
-      return {
-        id: 'mix_' + Math.random().toString(36).substring(2, 9),
-        name: raw,
-        rawName: raw,
-        words: pair,
-        tagSuggestions: tags,
-        selectedTag: tags[0],
-        vibe: nameObj1.vibe || 'pro',
-        style: 'clean',
-        lengthProfile: 'Medium',
-        isFavorite: false,
-        isShortlisted: false
-      };
-    });
   }
 }
 
-// Global instance
+// Global export
 window.GuildEngine = new GuildNameEngine();
