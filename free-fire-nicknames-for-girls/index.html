@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Fire Nicknames for Girls – Browse, Filter &amp; Copy</title>
+  <title>Free Fire Nicknames for Girls – Generate &amp; Copy Names</title>
+  <meta name="description" content="Generate Free Fire nicknames for girls by vibe. Create cute, aesthetic, fierce or stylish names, customize your favorite, and copy the result.">
+  <link rel="canonical" href="https://ffnicknames.com/free-fire-nicknames-for-girls/">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Fire Nicknames for Girls – Generate &amp; Copy Names">
+  <meta property="og:description" content="Generate Free Fire nicknames for girls by vibe. Create cute, aesthetic, fierce or stylish names, customize your favorite, and copy the result.">
+  <meta property="og:url" content="https://ffnicknames.com/free-fire-nicknames-for-girls/">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +21,90 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="css/girls-browser.css">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Free Fire Nicknames for Girls Builder",
+        "url": "https://ffnicknames.com/free-fire-nicknames-for-girls/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "description": "Generate and style Free Fire nicknames for girls across aesthetic, cute, fierce, and minimalist vibes with one-tap copy.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ffnicknames.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Free Fire Nicknames for Girls",
+            "item": "https://ffnicknames.com/free-fire-nicknames-for-girls/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a good Free Fire nickname for a girl?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A useful nickname is one that fits the identity you want and is easy for you to recognize and remember. Instead of assuming every girl wants the same style, start with a category such as Cute, Aesthetic, Fierce, Dark, Elegant, or Minimal and refine from there."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I create a nickname from my own name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Choose Style My Name if you already have the word you want. You can also enter a name, word, or initial as a seed in the creation mode and generate ideas around it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I make aesthetic Free Fire names for girls?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Choose the Aesthetic filter to generate names around that direction, then compare Plain, Light, and Styled versions. You can also use More Like This when one result is close to what you want."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are generated names guaranteed to be available in Free Fire?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The nickname generator does not have access to Free Fire's live account or nickname database. A generated result is an idea, not a reservation. Check the exact nickname in the current game interface before relying on it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can a stylish character look different after I copy it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Styled generators can use Unicode characters whose appearance depends on the font and text-rendering environment. The receiving application may also have its own rules about what an input field accepts. Keep a plain version available and simplify the decoration if the styled result does not behave as expected."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Ambient Particles Background -->
@@ -27,7 +119,7 @@
           <div class="brand-icon">🔥</div>
           <div class="brand-text">
             <span class="brand-title">FF Studio</span>
-            <span class="brand-badge girls-badge">Girls Browser</span>
+            <span class="brand-badge girls-badge">Girls Studio</span>
           </div>
         </a>
 
@@ -63,8 +155,8 @@
       <!-- Hero Header -->
       <section class="girls-hero">
         <div class="hero-pill-badge girls-pill">
-          <span>✨</span>
-          <span>Free Fire Girls Name Explorer</span>
+          <span class="pulse-dot"></span>
+          <span>⚡ FREE FIRE GIRLS NICKNAMES BUILDER</span>
         </div>
 
         <h1 class="girls-hero-title">
@@ -72,8 +164,155 @@
         </h1>
 
         <p class="girls-hero-subtitle">
-          Discover a fierce, queenly, or aesthetic gaming identity. Instant search, queen &amp; wings styles, one-tap copy.
+          Discover distinctive gaming identities by vibe or style your own name with aesthetic symbols, clean fallbacks, and 1-tap copy.
         </p>
+
+        <!-- Feature Micro-Pills -->
+        <div class="hero-feature-pills">
+          <span class="hero-feat-pill">✨ Idea Discovery</span>
+          <span class="hero-feat-pill">🎨 Restyle Presets</span>
+          <span class="hero-feat-pill">↻ More Like This</span>
+          <span class="hero-feat-pill">⚡ Plain Text Fallbacks</span>
+          <span class="hero-feat-pill">📋 1-Tap Copy</span>
+        </div>
+
+        <!-- ===================================================================
+             DUAL-MODE GIRLS NICKNAME BUILDER CARD
+             =================================================================== -->
+        <div class="girls-builder-card" id="girls-builder-console">
+          <!-- Mode Switcher Tabs -->
+          <div class="builder-mode-tabs" role="tablist" aria-label="Nickname Builder Mode">
+            <button id="tab-mode-create" class="builder-mode-tab active" role="tab" aria-selected="true" aria-controls="panel-mode-create">
+              <span>✨</span> Create a New Name
+            </button>
+            <button id="tab-mode-style" class="builder-mode-tab" role="tab" aria-selected="false" aria-controls="panel-mode-style">
+              <span>🎨</span> Style My Name
+            </button>
+          </div>
+
+          <!-- Panel 1: Create a New Name (Idea Discovery) -->
+          <div id="panel-mode-create" class="builder-panel" role="tabpanel" aria-labelledby="tab-mode-create">
+            <div class="builder-inputs-grid">
+              <!-- Vibe Selection -->
+              <div class="builder-input-group">
+                <div class="filter-group-label">
+                  <span>Choose Your Vibe:</span>
+                  <span style="font-size: 0.72rem; color: #ff7597;">Identity Direction</span>
+                </div>
+                <div class="builder-vibes-grid">
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe active" data-vibe="cute"><span>🌸</span> Cute</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="aesthetic"><span>✨</span> Aesthetic</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="cool"><span>🕶</span> Cool</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="fierce"><span>⚡</span> Fierce</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="dark"><span>🌙</span> Dark</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="elegant"><span>💎</span> Elegant</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="royal"><span>👑</span> Royal</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="minimal"><span>🧊</span> Minimal</button>
+                  <button type="button" class="btn-vibe-chip btn-builder-vibe" data-vibe="random"><span>🎲</span> Random</button>
+                </div>
+              </div>
+
+              <!-- Sub-options: Length & Decoration -->
+              <div class="builder-sub-grid">
+                <div class="builder-input-group">
+                  <div class="filter-group-label">Name Length:</div>
+                  <div class="segmented-chips">
+                    <button type="button" class="btn-segmented-chip btn-builder-len active" data-len="any">Any</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-len" data-len="short">Short (≤5)</button>
+                  </div>
+                </div>
+
+                <div class="builder-input-group">
+                  <div class="filter-group-label">Decoration Level:</div>
+                  <div class="segmented-chips">
+                    <button type="button" class="btn-segmented-chip btn-builder-decor active" data-decor="plain">Plain</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-decor" data-decor="light">Light</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-decor" data-decor="styled">Styled</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Optional Seed Word or Initials -->
+              <div class="builder-input-group">
+                <div class="filter-group-label">
+                  <span>Optional Seed Word or Initial:</span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">(e.g. Luna, Rose, Moon, A, SK)</span>
+                </div>
+                <input 
+                  type="text" 
+                  id="builder-seed-input" 
+                  class="girls-search-input" 
+                  placeholder="e.g. Luna, Rose, Moon, A, SK (Leave blank for fresh ideas)..." 
+                  maxlength="14"
+                  spellcheck="false"
+                  autocomplete="off"
+                >
+              </div>
+
+              <!-- Action Buttons Row -->
+              <div class="builder-actions-grid">
+                <button type="button" id="btn-builder-generate" class="btn-huge-generate">
+                  <span>⚡</span> Generate Nicknames
+                </button>
+                <button type="button" id="btn-builder-random" class="btn-surprise-generate" title="Surprise me with random vibes">
+                  <span>🎲</span> Surprise Me
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Style My Name (Existing Name Customization) -->
+          <div id="panel-mode-style" class="builder-panel" role="tabpanel" aria-labelledby="tab-mode-style" style="display: none;">
+            <div class="builder-inputs-grid">
+              <!-- Existing Name Input -->
+              <div class="builder-input-group">
+                <div class="filter-group-label">
+                  <span>Enter Your Existing Name:</span>
+                  <span style="font-size: 0.72rem; color: #ff7597;">Personalized Styling</span>
+                </div>
+                <input 
+                  type="text" 
+                  id="builder-style-input" 
+                  class="girls-search-input" 
+                  placeholder="Type your name (e.g. Luna, Nyra, Rose, Mia, Zara)..." 
+                  value="Luna"
+                  maxlength="16"
+                  spellcheck="false"
+                  autocomplete="off"
+                >
+              </div>
+
+              <!-- Decoration & Vibe -->
+              <div class="builder-sub-grid">
+                <div class="builder-input-group">
+                  <div class="filter-group-label">Style Intensity:</div>
+                  <div class="segmented-chips">
+                    <button type="button" class="btn-segmented-chip btn-builder-decor active" data-decor="styled">Styled</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-decor" data-decor="light">Light</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-decor" data-decor="plain">Plain</button>
+                  </div>
+                </div>
+
+                <div class="builder-input-group">
+                  <div class="filter-group-label">Target Vibe:</div>
+                  <div class="segmented-chips">
+                    <button type="button" class="btn-segmented-chip btn-builder-vibe active" data-vibe="aesthetic">Aesthetic</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-vibe" data-vibe="cute">Cute</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-vibe" data-vibe="fierce">Fierce</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-vibe" data-vibe="royal">Royal</button>
+                    <button type="button" class="btn-segmented-chip btn-builder-vibe" data-vibe="minimal">Minimal</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <button type="button" id="btn-builder-style-submit" class="btn-huge-generate" style="margin-top: 0.35rem;">
+                <span>🎨</span> Style My Nickname
+              </button>
+            </div>
+          </div>
+        </div>
+
 
         <!-- Primary Instant Search Bar -->
         <div class="girls-search-section">
@@ -243,6 +482,375 @@
           </div>
         </section>
       </section>
+
+      <!-- ===================================================================
+           PUBLICATION-READY SECTION 19 RESEARCH ARTICLE
+           =================================================================== -->
+      <article class="girls-article-content" itemscope itemtype="https://schema.org/Article">
+        <header>
+          <!-- Intro Educational Box (PAS) -->
+          <div class="article-intro-box">
+            <p>
+              Finding a Free Fire nickname gets frustrating when every list gives you the same Queen, Princess, Angel, and heavily decorated names. You may know the vibe you want—cute, aesthetic, fierce, dark, elegant, or simple—without knowing the actual nickname yet.
+            </p>
+            <p>
+              Use the girls nickname builder above to create a new name or style one you already have. Choose a vibe, generate ideas, save promising results, restyle a name without losing it, and copy your final choice when you're ready to test it.
+            </p>
+          </div>
+        </header>
+
+        <section>
+          <h2>Free Fire Nickname Ideas for Girls</h2>
+          <p>
+            Start with the type of identity you want rather than scrolling through hundreds of unrelated names. The generator lets you switch between different vibes. You can then customize the strongest idea instead of accepting the first result.
+          </p>
+
+          <h3>Cute Names</h3>
+          <p>
+            Cute nicknames can use soft sounds, playful words, nature references, or light decoration without making the result difficult to read.
+          </p>
+          <p>
+            Examples of this direction include: <strong>Mochi</strong>, <strong>Mimi</strong>, <strong>Peachy</strong>, <strong>Lumi</strong>, <strong>BunnyV</strong>, and <strong>CherryX</strong>.
+          </p>
+          <p>
+            Try the <strong>Cute</strong> filter when you want this direction. If you like a generated name but want a similar idea, use <strong>More Like This</strong> instead of generating an unrelated batch.
+          </p>
+
+          <h3>Aesthetic &amp; Dreamy Names</h3>
+          <p>
+            Aesthetic names can draw from moonlight, stars, flowers, colors, weather, and other visual ideas.
+          </p>
+          <p>
+            For example: <strong>Lunara</strong>, <strong>Velora</strong>, <strong>Iris</strong>, <strong>Nova</strong>, <strong>Selene</strong>, and <strong>Aurelia</strong>.
+          </p>
+          <p>
+            The name does not need symbols to feel aesthetic. Choose the core word first, then compare plain and decorated versions.
+          </p>
+
+          <h3>Cool &amp; Clean Names</h3>
+          <p>
+            A clean nickname can be just as distinctive as a heavily styled one.
+          </p>
+          <p>
+            Examples of this direction include: <strong>Nyra</strong>, <strong>Vexa</strong>, <strong>Ryn</strong>, <strong>Zara</strong>, <strong>Nova</strong>, and <strong>Echo</strong>.
+          </p>
+          <p>
+            Choose <strong>Minimal</strong> or <strong>Cool</strong> when you want the name itself to carry the identity rather than decorative characters.
+          </p>
+
+          <h3>Fierce &amp; Powerful Names</h3>
+          <p>
+            A girls nickname does not have to be soft or cute. The Fierce filter can explore stronger concepts such as:
+          </p>
+          <p>
+            <strong>Viper</strong>, <strong>Rogue</strong>, <strong>Blaze</strong>, <strong>Valkyr</strong>, <strong>Storm</strong>, and <strong>Raven</strong>.
+          </p>
+          <p>
+            You can keep these plain for a cleaner appearance or apply light styling afterward.
+          </p>
+
+          <h3>Dark &amp; Mysterious Names</h3>
+          <p>
+            Choose <strong>Dark</strong> for names inspired by night, shadows, mystery, space, or darker imagery.
+          </p>
+          <p>
+            Possible directions include: <strong>Nyx</strong>, <strong>Noira</strong>, <strong>Eclipse</strong>, <strong>Shade</strong>, <strong>Raven</strong>, and <strong>Vanta</strong>.
+          </p>
+          <p>
+            If a result has the right mood but the wrong word, use <strong>More Like This</strong> to stay near that creative direction.
+          </p>
+
+          <h3>Elegant &amp; Royal Names</h3>
+          <p>
+            Royal and elegant names do not have to contain “Queen” or “Princess.” You can explore ideas such as:
+          </p>
+          <p>
+            <strong>Regalia</strong>, <strong>Aurelia</strong>, <strong>Reina</strong>, <strong>Celeste</strong>, <strong>Velora</strong>, and <strong>CrownV</strong>.
+          </p>
+          <p>
+            Try restrained decoration first. A small frame or symbol can change the appearance without hiding the core nickname.
+          </p>
+
+          <h3>Short &amp; Minimal Names</h3>
+          <p>
+            Short names are useful when you want a clean identity with little visual clutter.
+          </p>
+          <p>
+            Examples include: <strong>Nyx</strong>, <strong>Lux</strong>, <strong>Mia</strong>, <strong>Ryn</strong>, <strong>Vee</strong>, and <strong>Aya</strong>.
+          </p>
+          <p>
+            You can also enter an initial or short word into the generator and ask it to build ideas around it.
+          </p>
+        </section>
+
+        <!-- Visual Callout 1 & 2 -->
+        <div class="visual-demo-card">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <strong style="color: #ff7597; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em;">Visual 1 &amp; 2 Discovery Demo</strong>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Create vs Style Workflow</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-med); margin-bottom: 0.75rem;">
+            Don't have a starting word? Switch to <strong>Create a New Name</strong> to generate fresh concepts. Already have a favorite IGN? Switch to <strong>Style My Name</strong> for instant esports embellishments.
+          </p>
+          <div class="visual-demo-grid">
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Mode 1: Idea Discovery</div>
+              <div class="visual-demo-val" style="color: #ff7597;">Aesthetic Vibe → NYRA</div>
+            </div>
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Mode 2: Personal Style</div>
+              <div class="visual-demo-val" style="color: #b388ff;">"Luna" → 『𝓛𝓾𝓷𝓪𝓻𝓪』</div>
+            </div>
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Action Workflow</div>
+              <div class="visual-demo-val" style="color: #00e676;">Save → Restyle → Copy</div>
+            </div>
+          </div>
+        </div>
+
+        <section>
+          <h2>Create a New Nickname or Style Your Own</h2>
+          <p>
+            Creating a nickname and styling a nickname are different tasks.
+          </p>
+          <p>
+            Choose <strong>Create a New Name</strong> if you do not know what to call yourself yet. Select a vibe such as Cute, Aesthetic, Cool, Fierce, Dark, Elegant, Royal, or Minimal and generate new core-name ideas.
+          </p>
+          <p>
+            Choose <strong>Style My Name</strong> when you already know the word you want to use.
+          </p>
+          <p>
+            For example, you may already like: <strong>LUNARA</strong>. The tool can then compare treatments such as:
+          </p>
+          <ul>
+            <li><code>LUNARA</code> (Plain fallback)</li>
+            <li><code>✦LUNARA✦</code> (Light accent)</li>
+            <li><code>『𝓛𝓾𝓷𝓪𝓻𝓪』</code> (Styled frame)</li>
+          </ul>
+          <p>
+            This keeps two decisions separate: <em>What should my nickname be?</em> and <em>How should my nickname look?</em> A strong core name does not need heavy decoration to work.
+          </p>
+        </section>
+
+        <section>
+          <h2>How to Use the Girls Nickname Generator</h2>
+          <ol>
+            <li>
+              <strong>Choose Create or Style:</strong> Select <em>Create a New Name</em> when you need inspiration. Select <em>Style My Name</em> when you already have a nickname, real name, word, or initials you want to keep.
+            </li>
+            <li>
+              <strong>Choose your vibe:</strong> Pick the closest direction: Cute, Aesthetic, Cool, Fierce, Dark, Elegant, Royal, or Minimal. You can change the filter without losing saved favorites.
+            </li>
+            <li>
+              <strong>Add an optional word or initial:</strong> This field is useful when you want the result to feel more personal (e.g. <em>Luna</em>, <em>Rose</em>, <em>A</em>, <em>SK</em>, <em>Moon</em>). Leave it empty for completely fresh ideas.
+            </li>
+            <li>
+              <strong>Choose a decoration level:</strong> Select <em>Plain</em> for the clean core nickname, <em>Light</em> for subtle frames, or <em>Styled</em> for full decorative flair.
+            </li>
+            <li>
+              <strong>Generate names:</strong> Generate a small group of relevant results rather than judging hundreds at once. When something catches your eye, click <strong>Save</strong> for your shortlist, <strong>🎨 Restyle</strong> to change appearance while keeping the base name, <strong>↻ More Like This</strong> for related ideas, or <strong>📋 Copy</strong> to grab it.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>How to Make Your Nickname Feel More Personal</h2>
+          <p>
+            A personalized nickname does not necessarily mean using your full real name. You can start with a small piece of information that matters to you and build around it.
+          </p>
+
+          <h3>Start With a Vibe</h3>
+          <p>
+            Suppose you know you want something dark but have no word in mind. Choose <strong>Dark</strong> and let the generator create the first set of ideas. If <em>Nyx</em> catches your attention, use <strong>More Like This</strong> rather than jumping to another random category. This keeps the discovery process focused.
+          </p>
+
+          <h3>Add a Word or Initial You Want to Keep</h3>
+          <p>
+            If you already like “Luna,” lock it as the seed. The generator can then explore variations around that concept instead of replacing it completely. You could also use <em>A</em>, <em>M</em>, <em>Rose</em>, <em>Moon</em>, or <em>Nova</em>. The seed is optional. Leave it empty when you want the generator to surprise you.
+          </p>
+
+          <h3>Style the Name After You Like the Idea</h3>
+          <p>
+            Separate the core identity from its decoration:
+          </p>
+          <ul>
+            <li><strong>Core:</strong> NYRA</li>
+            <li><strong>Plain:</strong> NYRA</li>
+            <li><strong>Light:</strong> ✦NYRA✦</li>
+            <li><strong>Styled:</strong> 『𝓝𝓨𝓡𝓐』</li>
+          </ul>
+          <p>
+            If you dislike every styled version but still like NYRA, keep the core name and click <strong>Restyle</strong>. If you dislike NYRA itself, use <strong>More Like This</strong> or generate another idea. This avoids throwing away the part of the result you actually liked.
+          </p>
+        </section>
+
+        <!-- Visual Callout 3 & 4: Comparison & Semantic Clustering -->
+        <div class="visual-demo-card">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <strong style="color: #ff7597; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em;">Visual 4: Semantic Concept Clustering</strong>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">More Like This Engine</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-med); margin-bottom: 0.75rem;">
+            When you select <em>Lunara</em> and click <strong>↻ More Like This</strong>, our engine doesn't return unrelated filler—it queries related celestial, soft, and aesthetic identities:
+          </p>
+          <div class="visual-demo-grid">
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Seed Anchor</div>
+              <div class="visual-demo-val" style="color: #ff7597;">Lunara</div>
+            </div>
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Celestial Cluster</div>
+              <div class="visual-demo-val" style="color: #b388ff;">Selene · Celeste</div>
+            </div>
+            <div class="visual-demo-item">
+              <div class="visual-demo-label">Aesthetic Allies</div>
+              <div class="visual-demo-val" style="color: #00e676;">Aurelia · Velora · Nyx</div>
+            </div>
+          </div>
+        </div>
+
+        <section>
+          <h2>Plain, Light or Styled: Which Version Should You Choose?</h2>
+          <p>
+            There is no single decoration level that is right for everyone.
+          </p>
+          <p>
+            Use <strong>Plain</strong> when you want the core nickname to stay visually simple and guarantee 100% font rendering across all mobile OS updates.
+            Use <strong>Light</strong> when you want a small frame, accent, or symbol without cluttering the name.
+            Use <strong>Styled</strong> when visual decoration is an important part of the identity you want.
+          </p>
+
+          <table class="girls-comparison-table">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Example</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Plain</strong></td>
+                <td><code>LUNARA</code></td>
+                <td>Minimalist identity, clean fallback, guaranteed universal font rendering.</td>
+              </tr>
+              <tr>
+                <td><strong>Light</strong></td>
+                <td><code>✦LUNARA✦</code></td>
+                <td>Balanced gaming look, subtle frames without sacrificing quick kill-feed readability.</td>
+              </tr>
+              <tr>
+                <td><strong>Styled</strong></td>
+                <td><code>『𝓛𝓾𝓷𝓪𝓻𝓪』</code></td>
+                <td>High-visual impact, artistic script, bold decorative symbols and wings.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            One useful test is to remove every symbol and special character. If you still like <code>LUNARA</code>, then the underlying nickname works independently of its decoration. Always save the plain version alongside your styled picks.
+          </p>
+        </section>
+
+        <section>
+          <h2>What to Do If a Styled Nickname Doesn't Display Correctly</h2>
+          <p>
+            Stylish nickname generators commonly use Unicode characters rather than installing a new font inside Free Fire. Unicode assigns characters their own code points, while fonts and text-rendering systems determine how supported characters are displayed.
+          </p>
+          <p>
+            That means a character appearing correctly in your browser does not by itself guarantee that every other application or interface will render or accept the exact string in the same way. If something goes wrong, simplify the result rather than immediately abandoning the nickname:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Problem: A decorated version is rejected.</strong><br>
+              <em>Try:</em> Remove the heavier decoration first. For example, move from <code>『✦𝓝𝓨𝓡𝓐✦』</code> to <code>✦NYRA✦</code>, and then to <code>NYRA</code> if necessary. Always keep the plain version saved as a fallback.
+            </li>
+            <li>
+              <strong>Problem: Characters appear differently on your phone.</strong><br>
+              <em>Try:</em> Unusual characters can render differently depending on the available font and OS version. Switch from <em>Styled</em> to <em>Light</em>. If that still doesn't give you what you want, use <em>Plain</em>.
+            </li>
+            <li>
+              <strong>Problem: The name feels too busy in match lobbies.</strong><br>
+              <em>Try:</em> Too many decorative elements can make the core nickname harder to notice. Compare <code>꧁✦『𝓝𝓨𝓡𝓐』✦꧂</code> with <code>✦NYRA✦</code> and <code>NYRA</code>. Choose the version that fits your visual identity without adding decoration simply because it exists.
+            </li>
+            <li>
+              <strong>Problem: I love the name but hate the styling.</strong><br>
+              <em>Try:</em> Click <strong>🎨 Restyle</strong> on the card. This keeps the core nickname and changes only its visual treatment.
+            </li>
+            <li>
+              <strong>Problem: I like the idea but want another word.</strong><br>
+              <em>Try:</em> Click <strong>↻ More Like This</strong>. For example, if you like the direction of Lunara, related results will explore moon, celestial, soft, or elegant concepts rather than returning an unrelated list.
+            </li>
+          </ul>
+        </section>
+
+        <!-- FAQs Matching Schema.org -->
+        <section>
+          <h2>Free Fire Nicknames for Girls FAQ</h2>
+          <div class="girls-faq-grid">
+            <div class="girls-faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <div class="girls-faq-q" itemprop="name">What is a good Free Fire nickname for a girl?</div>
+              <div class="girls-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  A useful nickname is one that fits the identity you want and is easy for you to recognize and remember. Instead of assuming every girl wants the same style, start with a category such as Cute, Aesthetic, Fierce, Dark, Elegant, or Minimal and refine from there.
+                </div>
+              </div>
+            </div>
+
+            <div class="girls-faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <div class="girls-faq-q" itemprop="name">Can I create a nickname from my own name?</div>
+              <div class="girls-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  Yes. Choose Style My Name if you already have the word you want. You can also enter a name, word, or initial as a seed in the creation mode and generate ideas around it.
+                </div>
+              </div>
+            </div>
+
+            <div class="girls-faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <div class="girls-faq-q" itemprop="name">Can I make aesthetic Free Fire names for girls?</div>
+              <div class="girls-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  Yes. Choose the Aesthetic filter to generate names around that direction, then compare Plain, Light, and Styled versions. You can also use More Like This when one result is close to what you want.
+                </div>
+              </div>
+            </div>
+
+            <div class="girls-faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <div class="girls-faq-q" itemprop="name">Are generated names guaranteed to be available in Free Fire?</div>
+              <div class="girls-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  No. The nickname generator does not have access to Free Fire's live account or nickname database. A generated result is an idea, not a reservation. Check the exact nickname in the current game interface before relying on it.
+                </div>
+              </div>
+            </div>
+
+            <div class="girls-faq-card" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <div class="girls-faq-q" itemprop="name">Why can a stylish character look different after I copy it?</div>
+              <div class="girls-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  Styled generators can use Unicode characters whose appearance depends on the font and text-rendering environment. The receiving application may also have its own rules about what an input field accepts. Keep a plain version available and simplify the decoration if the styled result does not behave as expected.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Internal Links Section -->
+        <section style="margin-top: 2.5rem; padding: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+          <h3 style="margin-top: 0; color: #ff7597;">Explore More Free Fire Customization Tools</h3>
+          <p style="font-size: 0.92rem; color: var(--text-med); margin-bottom: 0.75rem;">
+            Take your Free Fire identity further with our specialized character, name, and guild tools:
+          </p>
+          <ul style="display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding-left: 0; margin-bottom: 0;">
+            <li><a href="../" style="color: #fff; font-weight: 700; text-decoration: underline;">Free Fire Nickname Generator</a></li>
+            <li><a href="../free-fire-nicknames-for-boys/" style="color: #ffaa00; font-weight: 700; text-decoration: underline;">Free Fire Nicknames for Boys</a></li>
+            <li><a href="../free-fire-symbols/" style="color: #00e676; font-weight: 700; text-decoration: underline;">Free Fire Symbols Studio</a></li>
+            <li><a href="../free-fire-invisible-space/" style="color: #00b0ff; font-weight: 700; text-decoration: underline;">Free Fire Invisible Space</a></li>
+            <li><a href="../free-fire-guild-name-generator/" style="color: #ffd600; font-weight: 700; text-decoration: underline;">Free Fire Guild Name Generator</a></li>
+          </ul>
+        </section>
+      </article>
     </main>
 
     <!-- Mobile Bottom Navigation Bar -->

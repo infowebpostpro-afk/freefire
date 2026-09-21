@@ -35,11 +35,19 @@ const GirlsApp = {
     customizerStyle: 'wings',
     
     // Comparison State
-    comparisonList: []
+    comparisonList: [],
+
+    // Dual-Mode Builder State
+    builderMode: 'create', // 'create' | 'style'
+    builderVibe: 'cute',
+    builderLength: 'any',
+    builderDecor: 'plain',
+    builderSeed: ''
   },
 
   init() {
     this.initAmbientStarlight();
+    this.initDualModeBuilder();
     this.initCategoryNav();
     this.initVibeCards();
     this.initSearch();
@@ -49,8 +57,8 @@ const GirlsApp = {
     this.initMobileBottomNav();
     this.updateBadges();
 
-    // Zero-friction initial render
-    this.applyFilters(true);
+    // Initial builder generation
+    this.runBuilderGeneration(false);
   },
 
   /* ===================================================================
@@ -95,7 +103,7 @@ const GirlsApp = {
           </p>
           <div class="no-results-actions">
             <button class="btn-tool-action btn-accent" id="btn-reset-filters">Clear All Filters</button>
-            <a href="../?seed=${encodeURIComponent(this.state.searchQuery || 'Queen')}" class="btn-tool-action">
+            <a href="../?seed=${encodeURIComponent(this.state.searchQuery || 'Luna')}" class="btn-tool-action">
               Style My Own Name →
             </a>
           </div>
@@ -115,18 +123,22 @@ const GirlsApp = {
       const isSaved = this.state.saved.some(s => s.id === item.id);
       const isShortlisted = this.state.shortlist.some(s => s.id === item.id);
       
-      // Default feminine stylish representation: 𓆩 Name 𓆪 or ♛ Name ♛
-      const styledDisplay = item.categories.includes('queen') 
+      const styledDisplay = item.currentDisplay || (item.categories && item.categories.includes('queen') 
         ? GIRLS_STYLE_RULES.royal(item.baseName) 
-        : GIRLS_STYLE_RULES.wings(item.baseName);
+        : GIRLS_STYLE_RULES.wings(item.baseName));
+      const fallback = item.plainFallback || item.baseName;
+      const charCount = item.charCount || Array.from(styledDisplay).length;
+      const isDecorated = item.isDecorated ?? (styledDisplay !== fallback);
 
       html += `
-        <article class="nickname-card" data-id="${item.id}" data-basename="${this.escapeHtml(item.baseName)}">
+        <article class="nickname-card" id="card_${item.id}" data-id="${item.id}" data-basename="${this.escapeHtml(item.baseName)}">
           <div class="card-top-meta">
             <div class="card-tags">
-              <span class="tag-pill">${item.categories[0] || 'queen'}</span>
-              <span class="tag-pill">${item.lengthProfile}</span>
-              <span class="tag-pill">${item.wordCount === 1 ? '1-Word' : '2-Words'}</span>
+              <span class="tag-pill">${item.categories ? (item.categories[0] || 'cute') : 'cute'}</span>
+              <span class="tag-pill">${item.lengthProfile || 'short'}</span>
+              <span class="card-status-pill ${isDecorated ? 'status-styled' : 'status-plain'}">
+                ${isDecorated ? 'Decorated' : 'Plain Text'}
+              </span>
             </div>
             <div class="card-quick-actions">
               <button class="btn-card-icon btn-card-fav ${isSaved ? 'active' : ''}" 
@@ -143,22 +155,27 @@ const GirlsApp = {
           </div>
 
           <div class="card-name-wrap" title="Tap to preview or copy" data-id="${item.id}">
-            <div class="card-nickname-text">${this.escapeHtml(styledDisplay)}</div>
+            <div class="card-nickname-text" id="name_text_${item.id}">${this.escapeHtml(styledDisplay)}</div>
+          </div>
+
+          <div class="card-fallback-row">
+            <span>Fallback: <code>${this.escapeHtml(fallback)}</code></span>
+            <span>${charCount} Chars</span>
           </div>
 
           <button class="btn-card-copy" data-copy="${this.escapeHtml(styledDisplay)}" aria-label="Copy nickname">
-            <span>📋</span> Copy Name
+            <span>📋</span> <span class="btn-copy-label">Copy Name</span>
           </button>
 
           <div class="card-bottom-actions">
-            <button class="btn-card-subaction btn-preview-trigger" data-id="${item.id}">
+            <button class="btn-card-subaction btn-restyle-trigger" data-id="${item.id}" title="Cycle decorative style without changing base name">
+              <span>🎨</span> Restyle
+            </button>
+            <button class="btn-card-subaction btn-more-trigger" data-id="${item.id}" title="Find conceptually related ideas">
+              <span>↻</span> More Like This
+            </button>
+            <button class="btn-card-subaction btn-preview-trigger" data-id="${item.id}" title="Simulated in-game preview">
               <span>👁</span> Preview
-            </button>
-            <button class="btn-card-subaction btn-customize-trigger" data-id="${item.id}">
-              <span>✎</span> Customize
-            </button>
-            <button class="btn-card-subaction btn-more-trigger" data-id="${item.id}">
-              <span>⚡</span> More Like This
             </button>
           </div>
         </article>
@@ -183,6 +200,7 @@ const GirlsApp = {
   },
 
   attachCardEventListeners(grid) {
+    // Copy buttons
     grid.querySelectorAll('.btn-card-copy').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -190,18 +208,21 @@ const GirlsApp = {
       });
     });
 
+    // Tap nickname name directly to copy & preview
     grid.querySelectorAll('.card-name-wrap').forEach(wrap => {
       wrap.addEventListener('click', () => {
         const id = wrap.dataset.id;
-        const item = GIRLS_DATABASE.find(n => n.id === id);
+        let item = this.state.currentResults.find(n => n.id === id);
+        if (!item) item = GIRLS_DATABASE.find(n => n.id === id);
         if (item) {
-          const styled = GIRLS_STYLE_RULES.wings(item.baseName);
+          const styled = item.currentDisplay || GIRLS_STYLE_RULES.wings(item.baseName);
           this.copyText(styled, null, false);
           this.openPreviewModal(item);
         }
       });
     });
 
+    // Favorite buttons
     grid.querySelectorAll('.btn-card-fav').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -209,6 +230,7 @@ const GirlsApp = {
       });
     });
 
+    // Shortlist buttons
     grid.querySelectorAll('.btn-card-shortlist').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -216,28 +238,211 @@ const GirlsApp = {
       });
     });
 
-    grid.querySelectorAll('.btn-preview-trigger').forEach(btn => {
+    // Restyle buttons
+    grid.querySelectorAll('.btn-restyle-trigger').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const item = GIRLS_DATABASE.find(n => n.id === btn.dataset.id);
-        if (item) this.openPreviewModal(item);
+        this.handleRestyle(btn.dataset.id);
       });
     });
 
-    grid.querySelectorAll('.btn-customize-trigger').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const item = GIRLS_DATABASE.find(n => n.id === btn.dataset.id);
-        if (item) this.openCustomizeModal(item);
-      });
-    });
-
+    // "More Like This" buttons
     grid.querySelectorAll('.btn-more-trigger').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        this.triggerMoreLikeThis(btn.dataset.id);
+        this.handleMoreLikeThis(btn.dataset.id);
       });
     });
+
+    // Preview buttons
+    grid.querySelectorAll('.btn-preview-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let item = this.state.currentResults.find(n => n.id === btn.dataset.id);
+        if (!item) item = GIRLS_DATABASE.find(n => n.id === btn.dataset.id);
+        if (item) this.openPreviewModal(item);
+      });
+    });
+  },
+
+  handleRestyle(id) {
+    let item = this.state.currentResults.find(n => n.id === id);
+    if (!item) item = GIRLS_DATABASE.find(n => n.id === id);
+    if (!item) return;
+
+    const restyled = GirlsEngine.restyleSingle(item);
+    Object.assign(item, restyled);
+
+    const card = document.getElementById(`card_${id}`);
+    if (card) {
+      const nameText = card.querySelector('.card-nickname-text');
+      const copyBtn = card.querySelector('.btn-card-copy');
+      const statusPill = card.querySelector('.card-status-pill');
+
+      if (nameText) nameText.textContent = restyled.currentDisplay;
+      if (copyBtn) copyBtn.dataset.copy = restyled.currentDisplay;
+      if (statusPill) {
+        statusPill.textContent = restyled.isDecorated ? 'Decorated' : 'Plain Text';
+        statusPill.className = `card-status-pill ${restyled.isDecorated ? 'status-styled' : 'status-plain'}`;
+      }
+
+      card.style.borderColor = '#ff2a5f';
+      setTimeout(() => { card.style.borderColor = ''; }, 400);
+    }
+
+    this.showToast(`Restyled "${item.baseName}"!`);
+  },
+
+  handleMoreLikeThis(id) {
+    let item = this.state.currentResults.find(n => n.id === id);
+    if (!item) item = GIRLS_DATABASE.find(n => n.id === id);
+    if (!item) return;
+
+    const related = GirlsEngine.getMoreLikeThis(item.id, 12);
+    if (related.length === 0) {
+      this.showToast(`No direct cluster siblings for "${item.baseName}".`);
+      return;
+    }
+
+    const decor = this.state.builderDecor || 'plain';
+    const formatted = related.map((rel, idx) => ({
+      ...rel,
+      currentDisplay: GirlsEngine.applyDecoration(rel.baseName, decor, idx),
+      plainFallback: rel.baseName,
+      decoration: decor,
+      styleIndex: idx,
+      charCount: Array.from(GirlsEngine.applyDecoration(rel.baseName, decor, idx)).length,
+      isDecorated: decor !== 'plain'
+    }));
+
+    this.state.currentResults = formatted;
+    this.renderNicknameGrid();
+
+    const grid = document.getElementById('nickname-grid');
+    if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    this.showToast(`Showing names conceptually related to "${item.baseName}"!`);
+  },
+
+  initDualModeBuilder() {
+    const tabCreate = document.getElementById('tab-mode-create');
+    const tabStyle = document.getElementById('tab-mode-style');
+    const panelCreate = document.getElementById('panel-mode-create');
+    const panelStyle = document.getElementById('panel-mode-style');
+
+    if (tabCreate && tabStyle) {
+      tabCreate.addEventListener('click', () => {
+        tabCreate.classList.add('active');
+        tabCreate.setAttribute('aria-selected', 'true');
+        tabStyle.classList.remove('active');
+        tabStyle.setAttribute('aria-selected', 'false');
+
+        if (panelCreate) panelCreate.style.display = 'block';
+        if (panelStyle) panelStyle.style.display = 'none';
+        this.state.builderMode = 'create';
+      });
+
+      tabStyle.addEventListener('click', () => {
+        tabStyle.classList.add('active');
+        tabStyle.setAttribute('aria-selected', 'true');
+        tabCreate.classList.remove('active');
+        tabCreate.setAttribute('aria-selected', 'false');
+
+        if (panelCreate) panelCreate.style.display = 'none';
+        if (panelStyle) panelStyle.style.display = 'block';
+        this.state.builderMode = 'style';
+      });
+    }
+
+    // Builder Vibe chips
+    document.querySelectorAll('.btn-builder-vibe').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-vibe').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderVibe = btn.dataset.vibe || 'cute';
+      });
+    });
+
+    // Builder Length chips
+    document.querySelectorAll('.btn-builder-len').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-len').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderLength = btn.dataset.len || 'any';
+      });
+    });
+
+    // Builder Decor chips
+    document.querySelectorAll('.btn-builder-decor').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-decor').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderDecor = btn.dataset.decor || 'plain';
+      });
+    });
+
+    // Generate CTA in Create mode
+    const genBtn = document.getElementById('btn-builder-generate');
+    if (genBtn) {
+      genBtn.addEventListener('click', () => this.runBuilderGeneration(true));
+    }
+
+    // Style CTA in Style mode
+    const styleBtn = document.getElementById('btn-builder-style-submit');
+    if (styleBtn) {
+      styleBtn.addEventListener('click', () => this.runBuilderGeneration(true));
+    }
+
+    // Random Pick CTA
+    const randBtn = document.getElementById('btn-builder-random');
+    if (randBtn) {
+      randBtn.addEventListener('click', () => {
+        const vibes = ['cute', 'aesthetic', 'cool', 'fierce', 'dark', 'royal', 'minimal'];
+        const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+        this.state.builderVibe = randomVibe;
+        document.querySelectorAll('.btn-builder-vibe').forEach(b => {
+          b.classList.toggle('active', b.dataset.vibe === randomVibe);
+        });
+        this.runBuilderGeneration(true);
+        this.showToast(`Rolled fresh ${randomVibe.toUpperCase()} names!`);
+      });
+    }
+  },
+
+  runBuilderGeneration(scrollToResults = false) {
+    if (this.state.builderMode === 'create') {
+      const seedInput = document.getElementById('builder-seed-input');
+      const seedWord = seedInput ? seedInput.value.trim() : '';
+
+      const results = GirlsEngine.generateGirlsBatch({
+        vibe: this.state.builderVibe || 'cute',
+        length: this.state.builderLength || 'any',
+        decoration: this.state.builderDecor || 'plain',
+        seedWord: seedWord,
+        count: 18
+      });
+
+      this.state.currentResults = results;
+      this.renderNicknameGrid();
+    } else {
+      const styleInput = document.getElementById('builder-style-input');
+      const baseName = styleInput ? styleInput.value.trim() : 'Luna';
+
+      const results = GirlsEngine.styleExistingName({
+        name: baseName || 'Luna',
+        vibe: this.state.builderVibe || 'aesthetic',
+        decoration: this.state.builderDecor || 'styled',
+        count: 18
+      });
+
+      this.state.currentResults = results;
+      this.renderNicknameGrid();
+    }
+
+    if (scrollToResults) {
+      const grid = document.getElementById('nickname-grid');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   },
 
   /* ===================================================================

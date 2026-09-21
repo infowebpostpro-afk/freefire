@@ -228,5 +228,199 @@ const GirlsEngine = {
 
   hasSpecialCharacters(str) {
     return /[^\x20-\x7E]/.test(str);
+  },
+
+  /* ===================================================================
+     DUAL-MODE BUILDER & RESTYLE ENGINE
+     =================================================================== */
+
+  applyDecoration(baseName, level = 'plain', styleIndex = 0) {
+    if (level === 'plain') return baseName;
+
+    const lightStyles = [
+      (n) => `✦ ${n} ✦`,
+      (n) => `✿ ${n} ✿`,
+      (n) => `✧ ${n} ✧`,
+      (n) => `♡ ${n} ♡`,
+      (n) => `𓆩 ${n} 𓆪`,
+      (n) => `ʚ ${n} ɞ`,
+      (n) => `★ ${n} ★`,
+      (n) => `☾ ${n} ☽`,
+      (n) => `⚘ ${n} ⚘`
+    ];
+
+    const styledStyles = [
+      (n) => `『${n}』`,
+      (n) => `♛ ${n} ♛`,
+      (n) => `亗 ${n} 亗`,
+      (n) => `꧁✦${n}✦꧂`,
+      (n) => `𓊈 ${n} 𓊉`,
+      (n) => `« ${n} »`,
+      (n) => `乂 ${n} 乂`,
+      (n) => `𒆜 ${n} 𒆜`,
+      (n) => `꧁༒${n}༒꧂`
+    ];
+
+    if (level === 'light') {
+      const idx = Math.abs(styleIndex) % lightStyles.length;
+      return lightStyles[idx](baseName);
+    } else {
+      const idx = Math.abs(styleIndex) % styledStyles.length;
+      return styledStyles[idx](baseName);
+    }
+  },
+
+  restyleSingle(item) {
+    const nextIdx = ((item.styleIndex || 0) + 1);
+    let nextDecor = item.decoration || 'styled';
+    if (nextDecor === 'plain') nextDecor = 'light';
+
+    const newDisplay = this.applyDecoration(item.baseName, nextDecor, nextIdx);
+    return {
+      currentDisplay: newDisplay,
+      decoration: nextDecor,
+      styleIndex: nextIdx,
+      charCount: Array.from(newDisplay).length,
+      isDecorated: nextDecor !== 'plain'
+    };
+  },
+
+  generateGirlsBatch(options = {}) {
+    const {
+      vibe = 'all',
+      length = 'any',
+      decoration = 'plain',
+      seedWord = '',
+      count = 18
+    } = options;
+
+    const cleanSeed = (seedWord || '').trim();
+
+    if (cleanSeed) {
+      const prefixes = ['', 'iAm', 'Miss', 'Queen', 'Lady', 'Sweet', 'Cute', 'Silent', 'Dark', 'Nova'];
+      const suffixes = ['', 'X', '✦', 'V', 'Rose', 'Aura', 'Moon', 'Girl', '07', 'Babe', 'Queen', 'Star', 'Vibe'];
+
+      const generated = [];
+      const seen = new Set();
+
+      // Combine seed with thematic affixes
+      prefixes.forEach(p => {
+        suffixes.forEach(s => {
+          const combo = p ? `${p}${cleanSeed}${s}` : `${cleanSeed}${s}`;
+          if (combo && !seen.has(combo.toLowerCase())) {
+            seen.add(combo.toLowerCase());
+            generated.push(combo);
+          }
+        });
+      });
+
+      // Filter by length if requested
+      let filtered = generated;
+      if (length === 'short') {
+        filtered = generated.filter(n => n.length <= 5);
+        if (filtered.length < count) {
+          filtered = generated.filter(n => n.length <= 7);
+        }
+      }
+
+      const selected = this.shuffle(filtered.length > 0 ? filtered : generated).slice(0, count);
+
+      return selected.map((name, idx) => {
+        const display = this.applyDecoration(name, decoration, idx);
+        return {
+          id: `gen_seed_${idx}_${Date.now()}`,
+          baseName: name,
+          currentDisplay: display,
+          plainFallback: name,
+          categories: [vibe !== 'all' ? vibe : 'aesthetic'],
+          lengthProfile: name.length <= 5 ? 'short' : 'medium',
+          wordCount: 1,
+          decoration: decoration,
+          styleIndex: idx,
+          charCount: Array.from(display).length,
+          isDecorated: decoration !== 'plain'
+        };
+      });
+    }
+
+    // Filter from curated GIRLS_DATABASE by vibe
+    let pool = GIRLS_DATABASE.filter(item => {
+      if (vibe && vibe !== 'all' && vibe !== 'random') {
+        const catList = item.categories || [];
+        const v = vibe.toLowerCase();
+        if (v === 'cute') {
+          if (!catList.includes('cute') && !(GIRLS_SEMANTIC_CLUSTERS.cute || []).includes(item.id)) return false;
+        } else if (v === 'aesthetic') {
+          if (!catList.includes('aesthetic') && !(GIRLS_SEMANTIC_CLUSTERS.aesthetic || []).includes(item.id)) return false;
+        } else if (v === 'cool') {
+          if (!catList.includes('cool') && !(GIRLS_SEMANTIC_CLUSTERS.cool || []).includes(item.id)) return false;
+        } else if (v === 'fierce') {
+          if (!catList.includes('badass') && !catList.includes('warrior') && !(GIRLS_SEMANTIC_CLUSTERS.fierce || []).includes(item.id)) return false;
+        } else if (v === 'dark') {
+          if (!catList.includes('dark') && !(GIRLS_SEMANTIC_CLUSTERS.dark || []).includes(item.id)) return false;
+        } else if (v === 'royal') {
+          if (!catList.includes('queen') && !catList.includes('royal') && !(GIRLS_SEMANTIC_CLUSTERS.royal || []).includes(item.id)) return false;
+        } else if (v === 'minimal') {
+          if (!catList.includes('minimal') && item.lengthProfile !== 'short' && !(GIRLS_SEMANTIC_CLUSTERS.minimal || []).includes(item.id)) return false;
+        }
+      }
+
+      if (length === 'short') {
+        const len = item.baseName.replace(/\s+/g, '').length;
+        if (len > 5) return false;
+      }
+
+      return true;
+    });
+
+    if (pool.length < count) {
+      pool = GIRLS_DATABASE;
+    }
+
+    const shuffled = this.shuffle(pool).slice(0, count);
+
+    return shuffled.map((item, idx) => {
+      const display = this.applyDecoration(item.baseName, decoration, idx);
+      return {
+        ...item,
+        currentDisplay: display,
+        plainFallback: item.baseName,
+        decoration: decoration,
+        styleIndex: idx,
+        charCount: Array.from(display).length,
+        isDecorated: decoration !== 'plain'
+      };
+    });
+  },
+
+  styleExistingName(options = {}) {
+    const {
+      name = 'Luna',
+      vibe = 'aesthetic',
+      decoration = 'styled',
+      count = 18
+    } = options;
+
+    const base = (name || 'Luna').trim();
+    const results = [];
+
+    for (let i = 0; i < count; i++) {
+      const display = this.applyDecoration(base, decoration, i);
+      results.push({
+        id: `styled_${i}_${Date.now()}`,
+        baseName: base,
+        currentDisplay: display,
+        plainFallback: base,
+        categories: [vibe || 'aesthetic'],
+        lengthProfile: base.length <= 5 ? 'short' : 'medium',
+        wordCount: 1,
+        decoration: decoration,
+        styleIndex: i,
+        charCount: Array.from(display).length,
+        isDecorated: decoration !== 'plain'
+      });
+    }
+
+    return results;
   }
 };

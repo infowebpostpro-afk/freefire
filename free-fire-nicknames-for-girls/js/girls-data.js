@@ -39,16 +39,19 @@ const GIRLS_PLAYSTYLES = [
 
 // Semantic clusters for intelligent "More Like This"
 const GIRLS_SEMANTIC_CLUSTERS = {
-  queen: ['queen', 'empress', 'duchess', 'princess', 'monarch', 'reign', 'majesty', 'sovereign', 'lady', 'dynasty', 'regal', 'crown'],
-  badass: ['vixen', 'medusa', 'rebel', 'psycho', 'toxic', 'harley', 'widow', 'riot', 'savage', 'banshee', 'wrath', 'rogue', 'vandal', 'predator'],
-  dark: ['nyx', 'raven', 'shadow', 'witch', 'nocturna', 'grim', 'abyss', 'phantom', 'shade', 'obsidian', 'voodoo', 'void'],
+  queen: ['queen', 'empress', 'duchess', 'princess', 'monarch', 'reign', 'majesty', 'sovereign', 'lady', 'dynasty', 'regal', 'crown', 'regalia', 'reina', 'celeste', 'crownv'],
+  royal: ['regalia', 'aurelia', 'reina', 'celeste', 'crownv', 'queen', 'empress', 'duchess', 'princess', 'monarch', 'reign', 'majesty', 'sovereign', 'regal', 'crown'],
+  badass: ['viper', 'rogue', 'blaze', 'valkyr', 'storm', 'raven', 'vixen', 'medusa', 'rebel', 'psycho', 'toxic', 'harley', 'widow', 'riot', 'savage', 'banshee', 'wrath', 'predator'],
+  fierce: ['viper', 'rogue', 'blaze', 'valkyr', 'storm', 'raven', 'vixen', 'medusa', 'rebel', 'psycho', 'toxic', 'harley', 'widow', 'riot', 'savage', 'banshee', 'wrath', 'predator'],
+  dark: ['nyx', 'noira', 'eclipse', 'shade', 'raven', 'vanta', 'shadow', 'witch', 'nocturna', 'grim', 'abyss', 'phantom', 'obsidian', 'voodoo', 'void'],
   goddess: ['valkyrie', 'athena', 'artemis', 'freya', 'hera', 'venus', 'selene', 'pandora', 'aurora', 'cleo', 'aphrodite', 'diana'],
-  cute: ['honey', 'blossom', 'daisy', 'kitten', 'candy', 'cherie', 'angel', 'sugar', 'peach', 'cupcake', 'bella', 'cutie', 'foxy'],
-  aesthetic: ['aura', 'velvet', 'luminous', 'celestial', 'stella', 'mystic', 'eclipse', 'nebula', 'mirage', 'whisper', 'ethereal', 'lotus'],
+  cute: ['mochi', 'mimi', 'peachy', 'lumi', 'bunnyv', 'cherryx', 'honey', 'blossom', 'daisy', 'kitten', 'candy', 'cherie', 'angel', 'sugar', 'peach', 'cupcake', 'bella', 'cutie', 'foxy', 'mia'],
+  aesthetic: ['lunara', 'velora', 'iris', 'nova', 'selene', 'aurelia', 'aura', 'velvet', 'luminous', 'celestial', 'stella', 'mystic', 'eclipse', 'nebula', 'mirage', 'whisper', 'ethereal', 'lotus', 'lux'],
+  cool: ['nyra', 'vexa', 'ryn', 'zara', 'echo', 'nova', 'cleo', 'diana', 'monarch', 'lady', 'tempest', 'pulse', 'vee'],
   cyber: ['cyber', 'glitch', 'matrix', 'pixel', 'neon', 'nexus', 'pulse', 'circuit', 'echo', 'binary', 'zero', 'vector'],
   sniper: ['deadeye', 'huntress', 'viper', 'scope', 'arrow', 'crosshair', 'bullseye', 'headshot', 'tracer', 'bullet', 'recon', 'talon'],
-  warrior: ['blade', 'slayer', 'ronin', 'tempest', 'saber', 'dagger', 'scythe', 'gladiator', 'knight', 'raider', 'storm', 'havoc'],
-  minimal: ['ivy', 'luna', 'cleo', 'roxy', 'ruby', 'fay', 'joy', 'mia', 'zoe', 'eve', 'sky', 'zen', 'ash', 'kia']
+  warrior: ['blade', 'slayer', 'ronin', 'tempest', 'saber', 'dagger', 'scythe', 'gladiator', 'knight', 'raider', 'storm', 'havoc', 'valkyr'],
+  minimal: ['nyx', 'lux', 'mia', 'ryn', 'vee', 'aya', 'ivy', 'luna', 'cleo', 'roxy', 'ruby', 'fay', 'joy', 'zoe', 'eve', 'sky', 'zen', 'ash', 'kia']
 };
 
 /**
@@ -1144,7 +1147,41 @@ const GIRLS_DATABASE = [
     tags: ['thorns', 'flower', 'unseen', 'covert', 'red'],
     featured: false,
     addedAt: '2026-01-15'
-  }
+  },
+  // --- RESEARCH ADDITIONS (September 2026) ---
+  { id: 'lunara', baseName: 'Lunara', categories: ['aesthetic', 'royal', 'cool'], playstyles: ['leader', 'tactical'], lengthProfile: 'medium', wordCount: 1, tags: ['lunar', 'moon', 'celestial', 'dreamy', 'stars'], featured: true, addedAt: '2026-09-20' },
+  { id: 'velora', baseName: 'Velora', categories: ['aesthetic', 'royal', 'cool'], playstyles: ['tactical', 'casual'], lengthProfile: 'medium', wordCount: 1, tags: ['velvet', 'aura', 'elegance', 'grace'], featured: true, addedAt: '2026-09-20' },
+  { id: 'iris', baseName: 'Iris', categories: ['aesthetic', 'minimal', 'cute'], playstyles: ['casual', 'stealth'], lengthProfile: 'short', wordCount: 1, tags: ['rainbow', 'flower', 'goddess', 'eyes'], featured: false, addedAt: '2026-09-20' },
+  { id: 'nova', baseName: 'Nova', categories: ['aesthetic', 'cool', 'minimal'], playstyles: ['rusher', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['star', 'explosion', 'cosmic', 'space'], featured: true, addedAt: '2026-09-20' },
+  { id: 'selene', baseName: 'Selene', categories: ['aesthetic', 'royal', 'cool'], playstyles: ['leader', 'tactical'], lengthProfile: 'medium', wordCount: 1, tags: ['moon', 'goddess', 'night', 'silver'], featured: true, addedAt: '2026-09-20' },
+  { id: 'aurelia', baseName: 'Aurelia', categories: ['royal', 'aesthetic', 'cool'], playstyles: ['leader', 'casual'], lengthProfile: 'medium', wordCount: 1, tags: ['gold', 'golden', 'sun', 'majesty'], featured: true, addedAt: '2026-09-20' },
+  { id: 'mochi', baseName: 'Mochi', categories: ['cute', 'minimal'], playstyles: ['casual', 'rusher'], lengthProfile: 'short', wordCount: 1, tags: ['sweet', 'soft', 'rice', 'squishy', 'playful'], featured: true, addedAt: '2026-09-20' },
+  { id: 'mimi', baseName: 'Mimi', categories: ['cute', 'minimal'], playstyles: ['casual', 'stealth'], lengthProfile: 'short', wordCount: 1, tags: ['sweet', 'kitten', 'short', 'soft'], featured: false, addedAt: '2026-09-20' },
+  { id: 'peachy', baseName: 'Peachy', categories: ['cute', 'aesthetic'], playstyles: ['casual', 'rusher'], lengthProfile: 'medium', wordCount: 1, tags: ['peach', 'fruit', 'sweet', 'summer'], featured: true, addedAt: '2026-09-20' },
+  { id: 'lumi', baseName: 'Lumi', categories: ['cute', 'minimal', 'aesthetic'], playstyles: ['casual', 'tactical'], lengthProfile: 'short', wordCount: 1, tags: ['snow', 'light', 'glow', 'soft'], featured: false, addedAt: '2026-09-20' },
+  { id: 'bunnyv', baseName: 'BunnyV', categories: ['cute', 'cool'], playstyles: ['rusher', 'casual'], lengthProfile: 'medium', wordCount: 1, tags: ['rabbit', 'hop', 'fast', 'playful'], featured: false, addedAt: '2026-09-20' },
+  { id: 'cherryx', baseName: 'CherryX', categories: ['cute', 'cool'], playstyles: ['rusher', 'casual'], lengthProfile: 'medium', wordCount: 1, tags: ['cherry', 'sweet', 'red', 'fruit'], featured: false, addedAt: '2026-09-20' },
+  { id: 'nyra', baseName: 'Nyra', categories: ['cool', 'minimal', 'aesthetic'], playstyles: ['rusher', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['clean', 'sharp', 'modern', 'esports'], featured: true, addedAt: '2026-09-20' },
+  { id: 'vexa', baseName: 'Vexa', categories: ['cool', 'pro', 'minimal'], playstyles: ['rusher', 'leader'], lengthProfile: 'short', wordCount: 1, tags: ['clutch', 'apex', 'clean', 'electric'], featured: true, addedAt: '2026-09-20' },
+  { id: 'ryn', baseName: 'Ryn', categories: ['minimal', 'cool'], playstyles: ['sniper', 'stealth'], lengthProfile: 'short', wordCount: 1, tags: ['clean', '3letter', 'minimal', 'sharp'], featured: false, addedAt: '2026-09-20' },
+  { id: 'zara', baseName: 'Zara', categories: ['cool', 'minimal'], playstyles: ['leader', 'rusher'], lengthProfile: 'short', wordCount: 1, tags: ['fashion', 'sharp', 'radiant', 'boss'], featured: true, addedAt: '2026-09-20' },
+  { id: 'echo', baseName: 'Echo', categories: ['cool', 'minimal', 'aesthetic'], playstyles: ['stealth', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['sound', 'wave', 'unseen', 'reverb'], featured: false, addedAt: '2026-09-20' },
+  { id: 'viper', baseName: 'Viper', categories: ['badass', 'cool', 'sniper'], playstyles: ['sniper', 'rusher'], lengthProfile: 'short', wordCount: 1, tags: ['snake', 'poison', 'deadly', 'strike'], featured: true, addedAt: '2026-09-20' },
+  { id: 'rogue', baseName: 'Rogue', categories: ['badass', 'cool'], playstyles: ['stealth', 'rusher'], lengthProfile: 'short', wordCount: 1, tags: ['rebel', 'outlaw', 'solo', 'stealth'], featured: true, addedAt: '2026-09-20' },
+  { id: 'blaze', baseName: 'Blaze', categories: ['badass', 'pro'], playstyles: ['rusher', 'leader'], lengthProfile: 'short', wordCount: 1, tags: ['fire', 'flame', 'heat', 'fury'], featured: true, addedAt: '2026-09-20' },
+  { id: 'valkyr', baseName: 'Valkyr', categories: ['badass', 'warrior', 'royal'], playstyles: ['leader', 'rusher'], lengthProfile: 'medium', wordCount: 1, tags: ['norse', 'warrior', 'wings', 'valkyrie'], featured: true, addedAt: '2026-09-20' },
+  { id: 'storm', baseName: 'Storm', categories: ['badass', 'cool'], playstyles: ['rusher', 'tactical'], lengthProfile: 'short', wordCount: 1, tags: ['thunder', 'lightning', 'tempest', 'rain'], featured: false, addedAt: '2026-09-20' },
+  { id: 'raven', baseName: 'Raven', categories: ['dark', 'cool'], playstyles: ['stealth', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['bird', 'black', 'crow', 'shadow'], featured: true, addedAt: '2026-09-20' },
+  { id: 'noira', baseName: 'Noira', categories: ['dark', 'aesthetic'], playstyles: ['stealth', 'tactical'], lengthProfile: 'short', wordCount: 1, tags: ['noir', 'black', 'night', 'mystery'], featured: false, addedAt: '2026-09-20' },
+  { id: 'vanta', baseName: 'Vanta', categories: ['dark', 'minimal'], playstyles: ['stealth', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['vantablack', 'pitch', 'void', 'darkness'], featured: true, addedAt: '2026-09-20' },
+  { id: 'regalia', baseName: 'Regalia', categories: ['queen', 'royal', 'aesthetic'], playstyles: ['leader', 'tactical'], lengthProfile: 'medium', wordCount: 1, tags: ['crown', 'robe', 'emblem', 'monarch'], featured: true, addedAt: '2026-09-20' },
+  { id: 'reina', baseName: 'Reina', categories: ['queen', 'royal', 'cool'], playstyles: ['leader', 'casual'], lengthProfile: 'short', wordCount: 1, tags: ['queen', 'spanish', 'crown', 'ruler'], featured: true, addedAt: '2026-09-20' },
+  { id: 'celeste', baseName: 'Celeste', categories: ['royal', 'aesthetic'], playstyles: ['tactical', 'casual'], lengthProfile: 'medium', wordCount: 1, tags: ['heaven', 'sky', 'stars', 'divine'], featured: true, addedAt: '2026-09-20' },
+  { id: 'crownv', baseName: 'CrownV', categories: ['queen', 'royal', 'pro'], playstyles: ['leader', 'rusher'], lengthProfile: 'medium', wordCount: 1, tags: ['crown', 'victory', 'gold', 'queen'], featured: false, addedAt: '2026-09-20' },
+  { id: 'lux', baseName: 'Lux', categories: ['minimal', 'aesthetic'], playstyles: ['sniper', 'stealth'], lengthProfile: 'short', wordCount: 1, tags: ['light', 'radiance', 'clean', '3letter'], featured: true, addedAt: '2026-09-20' },
+  { id: 'mia', baseName: 'Mia', categories: ['minimal', 'cute'], playstyles: ['casual', 'rusher'], lengthProfile: 'short', wordCount: 1, tags: ['sweet', '3letter', 'cute', 'clean'], featured: true, addedAt: '2026-09-20' },
+  { id: 'vee', baseName: 'Vee', categories: ['minimal', 'cool'], playstyles: ['rusher', 'sniper'], lengthProfile: 'short', wordCount: 1, tags: ['victory', 'clean', '3letter'], featured: false, addedAt: '2026-09-20' },
+  { id: 'aya', baseName: 'Aya', categories: ['minimal', 'aesthetic'], playstyles: ['casual', 'stealth'], lengthProfile: 'short', wordCount: 1, tags: ['bird', 'miracle', '3letter', 'soft'], featured: false, addedAt: '2026-09-20' }
 ];
 
 /**
