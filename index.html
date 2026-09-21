@@ -174,195 +174,234 @@
     </header>
 
     <main>
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="container">
-          <div class="hero-pill-badge">
-            <span>⚡</span>
-            <span>Free Fire Nickname Studio</span>
-          </div>
-
-          <h1 class="hero-title">
-            <span class="gradient-text">Free Fire Nickname</span> Generator — Create &amp; Style Your Name
-          </h1>
-
-          <p class="hero-subtitle">Create, style, preview, save, and copy a Free Fire nickname from your own name or a fresh idea.</p>
-
-          <div class="hero-cta-group">
-            <button class="btn btn-primary" onclick="document.getElementById('nickname-input').focus();">
-              <span>⚔</span> Style My Name
-            </button>
-            <button class="btn btn-secondary" onclick="document.getElementById('mode-random-btn').click();">
-              <span>🎲</span> Give Me Ideas
-            </button>
-          </div>
+      <!-- Streamlined Hero Section -->
+      <section class="hero-section hero-streamlined">
+        <div class="container hero-container-mobile">
+          <h1 class="hero-title">Free Fire Nickname Generator</h1>
+          <p class="hero-subtitle">Find a new Free Fire nickname or turn your own name into stylish versions you can copy.</p>
         </div>
       </section>
 
-      <!-- Main Nickname Studio Card -->
-      <section id="studio-section" class="container">
-        <div class="studio-card">
-          <!-- Studio Header & Modes -->
-          <div class="studio-header">
-            <div class="studio-title-box">
-              <h2>Nickname Studio</h2>
-            </div>
-
-            <div class="studio-mode-pills" role="tablist">
-              <button id="mode-style-btn" class="mode-btn active" role="tab" aria-selected="true">
-                <span>✎</span> Style My Name
-              </button>
-              <button id="mode-random-btn" class="mode-btn" role="tab" aria-selected="false">
-                <span>🎲</span> Give Me Ideas
-              </button>
-            </div>
+      <!-- Main Nickname Tool (Mobile-First 2-Mode Experience) -->
+      <section id="nickname-tool" class="container" aria-label="Free Fire Nickname Tool">
+        <div class="tool-card">
+          <!-- Two-Option Mode Selector -->
+          <div class="tool-mode-bar" role="tablist" aria-label="Nickname Tool Modes">
+            <button 
+              type="button" 
+              id="tab-find-names" 
+              class="tool-mode-btn active" 
+              role="tab" 
+              aria-selected="true" 
+              aria-controls="panel-find-names"
+            >
+              <span>🔍</span> Find Nicknames
+            </button>
+            <button 
+              type="button" 
+              id="tab-style-name" 
+              class="tool-mode-btn" 
+              role="tab" 
+              aria-selected="false" 
+              aria-controls="panel-style-name"
+            >
+              <span>✏️</span> Style My Name
+            </button>
           </div>
 
-          <!-- Studio Input Controls: Real-Time Live Styler Console -->
-          <div class="studio-input-wrapper">
-            <div class="input-console-box">
-              <div class="input-console-icon">⚡</div>
-              <input 
-                type="text" 
-                id="nickname-input" 
-                class="input-live-field"
-                placeholder="Type your name (e.g. Shadow, Venom, Hunter)..." 
-                maxlength="20"
-                autocomplete="off"
-                spellcheck="false"
-                aria-label="Enter your nickname to style in real time"
-              >
-              <button id="input-clear-btn" class="input-clear-btn" aria-label="Clear input" style="display: none;">✕</button>
-              <button id="btn-quick-random" class="btn-quick-random" title="Roll random name idea">
-                <span>🎲</span> <span class="random-btn-text">Random</span>
-              </button>
+          <!-- MODE 1: FIND NICKNAMES (Default) -->
+          <div id="panel-find-names" class="tool-panel active" role="tabpanel" aria-labelledby="tab-find-names">
+            <div class="tool-panel-header">
+              <h2 class="tool-panel-title">Find Your Free Fire Nickname</h2>
+              <p class="tool-panel-desc">Browse ready-made cool names or search keywords</p>
             </div>
 
-            <div class="live-status-pill">
-              <span class="pulse-dot"></span>
-              <span><strong>Live Styling:</strong> Designs update automatically as you type &bull; Tap any name to copy</span>
-            </div>
-          </div>
-
-          <!-- Studio Meta Controls: Counter, Intensity -->
-          <div class="studio-meta-bar">
-            <!-- Live Character Counter -->
-            <div class="char-counter-container">
-              <span class="char-counter-label">Length:</span>
-              <span id="char-count" class="char-counter-count">0 / 12</span>
-              <div class="char-progress-track">
-                <div id="char-progress-bar" class="char-progress-bar" style="width: 0%;"></div>
-              </div>
-              <span id="char-status-badge" class="char-status-badge">✓ Recommended Limit</span>
-            </div>
-
-            <!-- Style Intensity Selector -->
-            <div class="intensity-control">
-              <span class="intensity-label">Intensity:</span>
-              <div class="intensity-buttons" role="radiogroup" aria-label="Style Intensity">
-                <button class="btn-intensity" data-intensity="clean">Clean</button>
-                <button class="btn-intensity active" data-intensity="pro">Pro</button>
-                <button class="btn-intensity" data-intensity="extreme">Decorated</button>
+            <!-- Simple Search Input -->
+            <div class="tool-input-wrap">
+              <div class="search-input-box">
+                <span class="input-icon-left" aria-hidden="true">🔍</span>
+                <input 
+                  type="text" 
+                  id="find-search-input" 
+                  class="tool-text-input" 
+                  placeholder="Search or enter a word..." 
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Search or enter a word"
+                >
+                <button type="button" id="find-clear-btn" class="input-clear-btn" aria-label="Clear search" style="display: none;">✕</button>
               </div>
             </div>
-          </div>
 
-          <!-- Horizontal Category Filter Pills -->
-          <div class="category-filter-wrapper">
-            <div id="category-pills" class="category-scroll-container" role="tablist" aria-label="Nickname Categories">
-              <button class="btn-category active" data-category="popular">🔥 Popular</button>
-              <button class="btn-category" data-category="pro">亗 Pro &amp; Boss</button>
-              <button class="btn-category" data-category="invisible">👻 Invisible Space</button>
-              <button class="btn-category" data-category="japanese">メ Japanese</button>
-              <button class="btn-category" data-category="dark">💀 Dark &amp; Toxic</button>
-              <button class="btn-category" data-category="attitude">😈 Attitude</button>
-              <button class="btn-category" data-category="royal">👑 Royal</button>
-              <button class="btn-category" data-category="gaming">🎮 Sniper</button>
-              <button class="btn-category" data-category="stylish">✨ Aesthetic</button>
-              <button class="btn-category" data-category="cute">❤️ Cute</button>
-              <button class="btn-category" data-category="luxury">💎 Luxury</button>
+            <!-- Compact Category Chips Row -->
+            <div class="category-chip-row" role="tablist" aria-label="Nickname Categories">
+              <button type="button" class="btn-cat-chip active" data-find-cat="all">All</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="cool">Cool</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="stylish">Stylish</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="attitude">Attitude</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="boys">Boys</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="girls">Girls</button>
+            </div>
+
+            <!-- Ready-Made Results Container -->
+            <div id="find-results-list" class="nicknames-list" aria-live="polite">
+              <!-- Dynamically populated with nickname rows on page load -->
+            </div>
+
+            <!-- Pagination & Surprise Me Controls -->
+            <div class="tool-action-footer">
+              <button type="button" id="btn-find-show-more" class="btn-action-primary">
+                Show More Names
+              </button>
+              <button type="button" id="btn-find-surprise" class="btn-action-secondary">
+                <span>🎲</span> Surprise Me
+              </button>
             </div>
           </div>
 
-          <!-- Smart Name Suggestions (Appears when user types) -->
-          <div id="smart-suggestions-box" class="smart-suggestions-box" style="display: none;">
-            <span class="smart-suggestions-label">💡 Smart Variations:</span>
-            <div id="smart-tags-list" class="smart-tags-list"></div>
-          </div>
-
-          <!-- Results Header -->
-          <div class="results-header-row">
-            <h3 class="results-count-title">
-              <span>🎯</span> Generated Designs
-            </h3>
-            <div class="results-actions-right">
-              <small style="color: var(--text-muted); font-size: 0.8rem;">Click any name or card to copy</small>
+          <!-- MODE 2: STYLE MY NAME -->
+          <div id="panel-style-name" class="tool-panel" role="tabpanel" aria-labelledby="tab-style-name" style="display: none;">
+            <div class="tool-panel-header">
+              <h3 class="tool-panel-title">Style Your Name</h3>
+              <p class="tool-panel-desc">Type your name to create stylish versions instantly</p>
             </div>
-          </div>
 
-          <!-- Results Grid -->
-          <div id="results-grid" class="results-grid" aria-live="polite"></div>
+            <!-- Prominent Text Input -->
+            <div class="tool-input-wrap">
+              <div class="style-input-box">
+                <span class="input-icon-left" aria-hidden="true">⚔</span>
+                <input 
+                  type="text" 
+                  id="style-name-input" 
+                  class="tool-text-input style-prominent-input" 
+                  placeholder="Ghost" 
+                  maxlength="20"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Enter your name to style"
+                >
+                <button type="button" id="style-clear-btn" class="input-clear-btn" aria-label="Clear name" style="display: none;">✕</button>
+              </div>
+            </div>
 
-          <!-- Generate More Button -->
-          <div class="generate-more-wrapper">
-            <button id="btn-generate-more" class="btn btn-generate-more">
-              <span>↻</span> Generate More Variations
-            </button>
-          </div>
+            <!-- Optional Style Category Filter Chips -->
+            <div id="style-filter-bar" class="category-chip-row" role="tablist" aria-label="Style Categories" style="display: none;">
+              <button type="button" class="btn-style-chip active" data-style-cat="all">All</button>
+              <button type="button" class="btn-style-chip" data-style-cat="clean">Clean</button>
+              <button type="button" class="btn-style-chip" data-style-cat="symbols">Symbols</button>
+              <button type="button" class="btn-style-chip" data-style-cat="fancy">Fancy</button>
+              <button type="button" class="btn-style-chip" data-style-cat="bold">Bold</button>
+            </div>
 
-          <!-- Tool Compatibility Notice -->
-          <div class="tool-compatibility-banner">
-            <span>⚠️ <strong>Compatibility Note:</strong> Character acceptance and rendering can vary by device firmware and game client. We recommend testing your preferred nickname in Free Fire before confirming a rename.</span>
+            <!-- Empty State -->
+            <div id="style-empty-state" class="style-empty-state">
+              <div class="empty-state-box">
+                <span class="empty-state-pill">Try a name</span>
+                <div class="empty-state-example">
+                  Ghost <span class="empty-arrow">&rarr;</span> <span class="empty-styled-name">亗 GHOST 亗</span>
+                </div>
+                <p class="empty-state-instruction">Enter your name above to create different styles.</p>
+                <div class="quick-examples-row">
+                  <span class="quick-examples-label">Examples:</span>
+                  <button type="button" class="btn-quick-sample" data-sample="Ghost">Ghost</button>
+                  <button type="button" class="btn-quick-sample" data-sample="Shadow">Shadow</button>
+                  <button type="button" class="btn-quick-sample" data-sample="Alex">Alex</button>
+                  <button type="button" class="btn-quick-sample" data-sample="King">King</button>
+                  <button type="button" class="btn-quick-sample" data-sample="Hunter">Hunter</button>
+                  <button type="button" class="btn-quick-sample" data-sample="Queen">Queen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results List Container -->
+            <div id="style-results-list" class="nicknames-list" aria-live="polite" style="display: none;">
+              <!-- Dynamically populated with generated styles -->
+            </div>
+
+            <!-- No-Result / Error State -->
+            <div id="style-error-state" class="style-error-state" style="display: none;">
+              <p>We couldn't create a styled version from that text. Try a shorter name or remove unsupported characters.</p>
+            </div>
+
+            <!-- Show More Styles Button -->
+            <div id="style-more-actions" class="tool-action-footer" style="display: none;">
+              <button type="button" id="btn-style-show-more" class="btn-action-primary">
+                Show More Styles
+              </button>
+            </div>
+
+            <!-- Advanced Customization Collapsible (Collapsed by Default) -->
+            <details id="customization-accordion" class="customization-accordion">
+              <summary class="customization-summary">
+                <span class="summary-title">⚙ More Options</span>
+                <span class="summary-sub">Prefix, suffix &amp; symbols</span>
+              </summary>
+              <div class="customization-body">
+                <div class="custom-fields-row">
+                  <div class="custom-field-col">
+                    <label for="custom-prefix">Prefix Decoration</label>
+                    <input type="text" id="custom-prefix" placeholder="e.g. 亗 " maxlength="10">
+                  </div>
+                  <div class="custom-field-col">
+                    <label for="custom-suffix">Suffix Decoration</label>
+                    <input type="text" id="custom-suffix" placeholder="e.g.  亗" maxlength="10">
+                  </div>
+                </div>
+
+                <div class="custom-symbols-wrap">
+                  <span class="custom-symbols-label">Insert symbol into decoration:</span>
+                  <div class="symbols-quick-grid">
+                    <button type="button" class="btn-sym-chip" data-sym="亗">亗</button>
+                    <button type="button" class="btn-sym-chip" data-sym="꧁">꧁</button>
+                    <button type="button" class="btn-sym-chip" data-sym="꧂">꧂</button>
+                    <button type="button" class="btn-sym-chip" data-sym="『">『</button>
+                    <button type="button" class="btn-sym-chip" data-sym="』">』</button>
+                    <button type="button" class="btn-sym-chip" data-sym="★">★</button>
+                    <button type="button" class="btn-sym-chip" data-sym="👑">👑</button>
+                    <button type="button" class="btn-sym-chip" data-sym="⚡">⚡</button>
+                    <button type="button" class="btn-sym-chip" data-sym="メ">メ</button>
+                    <button type="button" class="btn-sym-chip" data-sym="乂">乂</button>
+                    <button type="button" class="btn-sym-chip" data-sym="☠">☠</button>
+                    <button type="button" class="btn-sym-chip" data-sym="ㅤ">ㅤ (Invisible Space)</button>
+                  </div>
+                </div>
+
+                <div class="custom-limit-hint">
+                  <span>💡 Free Fire recommended limit: 12 characters.</span>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
       </section>
 
-      <!-- Free Fire Game Preview Sandbox -->
-      <section id="preview-sandbox" class="container">
-        <div class="preview-sandbox-section">
-          <div class="preview-header-box">
-            <div>
-              <h2 style="font-family: var(--font-gaming); font-size: 1.5rem; text-transform: uppercase;">
-                Game Environment Preview
-              </h2>
-              <p style="color: var(--text-med); font-size: 0.9rem; margin-top: 0.2rem;">
-                See how your custom nickname visually renders in fictional gaming scenarios.
-              </p>
+      <!-- Short "How to Use" Explanation Directly Under Tool (Prompt Section 29) -->
+      <section class="how-to-use-section container">
+        <div class="how-to-card">
+          <h3 class="how-to-title">How to Use Your Free Fire Nickname</h3>
+          <div class="how-to-grid">
+            <div class="how-to-step">
+              <span class="step-badge">1</span>
+              <div>
+                <strong>Find or Style</strong>
+                <p>Browse ready-made names or type your own name into the generator.</p>
+              </div>
             </div>
-
-            <div class="preview-tabs" role="tablist">
-              <button class="btn-preview-tab active" data-view="profile">Profile Card</button>
-              <button class="btn-preview-tab" data-view="killfeed">Kill Feed</button>
-              <button class="btn-preview-tab" data-view="lobby">Lobby Podium</button>
+            <div class="how-to-step">
+              <span class="step-badge">2</span>
+              <div>
+                <strong>1-Tap Copy</strong>
+                <p>Tap <strong>Copy</strong> on any style to instantly copy it to your clipboard.</p>
+              </div>
             </div>
-          </div>
-
-          <div id="preview-stage" class="preview-display-stage"></div>
-        </div>
-      </section>
-
-      <!-- Symbol Library & Search Section -->
-      <section id="symbol-library" class="container">
-        <div class="symbol-library-section">
-          <div class="symbol-lib-header">
-            <div>
-              <h2 style="font-family: var(--font-gaming); font-size: 1.5rem; text-transform: uppercase;">
-                Free Fire Symbol Library
-              </h2>
-              <p style="color: var(--text-med); font-size: 0.9rem; margin-top: 0.2rem;">
-                Search signature tridents, wings, crowns, crosshairs, and rare symbols.
-              </p>
-            </div>
-
-            <div class="symbol-search-box">
-              <span class="symbol-search-icon">🔍</span>
-              <input type="text" id="symbol-search-input" placeholder="Search symbols (crown, wings, star)..." aria-label="Search symbols">
+            <div class="how-to-step">
+              <span class="step-badge">3</span>
+              <div>
+                <strong>Paste in Game</strong>
+                <p>Open Free Fire &rarr; Profile &rarr; Edit Nickname &rarr; Paste &amp; Confirm.</p>
+              </div>
             </div>
           </div>
-
-          <div id="symbol-cat-pills" class="symbol-cat-pills"></div>
-
-          <div id="symbols-grid" class="symbols-grid"></div>
         </div>
       </section>
 
@@ -582,13 +621,17 @@
           </p>
 
           <div class="gateway-links-grid">
-            <a href="attitude-free-fire-nicknames/" class="gateway-card">
-              <div class="gateway-card-title">🔥 Attitude Free Fire Nicknames</div>
-              <div class="gateway-card-desc">Choose names around a persona such as confident, rebel, cold, boss, or lone-wolf.</div>
+            <a href="cool-free-fire-nicknames/" class="gateway-card">
+              <div class="gateway-card-title">❄️ Cool Free Fire Nicknames</div>
+              <div class="gateway-card-desc">Explore cool, frost, phantom, and cyber-themed gaming handles.</div>
             </a>
             <a href="stylish-free-fire-nicknames/" class="gateway-card">
               <div class="gateway-card-title">✨ Stylish Free Fire Nicknames</div>
               <div class="gateway-card-desc">Explore names by visual design, mathematical bolding, and clean brackets.</div>
+            </a>
+            <a href="attitude-free-fire-nicknames/" class="gateway-card">
+              <div class="gateway-card-title">🔥 Attitude Free Fire Nicknames</div>
+              <div class="gateway-card-desc">Choose names around a persona such as confident, rebel, cold, boss, or lone-wolf.</div>
             </a>
             <a href="free-fire-nicknames-for-boys/" class="gateway-card">
               <div class="gateway-card-title">⚡ Free Fire Nicknames for Boys</div>

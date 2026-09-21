@@ -1,886 +1,691 @@
 /**
- * Free Fire Nickname Studio - Core Application Logic
- * Instant real-time live styling, mobile-first touch optimization,
- * research-based Free Fire font engine, live preview sandbox, and quick-copy.
+ * Free Fire Nickname Studio - Mobile-First Core Application Logic
+ * Fast, two-mode nickname utility:
+ * Mode 1: Find Nicknames (Ready-made discovery, keyword search, categories, 1-tap copy, surprise me)
+ * Mode 2: Style My Name (Real-time live styling, category filters, collapsible customize options)
  */
 
 // Application State
 const AppState = {
-  mode: 'style', // 'style' | 'random'
-  currentInput: '',
-  category: 'popular',
-  intensity: 'pro', // 'clean' | 'pro' | 'extreme'
-  results: [],
-  batchIndex: 0,
-  favorites: JSON.parse(localStorage.getItem('ff_favorites') || '[]'),
-  recents: JSON.parse(localStorage.getItem('ff_recents') || '[]'),
-  comparisonList: [],
-  previewNickname: '亗 𝐒 𝐇 𝐀 𝐃 𝐎 𝐖 亗',
-  editor: {
-    prefix: '亗',
-    name: 'Shadow',
-    suffix: '亗',
-    font: 'bold'
-  }
-};
+  activeMode: 'find', // 'find' | 'style'
+  
+  // Mode 1 State
+  findCategory: 'all',
+  findQuery: '',
+  findLimit: 20,
+  findResults: [],
+  
+  // Mode 2 State
+  styleInput: '',
+  styleCategory: 'all',
+  styleLimit: 24,
+  styleResults: [],
+  customPrefix: '',
+  customSuffix: '',
 
-// Character Length and Compatibility Rules
-const FF_RULES = {
-  recommendedMax: 12,
-  hardMax: 14
+  // User Data
+  favorites: JSON.parse(localStorage.getItem('ff_favorites') || '[]')
 };
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
-  initStudio();
-  initCategoryPills();
-  initIntensityButtons();
-  initSymbolsLibrary();
-  initPreviewSandbox();
-  initLiveEditor();
-  initComparisonTool();
+  initModeTabs();
+  initFindMode();
+  initStyleMode();
+  initCustomizationOptions();
   initFavoritesDrawer();
   initAmbientCanvas();
   initKeyboardShortcuts();
-  
-  // Initial Generation with default name
-  handleGenerate();
+  updateFavoritesBadge();
+
+  // Mode 1 loads ready-made results immediately (Never an empty screen!)
+  renderFindNicknames();
 });
 
 /* ===================================================================
-   STUDIO CORE & REAL-TIME LIVE GENERATION ENGINE
+   TWO-OPTION MODE SWITCHER
    =================================================================== */
 
-let liveDebounceTimer = null;
+function initModeTabs() {
+  const tabFind = document.getElementById('tab-find-names');
+  const tabStyle = document.getElementById('tab-style-name');
+  const panelFind = document.getElementById('panel-find-names');
+  const panelStyle = document.getElementById('panel-style-name');
+  const styleInput = document.getElementById('style-name-input');
 
-function initStudio() {
-  const nameInput = document.getElementById('nickname-input');
-  const clearBtn = document.getElementById('input-clear-btn');
-  const quickRandomBtn = document.getElementById('btn-quick-random');
-  const modeStyleBtn = document.getElementById('mode-style-btn');
-  const modeRandomBtn = document.getElementById('mode-random-btn');
+  if (!tabFind || !tabStyle || !panelFind || !panelStyle) return;
 
-  if (!nameInput) return;
+  function switchMode(mode) {
+    AppState.activeMode = mode;
 
-  // Real-time live input listener: styles update immediately as the user types
-  nameInput.addEventListener('input', (e) => {
-    AppState.currentInput = e.target.value;
-    if (clearBtn) {
-      clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+    if (mode === 'find') {
+      tabFind.classList.add('active');
+      tabFind.setAttribute('aria-selected', 'true');
+      tabStyle.classList.remove('active');
+      tabStyle.setAttribute('aria-selected', 'false');
+
+      panelFind.style.display = 'block';
+      panelFind.classList.add('active');
+      panelStyle.style.display = 'none';
+      panelStyle.classList.remove('active');
+    } else {
+      tabStyle.classList.add('active');
+      tabStyle.setAttribute('aria-selected', 'true');
+      tabFind.classList.remove('active');
+      tabFind.setAttribute('aria-selected', 'false');
+
+      panelStyle.style.display = 'block';
+      panelStyle.classList.add('active');
+      panelFind.style.display = 'none';
+      panelFind.classList.remove('active');
+
+      // Autofocus text input in Style My Name
+      if (styleInput) {
+        styleInput.focus();
+      }
     }
-    updateCharCounter(e.target.value);
-    updateSmartSuggestions(e.target.value);
-
-    // Instant real-time generation with lightweight 40ms debounce for silky-smooth typing
-    clearTimeout(liveDebounceTimer);
-    liveDebounceTimer = setTimeout(() => {
-      handleGenerate();
-    }, 40);
-  });
-
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      nameInput.value = '';
-      AppState.currentInput = '';
-      clearBtn.style.display = 'none';
-      updateCharCounter('');
-      nameInput.focus();
-      handleGenerate();
-      showToast('Cleared input. Showing trending names.');
-    });
   }
 
-  // Quick Random Idea Button
-  if (quickRandomBtn) {
-    quickRandomBtn.addEventListener('click', () => {
-      rollRandomNameIdea();
-    });
-  }
-
-  // Mode switching
-  if (modeStyleBtn && modeRandomBtn) {
-    modeStyleBtn.addEventListener('click', () => {
-      AppState.mode = 'style';
-      modeStyleBtn.classList.add('active');
-      modeRandomBtn.classList.remove('active');
-      nameInput.placeholder = 'Type your name (e.g. Shadow, Venom, Hunter)...';
-      nameInput.focus();
-      handleGenerate();
-    });
-
-    modeRandomBtn.addEventListener('click', () => {
-      rollRandomNameIdea();
-    });
-  }
-}
-
-function rollRandomNameIdea() {
-  const nameInput = document.getElementById('nickname-input');
-  const clearBtn = document.getElementById('input-clear-btn');
-  const randomName = getRandomBaseName(AppState.category);
-  
-  if (nameInput) {
-    nameInput.value = randomName;
-    AppState.currentInput = randomName;
-    if (clearBtn) clearBtn.style.display = 'flex';
-    updateCharCounter(randomName);
-    updateSmartSuggestions(randomName);
-  }
-  
-  handleGenerate();
-  showToast(`🎲 Generated idea: "${randomName}"!`, 'info');
-}
-
-function initCategoryPills() {
-  const container = document.getElementById('category-pills');
-  if (!container) return;
-
-  const buttons = container.querySelectorAll('.btn-category');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      AppState.category = btn.getAttribute('data-category');
-      AppState.batchIndex = 0;
-      handleGenerate();
-      
-      // Auto-scroll pill into view smoothly on mobile
-      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    });
-  });
-}
-
-function initIntensityButtons() {
-  const buttons = document.querySelectorAll('.btn-intensity');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      AppState.intensity = btn.getAttribute('data-intensity');
-      AppState.batchIndex = 0;
-      handleGenerate();
-    });
-  });
-}
-
-function updateCharCounter(text) {
-  const countEl = document.getElementById('char-count');
-  const barEl = document.getElementById('char-progress-bar');
-  const badgeEl = document.getElementById('char-status-badge');
-  
-  if (!countEl || !barEl || !badgeEl) return;
-  
-  const len = Array.from(text).length;
-  countEl.textContent = `${len} / ${FF_RULES.recommendedMax}`;
-  
-  const percentage = Math.min(100, Math.round((len / FF_RULES.recommendedMax) * 100));
-  barEl.style.width = `${percentage}%`;
-  
-  if (len === 0) {
-    barEl.className = 'char-progress-bar';
-    badgeEl.className = 'char-status-badge';
-    badgeEl.textContent = '✓ Ready to Type';
-  } else if (len <= 10) {
-    barEl.className = 'char-progress-bar';
-    badgeEl.className = 'char-status-badge';
-    badgeEl.textContent = '✓ Within Limit';
-  } else if (len <= FF_RULES.recommendedMax) {
-    barEl.className = 'char-progress-bar near-limit';
-    badgeEl.className = 'char-status-badge near-limit';
-    badgeEl.textContent = '⚠ Near Limit';
-  } else {
-    barEl.className = 'char-progress-bar over-limit';
-    badgeEl.className = 'char-status-badge over-limit';
-    badgeEl.textContent = '✕ Too Long for FF';
-  }
-}
-
-function updateSmartSuggestions(text) {
-  const box = document.getElementById('smart-suggestions-box');
-  const tagsContainer = document.getElementById('smart-tags-list');
-  if (!box || !tagsContainer) return;
-  
-  const raw = text.trim();
-  if (!raw) {
-    box.style.display = 'none';
-    return;
-  }
-  
-  const suggestions = generateSmartSuggestions(raw);
-  box.style.display = 'flex';
-  tagsContainer.innerHTML = '';
-  
-  const allSuggestions = [
-    ...suggestions.competitive.slice(0, 2),
-    ...suggestions.royal.slice(0, 2),
-    ...suggestions.dark.slice(0, 2),
-    ...suggestions.gaming.slice(0, 2)
-  ];
-  
-  allSuggestions.forEach(name => {
-    const chip = document.createElement('button');
-    chip.className = 'smart-tag-chip';
-    chip.textContent = name;
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('nickname-input');
-      input.value = name;
-      AppState.currentInput = name;
-      updateCharCounter(name);
-      handleGenerate();
-    });
-    tagsContainer.appendChild(chip);
-  });
-}
-
-function handleGenerate() {
-  AppState.batchIndex = 0;
-  const items = generateNicknameBatch(AppState.batchIndex);
-  AppState.results = items;
-  renderResultGrid(items, false);
-}
-
-function handleGenerateMore() {
-  AppState.batchIndex += 1;
-  const newItems = generateNicknameBatch(AppState.batchIndex);
-  AppState.results = [...AppState.results, ...newItems];
-  renderResultGrid(newItems, true);
-  showToast(`⚡ Loaded ${newItems.length} more stylish variations!`);
-}
-
-function generateNicknameBatch(batchIdx) {
-  const results = [];
-  const rawInput = AppState.currentInput.trim();
-  const baseName = rawInput.length > 0 ? rawInput : 'Shadow';
-
-  const categoryPresets = STYLE_PRESETS[AppState.category] || STYLE_PRESETS.popular;
-  
-  // Filter by intensity if clean/extreme specified
-  let selectedPresets = categoryPresets;
-  if (AppState.intensity !== 'all') {
-    selectedPresets = categoryPresets.filter(p => p.intensity === AppState.intensity);
-    if (selectedPresets.length === 0) selectedPresets = categoryPresets;
-  }
-
-  // 1. First inject high-demand pure font representations on initial batch
-  if (batchIdx === 0) {
-    const coreFonts = [
-      { name: 'Small Capitals', font: 'smallCaps', prefix: '', suffix: '', intensity: 'clean' },
-      { name: 'Bold Sans-Serif', font: 'boldSans', prefix: '', suffix: '', intensity: 'clean' },
-      { name: 'Gothic / Fraktur', font: 'gothic', prefix: '', suffix: '', intensity: 'clean' },
-      { name: 'Double-Struck', font: 'doubleStruck', prefix: '', suffix: '', intensity: 'clean' },
-      { name: 'Script Cursive', font: 'script', prefix: '', suffix: '', intensity: 'clean' },
-      { name: 'Vaporwave Wide', font: 'fullwidth', prefix: '', suffix: '', intensity: 'clean' }
-    ];
-
-    coreFonts.forEach(cf => {
-      const fn = FONT_MAPS[cf.font] || FONT_MAPS.normal;
-      const styled = fn(baseName);
-      results.push({
-        id: 'font_' + cf.font + '_' + Math.random().toString(36).substr(2, 4),
-        rawName: baseName,
-        styledText: styled,
-        prefix: '',
-        suffix: '',
-        font: cf.font,
-        intensity: cf.intensity,
-        desc: cf.name,
-        length: Array.from(styled).length,
-        unicodeStatus: 'Unicode Font',
-        isLengthOk: Array.from(styled).length <= FF_RULES.recommendedMax
-      });
-    });
-  }
-
-  // 2. Generate Free Fire battle framed and decorated variations
-  const count = 12;
-  for (let i = 0; i < count; i++) {
-    const preset = selectedPresets[(i + batchIdx * 4) % selectedPresets.length];
-    const fontFn = FONT_MAPS[preset.font] || FONT_MAPS.bold;
-    
-    let variationName = baseName;
-    if (AppState.mode === 'random' && i % 3 === 0) {
-      const suffix = NAME_SUFFIXES[(i + batchIdx) % NAME_SUFFIXES.length];
-      variationName = `${baseName}${suffix}`;
-    }
-
-    const styledName = `${preset.prefix}${fontFn(variationName)}${preset.suffix}`;
-    const charLength = Array.from(styledName).length;
-    const hasComplexUnicode = /[^\u0000-\u007F]/.test(styledName);
-    const unicodeStatus = hasComplexUnicode ? 'Unicode Glyphs' : 'Standard';
-
-    results.push({
-      id: 'nick_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-      rawName: baseName,
-      styledText: styledName,
-      prefix: preset.prefix,
-      suffix: preset.suffix,
-      font: preset.font,
-      intensity: preset.intensity,
-      desc: preset.desc,
-      length: charLength,
-      unicodeStatus: unicodeStatus,
-      isLengthOk: charLength <= FF_RULES.recommendedMax
-    });
-  }
-
-  // Save to Recents
-  if (results.length > 0 && rawInput.length > 0) {
-    addToRecents(results[0].styledText);
-  }
-
-  return results;
-}
-
-function getRandomBaseName(category) {
-  const list = RANDOM_NAME_SEEDS[category] || RANDOM_NAME_SEEDS.popular;
-  const rnd = list[Math.floor(Math.random() * list.length)];
-  return rnd;
+  tabFind.addEventListener('click', () => switchMode('find'));
+  tabStyle.addEventListener('click', () => switchMode('style'));
 }
 
 /* ===================================================================
-   RESULT CARD RENDERING & MOBILE-FIRST INTERACTIONS
+   MODE 1: FIND NICKNAMES
    =================================================================== */
 
-function renderResultGrid(items, append = false) {
-  const grid = document.getElementById('results-grid');
-  if (!grid) return;
+function initFindMode() {
+  const searchInput = document.getElementById('find-search-input');
+  const clearBtn = document.getElementById('find-clear-btn');
+  const catChips = document.querySelectorAll('[data-find-cat]');
+  const showMoreBtn = document.getElementById('btn-find-show-more');
+  const surpriseBtn = document.getElementById('btn-find-surprise');
 
-  if (!append) {
-    grid.innerHTML = '';
+  // Keyword Search Input with lightweight debounce
+  let searchDebounce = null;
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      AppState.findQuery = e.target.value.trim().toLowerCase();
+      AppState.findLimit = 20;
+
+      if (clearBtn) {
+        clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+      }
+
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        renderFindNicknames();
+      }, 50);
+    });
   }
 
-  items.forEach(item => {
-    const card = createResultCard(item);
-    grid.appendChild(card);
+  if (clearBtn && searchInput) {
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      AppState.findQuery = '';
+      AppState.findLimit = 20;
+      clearBtn.style.display = 'none';
+      searchInput.focus();
+      renderFindNicknames();
+    });
+  }
+
+  // Category Filter Chips
+  catChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      catChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      AppState.findCategory = chip.getAttribute('data-find-cat') || 'all';
+      AppState.findLimit = 20;
+      renderFindNicknames();
+
+      // Smooth horizontal scroll for mobile chips row
+      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
   });
 
-  // Update live preview with first item
-  if (!append && items.length > 0) {
-    updatePreviewDisplay(items[0].styledText);
+  // Show More Names Button
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      AppState.findLimit += 20;
+      renderFindNicknames(true);
+    });
+  }
+
+  // Surprise Me Button: Shuffles and surfaces random names
+  if (surpriseBtn) {
+    surpriseBtn.addEventListener('click', () => {
+      const allNames = typeof READY_MADE_NICKNAMES !== 'undefined' ? READY_MADE_NICKNAMES : [];
+      if (allNames.length === 0) return;
+
+      // Randomly pick 18 names
+      const shuffled = [...allNames].sort(() => 0.5 - Math.random()).slice(0, 18);
+      AppState.findResults = shuffled;
+
+      const listContainer = document.getElementById('find-results-list');
+      if (listContainer) {
+        listContainer.innerHTML = '';
+        shuffled.forEach(item => {
+          listContainer.appendChild(createNicknameRow(item.name));
+        });
+      }
+
+      showToast('🎲 Surfaced fresh nickname ideas!', 'info');
+
+      // Scroll to tool top smoothly
+      const toolSection = document.getElementById('nickname-tool');
+      if (toolSection) {
+        toolSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }
 }
 
-function createResultCard(item) {
-  const card = document.createElement('div');
-  card.className = 'result-card';
-  card.id = `card-${item.id}`;
+function renderFindNicknames(isAppend = false) {
+  const listContainer = document.getElementById('find-results-list');
+  const showMoreBtn = document.getElementById('btn-find-show-more');
+  if (!listContainer) return;
 
-  const isFavorited = AppState.favorites.includes(item.styledText);
+  const allNames = typeof READY_MADE_NICKNAMES !== 'undefined' ? READY_MADE_NICKNAMES : [];
+  
+  // Filter by category
+  let filtered = allNames;
+  if (AppState.findCategory !== 'all') {
+    filtered = allNames.filter(item => item.cat === AppState.findCategory);
+  }
 
-  card.innerHTML = `
-    <div class="result-card-top">
-      <div class="result-tags">
-        <span class="result-badge ${item.isLengthOk ? 'badge-length-ok' : 'badge-length-warn'}">
-          ${item.length} Chars ${item.isLengthOk ? '✓' : '⚠'}
-        </span>
-        <span class="result-badge ${item.unicodeStatus === 'Standard' ? 'badge-unicode-check' : 'badge-unicode-notice'}">
-          ${item.desc || item.unicodeStatus}
-        </span>
+  // Filter by search query
+  if (AppState.findQuery) {
+    const q = AppState.findQuery;
+    filtered = filtered.filter(item => item.name.toLowerCase().includes(q) || (item.cat && item.cat.includes(q)));
+  }
+
+  AppState.findResults = filtered;
+
+  if (filtered.length === 0) {
+    listContainer.innerHTML = `
+      <div class="empty-results-box">
+        <p>No nicknames found matching "<strong>${escapeHtml(AppState.findQuery)}</strong>".</p>
+        <button type="button" class="btn-action-secondary" onclick="document.getElementById('find-clear-btn').click();">Clear Search</button>
       </div>
-      <div class="result-top-btns">
-        <button class="btn-icon-top ${isFavorited ? 'favorited' : ''}" title="${isFavorited ? 'Remove Favorite' : 'Save Favorite'}" data-action="favorite" aria-label="Favorite">
-          ${isFavorited ? '♥' : '♡'}
-        </button>
-      </div>
-    </div>
+    `;
+    if (showMoreBtn) showMoreBtn.style.display = 'none';
+    return;
+  }
 
-    <div class="result-nickname-box" title="Tap to copy nickname instantly">
-      <div class="result-nickname-text">${escapeHtml(item.styledText)}</div>
-      <span class="tap-to-copy-hint">Tap to Copy 📋</span>
-    </div>
+  const visibleItems = filtered.slice(0, AppState.findLimit);
 
-    <div class="result-card-actions">
-      <button class="btn-copy-card" data-action="copy" aria-label="Copy ${item.styledText}">
-        <span class="copy-icon">📋</span>
-        <span class="copy-label">Copy Nickname</span>
+  if (!isAppend) {
+    listContainer.innerHTML = '';
+    visibleItems.forEach(item => {
+      listContainer.appendChild(createNicknameRow(item.name));
+    });
+  } else {
+    // Append only newly revealed items
+    const currentCount = listContainer.children.length;
+    const nextBatch = filtered.slice(currentCount, AppState.findLimit);
+    nextBatch.forEach(item => {
+      listContainer.appendChild(createNicknameRow(item.name));
+    });
+  }
+
+  // Toggle Show More Names visibility
+  if (showMoreBtn) {
+    showMoreBtn.style.display = filtered.length > AppState.findLimit ? 'inline-flex' : 'none';
+  }
+}
+
+/* ===================================================================
+   MODE 2: STYLE MY NAME
+   =================================================================== */
+
+function initStyleMode() {
+  const nameInput = document.getElementById('style-name-input');
+  const clearBtn = document.getElementById('style-clear-btn');
+  const quickSamples = document.querySelectorAll('[data-sample]');
+  const styleChips = document.querySelectorAll('[data-style-cat]');
+  const showMoreBtn = document.getElementById('btn-style-show-more');
+
+  let styleDebounce = null;
+  if (nameInput) {
+    nameInput.addEventListener('input', (e) => {
+      AppState.styleInput = e.target.value.trim();
+      AppState.styleLimit = 24;
+
+      if (clearBtn) {
+        clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+      }
+
+      clearTimeout(styleDebounce);
+      styleDebounce = setTimeout(() => {
+        handleStyleGeneration();
+      }, 40);
+    });
+  }
+
+  if (clearBtn && nameInput) {
+    clearBtn.addEventListener('click', () => {
+      nameInput.value = '';
+      AppState.styleInput = '';
+      clearBtn.style.display = 'none';
+      nameInput.focus();
+      handleStyleGeneration();
+    });
+  }
+
+  // Quick Samples Click Handlers
+  quickSamples.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sample = btn.getAttribute('data-sample') || 'Ghost';
+      if (nameInput) {
+        nameInput.value = sample;
+        AppState.styleInput = sample;
+        if (clearBtn) clearBtn.style.display = 'flex';
+        nameInput.focus();
+        handleStyleGeneration();
+      }
+    });
+  });
+
+  // Style Category Chips (All, Clean, Symbols, Fancy, Bold)
+  styleChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      styleChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      AppState.styleCategory = chip.getAttribute('data-style-cat') || 'all';
+      AppState.styleLimit = 24;
+      handleStyleGeneration();
+
+      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+
+  // Show More Styles Button
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      AppState.styleLimit += 24;
+      renderStyleNicknames(true);
+    });
+  }
+}
+
+function handleStyleGeneration() {
+  const emptyState = document.getElementById('style-empty-state');
+  const filterBar = document.getElementById('style-filter-bar');
+  const resultsList = document.getElementById('style-results-list');
+  const errorState = document.getElementById('style-error-state');
+  const moreActions = document.getElementById('style-more-actions');
+
+  const rawName = AppState.styleInput;
+
+  // Empty state: show prompt & example
+  if (!rawName) {
+    if (emptyState) emptyState.style.display = 'block';
+    if (filterBar) filterBar.style.display = 'none';
+    if (resultsList) {
+      resultsList.style.display = 'none';
+      resultsList.innerHTML = '';
+    }
+    if (errorState) errorState.style.display = 'none';
+    if (moreActions) moreActions.style.display = 'none';
+    return;
+  }
+
+  // Hide empty state & show filter bar
+  if (emptyState) emptyState.style.display = 'none';
+  if (filterBar) filterBar.style.display = 'flex';
+
+  // Generate styles using site's real transformation library
+  const styles = generateAllStyles(rawName);
+
+  if (styles.length === 0) {
+    if (errorState) errorState.style.display = 'block';
+    if (resultsList) resultsList.style.display = 'none';
+    if (moreActions) moreActions.style.display = 'none';
+    return;
+  }
+
+  if (errorState) errorState.style.display = 'none';
+  AppState.styleResults = styles;
+  renderStyleNicknames(false);
+}
+
+function generateAllStyles(rawName) {
+  const list = [];
+  const fm = typeof FONT_MAPS !== 'undefined' ? FONT_MAPS : {};
+  const prefix = AppState.customPrefix;
+  const suffix = AppState.customSuffix;
+
+  // Helper to add a style entry
+  function add(name, cat) {
+    if (!name) return;
+    const full = `${prefix}${name}${suffix}`;
+    // Deduplicate
+    if (!list.some(item => item.name === full)) {
+      list.push({ name: full, cat });
+    }
+  }
+
+  const upper = rawName.toUpperCase();
+
+  // 1. CLEAN STYLES
+  if (fm.smallCaps) add(fm.smallCaps(rawName), 'clean');
+  if (fm.boldSans) add(fm.boldSans(rawName), 'clean');
+  if (fm.monospace) add(fm.monospace(rawName), 'clean');
+  if (fm.fullwidth) add(fm.fullwidth(upper), 'clean');
+  if (fm.spaced) add(fm.spaced(upper), 'clean');
+  add(`『${rawName}』`, 'clean');
+  add(`【${rawName}】`, 'clean');
+  add(`« ${rawName} »`, 'clean');
+  add(`[ ${upper} ]`, 'clean');
+
+  // 2. SIGNATURE SYMBOL STYLES
+  add(`亗 ${upper} 亗`, 'symbols');
+  add(`꧁${upper}꧂`, 'symbols');
+  add(`꧁༒${upper}༒꧂`, 'symbols');
+  add(`★${fm.smallCaps ? fm.smallCaps(rawName) : rawName}★`, 'symbols');
+  add(`『${upper}』`, 'symbols');
+  add(`⚡ ${upper} ⚡`, 'symbols');
+  add(`👑 ${upper} 👑`, 'symbols');
+  add(`メ ${fm.spaced ? fm.spaced(upper) : upper} メ`, 'symbols');
+  add(`乂 ${upper} 乂`, 'symbols');
+  add(`𓊈 ${upper} 𓊉`, 'symbols');
+  add(`𓆩 ${rawName} 𓆪`, 'symbols');
+  add(`亗『${rawName}』亗`, 'symbols');
+  add(`★彡[ ${upper} ]彡★`, 'symbols');
+  add(`×͜× ${fm.smallCaps ? fm.smallCaps(rawName) : rawName}`, 'symbols');
+  add(`☠ ${upper} ☠`, 'symbols');
+  add(`💎 ${upper} 💎`, 'symbols');
+  add(`✦ ${rawName} ✦`, 'symbols');
+  add(`亗ㅤ${upper}ㅤ亗`, 'symbols'); // Invisible Hangul filler
+  add(`꧁༺${upper}༻꧂`, 'symbols');
+  add(`☬ ${upper} ☬`, 'symbols');
+  add(`🎯 ${upper} 🎯`, 'symbols');
+  add(`« ${upper} » 亗`, 'symbols');
+  add(`亗 ${rawName} ⚡`, 'symbols');
+
+  // 3. FANCY / UNICODE TYPOGRAPHY STYLES
+  if (fm.script) add(fm.script(rawName), 'fancy');
+  if (fm.gothic) add(fm.gothic(rawName), 'fancy');
+  if (fm.doubleStruck) add(fm.doubleStruck(rawName), 'fancy');
+  if (fm.bubbles) add(fm.bubbles(rawName), 'fancy');
+  if (fm.bubblesBlack) add(fm.bubblesBlack(rawName), 'fancy');
+  if (fm.superscript) add(fm.superscript(rawName), 'fancy');
+  if (fm.squares) add(fm.squares(upper), 'fancy');
+  if (fm.lightFraktur) add(fm.lightFraktur(rawName), 'fancy');
+  if (fm.italic) add(fm.italic(rawName), 'fancy');
+  if (fm.gothic) add(`꧁${fm.gothic(rawName)}꧂`, 'fancy');
+  if (fm.script) add(`♡ ${fm.script(rawName)} ♡`, 'fancy');
+  if (fm.doubleStruck) add(`✦ ${fm.doubleStruck(rawName)} ✦`, 'fancy');
+
+  // 4. BOLD & COMPETITIVE STYLES
+  if (fm.bold) add(fm.bold(rawName), 'bold');
+  if (fm.boldSans) add(fm.boldSans(upper), 'bold');
+  if (fm.boldItalic) add(fm.boldItalic(rawName), 'bold');
+  add(`【PRO】${upper}`, 'bold');
+  add(`OPㅤ${fm.boldSans ? fm.boldSans(rawName) : upper}`, 'bold');
+  add(`B2K⚡${upper}`, 'bold');
+  add(`亗 ${fm.boldSans ? fm.boldSans(upper) : upper} 亗`, 'bold');
+  add(`i am | ${upper}`, 'bold');
+  add(`777ㅤ${upper} 亗`, 'bold');
+  add(`4Kㅤ${upper}`, 'bold');
+  add(`亗『PRO』${upper}亗`, 'bold');
+
+  // Apply category filtering
+  if (AppState.styleCategory !== 'all') {
+    return list.filter(item => item.cat === AppState.styleCategory);
+  }
+
+  return list;
+}
+
+function renderStyleNicknames(isAppend = false) {
+  const resultsList = document.getElementById('style-results-list');
+  const moreActions = document.getElementById('style-more-actions');
+  const showMoreBtn = document.getElementById('btn-style-show-more');
+
+  if (!resultsList) return;
+
+  const items = AppState.styleResults;
+  resultsList.style.display = 'grid';
+
+  const visibleItems = items.slice(0, AppState.styleLimit);
+
+  if (!isAppend) {
+    resultsList.innerHTML = '';
+    visibleItems.forEach(item => {
+      resultsList.appendChild(createNicknameRow(item.name));
+    });
+  } else {
+    const currentCount = resultsList.children.length;
+    const nextBatch = items.slice(currentCount, AppState.styleLimit);
+    nextBatch.forEach(item => {
+      resultsList.appendChild(createNicknameRow(item.name));
+    });
+  }
+
+  if (moreActions && showMoreBtn) {
+    const hasMore = items.length > AppState.styleLimit;
+    moreActions.style.display = hasMore ? 'flex' : 'none';
+    showMoreBtn.style.display = hasMore ? 'inline-flex' : 'none';
+  }
+}
+
+/* ===================================================================
+   ADVANCED CUSTOMIZATION (MORE OPTIONS ACCORDION)
+   =================================================================== */
+
+function initCustomizationOptions() {
+  const prefixInput = document.getElementById('custom-prefix');
+  const suffixInput = document.getElementById('custom-suffix');
+  const symChips = document.querySelectorAll('.btn-sym-chip');
+
+  if (prefixInput) {
+    prefixInput.addEventListener('input', (e) => {
+      AppState.customPrefix = e.target.value;
+      if (AppState.styleInput) handleStyleGeneration();
+    });
+  }
+
+  if (suffixInput) {
+    suffixInput.addEventListener('input', (e) => {
+      AppState.customSuffix = e.target.value;
+      if (AppState.styleInput) handleStyleGeneration();
+    });
+  }
+
+  // Symbol quick inserters into prefix/suffix
+  symChips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sym = btn.getAttribute('data-sym') || '';
+      if (!sym) return;
+
+      // If prefix input is focused or empty, append to prefix, otherwise suffix
+      if (prefixInput && (document.activeElement === prefixInput || !prefixInput.value)) {
+        prefixInput.value += sym;
+        AppState.customPrefix = prefixInput.value;
+      } else if (suffixInput) {
+        suffixInput.value += sym;
+        AppState.customSuffix = suffixInput.value;
+      }
+
+      if (AppState.styleInput) {
+        handleStyleGeneration();
+      }
+      showToast(`Inserted symbol "${sym}" into decoration`);
+    });
+  });
+}
+
+/* ===================================================================
+   ROW CREATION & 1-TAP COPY INTERACTION
+   =================================================================== */
+
+function createNicknameRow(name) {
+  const row = document.createElement('div');
+  row.className = 'nick-row';
+  row.setAttribute('data-name', name);
+
+  const isFavorited = AppState.favorites.includes(name);
+
+  row.innerHTML = `
+    <div class="nick-text" title="Tap to copy">${escapeHtml(name)}</div>
+    <div class="nick-actions">
+      <button type="button" class="btn-copy-action" aria-label="Copy ${escapeHtml(name)}">
+        <span class="copy-label">Copy</span>
       </button>
-      <div class="result-card-secondary-btns">
-        <button class="btn-card-sub" data-action="remix" title="Remix this design">
-          <span>↻</span> Remix
-        </button>
-        <button class="btn-card-sub" data-action="preview" title="Test in Game Preview">
-          <span>👁</span> Preview
-        </button>
-        <button class="btn-card-sub" data-action="customize" title="Customize in Editor">
-          <span>✎</span> Edit
-        </button>
-      </div>
+      <button type="button" class="btn-fav-action ${isFavorited ? 'favorited' : ''}" aria-label="Save ${escapeHtml(name)}" title="${isFavorited ? 'Remove from saved' : 'Save to favorites'}">
+        <span class="fav-icon">${isFavorited ? '♥' : '♡'}</span>
+      </button>
     </div>
   `;
 
-  // Attach Event Handlers
-  const copyBtn = card.querySelector('[data-action="copy"]');
-  const favBtn = card.querySelector('[data-action="favorite"]');
-  const remixBtn = card.querySelector('[data-action="remix"]');
-  const previewBtn = card.querySelector('[data-action="preview"]');
-  const customizeBtn = card.querySelector('[data-action="customize"]');
-  const nickBox = card.querySelector('.result-nickname-box');
+  const copyBtn = row.querySelector('.btn-copy-action');
+  const favBtn = row.querySelector('.btn-fav-action');
+  const nickText = row.querySelector('.nick-text');
 
-  // One-Tap Copy with tactile mobile feedback
-  const triggerCopy = () => {
-    copyToClipboard(item.styledText);
-    
-    // Tactile haptic vibration on supported mobile devices
+  // 1-Tap Copy Interaction
+  function triggerCopy(e) {
+    if (e) e.stopPropagation();
+    copyToClipboard(name);
+
+    // Tactile haptic feedback on supported mobile devices
     if (navigator.vibrate) {
-      try { navigator.vibrate(35); } catch (e) {}
+      try { navigator.vibrate(35); } catch (err) {}
     }
 
-    card.classList.add('card-copied');
+    row.classList.add('row-copied');
     copyBtn.classList.add('copied');
-    copyBtn.querySelector('.copy-label').textContent = '✓ Copied!';
-    showToast(`✓ Copied "${item.styledText}" to clipboard!`, 'success');
-    
+    const label = copyBtn.querySelector('.copy-label');
+    if (label) label.textContent = '✓ Copied';
+
+    showToast(`✓ Copied "${name}" to clipboard!`, 'success');
+
     setTimeout(() => {
-      card.classList.remove('card-copied');
+      row.classList.remove('row-copied');
       copyBtn.classList.remove('copied');
-      copyBtn.querySelector('.copy-label').textContent = 'Copy Nickname';
-    }, 1800);
-  };
+      if (label) label.textContent = 'Copy';
+    }, 1600);
+  }
 
   copyBtn.addEventListener('click', triggerCopy);
-  nickBox.addEventListener('click', triggerCopy);
+  nickText.addEventListener('click', triggerCopy);
 
+  // Secondary Save / Favorite
   favBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleFavorite(item.styledText, favBtn);
+    toggleFavorite(name, favBtn);
   });
 
-  remixBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    handleRemix(item);
-  });
-
-  previewBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    updatePreviewDisplay(item.styledText);
-    const previewSection = document.getElementById('preview-sandbox');
-    if (previewSection) {
-      previewSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    showToast(`Testing "${item.styledText}" in Game Preview`);
-  });
-
-  customizeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openEditorWithItem(item);
-  });
-
-  return card;
-}
-
-function handleRemix(item) {
-  const baseName = item.rawName || 'Shadow';
-  AppState.currentInput = baseName;
-  const input = document.getElementById('nickname-input');
-  if (input) input.value = baseName;
-  updateCharCounter(baseName);
-  
-  const categories = Object.keys(STYLE_PRESETS);
-  AppState.category = categories[Math.floor(Math.random() * categories.length)];
-  
-  document.querySelectorAll('.btn-category').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('data-category') === AppState.category);
-  });
-
-  handleGenerate();
-  showToast(`↻ Remixed "${baseName}" with new styles!`);
+  return row;
 }
 
 /* ===================================================================
-   LIVE NICKNAME EDITOR
+   FAVORITES MANAGEMENT
    =================================================================== */
 
-function initLiveEditor() {
-  const modal = document.getElementById('editor-modal');
-  const closeBtn = document.getElementById('btn-close-editor');
-  const prefixInput = document.getElementById('editor-prefix');
-  const nameInput = document.getElementById('editor-name');
-  const suffixInput = document.getElementById('editor-suffix');
-  const fontSelect = document.getElementById('editor-font');
-  const copyFinalBtn = document.getElementById('btn-copy-editor-final');
-  const quickSymContainer = document.getElementById('editor-quick-symbols');
+function toggleFavorite(name, btnEl = null) {
+  const index = AppState.favorites.indexOf(name);
+  let isSaved = false;
 
-  if (!modal) return;
-
-  closeBtn.addEventListener('click', () => {
-    closeModal(modal);
-  });
-
-  const handleEditorChange = () => {
-    AppState.editor.prefix = prefixInput.value;
-    AppState.editor.name = nameInput.value;
-    AppState.editor.suffix = suffixInput.value;
-    AppState.editor.font = fontSelect.value;
-    renderEditorPreview();
-  };
-
-  prefixInput.addEventListener('input', handleEditorChange);
-  nameInput.addEventListener('input', handleEditorChange);
-  suffixInput.addEventListener('input', handleEditorChange);
-  fontSelect.addEventListener('change', handleEditorChange);
-
-  // Quick symbol injector chips
-  if (quickSymContainer) {
-    const quickSymbols = ['亗', '꧁', '꧂', '༒', '☬', '★', '⚡', 'メ', '『', '』', '☠', '👑', '✦'];
-    quickSymContainer.innerHTML = '';
-    quickSymbols.forEach(sym => {
-      const chip = document.createElement('button');
-      chip.className = 'editor-sym-chip';
-      chip.textContent = sym;
-      chip.addEventListener('click', () => {
-        prefixInput.value = sym;
-        suffixInput.value = sym;
-        handleEditorChange();
-      });
-      quickSymContainer.appendChild(chip);
-    });
-  }
-
-  if (copyFinalBtn) {
-    copyFinalBtn.addEventListener('click', () => {
-      const finalStr = getEditorResultString();
-      copyToClipboard(finalStr);
-      showToast(`✓ Copied custom nickname "${finalStr}"!`, 'success');
-      closeModal(modal);
-    });
-  }
-}
-
-function openEditorWithItem(item) {
-  const modal = document.getElementById('editor-modal');
-  if (!modal) return;
-
-  document.getElementById('editor-prefix').value = item.prefix || '';
-  document.getElementById('editor-name').value = item.rawName || 'Shadow';
-  document.getElementById('editor-suffix').value = item.suffix || '';
-  document.getElementById('editor-font').value = item.font || 'bold';
-
-  AppState.editor = {
-    prefix: item.prefix || '',
-    name: item.rawName || 'Shadow',
-    suffix: item.suffix || '',
-    font: item.font || 'bold'
-  };
-
-  renderEditorPreview();
-  openModal(modal);
-}
-
-function getEditorResultString() {
-  const fontFn = FONT_MAPS[AppState.editor.font] || FONT_MAPS.bold;
-  const styledBase = fontFn(AppState.editor.name);
-  return `${AppState.editor.prefix}${styledBase}${AppState.editor.suffix}`;
-}
-
-function renderEditorPreview() {
-  const previewBox = document.getElementById('editor-preview-text');
-  const charCounter = document.getElementById('editor-char-counter');
-  if (!previewBox) return;
-
-  const result = getEditorResultString();
-  previewBox.textContent = result;
-
-  const len = Array.from(result).length;
-  if (charCounter) {
-    charCounter.textContent = `${len} / ${FF_RULES.recommendedMax} Chars`;
-    charCounter.className = len <= FF_RULES.recommendedMax ? 'editor-counter-ok' : 'editor-counter-warn';
-  }
-}
-
-/* ===================================================================
-   GAME PREVIEW SANDBOX
-   =================================================================== */
-
-function initPreviewSandbox() {
-  const tabs = document.querySelectorAll('.btn-preview-tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const view = tab.getAttribute('data-view');
-      renderPreviewSandbox(view);
-    });
-  });
-
-  renderPreviewSandbox('profile');
-}
-
-function updatePreviewDisplay(nickname) {
-  AppState.previewNickname = nickname;
-  const activeTab = document.querySelector('.btn-preview-tab.active');
-  const view = activeTab ? activeTab.getAttribute('data-view') : 'profile';
-  renderPreviewSandbox(view);
-}
-
-function renderPreviewSandbox(view) {
-  const stage = document.getElementById('preview-stage');
-  if (!stage) return;
-
-  const nick = AppState.previewNickname || '亗𝐒𝐇𝐀𝐃𝐎𝐖亗';
-
-  if (view === 'profile') {
-    stage.innerHTML = `
-      <div class="mock-profile-card">
-        <div class="mock-profile-banner">
-          <div class="mock-badge-rank">GRANDMASTER</div>
-          <div class="mock-level-badge">LV. 78</div>
-        </div>
-        <div class="mock-profile-body">
-          <div class="mock-avatar">🔥</div>
-          <div class="mock-user-info">
-            <div class="mock-nickname">${escapeHtml(nick)}</div>
-            <div class="mock-uid">UID: 9842107412</div>
-            <div class="mock-guild">GUILD: APEX LEGENDS [Lv.6]</div>
-          </div>
-        </div>
-      </div>
-    `;
-  } else if (view === 'killfeed') {
-    stage.innerHTML = `
-      <div class="mock-killfeed-stage">
-        <div class="mock-killfeed-row">
-          <span class="kill-actor">${escapeHtml(nick)}</span>
-          <span class="kill-weapon">︻╦╤─</span>
-          <span class="kill-victim">Enemy_Hunter</span>
-          <span class="kill-headshot">HEADSHOT!</span>
-        </div>
-        <div class="mock-killfeed-row secondary">
-          <span class="kill-actor">Viper_99</span>
-          <span class="kill-weapon">💥</span>
-          <span class="kill-victim">Ghost_Rider</span>
-        </div>
-      </div>
-    `;
-  } else if (view === 'lobby') {
-    stage.innerHTML = `
-      <div class="mock-lobby-podium">
-        <div class="mock-podium-pedestal">
-          <div class="mock-character-silhouette">⚔️</div>
-          <div class="mock-player-plate">
-            <div class="plate-name">${escapeHtml(nick)}</div>
-            <div class="plate-sub">SEASON 34 MVP &bull; HEROIC V</div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-}
-
-/* ===================================================================
-   SYMBOL LIBRARY
-   =================================================================== */
-
-function initSymbolsLibrary() {
-  const pillsContainer = document.getElementById('symbol-cat-pills');
-  const symbolsGrid = document.getElementById('symbols-grid');
-  const searchInput = document.getElementById('symbol-search-input');
-
-  if (!symbolsGrid) return;
-
-  const categories = [
-    { id: 'all', label: 'All Symbols' },
-    { id: 'popular', label: '🔥 Popular' },
-    { id: 'crown', label: '👑 Crowns' },
-    { id: 'weapons', label: '⚔ Weapons' },
-    { id: 'skull', label: '💀 Skull' },
-    { id: 'wings', label: '𓆩 Wings' },
-    { id: 'japanese', label: 'メ Japanese' },
-    { id: 'stars', label: '★ Stars' },
-    { id: 'brackets', label: '『』 Brackets' },
-    { id: 'lightning', label: '⚡ Energy' }
-  ];
-
-  if (pillsContainer) {
-    pillsContainer.innerHTML = '';
-    categories.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = `btn-sym-cat ${cat.id === 'all' ? 'active' : ''}`;
-      btn.textContent = cat.label;
-      btn.setAttribute('data-cat', cat.id);
-      btn.addEventListener('click', () => {
-        pillsContainer.querySelectorAll('.btn-sym-cat').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterSymbols();
-      });
-      pillsContainer.appendChild(btn);
-    });
-  }
-
-  function renderSymbols(symbols) {
-    symbolsGrid.innerHTML = '';
-    symbols.forEach(sym => {
-      const item = document.createElement('button');
-      item.className = 'symbol-grid-item';
-      item.title = `Click to copy ${sym.name}`;
-      item.setAttribute('aria-label', `Copy symbol ${sym.char}`);
-      item.innerHTML = `
-        <span class="sym-char">${sym.char}</span>
-        <span class="sym-name-hint">${sym.name}</span>
-      `;
-      item.addEventListener('click', () => {
-        copyToClipboard(sym.char);
-        if (navigator.vibrate) try { navigator.vibrate(25); } catch (e) {}
-        item.classList.add('copied');
-        showToast(`✓ Copied symbol "${sym.char}" to clipboard!`);
-        setTimeout(() => item.classList.remove('copied'), 1500);
-      });
-      symbolsGrid.appendChild(item);
-    });
-  }
-
-  function filterSymbols() {
-    const activeBtn = pillsContainer ? pillsContainer.querySelector('.btn-sym-cat.active') : null;
-    const cat = activeBtn ? activeBtn.getAttribute('data-cat') : 'all';
-    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-    let filtered = SYMBOLS_DATABASE;
-
-    if (cat !== 'all') {
-      filtered = filtered.filter(s => s.cat === cat || s.tags.includes(cat));
-    }
-
-    if (query) {
-      filtered = filtered.filter(s => 
-        s.name.toLowerCase().includes(query) || 
-        s.char.includes(query) || 
-        s.tags.some(t => t.toLowerCase().includes(query))
-      );
-    }
-
-    renderSymbols(filtered);
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener('input', filterSymbols);
-  }
-
-  filterSymbols();
-}
-
-/* ===================================================================
-   FAVORITES & SHORTLIST MANAGEMENT
-   =================================================================== */
-
-function toggleFavorite(text, btn) {
-  const idx = AppState.favorites.indexOf(text);
-  if (idx === -1) {
-    AppState.favorites.push(text);
-    if (btn) {
-      btn.classList.add('favorited');
-      btn.textContent = '♥';
-    }
-    showToast(`♥ Saved "${text}" to your favorites!`);
+  if (index === -1) {
+    AppState.favorites.push(name);
+    isSaved = true;
+    showToast(`♥ Saved "${name}" to favorites!`);
   } else {
-    AppState.favorites.splice(idx, 1);
-    if (btn) {
-      btn.classList.remove('favorited');
-      btn.textContent = '♡';
-    }
-    showToast(`Removed "${text}" from favorites.`);
+    AppState.favorites.splice(index, 1);
+    isSaved = false;
+    showToast(`Removed "${name}" from favorites.`);
   }
 
   localStorage.setItem('ff_favorites', JSON.stringify(AppState.favorites));
   updateFavoritesBadge();
+
+  if (btnEl) {
+    btnEl.classList.toggle('favorited', isSaved);
+    const icon = btnEl.querySelector('.fav-icon');
+    if (icon) icon.textContent = isSaved ? '♥' : '♡';
+  }
+
+  // Update all instances of this name on screen
+  document.querySelectorAll(`.nick-row[data-name="${CSS.escape(name)}"] .btn-fav-action`).forEach(b => {
+    b.classList.toggle('favorited', isSaved);
+    const icon = b.querySelector('.fav-icon');
+    if (icon) icon.textContent = isSaved ? '♥' : '♡';
+  });
+
+  renderFavoritesModalList();
 }
 
 function updateFavoritesBadge() {
   const badge = document.getElementById('fav-count-badge');
   if (!badge) return;
+
   const count = AppState.favorites.length;
   badge.textContent = count;
   badge.style.display = count > 0 ? 'inline-block' : 'none';
 }
 
 function initFavoritesDrawer() {
-  const navFavBtn = document.getElementById('btn-nav-favorites');
+  const openBtn = document.getElementById('btn-nav-favorites');
   const modal = document.getElementById('favorites-modal');
   const closeBtn = document.getElementById('btn-close-favorites');
-  const listContainer = document.getElementById('favorites-list-container');
-  const clearAllBtn = document.getElementById('btn-clear-favorites');
 
-  updateFavoritesBadge();
-
-  if (!modal || !navFavBtn) return;
-
-  navFavBtn.addEventListener('click', () => {
-    renderFavoritesList();
-    openModal(modal);
-  });
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => closeModal(modal));
-  }
-
-  if (clearAllBtn) {
-    clearAllBtn.addEventListener('click', () => {
-      AppState.favorites = [];
-      localStorage.removeItem('ff_favorites');
-      updateFavoritesBadge();
-      renderFavoritesList();
-      showToast('All saved favorites cleared.');
+  if (openBtn && modal) {
+    openBtn.addEventListener('click', () => {
+      renderFavoritesModalList();
+      openModal(modal);
     });
   }
 
-  function renderFavoritesList() {
-    if (!listContainer) return;
-    listContainer.innerHTML = '';
-
-    if (AppState.favorites.length === 0) {
-      listContainer.innerHTML = `
-        <div class="empty-fav-message">
-          <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">♡</span>
-          <p>You haven't saved any nicknames yet.</p>
-          <small style="color: var(--text-muted);">Tap the heart icon on any generated nickname to save it here.</small>
-        </div>
-      `;
-      return;
-    }
-
-    AppState.favorites.forEach((name, index) => {
-      const row = document.createElement('div');
-      row.className = 'fav-row-item';
-      row.innerHTML = `
-        <span class="fav-item-text">${escapeHtml(name)}</span>
-        <div class="fav-item-actions">
-          <button class="btn btn-secondary btn-sm" data-action="copy">Copy</button>
-          <button class="btn-fav-remove" data-action="delete" title="Remove">✕</button>
-        </div>
-      `;
-
-      row.querySelector('[data-action="copy"]').addEventListener('click', () => {
-        copyToClipboard(name);
-        showToast(`✓ Copied "${name}"!`, 'success');
-      });
-
-      row.querySelector('[data-action="delete"]').addEventListener('click', () => {
-        toggleFavorite(name);
-        renderFavoritesList();
-      });
-
-      listContainer.appendChild(row);
-    });
-  }
-}
-
-function addToRecents(text) {
-  if (!text) return;
-  AppState.recents = AppState.recents.filter(item => item !== text);
-  AppState.recents.unshift(text);
-  if (AppState.recents.length > 15) AppState.recents.pop();
-  localStorage.setItem('ff_recents', JSON.stringify(AppState.recents));
-}
-
-/* ===================================================================
-   MODAL & COMPARISON UTILITIES
-   =================================================================== */
-
-function initComparisonTool() {
-  const modal = document.getElementById('comparison-modal');
-  const closeBtn = document.getElementById('btn-close-comparison');
   if (closeBtn && modal) {
     closeBtn.addEventListener('click', () => closeModal(modal));
   }
 }
+
+function renderFavoritesModalList() {
+  const container = document.getElementById('favorites-list');
+  if (!container) return;
+
+  if (AppState.favorites.length === 0) {
+    container.innerHTML = `
+      <div class="empty-fav-message">
+        <span style="font-size: 2rem; display: block; margin-bottom: 0.5rem;">♡</span>
+        <p>You haven't saved any nicknames yet.</p>
+        <small style="color: var(--text-muted);">Tap the heart icon on any nickname to save it here for later.</small>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = '';
+  AppState.favorites.forEach(name => {
+    const item = document.createElement('div');
+    item.className = 'fav-row-item';
+    item.innerHTML = `
+      <span class="fav-item-text">${escapeHtml(name)}</span>
+      <div class="fav-item-actions">
+        <button type="button" class="btn btn-secondary btn-sm" data-action="copy">Copy</button>
+        <button type="button" class="btn-fav-remove" data-action="delete" title="Remove">✕</button>
+      </div>
+    `;
+
+    item.querySelector('[data-action="copy"]').addEventListener('click', () => {
+      copyToClipboard(name);
+      showToast(`✓ Copied "${name}"!`, 'success');
+    });
+
+    item.querySelector('[data-action="delete"]').addEventListener('click', () => {
+      toggleFavorite(name);
+    });
+
+    container.appendChild(item);
+  });
+}
+
+/* ===================================================================
+   MODAL & CLIPBOARD UTILITIES
+   =================================================================== */
 
 function openModal(modalEl) {
   if (!modalEl) return;
@@ -933,7 +738,7 @@ function showToast(message, type = 'default') {
   clearTimeout(toast._timer);
   toast._timer = setTimeout(() => {
     toast.classList.remove('show');
-  }, 2400);
+  }, 2200);
 }
 
 function escapeHtml(str) {
@@ -961,16 +766,16 @@ function initAmbientCanvas() {
   });
 
   const particles = [];
-  const particleCount = Math.min(30, Math.floor(width / 35));
+  const particleCount = Math.min(24, Math.floor(width / 40));
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
       size: Math.random() * 2.2 + 0.8,
-      speedY: Math.random() * 0.45 + 0.2,
-      speedX: (Math.random() - 0.5) * 0.35,
-      opacity: Math.random() * 0.6 + 0.2,
+      speedY: Math.random() * 0.4 + 0.15,
+      speedX: (Math.random() - 0.5) * 0.3,
+      opacity: Math.random() * 0.55 + 0.2,
       color: Math.random() > 0.4 ? '#ff5722' : '#ffaa00'
     });
   }
@@ -993,10 +798,7 @@ function initAmbientCanvas() {
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
       ctx.globalAlpha = p.opacity;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = p.color;
       ctx.fill();
-      ctx.shadowBlur = 0;
     });
 
     requestAnimationFrame(animate);
