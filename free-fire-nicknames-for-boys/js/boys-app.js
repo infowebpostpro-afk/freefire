@@ -35,11 +35,19 @@ const BoysApp = {
     customizerStyle: 'pro',
     
     // Comparison State
-    comparisonList: []
+    comparisonList: [],
+
+    // Dual-Mode Builder State
+    builderMode: 'create', // 'create' | 'style'
+    builderVibe: 'cool',
+    builderLength: 'any',
+    builderDecor: 'plain',
+    builderSeed: ''
   },
 
   init() {
     this.initAmbientEmbers();
+    this.initDualModeBuilder();
     this.initCategoryNav();
     this.initVibeCards();
     this.initSearch();
@@ -49,8 +57,8 @@ const BoysApp = {
     this.initMobileBottomNav();
     this.updateBadges();
 
-    // Zero-friction initial render
-    this.applyFilters(true);
+    // Initial builder generation
+    this.runBuilderGeneration(false);
   },
 
   /* ===================================================================
@@ -115,16 +123,20 @@ const BoysApp = {
       const isSaved = this.state.saved.some(s => s.id === item.id);
       const isShortlisted = this.state.shortlist.some(s => s.id === item.id);
       
-      // Pro styled representation for cards
-      const styledDisplay = STYLE_RULES.pro(item.baseName);
+      const styledDisplay = item.currentDisplay || STYLE_RULES.pro(item.baseName);
+      const fallback = item.plainFallback || item.baseName;
+      const charCount = item.charCount || Array.from(styledDisplay).length;
+      const isDecorated = item.isDecorated ?? (styledDisplay !== fallback);
 
       html += `
-        <article class="nickname-card" data-id="${item.id}" data-basename="${this.escapeHtml(item.baseName)}">
+        <article class="nickname-card" id="card_${item.id}" data-id="${item.id}" data-basename="${this.escapeHtml(item.baseName)}">
           <div class="card-top-meta">
             <div class="card-tags">
-              <span class="tag-pill">${item.categories[0] || 'pro'}</span>
-              <span class="tag-pill">${item.lengthProfile}</span>
-              <span class="tag-pill">${item.wordCount === 1 ? '1-Word' : '2-Words'}</span>
+              <span class="tag-pill">${item.categories ? (item.categories[0] || 'pro') : 'pro'}</span>
+              <span class="tag-pill">${item.lengthProfile || 'short'}</span>
+              <span class="card-status-pill ${isDecorated ? 'status-styled' : 'status-plain'}">
+                ${isDecorated ? 'Decorated' : 'Plain Text'}
+              </span>
             </div>
             <div class="card-quick-actions">
               <button class="btn-card-icon btn-card-fav ${isSaved ? 'active' : ''}" 
@@ -141,22 +153,27 @@ const BoysApp = {
           </div>
 
           <div class="card-name-wrap" title="Tap to preview or copy" data-id="${item.id}">
-            <div class="card-nickname-text">${this.escapeHtml(styledDisplay)}</div>
+            <div class="card-nickname-text" id="name_text_${item.id}">${this.escapeHtml(styledDisplay)}</div>
+          </div>
+
+          <div class="card-fallback-row">
+            <span>Fallback: <code>${this.escapeHtml(fallback)}</code></span>
+            <span>${charCount} Chars</span>
           </div>
 
           <button class="btn-card-copy" data-copy="${this.escapeHtml(styledDisplay)}" aria-label="Copy nickname">
-            <span>📋</span> Copy Name
+            <span>📋</span> <span class="btn-copy-label">Copy Name</span>
           </button>
 
           <div class="card-bottom-actions">
-            <button class="btn-card-subaction btn-preview-trigger" data-id="${item.id}">
+            <button class="btn-card-subaction btn-restyle-trigger" data-id="${item.id}" title="Cycle decorative style without changing base name">
+              <span>🎨</span> Restyle
+            </button>
+            <button class="btn-card-subaction btn-more-trigger" data-id="${item.id}" title="Find conceptually related ideas">
+              <span>↻</span> More Like This
+            </button>
+            <button class="btn-card-subaction btn-preview-trigger" data-id="${item.id}" title="Simulated in-game preview">
               <span>👁</span> Preview
-            </button>
-            <button class="btn-card-subaction btn-customize-trigger" data-id="${item.id}">
-              <span>✎</span> Customize
-            </button>
-            <button class="btn-card-subaction btn-more-trigger" data-id="${item.id}">
-              <span>⚡</span> More Like This
             </button>
           </div>
         </article>
@@ -197,9 +214,10 @@ const BoysApp = {
     grid.querySelectorAll('.card-name-wrap').forEach(wrap => {
       wrap.addEventListener('click', () => {
         const id = wrap.dataset.id;
-        const item = BOYS_DATABASE.find(n => n.id === id);
+        let item = this.state.currentResults.find(n => n.id === id);
+        if (!item) item = BOYS_DATABASE.find(n => n.id === id);
         if (item) {
-          const styled = STYLE_RULES.pro(item.baseName);
+          const styled = item.currentDisplay || STYLE_RULES.pro(item.baseName);
           this.copyText(styled, null, false);
           this.openPreviewModal(item);
         }
@@ -224,23 +242,12 @@ const BoysApp = {
       });
     });
 
-    // Preview buttons
-    grid.querySelectorAll('.btn-preview-trigger').forEach(btn => {
+    // Restyle buttons
+    grid.querySelectorAll('.btn-restyle-trigger').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const id = btn.dataset.id;
-        const item = BOYS_DATABASE.find(n => n.id === id);
-        if (item) this.openPreviewModal(item);
-      });
-    });
-
-    // Customize buttons
-    grid.querySelectorAll('.btn-customize-trigger').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const id = btn.dataset.id;
-        const item = BOYS_DATABASE.find(n => n.id === id);
-        if (item) this.openCustomizeModal(item);
+        this.handleRestyle(id);
       });
     });
 
@@ -249,9 +256,258 @@ const BoysApp = {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const id = btn.dataset.id;
-        this.triggerMoreLikeThis(id);
+        this.handleMoreLikeThis(id);
       });
     });
+
+    // Preview buttons
+    grid.querySelectorAll('.btn-preview-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        let item = this.state.currentResults.find(n => n.id === id);
+        if (!item) item = BOYS_DATABASE.find(n => n.id === id);
+        if (item) this.openPreviewModal(item);
+      });
+    });
+  },
+
+  handleRestyle(id) {
+    let item = this.state.currentResults.find(n => n.id === id);
+    if (!item) item = BOYS_DATABASE.find(n => n.id === id);
+    if (!item) return;
+
+    const restyled = BoysEngine.restyleSingle(item);
+    Object.assign(item, restyled);
+
+    const card = document.getElementById(`card_${id}`);
+    if (card) {
+      const nameText = card.querySelector('.card-nickname-text');
+      const copyBtn = card.querySelector('.btn-card-copy');
+      const statusPill = card.querySelector('.card-status-pill');
+
+      if (nameText) nameText.textContent = restyled.currentDisplay;
+      if (copyBtn) copyBtn.dataset.copy = restyled.currentDisplay;
+      if (statusPill) {
+        statusPill.textContent = restyled.isDecorated ? 'Decorated' : 'Plain Text';
+        statusPill.className = `card-status-pill ${restyled.isDecorated ? 'status-styled' : 'status-plain'}`;
+      }
+
+      card.style.borderColor = '#ffaa00';
+      setTimeout(() => { card.style.borderColor = ''; }, 400);
+    }
+
+    this.showToast(`Restyled "${item.baseName}"!`);
+  },
+
+  handleMoreLikeThis(id) {
+    let item = this.state.currentResults.find(n => n.id === id);
+    if (!item) item = BOYS_DATABASE.find(n => n.id === id);
+    if (!item) return;
+
+    const related = BoysEngine.getMoreLikeThis(item.id, 12);
+    if (related.length === 0) {
+      this.showToast(`No direct cluster siblings for "${item.baseName}".`);
+      return;
+    }
+
+    const decor = this.state.builderDecor || 'plain';
+    const formatted = related.map(rel => ({
+      ...rel,
+      currentDisplay: BoysEngine.applyDecoration(rel.baseName, decor, 0),
+      plainFallback: rel.baseName,
+      decoration: decor,
+      styleIndex: 0,
+      charCount: Array.from(BoysEngine.applyDecoration(rel.baseName, decor, 0)).length,
+      isDecorated: decor !== 'plain'
+    }));
+
+    this.state.currentResults = formatted;
+    this.renderNicknameGrid();
+
+    const grid = document.getElementById('nickname-grid');
+    if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    this.showToast(`Showing names conceptually related to "${item.baseName}"!`);
+  },
+
+  copyText(text, btn = null, showToast = true) {
+    if (!text) return;
+
+    const onDone = () => {
+      if (showToast) this.showToast(`Copied "${text}"!`);
+      if (btn) {
+        btn.classList.add('copied');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span>✓</span> Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = orig;
+        }, 1600);
+      }
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(onDone).catch(() => {
+        this.fallbackCopy(text, onDone);
+      });
+    } else {
+      this.fallbackCopy(text, onDone);
+    }
+  },
+
+  fallbackCopy(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-999999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      if (cb) cb();
+    } catch (e) {
+      this.showToast('Copy failed. Please copy manually.');
+    }
+    document.body.removeChild(ta);
+  },
+
+  showToast(msg) {
+    let toast = document.getElementById('boys-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'boys-toast';
+      toast.className = 'boys-toast';
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<span>✓</span> ${msg}`;
+    toast.classList.add('show');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2400);
+  },
+
+  initDualModeBuilder() {
+    const tabCreate = document.getElementById('tab-mode-create');
+    const tabStyle = document.getElementById('tab-mode-style');
+    const panelCreate = document.getElementById('panel-mode-create');
+    const panelStyle = document.getElementById('panel-mode-style');
+
+    if (tabCreate && tabStyle) {
+      tabCreate.addEventListener('click', () => {
+        tabCreate.classList.add('active');
+        tabCreate.setAttribute('aria-selected', 'true');
+        tabStyle.classList.remove('active');
+        tabStyle.setAttribute('aria-selected', 'false');
+
+        if (panelCreate) panelCreate.style.display = 'block';
+        if (panelStyle) panelStyle.style.display = 'none';
+        this.state.builderMode = 'create';
+      });
+
+      tabStyle.addEventListener('click', () => {
+        tabStyle.classList.add('active');
+        tabStyle.setAttribute('aria-selected', 'true');
+        tabCreate.classList.remove('active');
+        tabCreate.setAttribute('aria-selected', 'false');
+
+        if (panelCreate) panelCreate.style.display = 'none';
+        if (panelStyle) panelStyle.style.display = 'block';
+        this.state.builderMode = 'style';
+      });
+    }
+
+    // Builder Vibe chips
+    document.querySelectorAll('.btn-builder-vibe').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-vibe').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderVibe = btn.dataset.vibe || 'cool';
+      });
+    });
+
+    // Builder Length chips
+    document.querySelectorAll('.btn-builder-len').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-len').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderLength = btn.dataset.len || 'any';
+      });
+    });
+
+    // Builder Decor chips
+    document.querySelectorAll('.btn-builder-decor').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-builder-decor').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.state.builderDecor = btn.dataset.decor || 'plain';
+      });
+    });
+
+    // Generate CTA in Create mode
+    const genBtn = document.getElementById('btn-builder-generate');
+    if (genBtn) {
+      genBtn.addEventListener('click', () => this.runBuilderGeneration(true));
+    }
+
+    // Style CTA in Style mode
+    const styleBtn = document.getElementById('btn-builder-style-submit');
+    if (styleBtn) {
+      styleBtn.addEventListener('click', () => this.runBuilderGeneration(true));
+    }
+
+    // Random Pick CTA
+    const randBtn = document.getElementById('btn-builder-random');
+    if (randBtn) {
+      randBtn.addEventListener('click', () => {
+        const vibes = ['cool', 'pro', 'dark', 'royal', 'funny', 'minimal'];
+        const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+        this.state.builderVibe = randomVibe;
+        document.querySelectorAll('.btn-builder-vibe').forEach(b => {
+          b.classList.toggle('active', b.dataset.vibe === randomVibe);
+        });
+        this.runBuilderGeneration(true);
+        this.showToast(`Rolled fresh ${randomVibe.toUpperCase()} names!`);
+      });
+    }
+  },
+
+  runBuilderGeneration(scrollToResults = false) {
+    if (this.state.builderMode === 'create') {
+      const seedInput = document.getElementById('builder-seed-input');
+      const seedWord = seedInput ? seedInput.value.trim() : '';
+
+      const results = BoysEngine.generateBoysBatch({
+        vibe: this.state.builderVibe || 'cool',
+        length: this.state.builderLength || 'any',
+        decoration: this.state.builderDecor || 'plain',
+        seedWord: seedWord,
+        count: 18
+      });
+
+      this.state.currentResults = results;
+      this.renderNicknameGrid();
+    } else {
+      const styleInput = document.getElementById('builder-style-input');
+      const baseName = styleInput ? styleInput.value.trim() : 'Shadow';
+
+      const results = BoysEngine.styleExistingName({
+        name: baseName || 'Shadow',
+        vibe: this.state.builderVibe || 'cool',
+        decoration: this.state.builderDecor || 'styled',
+        count: 18
+      });
+
+      this.state.currentResults = results;
+      this.renderNicknameGrid();
+    }
+
+    if (scrollToResults) {
+      const grid = document.getElementById('nickname-grid');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   },
 
   /* ===================================================================

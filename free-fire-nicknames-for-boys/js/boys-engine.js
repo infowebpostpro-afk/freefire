@@ -265,5 +265,196 @@ const BoysEngine = {
   hasSpecialCharacters(str) {
     // Normal ASCII letters, digits, and standard spaces
     return /[^\x20-\x7E]/.test(str);
+  },
+
+  /**
+   * Generates a batch of boys nicknames for "Create a New Name" mode
+   */
+  generateBoysBatch({ vibe = 'cool', length = 'any', decoration = 'plain', seedWord = '', count = 18 }) {
+    let pool = [];
+    const cleanSeed = seedWord.trim();
+
+    if (cleanSeed) {
+      // Seed-based procedural generations
+      const capSeed = cleanSeed.charAt(0).toUpperCase() + cleanSeed.slice(1);
+      const suffixes = ['X', 'Ace', 'King', 'Nova', 'Rex', 'OP', 'Pro', '07', 'Kai', 'Vex', 'Storm', 'God', 'Strike', 'Fury'];
+      const prefixes = ['The', 'Dark', 'Night', 'Apex', 'Mr', 'Captain', 'Alpha', 'Ghost', 'Silent', 'Fatal', 'Immortal'];
+
+      suffixes.forEach(s => {
+        pool.push({
+          id: 'seed_' + Math.random().toString(36).substr(2, 7),
+          baseName: `${capSeed}${s}`,
+          categories: [vibe, 'custom'],
+          tags: [vibe, 'seed'],
+          lengthProfile: (capSeed.length + s.length) <= 5 ? 'short' : 'medium',
+          wordCount: 1,
+          styleIndex: 0
+        });
+      });
+
+      prefixes.forEach(p => {
+        pool.push({
+          id: 'seed_' + Math.random().toString(36).substr(2, 7),
+          baseName: `${p} ${capSeed}`,
+          categories: [vibe, 'custom'],
+          tags: [vibe, 'seed'],
+          lengthProfile: (p.length + capSeed.length + 1) <= 9 ? 'medium' : 'long',
+          wordCount: 2,
+          styleIndex: 0
+        });
+      });
+    } else {
+      // Filter BOYS_DATABASE matching vibe & length
+      pool = BOYS_DATABASE.filter(item => {
+        if (vibe !== 'random') {
+          if (vibe === 'cool' && !item.categories.includes('cool') && !item.categories.includes('popular')) return false;
+          if (vibe === 'pro' && !item.categories.includes('pro')) return false;
+          if (vibe === 'dark' && !item.categories.includes('dark')) return false;
+          if (vibe === 'royal' && !item.categories.includes('royal')) return false;
+          if (vibe === 'minimal' && item.lengthProfile !== 'short' && !item.categories.includes('minimal')) return false;
+          if (vibe === 'funny' && !item.tags.includes('funny') && !item.tags.includes('casual') && !item.categories.includes('attitude')) return false;
+        }
+        if (length === 'short' && item.baseName.replace(/\s+/g, '').length > 5) return false;
+        return true;
+      });
+
+      if (pool.length < count) {
+        pool = BOYS_DATABASE;
+      }
+    }
+
+    // Shuffle and pick
+    const shuffled = this.shuffle(pool).slice(0, count);
+
+    return shuffled.map(item => {
+      const styledDisplay = this.applyDecoration(item.baseName, decoration, 0);
+      return {
+        ...item,
+        currentDisplay: styledDisplay,
+        plainFallback: item.baseName,
+        decoration: decoration,
+        styleIndex: 0,
+        charCount: Array.from(styledDisplay).length,
+        isDecorated: decoration !== 'plain'
+      };
+    });
+  },
+
+  /**
+   * Styles an existing name with diverse decorations and fonts
+   */
+  styleExistingName({ name, vibe = 'cool', decoration = 'styled', count = 18 }) {
+    const clean = name.trim();
+    if (!clean) return [];
+
+    const styleKeys = ['clean', 'pro', 'extreme', 'royal', 'cross', 'star', 'bracket', 'slash', 'wing', 'samurai'];
+    const variations = [];
+
+    styleKeys.forEach((key, idx) => {
+      const fn = STYLE_RULES[key] || STYLE_RULES.pro;
+      const styledText = fn(clean);
+      variations.push({
+        id: 'cust_' + idx + '_' + Math.random().toString(36).substr(2, 5),
+        baseName: clean,
+        currentDisplay: styledText,
+        plainFallback: clean,
+        categories: [vibe],
+        tags: [vibe, key],
+        lengthProfile: clean.length <= 5 ? 'short' : 'medium',
+        wordCount: clean.includes(' ') ? 2 : 1,
+        styleIndex: idx,
+        charCount: Array.from(styledText).length,
+        isDecorated: key !== 'clean'
+      });
+    });
+
+    // Add remixes like NameX, NameAce, etc.
+    const remixes = generateRemixes(clean);
+    remixes.forEach((remix, idx) => {
+      const fn = (idx % 2 === 0) ? STYLE_RULES.pro : STYLE_RULES.bracket;
+      const styledText = fn(remix);
+      variations.push({
+        id: 'remix_' + idx + '_' + Math.random().toString(36).substr(2, 5),
+        baseName: remix,
+        currentDisplay: styledText,
+        plainFallback: remix,
+        categories: [vibe, 'remix'],
+        tags: [vibe, 'remix'],
+        lengthProfile: remix.length <= 5 ? 'short' : 'medium',
+        wordCount: 1,
+        styleIndex: 1,
+        charCount: Array.from(styledText).length,
+        isDecorated: true
+      });
+    });
+
+    return variations.slice(0, count);
+  },
+
+  /**
+   * Applies plain, light, or styled decoration
+   */
+  applyDecoration(baseName, level = 'plain', styleIndex = 0) {
+    if (level === 'plain') {
+      return baseName;
+    }
+
+    const lightStyles = [
+      STYLE_RULES.pro,
+      STYLE_RULES.bracket,
+      STYLE_RULES.star,
+      STYLE_RULES.cross
+    ];
+
+    const styledStyles = [
+      STYLE_RULES.extreme,
+      STYLE_RULES.royal,
+      STYLE_RULES.samurai,
+      STYLE_RULES.slash,
+      STYLE_RULES.wing
+    ];
+
+    if (level === 'light') {
+      const fn = lightStyles[styleIndex % lightStyles.length];
+      return fn(baseName);
+    }
+
+    if (level === 'styled') {
+      const fn = styledStyles[styleIndex % styledStyles.length];
+      return fn(baseName);
+    }
+
+    return baseName;
+  },
+
+  /**
+   * Restyle single item by stepping to the next decorative style
+   */
+  restyleSingle(item) {
+    const allStyles = [
+      STYLE_RULES.clean,
+      STYLE_RULES.pro,
+      STYLE_RULES.bracket,
+      STYLE_RULES.star,
+      STYLE_RULES.cross,
+      STYLE_RULES.extreme,
+      STYLE_RULES.royal,
+      STYLE_RULES.samurai,
+      STYLE_RULES.slash,
+      STYLE_RULES.wing
+    ];
+
+    const nextIdx = ((item.styleIndex || 0) + 1) % allStyles.length;
+    const fn = allStyles[nextIdx];
+    const newDisplay = fn(item.baseName);
+
+    return {
+      ...item,
+      currentDisplay: newDisplay,
+      styleIndex: nextIdx,
+      charCount: Array.from(newDisplay).length,
+      isDecorated: nextIdx > 0
+    };
   }
 };
+
