@@ -1,161 +1,207 @@
 /**
  * Free Fire Invisible Space - Data & Character Definitions
- * Unicode characters, troubleshooting decision tree, and curated battle-tested examples.
+ * Verified against standard Unicode specifications (U+3164, U+00A0, U+2800, U+FFA0).
+ * Reflects genuine September 2026 SERP findings: conflicting third-party compatibility reports,
+ * transparent fallback workflow, and in-game verification principles.
  */
 
 const INVISIBLE_CHARACTERS = [
   {
     id: 'u3164',
+    optionLetter: 'Option A',
     code: 'U+3164',
     name: 'Hangul Filler',
+    standardName: 'HANGUL FILLER',
     char: '\u3164',
-    status: 'Commonly Used',
-    statusClass: 'status-common',
-    description: 'The most popular invisible character used in Free Fire nicknames and clan tags.',
-    displayWidth: 'Standard space width (acts like a regular full character cell)',
-    technicalNotes: 'Unicode category: Letter, other (Lo). Does not collapse like regular whitespace in many game engines.',
-    fallbackReason: 'Primary recommendation for both spaced names and blank name attempts.'
+    status: 'Needs Site Verification',
+    statusClass: 'status-unverified',
+    category: 'Letter, other (Lo)',
+    displayWidth: 'Full character cell width',
+    description: 'Traditionally the most widely cited invisible character for Free Fire names and clan tags. Third-party reports currently conflict on whether it remains accepted across all server regions.',
+    technicalNotes: 'Unicode category: Letter, other (Lo). Standardized Unicode name: HANGUL FILLER. Technically a Korean script filler character rather than an ordinary typographic space.',
+    fallbackReason: 'Primary testing candidate. If rejected in your Free Fire client, switch directly to Option B (U+00A0).'
   },
   {
     id: 'u00a0',
+    optionLetter: 'Option B',
     code: 'U+00A0',
     name: 'No-Break Space (NBSP)',
+    standardName: 'NO-BREAK SPACE',
     char: '\u00A0',
-    status: 'Alternative',
-    statusClass: 'status-alt',
-    description: 'Prevents automatic line breaks and often accepted as a single gap in game names.',
-    displayWidth: 'Standard word space width',
-    technicalNotes: 'Unicode category: Separator, space (Zs). May collapse in some versions if placed adjacent to another space.',
-    fallbackReason: 'Try this if U+3164 is rejected as an invalid Hangul character on your server.'
+    status: 'Needs Site Verification',
+    statusClass: 'status-unverified',
+    category: 'Separator, space (Zs)',
+    displayWidth: 'Standard space width',
+    description: 'An official Unicode space character that prevents line breaks. Recommended by certain competitors as their primary working option, but permanent compatibility remains unverified.',
+    technicalNotes: 'Unicode category: Separator, space (Zs). Standardized Unicode name: NO-BREAK SPACE. Has regular space width but does not contain a visible symbol.',
+    fallbackReason: 'First fallback option if U+3164 is blocked or stripped by game client sanitization.'
   },
   {
     id: 'u2800',
+    optionLetter: 'Option C',
     code: 'U+2800',
     name: 'Braille Pattern Blank',
+    standardName: 'BRAILLE PATTERN BLANK',
     char: '\u2800',
-    status: 'Alternative',
-    statusClass: 'status-alt',
-    description: 'A blank braille cell with all 6 or 8 dots unraised, creating an empty glyph.',
-    displayWidth: 'Fixed monospace braille cell width',
-    technicalNotes: 'Unicode category: Other Symbol (So). Rendered as an empty glyph in standard Unicode fonts.',
-    fallbackReason: 'Useful if game sanitization strips whitespace categories (Zs).'
+    status: 'Needs Site Verification',
+    statusClass: 'status-unverified',
+    category: 'Other Symbol (So)',
+    displayWidth: 'Fixed monospace braille cell',
+    description: 'An empty braille cell with all dots unraised. Unicode explicitly notes that it may render as a fixed-width blank without technically behaving as a typographic space.',
+    technicalNotes: 'Unicode category: Other Symbol (So). Standardized Unicode name: BRAILLE PATTERN BLANK. Rendered as an empty symbol in standard Unicode fonts.',
+    fallbackReason: 'Second fallback option when game sanitizers specifically target whitespace (Zs) categories.'
   },
   {
     id: 'uffa0',
+    optionLetter: 'Option D',
     code: 'U+FFA0',
     name: 'Halfwidth Hangul Filler',
+    standardName: 'HALFWIDTH HANGUL FILLER',
     char: '\uFFA0',
-    status: 'Alternative',
-    statusClass: 'status-alt',
-    description: 'Halfwidth variant of the Hangul Filler, producing a narrower invisible separation.',
-    displayWidth: 'Half-width character gap',
-    technicalNotes: 'Unicode category: Letter, other (Lo). Compatibility depends on Asian font fallback support.',
-    fallbackReason: 'Try when you need a smaller, more subtle space between words or symbols.'
+    status: 'Narrow Alternative',
+    statusClass: 'status-tech',
+    category: 'Letter, other (Lo)',
+    displayWidth: 'Half-width character cell',
+    description: 'Halfwidth variant of the Hangul Filler, occupying a narrower visual width for subtle spacing between clan tags and names.',
+    technicalNotes: 'Unicode category: Letter, other (Lo). Standardized Unicode name: HALFWIDTH HANGUL FILLER. Compatibility varies by font fallback.',
+    fallbackReason: 'Useful when standard spacing creates too wide of a gap in your nickname.'
+  }
+];
+
+const COMPATIBILITY_MATRIX = [
+  {
+    character: 'U+3164 Hangul Filler',
+    code: 'U+3164',
+    category: 'Letter, other (Lo)',
+    apparentWidth: 'Full Cell',
+    currentStatus: 'Unverified (Conflicting Reports)',
+    statusBadge: 'status-badge-warn',
+    recommendation: 'Primary candidate to test first. If rejected, immediately switch to Option B.'
   },
   {
-    id: 'u2000',
-    code: 'U+2000',
-    name: 'En Quad',
-    char: '\u2000',
-    status: 'Technical Alternative',
-    statusClass: 'status-tech',
-    description: 'Typographical space character with a width equal to one en (approx. half an em).',
-    displayWidth: 'En width (medium gap)',
-    technicalNotes: 'Unicode category: Separator, space (Zs).',
-    fallbackReason: 'Useful if testing alternative typographic spaces.'
+    character: 'U+00A0 No-Break Space',
+    code: 'U+00A0',
+    category: 'Separator, space (Zs)',
+    apparentWidth: 'Word Space',
+    currentStatus: 'Unverified (Third-Party Claim)',
+    statusBadge: 'status-badge-warn',
+    recommendation: 'Primary fallback if Hangul Filler is filtered by regional game validation.'
   },
   {
-    id: 'u205f',
-    code: 'U+205F',
-    name: 'Medium Mathematical Space',
-    char: '\u205F',
-    status: 'Technical Alternative',
-    statusClass: 'status-tech',
-    description: 'A 4/18 em space used in mathematical notation.',
-    displayWidth: 'Compact gap',
-    technicalNotes: 'Unicode category: Separator, space (Zs).',
-    fallbackReason: 'Alternative whitespace character for narrow spacing.'
+    character: 'U+2800 Braille Blank',
+    code: 'U+2800',
+    category: 'Other Symbol (So)',
+    apparentWidth: 'Fixed Cell',
+    currentStatus: 'Unverified (Alternative)',
+    statusBadge: 'status-badge-info',
+    recommendation: 'Use when looking for a blank symbol that does not classify as standard whitespace.'
+  },
+  {
+    character: 'U+FFA0 Halfwidth Filler',
+    code: 'U+FFA0',
+    category: 'Letter, other (Lo)',
+    apparentWidth: 'Narrow Gap',
+    currentStatus: 'Unverified (Alternative)',
+    statusBadge: 'status-badge-info',
+    recommendation: 'Ideal for compact gaps between letters or subtle clan tag separation.'
   }
 ];
 
 const TROUBLESHOOTING_GUIDES = [
   {
     id: 'rejected',
-    title: 'Name Rejected / Invalid Name',
+    title: 'Name Rejected / Invalid Characters',
     icon: '❌',
-    summary: 'The game displays "Nickname contains invalid characters" or refuses to save.',
+    summary: 'Free Fire displays "Nickname contains invalid characters" or refuses to save the new name.',
     causes: [
-      'The current game patch or your regional server may have restricted Hangul (U+3164) characters.',
-      'The total character byte length might exceed Free Fire\'s 12-character limit.',
-      'Some servers reject names composed entirely of non-alphanumeric characters.'
+      'The current game patch or your regional server may filter Hangul Filler (U+3164).',
+      'The nickname may exceed Free Fire\'s strict 12-character limit (each invisible space counts as 1 slot).',
+      'Certain server regions reject nicknames composed purely of non-alphanumeric characters.'
     ],
     solutions: [
-      'Try switching to the No-Break Space (U+00A0) or Braille Blank (U+2800).',
-      'Ensure you have at least 1–2 visible alphanumeric letters in your nickname.',
-      'Shorten the visible part of the name so the total count stays under 12 characters.'
+      'Switch immediately to Option B (U+00A0 No-Break Space) or Option C (U+2800 Braille Blank).',
+      'Ensure your nickname contains at least 1 or 2 visible letters or numbers.',
+      'Check character count: keep visible letters plus invisible spaces under 12 characters.'
     ],
     recommendedCharId: 'u00a0'
   },
   {
     id: 'disappeared',
-    title: 'Space Disappeared / Collapsed',
+    title: 'Space Disappeared / Words Collapsed',
     icon: '👻',
-    summary: 'You pasted the space, but the words joined back together with no gap.',
+    summary: 'You pasted the space, but the words joined back together with no visible gap.',
     causes: [
-      'The game\'s text input field stripped leading, trailing, or consecutive standard whitespace.',
-      'A normal keyboard space was used instead of an invisible Unicode filler.'
+      'Free Fire\'s text field trimmed consecutive or standard whitespace characters.',
+      'A normal keyboard space (ASCII 32) was pasted instead of an invisible Unicode filler.',
+      'The space was placed at the very start or end where the game engine trims whitespace.'
     ],
     solutions: [
-      'Use the Hangul Filler (U+3164) instead of standard space, as it is classified as a letter glyph rather than whitespace.',
-      'Avoid placing invisible spaces at the very beginning or end of your name if your client trims strings.',
-      'Combine 2 invisible fillers for a more noticeable separation.'
+      'Use Option A (U+3164 Hangul Filler) or Option C (U+2800 Braille Blank), which are categorized as letters/symbols rather than whitespace.',
+      'Place the invisible character strictly between two visible letters (e.g. DARK[space]KING).',
+      'Try 2 consecutive invisible spaces for a wider, more distinct separation.'
     ],
     recommendedCharId: 'u3164'
   },
   {
     id: 'box',
-    title: 'Shows a Box □ or Question Mark',
+    title: 'Shows a Square Box □ or Question Mark',
     icon: '🔲',
-    summary: 'Instead of an invisible gap, a hollow rectangle (tofu) or "?" appears.',
+    summary: 'Instead of an invisible gap, a hollow box (tofu) or question mark symbol appears.',
     causes: [
-      'Your phone OS or device font renderer lacks the glyph map for that specific Unicode point.',
-      'Some custom Android keyboard clipboards corrupt complex Unicode sequences upon paste.'
+      'Your phone operating system or game font renderer lacks the glyph map for that specific Unicode character.',
+      'A custom keyboard clipboard manager corrupted or replaced the Unicode character on paste.'
     ],
     solutions: [
-      'Switch immediately to Braille Pattern Blank (U+2800) or No-Break Space (U+00A0).',
-      'Copy directly using our tool button rather than typing through your keyboard.',
-      'Verify the character using our Character Inspector before pasting into the game.'
+      'Switch to Option B (U+00A0 No-Break Space), which is universally supported across virtually all fonts.',
+      'Alternatively, try Option C (U+2800 Braille Pattern Blank).',
+      'Use our Character Inspector / Clipboard Tester to confirm what was actually copied.'
     ],
-    recommendedCharId: 'u2800'
+    recommendedCharId: 'u00a0'
   },
   {
     id: 'nothing',
-    title: 'Nothing Pasted / Clipboard Empty',
+    title: 'Nothing Pasted / Clipboard Appears Empty',
     icon: '📋',
-    summary: 'Tapping paste does nothing or produces no visible change in the input.',
+    summary: 'Tapping paste appears to do nothing because the character is completely invisible.',
     causes: [
-      'Because the character is 100% invisible, it may have pasted successfully without visible feedback.',
-      'Browser clipboard permissions might have blocked the copy action.'
+      'Because the character has no visible glyph, it may have pasted successfully without visual indication.',
+      'Browser clipboard permissions might have failed on certain mobile browsers.'
     ],
     solutions: [
-      'Type a test letter like "A", paste the invisible space, then type "B". If "A B" has a gap, it worked!',
-      'Click the "Copy Invisible Space" button again and ensure the "✓ Copied!" toast appears.',
-      'Test your clipboard in our Character Inspector below to verify it contains invisible characters.'
+      'Type "A", paste the character, then type "B". If you see "A B", the invisible space was pasted successfully!',
+      'Tap the Copy button again and watch for the "✓ Copied" confirmation notification.',
+      'Paste into our Paste-Back Unicode Detector below to verify the character is on your clipboard.'
     ],
     recommendedCharId: 'u3164'
   },
   {
-    id: 'too-long',
-    title: 'Name Too Long / Exceeds Limit',
-    icon: '📏',
-    summary: 'The game tells you the nickname is too long even though it looks short.',
+    id: 'exists',
+    title: 'Name Already Exists (Unavailable)',
+    icon: '🚫',
+    summary: 'The game reports that the nickname is already taken, especially when trying a blank name.',
     causes: [
-      'Free Fire strictly counts character units (maximum 12). Invisible characters count toward this limit!',
-      'Each invisible space consumes 1 full character slot.'
+      'Another player has already registered that identical sequence of invisible characters on your server.',
+      'A blank-looking nickname still contains specific underlying Unicode characters.'
     ],
     solutions: [
-      'Reduce the number of invisible spaces (e.g. use 1 space instead of 3).',
-      'Shorten the visible nickname text to 6–9 characters to leave room for gaps.',
+      'Change the quantity of invisible spaces (e.g., use 2 or 4 characters instead of 3).',
+      'Mix different Unicode characters (e.g., combine U+3164 with U+00A0 or U+2800).',
+      'Add a small visible accent or gaming symbol (e.g. 亗 or ★) to make the sequence unique.'
+    ],
+    recommendedCharId: 'u2800'
+  },
+  {
+    id: 'too-long',
+    title: 'Name Too Long / Exceeds 12-Char Limit',
+    icon: '📏',
+    summary: 'Free Fire says the nickname is too long even though it appears short on screen.',
+    causes: [
+      'Free Fire enforces a strict 12-character limit. Invisible characters take up full character slots!',
+      'Adding 3 invisible spaces to an 11-letter name produces 14 characters, causing rejection.'
+    ],
+    solutions: [
+      'Reduce the invisible space count from 2 or 3 down to a single space.',
+      'Shorten the visible nickname text to 7–9 characters to leave room for spacing.',
       'Check the live character counter in our Nickname Builder before copying.'
     ],
     recommendedCharId: 'u3164'
@@ -180,23 +226,23 @@ const READY_MADE_EXAMPLES = [
 ];
 
 const INVISIBLE_REGEX_CHARS = [
-  { code: 'U+3164', char: '\u3164', name: 'Hangul Filler' },
-  { code: 'U+00A0', char: '\u00A0', name: 'No-Break Space' },
-  { code: 'U+2800', char: '\u2800', name: 'Braille Pattern Blank' },
-  { code: 'U+FFA0', char: '\uFFA0', name: 'Halfwidth Hangul Filler' },
-  { code: 'U+2000', char: '\u2000', name: 'En Quad' },
-  { code: 'U+2001', char: '\u2001', name: 'Em Quad' },
-  { code: 'U+2002', char: '\u2002', name: 'En Space' },
-  { code: 'U+2003', char: '\u2003', name: 'Em Space' },
-  { code: 'U+2004', char: '\u2004', name: 'Three-Per-Em Space' },
-  { code: 'U+2005', char: '\u2005', name: 'Four-Per-Em Space' },
-  { code: 'U+2006', char: '\u2006', name: 'Six-Per-Em Space' },
-  { code: 'U+2007', char: '\u2007', name: 'Figure Space' },
-  { code: 'U+2008', char: '\u2008', name: 'Punctuation Space' },
-  { code: 'U+2009', char: '\u2009', name: 'Thin Space' },
-  { code: 'U+200A', char: '\u200A', name: 'Hair Space' },
-  { code: 'U+200B', char: '\u200B', name: 'Zero Width Space' },
-  { code: 'U+202F', char: '\u202F', name: 'Narrow No-Break Space' },
-  { code: 'U+205F', char: '\u205F', name: 'Medium Mathematical Space' },
-  { code: 'U+3000', char: '\u3000', name: 'Ideographic Space' }
+  { code: 'U+3164', char: '\u3164', name: 'Hangul Filler', category: 'Letter, other (Lo)' },
+  { code: 'U+00A0', char: '\u00A0', name: 'No-Break Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2800', char: '\u2800', name: 'Braille Pattern Blank', category: 'Other Symbol (So)' },
+  { code: 'U+FFA0', char: '\uFFA0', name: 'Halfwidth Hangul Filler', category: 'Letter, other (Lo)' },
+  { code: 'U+2000', char: '\u2000', name: 'En Quad', category: 'Separator, space (Zs)' },
+  { code: 'U+2001', char: '\u2001', name: 'Em Quad', category: 'Separator, space (Zs)' },
+  { code: 'U+2002', char: '\u2002', name: 'En Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2003', char: '\u2003', name: 'Em Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2004', char: '\u2004', name: 'Three-Per-Em Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2005', char: '\u2005', name: 'Four-Per-Em Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2006', char: '\u2006', name: 'Six-Per-Em Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2007', char: '\u2007', name: 'Figure Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2008', char: '\u2008', name: 'Punctuation Space', category: 'Separator, space (Zs)' },
+  { code: 'U+2009', char: '\u2009', name: 'Thin Space', category: 'Separator, space (Zs)' },
+  { code: 'U+200A', char: '\u200A', name: 'Hair Space', category: 'Separator, space (Zs)' },
+  { code: 'U+200B', char: '\u200B', name: 'Zero Width Space', category: 'Other, format (Cf)' },
+  { code: 'U+202F', char: '\u202F', name: 'Narrow No-Break Space', category: 'Separator, space (Zs)' },
+  { code: 'U+205F', char: '\u205F', name: 'Medium Mathematical Space', category: 'Separator, space (Zs)' },
+  { code: 'U+3000', char: '\u3000', name: 'Ideographic Space', category: 'Separator, space (Zs)' }
 ];

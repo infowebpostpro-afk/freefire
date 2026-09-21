@@ -185,25 +185,29 @@
             </div>
           </div>
 
-          <!-- Studio Input Controls -->
+          <!-- Studio Input Controls: Real-Time Live Styler Console -->
           <div class="studio-input-wrapper">
-            <div class="input-row-main">
-              <div class="input-box">
-                <input 
-                  type="text" 
-                  id="nickname-input" 
-                  placeholder="Enter your name (e.g. Shadow, Hunter, Venom)..." 
-                  maxlength="20"
-                  autocomplete="off"
-                  spellcheck="false"
-                  aria-label="Enter your nickname to style"
-                >
-                <button id="input-clear-btn" class="input-clear-btn" aria-label="Clear input">✕</button>
-              </div>
-
-              <button id="btn-generate-main" class="btn btn-primary btn-generate-main">
-                <span>⚡</span> Style Name
+            <div class="input-console-box">
+              <div class="input-console-icon">⚡</div>
+              <input 
+                type="text" 
+                id="nickname-input" 
+                class="input-live-field"
+                placeholder="Type your name (e.g. Shadow, Venom, Hunter)..." 
+                maxlength="20"
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Enter your nickname to style in real time"
+              >
+              <button id="input-clear-btn" class="input-clear-btn" aria-label="Clear input" style="display: none;">✕</button>
+              <button id="btn-quick-random" class="btn-quick-random" title="Roll random name idea">
+                <span>🎲</span> <span class="random-btn-text">Random</span>
               </button>
+            </div>
+
+            <div class="live-status-pill">
+              <span class="pulse-dot"></span>
+              <span><strong>Live Styling:</strong> Designs update automatically as you type &bull; Tap any name to copy</span>
             </div>
           </div>
 
@@ -234,13 +238,14 @@
           <div class="category-filter-wrapper">
             <div id="category-pills" class="category-scroll-container" role="tablist" aria-label="Nickname Categories">
               <button class="btn-category active" data-category="popular">🔥 Popular</button>
-              <button class="btn-category" data-category="pro">⚡ Pro</button>
-              <button class="btn-category" data-category="cool">😎 Cool</button>
+              <button class="btn-category" data-category="pro">亗 Pro &amp; Boss</button>
+              <button class="btn-category" data-category="invisible">👻 Invisible Space</button>
+              <button class="btn-category" data-category="japanese">メ Japanese</button>
+              <button class="btn-category" data-category="dark">💀 Dark &amp; Toxic</button>
+              <button class="btn-category" data-category="attitude">😈 Attitude</button>
               <button class="btn-category" data-category="royal">👑 Royal</button>
-              <button class="btn-category" data-category="dark">💀 Dark</button>
-              <button class="btn-category" data-category="gaming">🎮 Gaming</button>
-              <button class="btn-category" data-category="ninja">🥷 Ninja</button>
-              <button class="btn-category" data-category="stylish">✨ Stylish</button>
+              <button class="btn-category" data-category="gaming">🎮 Sniper</button>
+              <button class="btn-category" data-category="stylish">✨ Aesthetic</button>
               <button class="btn-category" data-category="cute">❤️ Cute</button>
               <button class="btn-category" data-category="luxury">💎 Luxury</button>
             </div>

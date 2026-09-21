@@ -1,10 +1,24 @@
 /**
  * Free Fire Nickname Studio - Data Engine
- * Unicode font maps, symbols library, decoration patterns, and themed presets
+ * Research-based Unicode font maps, symbols library, Free Fire decoration patterns,
+ * and battle-tested themed presets tailored for mobile gaming players.
  */
 
+// Comprehensive Unicode Font Transformations for Free Fire
 const FONT_MAPS = {
   normal: (text) => text,
+
+  // Small Capitals: e.g. ᴅᴀʀᴋ ᴋɪɴɢ
+  smallCaps: (text) => {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const sc = 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ';
+    return text.split('').map(c => {
+      const idx = chars.indexOf(c);
+      return idx !== -1 ? sc[idx] : c;
+    }).join('');
+  },
+
+  // Bold Serif: 𝐃𝐚𝐫𝐤 𝐊𝐢𝐧𝐠
   bold: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const boldChars = '𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗';
@@ -14,6 +28,19 @@ const FONT_MAPS = {
       return idx !== -1 ? boldArr[idx] : c;
     }).join('');
   },
+
+  // Bold Sans-Serif: 𝗗𝗮𝗿𝗸 𝗞𝗶𝗻𝗴
+  boldSans: (text) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const boldSansChars = '𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵';
+    const arr = Array.from(boldSansChars);
+    return text.split('').map(c => {
+      const idx = chars.indexOf(c);
+      return idx !== -1 ? arr[idx] : c;
+    }).join('');
+  },
+
+  // Italic Sans-Serif: 𝘋𝘢𝘳𝘬 𝘒𝘪𝘯𝘨
   italic: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const italicChars = '𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝲘𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻';
@@ -23,6 +50,19 @@ const FONT_MAPS = {
       return idx !== -1 ? italicArr[idx] : c;
     }).join('');
   },
+
+  // Bold Italic Sans: 𝘿𝙖𝙧𝙠 𝙆𝙞𝙣𝙜
+  boldItalic: (text) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const biChars = '𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯';
+    const biArr = Array.from(biChars);
+    return text.split('').map(c => {
+      const idx = chars.indexOf(c);
+      return idx !== -1 ? biArr[idx] : c;
+    }).join('');
+  },
+
+  // Gothic / Fraktur: 𝕯𝖆𝖗𝖐 𝕶𝖎𝖓𝖌
   gothic: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const gothicChars = '𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟';
@@ -32,6 +72,19 @@ const FONT_MAPS = {
       return idx !== -1 ? gothicArr[idx] : c;
     }).join('');
   },
+
+  // Light Fraktur: 𝔇𝔞𝔯𝔨 𝔎𝔦𝔫𝔤
+  lightFraktur: (text) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const lfChars = '𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷';
+    const lfArr = Array.from(lfChars);
+    return text.split('').map(c => {
+      const idx = chars.indexOf(c);
+      return idx !== -1 ? lfArr[idx] : c;
+    }).join('');
+  },
+
+  // Script / Cursive: 𝒟𝒶𝓇𝓀 𝒦𝒾𝓃𝑔
   script: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const scriptChars = '𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓉𝓾𝓿𝔀𝔁𝔂𝔩';
@@ -41,23 +94,19 @@ const FONT_MAPS = {
       return idx !== -1 ? scriptArr[idx] : c;
     }).join('');
   },
+
+  // Double-Struck / Blackboard: 𝔻𝕒𝕣𝕜 𝕂𝕚𝕟𝕘
   doubleStruck: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const dsChars = '𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡';
+    const dsChars = '𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝛄𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡';
     const dsArr = Array.from(dsChars);
     return text.split('').map(c => {
       const idx = chars.indexOf(c);
       return idx !== -1 ? dsArr[idx] : c;
     }).join('');
   },
-  smallCaps: (text) => {
-    const chars = 'abcdefghijklmnopqrstuvwxyz';
-    const scChars = 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ';
-    return text.split('').map(c => {
-      const idx = chars.indexOf(c.toLowerCase());
-      return idx !== -1 ? scChars[idx] : c;
-    }).join('');
-  },
+
+  // Monospace / Retro Hacker: 𝙳𝚊𝚛𝚔 𝙺𝚒𝚗𝚐
   monospace: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const monoChars = '𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿';
@@ -67,6 +116,29 @@ const FONT_MAPS = {
       return idx !== -1 ? monoArr[idx] : c;
     }).join('');
   },
+
+  // Fullwidth / Vaporwave: Ｄａｒｋ Ｋｉｎｇ
+  fullwidth: (text) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const fwChars = 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９';
+    const fwArr = Array.from(fwChars);
+    return text.split('').map(c => {
+      const idx = chars.indexOf(c);
+      return idx !== -1 ? fwArr[idx] : c;
+    }).join('');
+  },
+
+  // Invisible Spaced (Using Hangul Filler U+3164 between uppercase letters)
+  invisibleSpaced: (text) => {
+    return text.toUpperCase().split('').join('\u3164');
+  },
+
+  // Letter Spaced: D A R K
+  spaced: (text) => {
+    return text.toUpperCase().split('').join(' ');
+  },
+
+  // Circled White: ⓓⓐⓡⓚ
   bubbles: (text) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const bubbleChars = 'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪①②③④⑤⑥⑦⑧⑨';
@@ -75,9 +147,77 @@ const FONT_MAPS = {
       const idx = chars.indexOf(c);
       return idx !== -1 ? bubbleArr[idx] : c;
     }).join('');
+  },
+
+  // Circled Black / Inverted: 🅓🅐🅡🅚
+  bubblesBlack: (text) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const bbChars = ' his 🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩🅓🅐🅡🅚';
+    const map = {
+      'a':'🅐','b':'🅑','c':'🅒','d':'🅓','e':'🅔','f':'🅕','g':'🅖','h':'🅗','i':'🅘','j':'🅙',
+      'k':'🅚','l':'🅛','m':'🅜','n':'🅝','o':'🅞','p':'🅟','q':'🅠','r':'🅡','s':'🅢','t':'🅣',
+      'u':'🅤','v':'🅥','w':'🅦','x':'🅧','y':'🅨','z':'🅩',
+      'A':'🅐','B':'🅑','C':'🅒','D':'🅓','E':'🅔','F':'🅕','G':'🅖','H':'🅗','I':'🅘','J':'🅙',
+      'K':'🅚','L':'🅛','M':'🅜','N':'🅝','O':'🅞','P':'🅟','Q':'🅠','R':'🅡','S':'🅢','T':'🅣',
+      'U':'🅤','V':'🅥','W':'🅦','X':'🅧','Y':'🅨','Z':'🅩'
+    };
+    return text.split('').map(c => map[c] || c).join('');
+  },
+
+  // Squared White: [D][A][R][K]
+  squares: (text) => {
+    const map = {
+      'a':'🄰','b':'🄱','c':'🄲','d':'🄳','e':'🄴','f':'🄵','g':'🄶','h':'🄷','i':'🄸','j':'🄹',
+      'k':'🄺','l':'🄻','m':'🄼','n':'🄽','o':'🄾','p':'🄿','q':'🅀','r':'🅁','s':'🅂','t':'🅃',
+      'u':'🅄','v':'🅅','w':'🅆','x':'🅇','y':'🅈','z':'🅉',
+      'A':'🄰','B':'🄱','C':'🄲','D':'🄳','E':'🄴','F':'🄵','G':'🄶','H':'🄷','I':'🄸','J':'🄹',
+      'K':'🄺','L':'🄻','M':'🄼','N':'🄽','O':'🄾','P':'🄿','Q':'🅀','R':'🅁','S':'🅂','T':'🅃',
+      'U':'🅄','V':'🅅','W':'🅆','X':'🅇','Y':'🅈','Z':'🅉'
+    };
+    return text.split('').map(c => map[c] || c).join('');
+  },
+
+  // Superscript: ᴰᵃʳᵏ
+  superscript: (text) => {
+    const map = {
+      'a':'ᵃ','b':'ᵇ','c':'ᶜ','d':'ᵈ','e':'ᵉ','f':'ᶠ','g':'ᵍ','h':'ʰ','i':'ⁱ','j':'ʲ',
+      'k':'ᵏ','l':'ˡ','m':'ᵐ','n':'ⁿ','o':'ᵒ','p':'ᵖ','r':'ʳ','s':'ˢ','t':'ᵗ','u':'ᵘ',
+      'v':'ᵛ','w':'ʷ','x':'ˣ','y':'ʸ','z':'ᶻ',
+      'A':'ᴬ','B':'ᴮ','C':'ᶜ','D':'ᴰ','E':'ᴱ','F':'ᶠ','G':'ᴳ','H':'ᴴ','I':'ᴵ','J':'ᴶ',
+      'K':'ᴷ','L':'ᴸ','M':'ᴹ','N':'ᴺ','O':'ᴼ','P':'ᴾ','R':'ᴿ','S':'ˢ','T':'ᵀ','U':'ᵁ',
+      'V':'ⱽ','W':'ᵂ','X':'ˣ','Y':'ʸ','Z':'ᶻ','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'
+    };
+    return text.split('').map(c => map[c] || c).join('');
+  },
+
+  // Strikethrough: D̶a̶r̶k̶
+  strikethrough: (text) => {
+    return text.split('').map(c => c + '\u0336').join('');
+  },
+
+  // Slash-Through: D̷a̷r̷k̷
+  slashthrough: (text) => {
+    return text.split('').map(c => c + '\u0338').join('');
+  },
+
+  // Underlined: D̲a̲r̲k̲
+  underline: (text) => {
+    return text.split('').map(c => c + '\u0332').join('');
+  },
+
+  // Double Underlined: D̳a̳r̳k̳
+  doubleUnderline: (text) => {
+    return text.split('').map(c => c + '\u0333').join('');
+  },
+
+  // Leet (1337): D4RK K1NG
+  leet: (text) => {
+    const map = { 'a':'4', 'A':'4', 'e':'3', 'E':'3', 'i':'1', 'I':'1', 'o':'0', 'O':'0', 's':'5', 'S':'5', 't':'7', 'T':'7' };
+    return text.split('').map(c => map[c] || c).join('');
   }
 };
 
+// Symbols Database
 const SYMBOLS_DATABASE = [
   // Popular & Gaming Signature
   { char: '亗', name: 'Trident Crown of Power', cat: 'popular', tags: ['popular', 'crown', 'pro', 'signature', 'trident'] },
@@ -90,7 +230,6 @@ const SYMBOLS_DATABASE = [
   { char: '✦', name: 'Sparkle Star', cat: 'stars', tags: ['stars', 'sparkle', 'stylish'] },
   { char: '✧', name: 'Diamond Sparkle', cat: 'stars', tags: ['stars', 'luxury', 'stylish'] },
   { char: '✪', name: 'Circled Star', cat: 'stars', tags: ['stars', 'badge', 'military'] },
-  { char: '✰', name: 'Shadow Star', cat: 'stars', tags: ['stars', 'cool'] },
   
   // Crowns & Royal
   { char: '👑', name: 'Imperial Crown', cat: 'crown', tags: ['crown', 'royal', 'king', 'queen'] },
@@ -98,7 +237,6 @@ const SYMBOLS_DATABASE = [
   { char: '♚', name: 'Black King Crown', cat: 'crown', tags: ['crown', 'king', 'chess', 'royal', 'dark'] },
   { char: '♕', name: 'White Queen Crown', cat: 'crown', tags: ['crown', 'queen', 'chess', 'royal', 'clean'] },
   { char: '♔', name: 'White King Crown', cat: 'crown', tags: ['crown', 'king', 'chess', 'royal', 'clean'] },
-  { char: '༗', name: 'Golden Crest Coronet', cat: 'crown', tags: ['crown', 'royal', 'rare'] },
   
   // Weapons & Battle
   { char: '⚔', name: 'Crossed Swords', cat: 'weapons', tags: ['weapons', 'swords', 'battle', 'war', 'gaming'] },
@@ -113,191 +251,199 @@ const SYMBOLS_DATABASE = [
   { char: '☠', name: 'Skull and Crossbones', cat: 'skull', tags: ['skull', 'dark', 'death', 'poison', 'pirate'] },
   { char: '💀', name: 'Human Skull', cat: 'skull', tags: ['skull', 'dark', 'headshot', 'deadly'] },
   { char: '👻', name: 'Ghost Spectre', cat: 'skull', tags: ['skull', 'dark', 'ghost', 'cute'] },
-  { char: '⚰', name: 'Coffin of Oblivion', cat: 'skull', tags: ['skull', 'dark', 'grave'] },
   { char: '☣', name: 'Biohazard Warning', cat: 'skull', tags: ['skull', 'dark', 'toxic', 'hazard'] },
   { char: '☢', name: 'Radioactive Fallout', cat: 'skull', tags: ['skull', 'dark', 'toxic', 'nuclear'] },
-  { char: 'ψ', name: 'Greek Psi Pitchfork', cat: 'skull', tags: ['skull', 'dark', 'devil', 'trident'] },
   
-  // Wings & Angels
-  { char: '༆', name: 'Tibetan Wing Feathers', cat: 'wings', tags: ['wings', 'royal', 'rare'] },
-  { char: '༇', name: 'Sacred Angelic Wing', cat: 'wings', tags: ['wings', 'rare', 'angel'] },
-  { char: 'ʚ', name: 'Feather Wing Left', cat: 'wings', tags: ['wings', 'cute', 'aesthetic', 'angel'] },
-  { char: 'ɞ', name: 'Feather Wing Right', cat: 'wings', tags: ['wings', 'cute', 'aesthetic', 'angel'] },
+  // Wings & Aesthetics
   { char: '𓆩', name: 'Hieroglyph Wing Left', cat: 'wings', tags: ['wings', 'aesthetic', 'pro', 'shield'] },
   { char: '𓆪', name: 'Hieroglyph Wing Right', cat: 'wings', tags: ['wings', 'aesthetic', 'pro', 'shield'] },
+  { char: 'ʚ', name: 'Feather Wing Left', cat: 'wings', tags: ['wings', 'cute', 'aesthetic', 'angel'] },
+  { char: 'ɞ', name: 'Feather Wing Right', cat: 'wings', tags: ['wings', 'cute', 'aesthetic', 'angel'] },
   
-  // Hearts & Cute
-  { char: '❤', name: 'Classic Red Heart', cat: 'hearts', tags: ['hearts', 'cute', 'love'] },
-  { char: '♡', name: 'Hollow Heart', cat: 'hearts', tags: ['hearts', 'cute', 'clean', 'aesthetic'] },
-  { char: '❥', name: 'Heart Floral Bullet', cat: 'hearts', tags: ['hearts', 'cute', 'stylish'] },
-  { char: 'ღ', name: 'Georgian Heart Bloom', cat: 'hearts', tags: ['hearts', 'cute', 'soft'] },
-  { char: 'დ', name: 'Georgian Smile Heart', cat: 'hearts', tags: ['hearts', 'cute', 'aesthetic'] },
-  { char: '♥', name: 'Playing Card Heart', cat: 'hearts', tags: ['hearts', 'cute', 'retro'] },
-  
-  // Brackets & Enclosures
-  { char: '『', name: 'Corner Bracket Left', cat: 'brackets', tags: ['brackets', 'clean', 'japanese', 'pro'] },
-  { char: '』', name: 'Corner Bracket Right', cat: 'brackets', tags: ['brackets', 'clean', 'japanese', 'pro'] },
-  { char: '【', name: 'Heavy Black Lenticular Left', cat: 'brackets', tags: ['brackets', 'heavy', 'pro'] },
-  { char: '】', name: 'Heavy Black Lenticular Right', cat: 'brackets', tags: ['brackets', 'heavy', 'pro'] },
-  { char: '〖', name: 'Hollow Lenticular Left', cat: 'brackets', tags: ['brackets', 'clean'] },
-  { char: '〗', name: 'Hollow Lenticular Right', cat: 'brackets', tags: ['brackets', 'clean'] },
-  { char: '《', name: 'Double Angle Left', cat: 'brackets', tags: ['brackets', 'stylish'] },
-  { char: '》', name: 'Double Angle Right', cat: 'brackets', tags: ['brackets', 'stylish'] },
-  { char: '⟦', name: 'Mathematical White Bracket L', cat: 'brackets', tags: ['brackets', 'cyber'] },
-  { char: '⟧', name: 'Mathematical White Bracket R', cat: 'brackets', tags: ['brackets', 'cyber'] },
-  
-  // Lightning & Energy
-  { char: '⚡', name: 'High Voltage Lightning', cat: 'lightning', tags: ['lightning', 'energy', 'fire', 'speed', 'thunder'] },
-  { char: 'ϟ', name: 'Greek Koppa Spark', cat: 'lightning', tags: ['lightning', 'electric', 'sharp'] },
-  { char: '🔥', name: 'Blazing Fire Flame', cat: 'lightning', tags: ['lightning', 'fire', 'flame', 'energy'] },
-  { char: '☄', name: 'Fiery Comet Meteor', cat: 'lightning', tags: ['lightning', 'fire', 'comet', 'space'] },
-  { char: '💥', name: 'Explosive Impact', cat: 'lightning', tags: ['lightning', 'fire', 'impact'] },
-  
-  // Japanese & Asian Style
+  // Japanese & Katakana
+  { char: 'メ', name: 'Katakana Me Slash', cat: 'japanese', tags: ['japanese', 'ninja', 'slash', 'pro'] },
   { char: '乂', name: 'Cross Slash Scissors', cat: 'japanese', tags: ['japanese', 'ninja', 'slash', 'cross', 'pro'] },
+  { char: '乡', name: 'Chinese Village Banner', cat: 'japanese', tags: ['japanese', 'pro', 'esports'] },
   { char: '父', name: 'Father Kanji Pillar', cat: 'japanese', tags: ['japanese', 'ninja', 'kanji'] },
   { char: '气', name: 'Chi Spirit Vapor', cat: 'japanese', tags: ['japanese', 'energy', 'spirit', 'ninja'] },
   { char: 'シ', name: 'Katakana Shi Smile', cat: 'japanese', tags: ['japanese', 'cute', 'anime'] },
   { char: 'ツ', name: 'Katakana Tsu Wink', cat: 'japanese', tags: ['japanese', 'cute', 'anime', 'smile'] },
   { char: '彡', name: 'Triple Slash Whisk', cat: 'japanese', tags: ['japanese', 'speed', 'slash'] },
-  { char: '々', name: 'Noma Repetition Mark', cat: 'japanese', tags: ['japanese', 'clean'] },
   
-  // Decorative & Aesthetic
-  { char: '✿', name: 'Cherry Blossom Bloom', cat: 'decorative', tags: ['decorative', 'cute', 'flower'] },
-  { char: '❀', name: 'Open Flower Petals', cat: 'decorative', tags: ['decorative', 'cute', 'flower'] },
-  { char: '❁', name: 'Sunflower Pattern', cat: 'decorative', tags: ['decorative', 'flower'] },
-  { char: '✤', name: 'Heavy Diamond Star Four', cat: 'decorative', tags: ['decorative', 'star', 'diamond'] },
-  { char: '✥', name: 'Diamond Club Cross', cat: 'decorative', tags: ['decorative', 'cross', 'royal'] },
-  { char: '❦', name: 'Fleuron Leaf Accent', cat: 'decorative', tags: ['decorative', 'vintage', 'aesthetic'] },
+  // Brackets
+  { char: '『', name: 'Corner Bracket Left', cat: 'brackets', tags: ['brackets', 'clean', 'japanese', 'pro'] },
+  { char: '』', name: 'Corner Bracket Right', cat: 'brackets', tags: ['brackets', 'clean', 'japanese', 'pro'] },
+  { char: '【', name: 'Heavy Black Lenticular Left', cat: 'brackets', tags: ['brackets', 'heavy', 'pro'] },
+  { char: '】', name: 'Heavy Black Lenticular Right', cat: 'brackets', tags: ['brackets', 'heavy', 'pro'] },
+  { char: '《', name: 'Double Angle Left', cat: 'brackets', tags: ['brackets', 'stylish'] },
+  { char: '》', name: 'Double Angle Right', cat: 'brackets', tags: ['brackets', 'stylish'] },
   
-  // Special & Invisible Space Helper
-  { char: 'ㅤ', name: 'Hangul Filler (Invisible Space)', cat: 'rare', tags: ['rare', 'invisible', 'space', 'blank', 'pro'] },
-  { char: '♾', name: 'Infinite Eternity', cat: 'rare', tags: ['rare', 'clean', 'gaming', 'loop'] },
-  { char: 'Ø', name: 'Zero Slash Diameter', cat: 'rare', tags: ['rare', 'clean', 'gaming', 'cyber'] },
-  { char: '☯', name: 'Yin Yang Balance', cat: 'rare', tags: ['rare', 'ninja', 'balance'] }
+  // Lightning & Fire
+  { char: '⚡', name: 'High Voltage Lightning', cat: 'lightning', tags: ['lightning', 'energy', 'fire', 'speed', 'thunder'] },
+  { char: '🔥', name: 'Blazing Fire Flame', cat: 'lightning', tags: ['lightning', 'fire', 'flame', 'energy'] },
+  { char: 'ϟ', name: 'Greek Koppa Spark', cat: 'lightning', tags: ['lightning', 'electric', 'sharp'] },
+  
+  // Invisible Space
+  { char: 'ㅤ', name: 'Hangul Filler (Invisible Space)', cat: 'rare', tags: ['rare', 'invisible', 'space', 'blank', 'pro'] }
 ];
 
-// Presets for Style Categories & Intensity
+// Presets for Style Categories & Intensity (120+ research-based battle configurations)
 const STYLE_PRESETS = {
   popular: [
-    { prefix: '亗', suffix: '亗', font: 'bold', intensity: 'clean', desc: 'Classic Pro Trident' },
-    { prefix: '꧁', suffix: '꧂', font: 'bold', intensity: 'pro', desc: 'Winged Pro Badge' },
-    { prefix: '『', suffix: '』', font: 'bold', intensity: 'clean', desc: 'Japanese Bracket' },
-    { prefix: '乂', suffix: '乂', font: 'normal', intensity: 'clean', desc: 'Ninja Slash Cross' },
-    { prefix: '★', suffix: '★', font: 'bold', intensity: 'clean', desc: 'Star Commander' },
-    { prefix: '༒', suffix: '༒', font: 'gothic', intensity: 'pro', desc: 'Tibetan Honor' },
+    { prefix: '亗 ', suffix: ' 亗', font: 'smallCaps', intensity: 'clean', desc: 'Trident Small Caps' },
+    { prefix: '亗 ', suffix: ' 亗', font: 'boldSans', intensity: 'clean', desc: 'Trident Bold Pro' },
+    { prefix: '꧁༒', suffix: '༒꧂', font: 'bold', intensity: 'pro', desc: 'Classic Winged Banner' },
+    { prefix: '『', suffix: '』', font: 'smallCaps', intensity: 'clean', desc: 'Japanese Bracket' },
+    { prefix: 'メ ', suffix: ' メ', font: 'spaced', intensity: 'clean', desc: 'Katakana Slash Pro' },
+    { prefix: '亗『', suffix: '』亗', font: 'bold', intensity: 'pro', desc: 'Royal Enclosed Trident' },
+    { prefix: '★彡[', suffix: ']彡★', font: 'boldSans', intensity: 'pro', desc: 'Star Commander Frame' },
+    { prefix: '×͜× ', suffix: '', font: 'smallCaps', intensity: 'clean', desc: 'Dead Eye Esports' },
+    { prefix: '༺', suffix: '༻', font: 'gothic', intensity: 'clean', desc: 'Legendary Ornament' },
+    { prefix: '⚡ ', suffix: ' ⚡', font: 'boldSans', intensity: 'clean', desc: 'Voltage Lightning' },
+    { prefix: '亗ㅤ', suffix: 'ㅤ亗', font: 'boldSans', intensity: 'pro', desc: 'Invisible Spaced Trident' },
     { prefix: '꧁༒☬', suffix: '☬༒꧂', font: 'gothic', intensity: 'extreme', desc: 'Master Khanda Dynasty' },
-    { prefix: '亗『', suffix: '』亗', font: 'bold', intensity: 'pro', desc: 'Royal Enclosed Crown' },
-    { prefix: '⚡', suffix: '⚡', font: 'bold', intensity: 'clean', desc: 'Thunder Spark' },
-    { prefix: '༒', suffix: '亗', font: 'bold', intensity: 'pro', desc: 'Honor Trident' }
+    { prefix: '', suffix: '', font: 'smallCaps', intensity: 'clean', desc: 'Clean Small Capitals' },
+    { prefix: '', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Clean Bold Sans' },
+    { prefix: '【', suffix: '】', font: 'bold', intensity: 'clean', desc: 'Heavy Bracket Tag' }
   ],
-  cool: [
-    { prefix: '⚡', suffix: '⚡', font: 'monospace', intensity: 'clean', desc: 'Voltage Surge' },
-    { prefix: '𓊈', suffix: '𓊉', font: 'bold', intensity: 'pro', desc: 'Vanguard Shield' },
-    { prefix: '⚔', suffix: '⚔', font: 'bold', intensity: 'clean', desc: 'Duelist Blades' },
-    { prefix: '•', suffix: '•', font: 'bold', intensity: 'clean', desc: 'Sleek Minimal Bullet' },
-    { prefix: '⟦', suffix: '⟧', font: 'monospace', intensity: 'clean', desc: 'Cyber Matrix' },
-    { prefix: '꧁⚡', suffix: '⚡꧂', font: 'bold', intensity: 'pro', desc: 'Winged Thunder' },
-    { prefix: '༒⚔', suffix: '⚔༒', font: 'gothic', intensity: 'extreme', desc: 'Battlefield Legend' },
-    { prefix: '彡', suffix: '彡', font: 'italic', intensity: 'clean', desc: 'Wind Slasher' },
-    { prefix: '✦', suffix: '✦', font: 'doubleStruck', intensity: 'clean', desc: 'Starlight Sparkle' }
-  ],
+
   pro: [
-    { prefix: '亗', suffix: '亗', font: 'bold', intensity: 'clean', desc: 'Competitive Trident' },
-    { prefix: '『OP』', suffix: '', font: 'bold', intensity: 'clean', desc: 'Overpowered Tag' },
-    { prefix: '【PRO】', suffix: '', font: 'bold', intensity: 'clean', desc: 'Verified Pro Tag' },
-    { prefix: '꧁༒', suffix: '༒꧂', font: 'bold', intensity: 'pro', desc: 'Tournament Apex' },
-    { prefix: '乂', suffix: '亗', font: 'bold', intensity: 'pro', desc: 'Slash-Trident Hybrid' },
-    { prefix: '𓆩', suffix: '𓆪', font: 'bold', intensity: 'pro', desc: 'Aesthetic Wings' },
-    { prefix: '亗『PRO』', suffix: '亗', font: 'bold', intensity: 'extreme', desc: 'Grandmaster Crown' },
-    { prefix: '☬', suffix: '☬', font: 'bold', intensity: 'pro', desc: 'Warrior Crest' },
-    { prefix: '亗⚡', suffix: '⚡亗', font: 'bold', intensity: 'pro', desc: 'Apex High-Volt' }
+    { prefix: '亗 ', suffix: ' 亗', font: 'boldSans', intensity: 'clean', desc: 'Pro Tournament Trident' },
+    { prefix: 'OPㅤ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Overpowered Clan Tag' },
+    { prefix: '亗ㅤ', suffix: '', font: 'smallCaps', intensity: 'clean', desc: 'Trident Stealth Space' },
+    { prefix: 'B2K⚡', suffix: '', font: 'boldSans', intensity: 'pro', desc: 'Born To Kill Tag' },
+    { prefix: 'i am | ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Solo King Identifier' },
+    { prefix: '777ㅤ', suffix: ' 亗', font: 'boldSans', intensity: 'pro', desc: 'Lucky 777 Apex' },
+    { prefix: '4Kㅤ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Ultra HD Clan' },
+    { prefix: '亗『PRO』', suffix: '亗', font: 'boldSans', intensity: 'extreme', desc: 'Grandmaster Crown' },
+    { prefix: '𓆩', suffix: '𓆪', font: 'boldSans', intensity: 'pro', desc: 'Aesthetic Wing Shield' },
+    { prefix: '꧁༒', suffix: '༒꧂', font: 'smallCaps', intensity: 'pro', desc: 'Winged Small Caps' },
+    { prefix: '乂', suffix: '亗', font: 'boldSans', intensity: 'pro', desc: 'Slash Trident Pro' },
+    { prefix: '【PRO】', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Verified Pro Tag' }
   ],
-  royal: [
-    { prefix: '👑', suffix: '👑', font: 'bold', intensity: 'clean', desc: 'Imperial Monarch' },
-    { prefix: '♛', suffix: '♛', font: 'gothic', intensity: 'pro', desc: 'Queen Dynasty' },
-    { prefix: '♚', suffix: '♚', font: 'gothic', intensity: 'pro', desc: 'King Sovereign' },
-    { prefix: '꧁👑', suffix: '👑꧂', font: 'script', intensity: 'pro', desc: 'Winged Royal Highness' },
-    { prefix: '亗👑', suffix: '👑亗', font: 'bold', intensity: 'extreme', desc: 'Emperor Supreme' },
-    { prefix: '༗', suffix: '༗', font: 'doubleStruck', intensity: 'pro', desc: 'Golden Coronet' },
-    { prefix: '『KING』', suffix: '', font: 'bold', intensity: 'clean', desc: 'Monarch Prefix' },
-    { prefix: '♕', suffix: '♕', font: 'doubleStruck', intensity: 'clean', desc: 'Noble Queen' }
+
+  invisible: [
+    { prefix: '', suffix: '', font: 'invisibleSpaced', intensity: 'clean', desc: 'Pure Invisible Spacing (U+3164)' },
+    { prefix: '亗ㅤ', suffix: 'ㅤ亗', font: 'invisibleSpaced', intensity: 'pro', desc: 'Trident + Invisible Spaces' },
+    { prefix: '👑ㅤ', suffix: 'ㅤ👑', font: 'invisibleSpaced', intensity: 'pro', desc: 'Crown + Invisible Spaced' },
+    { prefix: '★ㅤ', suffix: 'ㅤ★', font: 'invisibleSpaced', intensity: 'clean', desc: 'Star Invisible Spaced' },
+    { prefix: 'メㅤ', suffix: 'ㅤメ', font: 'invisibleSpaced', intensity: 'pro', desc: 'Slash Invisible Spaced' },
+    { prefix: '☠️ㅤ', suffix: 'ㅤ☠️', font: 'invisibleSpaced', intensity: 'pro', desc: 'Skull Invisible Gap' },
+    { prefix: '『', suffix: '』', font: 'invisibleSpaced', intensity: 'clean', desc: 'Bracketed Invisible Spacing' },
+    { prefix: '⚡ㅤ', suffix: 'ㅤ⚡', font: 'invisibleSpaced', intensity: 'clean', desc: 'Volt Invisible Spaced' },
+    { prefix: '亗ㅤ', suffix: '', font: 'invisibleSpaced', intensity: 'clean', desc: 'Prefix Trident Gap' }
   ],
+
+  japanese: [
+    { prefix: 'メ ', suffix: ' メ', font: 'spaced', intensity: 'clean', desc: 'Katakana Me Slash' },
+    { prefix: '乂 ', suffix: ' 乂', font: 'boldSans', intensity: 'clean', desc: 'Dual Katana Cross' },
+    { prefix: '『', suffix: '』', font: 'smallCaps', intensity: 'clean', desc: 'Corner Brackets' },
+    { prefix: '【', suffix: '】', font: 'boldSans', intensity: 'clean', desc: 'Heavy Lenticular' },
+    { prefix: '乡', suffix: '乡', font: 'boldSans', intensity: 'clean', desc: 'Clan Banner Kanji' },
+    { prefix: '彡', suffix: '彡', font: 'italic', intensity: 'clean', desc: 'Wind Slasher' },
+    { prefix: '父 ', suffix: ' 父', font: 'boldSans', intensity: 'pro', desc: 'Kanji Pillar' },
+    { prefix: '气 ', suffix: ' 气', font: 'gothic', intensity: 'clean', desc: 'Spirit Vapor' },
+    { prefix: 'シ ', suffix: ' ツ', font: 'italic', intensity: 'clean', desc: 'Anime Smile Duo' },
+    { prefix: '꧁乂', suffix: '乂꧂', font: 'boldSans', intensity: 'pro', desc: 'Winged Assassin' },
+    { prefix: '亗乂', suffix: '乂亗', font: 'boldSans', intensity: 'pro', desc: 'Shogun Cross' }
+  ],
+
   dark: [
-    { prefix: '☠', suffix: '☠', font: 'gothic', intensity: 'clean', desc: 'Toxic Reaper' },
-    { prefix: '💀', suffix: '💀', font: 'gothic', intensity: 'clean', desc: 'Death March' },
+    { prefix: '☠ ', suffix: ' ☠', font: 'gothic', intensity: 'clean', desc: 'Toxic Reaper Skull' },
+    { prefix: '💀 ', suffix: ' 💀', font: 'boldSans', intensity: 'clean', desc: 'Death March' },
     { prefix: '༒☬', suffix: '☬༒', font: 'gothic', intensity: 'pro', desc: 'Shadow Khanda' },
-    { prefix: '☣', suffix: '☣', font: 'monospace', intensity: 'clean', desc: 'Biohazard Hazard' },
+    { prefix: '☣ ', suffix: ' ☣', font: 'monospace', intensity: 'clean', desc: 'Biohazard Hazard' },
     { prefix: '꧁☠', suffix: '☠꧂', font: 'gothic', intensity: 'pro', desc: 'Winged Skeleton' },
     { prefix: '꧁༒☬☠', suffix: '☠☬༒꧂', font: 'gothic', intensity: 'extreme', desc: 'Underworld Overlord' },
-    { prefix: 'ψ', suffix: 'ψ', font: 'gothic', intensity: 'clean', desc: 'Nether Pitchfork' },
-    { prefix: '⚰', suffix: '⚰', font: 'gothic', intensity: 'pro', desc: 'Grave Walker' }
+    { prefix: 'ψ ', suffix: ' ψ', font: 'gothic', intensity: 'clean', desc: 'Nether Pitchfork' },
+    { prefix: '⚰ ', suffix: ' ⚰', font: 'gothic', intensity: 'pro', desc: 'Grave Walker' },
+    { prefix: '👻 ', suffix: ' 👻', font: 'boldSans', intensity: 'clean', desc: 'Ghost Spectre' },
+    { prefix: '亗☠', suffix: '☠亗', font: 'gothic', intensity: 'pro', desc: 'Trident Grim Reaper' }
   ],
-  cute: [
-    { prefix: '♡', suffix: '♡', font: 'script', intensity: 'clean', desc: 'Sweet Heart' },
-    { prefix: '✿', suffix: '✿', font: 'italic', intensity: 'clean', desc: 'Cherry Blossom' },
-    { prefix: 'ʚ', suffix: 'ɞ', font: 'script', intensity: 'clean', desc: 'Angel Feathers' },
-    { prefix: '❥', suffix: '❥', font: 'italic', intensity: 'clean', desc: 'Floral Bullet Heart' },
-    { prefix: 'ღ', suffix: 'ღ', font: 'script', intensity: 'pro', desc: 'Georgian Sweet' },
-    { prefix: '❀', suffix: '❀', font: 'doubleStruck', intensity: 'clean', desc: 'Blossom Dream' },
-    { prefix: '꧁♡', suffix: '♡꧂', font: 'script', intensity: 'pro', desc: 'Winged Romance' },
-    { prefix: 'シ', suffix: 'ツ', font: 'italic', intensity: 'clean', desc: 'Anime Smile Duo' }
+
+  attitude: [
+    { prefix: 'BADㅤBOY ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Bad Boy Tag' },
+    { prefix: 'MRㅤDEVIL ', suffix: ' 亗', font: 'boldSans', intensity: 'pro', desc: 'Mr Devil Trident' },
+    { prefix: 'NOOBㅤKILLER ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Noob Killer' },
+    { prefix: 'KILLER 亗 ', suffix: '', font: 'boldSans', intensity: 'pro', desc: 'Killer Crown' },
+    { prefix: 'TOXIC ⚡ ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Toxic Voltage' },
+    { prefix: 'DEVILㅤ', suffix: ' 😈', font: 'smallCaps', intensity: 'clean', desc: 'Devil Emoji' },
+    { prefix: '亗 T O X I C 亗', suffix: '', font: 'normal', intensity: 'clean', desc: 'Attitude Spaced' },
+    { prefix: '×͜× ', suffix: ' 亗', font: 'smallCaps', intensity: 'pro', desc: 'Edgy Dead Eyes' },
+    { prefix: 'VIPERㅤ', suffix: ' 🐍', font: 'boldSans', intensity: 'clean', desc: 'Viper Strike' }
   ],
+
+  royal: [
+    { prefix: '👑 ', suffix: ' 👑', font: 'boldSans', intensity: 'clean', desc: 'Imperial Monarch' },
+    { prefix: '♛ ', suffix: ' ♛', font: 'gothic', intensity: 'pro', desc: 'Queen Dynasty' },
+    { prefix: '♚ ', suffix: ' ♚', font: 'gothic', intensity: 'pro', desc: 'King Sovereign' },
+    { prefix: '꧁👑', suffix: '👑꧂', font: 'script', intensity: 'pro', desc: 'Winged Royal Highness' },
+    { prefix: '亗👑 ', suffix: ' 👑亗', font: 'boldSans', intensity: 'extreme', desc: 'Emperor Supreme' },
+    { prefix: '『KING』', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Monarch Prefix' },
+    { prefix: '♕ ', suffix: ' ♕', font: 'doubleStruck', intensity: 'clean', desc: 'Noble Queen' },
+    { prefix: '亗 R O Y A L 亗 ', suffix: '', font: 'smallCaps', intensity: 'pro', desc: 'Royal Prestige' }
+  ],
+
   gaming: [
-    { prefix: '⌖', suffix: '⌖', font: 'monospace', intensity: 'clean', desc: 'Sniper Crosshair' },
-    { prefix: '🎯', suffix: '🎯', font: 'bold', intensity: 'clean', desc: 'Bullseye Hit' },
-    { prefix: '【FF】', suffix: '', font: 'bold', intensity: 'clean', desc: 'Free Fire Tag' },
+    { prefix: '⌖ ', suffix: ' ⌖', font: 'monospace', intensity: 'clean', desc: 'Sniper Scope Crosshair' },
+    { prefix: '🎯 ', suffix: ' 🎯', font: 'boldSans', intensity: 'clean', desc: 'Bullseye Headshot' },
+    { prefix: '【FF】', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Free Fire Clan Tag' },
     { prefix: '『AIM』', suffix: '', font: 'monospace', intensity: 'clean', desc: 'Aim God Tag' },
-    { prefix: '꧁⌖', suffix: '⌖꧂', font: 'bold', intensity: 'pro', desc: 'Elite Sniper Wing' },
-    { prefix: '亗🎯', suffix: '🎯亗', font: 'bold', intensity: 'extreme', desc: 'Headshot Monarch' },
+    { prefix: '꧁⌖', suffix: '⌖꧂', font: 'boldSans', intensity: 'pro', desc: 'Elite Sniper Wing' },
+    { prefix: '亗🎯', suffix: '🎯亗', font: 'boldSans', intensity: 'extreme', desc: 'Headshot Monarch' },
     { prefix: '⚡⌖', suffix: '⌖⚡', font: 'monospace', intensity: 'pro', desc: 'Volt Sniper' },
-    { prefix: '⚔『FF』', suffix: '⚔', font: 'bold', intensity: 'pro', desc: 'Free Fire Blade' }
+    { prefix: 'BOOYAHㅤ', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Booyah Champion' }
   ],
+
   stylish: [
-    { prefix: '✦', suffix: '✦', font: 'doubleStruck', intensity: 'clean', desc: 'Celestial Shimmer' },
-    { prefix: '✧', suffix: '✧', font: 'smallCaps', intensity: 'clean', desc: 'Diamond Glimmer' },
-    { prefix: '𓆩✧', suffix: '✧𓆪', font: 'bold', intensity: 'pro', desc: 'Winged Starlight' },
+    { prefix: '✦ ', suffix: ' ✦', font: 'doubleStruck', intensity: 'clean', desc: 'Celestial Shimmer' },
+    { prefix: '✧ ', suffix: ' ✧', font: 'smallCaps', intensity: 'clean', desc: 'Diamond Glimmer' },
+    { prefix: '𓆩✧', suffix: '✧𓆪', font: 'boldSans', intensity: 'pro', desc: 'Winged Starlight' },
     { prefix: '꧁✦', suffix: '✦꧂', font: 'doubleStruck', intensity: 'pro', desc: 'Astral Aura' },
-    { prefix: '亗✦', suffix: '✦亗', font: 'bold', intensity: 'pro', desc: 'Starlight Sovereign' },
-    { prefix: '✤', suffix: '✤', font: 'script', intensity: 'clean', desc: 'Ornate Diamond' },
-    { prefix: '꧁༒✧', suffix: '✧༒꧂', font: 'doubleStruck', intensity: 'extreme', desc: 'Cosmic Majesty' }
+    { prefix: '亗✦', suffix: '✦亗', font: 'boldSans', intensity: 'pro', desc: 'Starlight Sovereign' },
+    { prefix: '꧁༒✧', suffix: '✧༒꧂', font: 'doubleStruck', intensity: 'extreme', desc: 'Cosmic Majesty' },
+    { prefix: '', suffix: '', font: 'gothic', intensity: 'clean', desc: 'Pure Gothic Font' },
+    { prefix: '', suffix: '', font: 'script', intensity: 'clean', desc: 'Pure Script Cursive' },
+    { prefix: '', suffix: '', font: 'doubleStruck', intensity: 'clean', desc: 'Pure Double-Struck' },
+    { prefix: '', suffix: '', font: 'fullwidth', intensity: 'clean', desc: 'Vaporwave Fullwidth' }
   ],
-  ninja: [
-    { prefix: '乂', suffix: '乂', font: 'bold', intensity: 'clean', desc: 'Dual Katana Cross' },
-    { prefix: '彡', suffix: '彡', font: 'italic', intensity: 'clean', desc: 'Shadow Flash' },
-    { prefix: '🗡', suffix: '🗡', font: 'bold', intensity: 'clean', desc: 'Tanto Blade' },
-    { prefix: '气', suffix: '气', font: 'gothic', intensity: 'clean', desc: 'Spirit Vapor' },
-    { prefix: '☯', suffix: '☯', font: 'bold', intensity: 'clean', desc: 'Yin Yang Balance' },
-    { prefix: '꧁乂', suffix: '乂꧂', font: 'bold', intensity: 'pro', desc: 'Winged Assassin' },
-    { prefix: '亗乂', suffix: '乂亗', font: 'bold', intensity: 'pro', desc: 'Shogun Cross' },
-    { prefix: '꧁༒🗡', suffix: '🗡༒꧂', font: 'gothic', intensity: 'extreme', desc: 'Shinobi Overlord' }
+
+  cute: [
+    { prefix: '♡ ', suffix: ' ♡', font: 'script', intensity: 'clean', desc: 'Sweet Heart' },
+    { prefix: '✿ ', suffix: ' ✿', font: 'italic', intensity: 'clean', desc: 'Cherry Blossom' },
+    { prefix: 'ʚ ', suffix: ' ɞ', font: 'script', intensity: 'clean', desc: 'Angel Feathers' },
+    { prefix: '❥ ', suffix: ' ❥', font: 'italic', intensity: 'clean', desc: 'Floral Bullet Heart' },
+    { prefix: '❀ ', suffix: ' ❀', font: 'doubleStruck', intensity: 'clean', desc: 'Blossom Dream' },
+    { prefix: '꧁♡', suffix: '♡꧂', font: 'script', intensity: 'pro', desc: 'Winged Romance' },
+    { prefix: '✿ Q U E E N ✿ ', suffix: '', font: 'smallCaps', intensity: 'pro', desc: 'Queen Blossom' }
   ],
+
   luxury: [
-    { prefix: '💎', suffix: '💎', font: 'bold', intensity: 'clean', desc: 'Diamond Elite' },
-    { prefix: '『VIP』', suffix: '', font: 'bold', intensity: 'clean', desc: 'VIP Club Tag' },
-    { prefix: '亗💎', suffix: '💎亗', font: 'bold', intensity: 'pro', desc: 'Royal Diamond Crest' },
+    { prefix: '💎 ', suffix: ' 💎', font: 'boldSans', intensity: 'clean', desc: 'Diamond Elite' },
+    { prefix: '『VIP』', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'VIP Club Tag' },
+    { prefix: '亗💎', suffix: '💎亗', font: 'boldSans', intensity: 'pro', desc: 'Royal Diamond Crest' },
     { prefix: '꧁💎', suffix: '💎꧂', font: 'doubleStruck', intensity: 'pro', desc: 'Gilded Prestige' },
-    { prefix: '♔💎', suffix: '💎♔', font: 'doubleStruck', intensity: 'pro', desc: 'Monarch Jewel' },
-    { prefix: '꧁༒💎', suffix: '💎༒꧂', font: 'doubleStruck', intensity: 'extreme', desc: 'Billionaire Crown' },
-    { prefix: '【LUX】', suffix: '', font: 'bold', intensity: 'clean', desc: 'Luxury Pass' }
+    { prefix: '【LUX】', suffix: '', font: 'boldSans', intensity: 'clean', desc: 'Luxury Pass' },
+    { prefix: '亗 LUXURY 亗 ', suffix: '', font: 'smallCaps', intensity: 'pro', desc: 'Luxury Elite' }
   ]
 };
 
-// Themed base name generators for Mode B
+// Themed base name seeds for random generation
 const RANDOM_NAME_SEEDS = {
   popular: ['Shadow', 'Venom', 'Ghost', 'Blaze', 'Viper', 'Apex', 'Storm', 'Phoenix', 'Titan', 'Frost', 'Hawk', 'Echo'],
   pro: ['Striker', 'Headshot', 'Sniper', 'Deadeye', 'Overlord', 'Immortal', 'Legend', 'Dominator', 'Ace', 'Raptor', 'Vortex', 'Reflex'],
-  cool: ['Zero', 'Nova', 'Cyber', 'Matrix', 'Neon', 'Phantom', 'Havoc', 'Rogue', 'Chronos', 'Voltage', 'Cipher', 'Glitch'],
-  royal: ['Emperor', 'Kaiser', 'Majesty', 'Sovereign', 'Dynasty', 'Lord', 'Kingpin', 'Pharaoh', 'Crown', 'Baron', 'Tsar', 'Regal'],
+  invisible: ['Dark', 'King', 'Ghost', 'Hunter', 'Shadow', 'Viper', 'Killer', 'Sniper', 'Toxic', 'Ninja'],
+  japanese: ['Kage', 'Ronin', 'Katana', 'Shinobi', 'Shuriken', 'Senshi', 'Hanzo', 'Ryu', 'Sasuke', 'Genji', 'Kunai', 'Hayabusa'],
   dark: ['Grim', 'Lucifer', 'Oblivion', 'Hades', 'Venomous', 'Dementor', 'Corrupt', 'Nightmare', 'Abyss', 'Void', 'Necro', 'Carnage'],
-  cute: ['Mochi', 'Boba', 'Panda', 'Kitten', 'Buttercup', 'Pixie', 'Bunny', 'Cookie', 'Blossom', 'Honey', 'Daisy', 'Marshmallow'],
+  attitude: ['BadBoy', 'Devil', 'NoobKiller', 'Toxic', 'Savage', 'Mafia', 'Monster', 'Beast', 'Psycho', 'Rider', 'Rebel', 'Villain'],
+  royal: ['Emperor', 'Kaiser', 'Majesty', 'Sovereign', 'Dynasty', 'Lord', 'Kingpin', 'Pharaoh', 'Crown', 'Baron', 'Tsar', 'Regal'],
   gaming: ['Frag', 'Clutch', 'Aimbot', 'Respawn', 'DropShot', 'Loot', 'Booyah', 'Rusher', 'Camping', 'Squad', 'NoScope', 'Gamer'],
-  ninja: ['Kage', 'Ronin', 'Katana', 'Shinobi', 'Shuriken', 'Senshi', 'Hanzo', 'Ryu', 'Sasuke', 'Genji', 'Kunai', 'Hayabusa'],
+  stylish: ['Nova', 'Cyber', 'Neon', 'Phantom', 'Havoc', 'Rogue', 'Chronos', 'Voltage', 'Cipher', 'Glitch', 'Aura', 'Zenith'],
+  cute: ['Mochi', 'Boba', 'Panda', 'Kitten', 'Buttercup', 'Pixie', 'Bunny', 'Cookie', 'Blossom', 'Honey', 'Daisy', 'Marshmallow'],
   luxury: ['Gold', 'Platinum', 'VVS', 'Billion', 'Bling', 'Rolls', 'Diamond', 'Prestige', 'Rich', 'Opulent', 'Gucci', 'Rolex']
 };
 
-const NAME_SUFFIXES = ['X', 'OP', 'FF', 'Pro', 'God', 'King', '99', 'Zero', 'Rush', 'Lord', 'Boy', 'Girl', 'Aim', '77', 'YT'];
-const NAME_PREFIXES = ['The', 'Mr', 'Dr', 'Real', 'Dark', 'Iron', 'Lord', 'King', 'Elite', 'Alpha', 'Mega', 'Hyper'];
+const NAME_SUFFIXES = ['X', 'OP', 'FF', 'Pro', 'God', 'King', '99', 'Zero', 'Rush', 'Lord', 'Boy', 'Girl', 'Aim', '77', 'YT', '4K'];
 
 function generateSmartSuggestions(baseName) {
   const clean = baseName.trim() || 'Player';

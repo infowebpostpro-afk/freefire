@@ -1,6 +1,7 @@
 /**
  * Free Fire Nickname Studio - Core Application Logic
- * Interactive studio, real-time styling, editor, preview sandbox, comparison & symbols
+ * Instant real-time live styling, mobile-first touch optimization,
+ * research-based Free Fire font engine, live preview sandbox, and quick-copy.
  */
 
 // Application State
@@ -14,7 +15,7 @@ const AppState = {
   favorites: JSON.parse(localStorage.getItem('ff_favorites') || '[]'),
   recents: JSON.parse(localStorage.getItem('ff_recents') || '[]'),
   comparisonList: [],
-  previewNickname: '亗𝐒𝐇𝐀𝐃𝐎𝐖亗',
+  previewNickname: '亗 𝐒 𝐇 𝐀 𝐃 𝐎 𝐖 亗',
   editor: {
     prefix: '亗',
     name: 'Shadow',
@@ -42,65 +43,92 @@ document.addEventListener('DOMContentLoaded', () => {
   initAmbientCanvas();
   initKeyboardShortcuts();
   
-  // Initial Generation
+  // Initial Generation with default name
   handleGenerate();
 });
 
 /* ===================================================================
-   STUDIO CORE & GENERATION ENGINE
+   STUDIO CORE & REAL-TIME LIVE GENERATION ENGINE
    =================================================================== */
+
+let liveDebounceTimer = null;
 
 function initStudio() {
   const nameInput = document.getElementById('nickname-input');
   const clearBtn = document.getElementById('input-clear-btn');
-  const generateBtn = document.getElementById('btn-generate-main');
-  const generateMoreBtn = document.getElementById('btn-generate-more');
+  const quickRandomBtn = document.getElementById('btn-quick-random');
   const modeStyleBtn = document.getElementById('mode-style-btn');
   const modeRandomBtn = document.getElementById('mode-random-btn');
 
-  // Input listener
+  if (!nameInput) return;
+
+  // Real-time live input listener: styles update immediately as the user types
   nameInput.addEventListener('input', (e) => {
     AppState.currentInput = e.target.value;
-    clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+    if (clearBtn) {
+      clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+    }
     updateCharCounter(e.target.value);
     updateSmartSuggestions(e.target.value);
+
+    // Instant real-time generation with lightweight 40ms debounce for silky-smooth typing
+    clearTimeout(liveDebounceTimer);
+    liveDebounceTimer = setTimeout(() => {
+      handleGenerate();
+    }, 40);
   });
 
-  clearBtn.addEventListener('click', () => {
-    nameInput.value = '';
-    AppState.currentInput = '';
-    clearBtn.style.display = 'none';
-    updateCharCounter('');
-    nameInput.focus();
-  });
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      nameInput.value = '';
+      AppState.currentInput = '';
+      clearBtn.style.display = 'none';
+      updateCharCounter('');
+      nameInput.focus();
+      handleGenerate();
+      showToast('Cleared input. Showing trending names.');
+    });
+  }
 
-  generateBtn.addEventListener('click', () => {
-    handleGenerate();
-  });
-
-  if (generateMoreBtn) {
-    generateMoreBtn.addEventListener('click', () => {
-      handleGenerateMore();
+  // Quick Random Idea Button
+  if (quickRandomBtn) {
+    quickRandomBtn.addEventListener('click', () => {
+      rollRandomNameIdea();
     });
   }
 
   // Mode switching
-  modeStyleBtn.addEventListener('click', () => {
-    AppState.mode = 'style';
-    modeStyleBtn.classList.add('active');
-    modeRandomBtn.classList.remove('active');
-    nameInput.placeholder = 'Enter your name (e.g. Shadow, Hunter, King)...';
-    nameInput.disabled = false;
-    handleGenerate();
-  });
+  if (modeStyleBtn && modeRandomBtn) {
+    modeStyleBtn.addEventListener('click', () => {
+      AppState.mode = 'style';
+      modeStyleBtn.classList.add('active');
+      modeRandomBtn.classList.remove('active');
+      nameInput.placeholder = 'Type your name (e.g. Shadow, Venom, Hunter)...';
+      nameInput.focus();
+      handleGenerate();
+    });
 
-  modeRandomBtn.addEventListener('click', () => {
-    AppState.mode = 'random';
-    modeRandomBtn.classList.add('active');
-    modeStyleBtn.classList.remove('active');
-    nameInput.placeholder = 'Generating creative game names...';
-    handleGenerate();
-  });
+    modeRandomBtn.addEventListener('click', () => {
+      rollRandomNameIdea();
+    });
+  }
+}
+
+function rollRandomNameIdea() {
+  const nameInput = document.getElementById('nickname-input');
+  const clearBtn = document.getElementById('input-clear-btn');
+  const randomName = getRandomBaseName(AppState.category);
+  
+  if (nameInput) {
+    nameInput.value = randomName;
+    AppState.currentInput = randomName;
+    if (clearBtn) clearBtn.style.display = 'flex';
+    updateCharCounter(randomName);
+    updateSmartSuggestions(randomName);
+  }
+  
+  handleGenerate();
+  showToast(`🎲 Generated idea: "${randomName}"!`, 'info');
 }
 
 function initCategoryPills() {
@@ -115,6 +143,9 @@ function initCategoryPills() {
       AppState.category = btn.getAttribute('data-category');
       AppState.batchIndex = 0;
       handleGenerate();
+      
+      // Auto-scroll pill into view smoothly on mobile
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
   });
 }
@@ -139,17 +170,20 @@ function updateCharCounter(text) {
   
   if (!countEl || !barEl || !badgeEl) return;
   
-  // Accurate length taking graphemes into account
   const len = Array.from(text).length;
   countEl.textContent = `${len} / ${FF_RULES.recommendedMax}`;
   
   const percentage = Math.min(100, Math.round((len / FF_RULES.recommendedMax) * 100));
   barEl.style.width = `${percentage}%`;
   
-  if (len <= 10) {
+  if (len === 0) {
     barEl.className = 'char-progress-bar';
     badgeEl.className = 'char-status-badge';
-    badgeEl.textContent = '✓ Recommended Limit';
+    badgeEl.textContent = '✓ Ready to Type';
+  } else if (len <= 10) {
+    barEl.className = 'char-progress-bar';
+    badgeEl.className = 'char-status-badge';
+    badgeEl.textContent = '✓ Within Limit';
   } else if (len <= FF_RULES.recommendedMax) {
     barEl.className = 'char-progress-bar near-limit';
     badgeEl.className = 'char-status-badge near-limit';
@@ -157,7 +191,7 @@ function updateCharCounter(text) {
   } else {
     barEl.className = 'char-progress-bar over-limit';
     badgeEl.className = 'char-status-badge over-limit';
-    badgeEl.textContent = '✕ Too Long (Game may truncate)';
+    badgeEl.textContent = '✕ Too Long for FF';
   }
 }
 
@@ -188,7 +222,8 @@ function updateSmartSuggestions(text) {
     chip.className = 'smart-tag-chip';
     chip.textContent = name;
     chip.addEventListener('click', () => {
-      document.getElementById('nickname-input').value = name;
+      const input = document.getElementById('nickname-input');
+      input.value = name;
       AppState.currentInput = name;
       updateCharCounter(name);
       handleGenerate();
@@ -209,45 +244,67 @@ function handleGenerateMore() {
   const newItems = generateNicknameBatch(AppState.batchIndex);
   AppState.results = [...AppState.results, ...newItems];
   renderResultGrid(newItems, true);
-  showToast(`⚡ Generated ${newItems.length} more stylish names!`);
+  showToast(`⚡ Loaded ${newItems.length} more stylish variations!`);
 }
 
 function generateNicknameBatch(batchIdx) {
   const results = [];
-  const baseName = AppState.mode === 'style' 
-    ? (AppState.currentInput.trim() || 'Shadow') 
-    : getRandomBaseName(AppState.category);
+  const rawInput = AppState.currentInput.trim();
+  const baseName = rawInput.length > 0 ? rawInput : 'Shadow';
 
-  const presets = STYLE_PRESETS[AppState.category] || STYLE_PRESETS.popular;
+  const categoryPresets = STYLE_PRESETS[AppState.category] || STYLE_PRESETS.popular;
   
-  // Filter or prioritize by selected intensity
-  let selectedPresets = presets;
+  // Filter by intensity if clean/extreme specified
+  let selectedPresets = categoryPresets;
   if (AppState.intensity !== 'all') {
-    selectedPresets = presets.filter(p => p.intensity === AppState.intensity);
-    if (selectedPresets.length === 0) selectedPresets = presets;
+    selectedPresets = categoryPresets.filter(p => p.intensity === AppState.intensity);
+    if (selectedPresets.length === 0) selectedPresets = categoryPresets;
   }
 
-  // Generate 8-12 variations per batch
-  const count = 9;
+  // 1. First inject high-demand pure font representations on initial batch
+  if (batchIdx === 0) {
+    const coreFonts = [
+      { name: 'Small Capitals', font: 'smallCaps', prefix: '', suffix: '', intensity: 'clean' },
+      { name: 'Bold Sans-Serif', font: 'boldSans', prefix: '', suffix: '', intensity: 'clean' },
+      { name: 'Gothic / Fraktur', font: 'gothic', prefix: '', suffix: '', intensity: 'clean' },
+      { name: 'Double-Struck', font: 'doubleStruck', prefix: '', suffix: '', intensity: 'clean' },
+      { name: 'Script Cursive', font: 'script', prefix: '', suffix: '', intensity: 'clean' },
+      { name: 'Vaporwave Wide', font: 'fullwidth', prefix: '', suffix: '', intensity: 'clean' }
+    ];
+
+    coreFonts.forEach(cf => {
+      const fn = FONT_MAPS[cf.font] || FONT_MAPS.normal;
+      const styled = fn(baseName);
+      results.push({
+        id: 'font_' + cf.font + '_' + Math.random().toString(36).substr(2, 4),
+        rawName: baseName,
+        styledText: styled,
+        prefix: '',
+        suffix: '',
+        font: cf.font,
+        intensity: cf.intensity,
+        desc: cf.name,
+        length: Array.from(styled).length,
+        unicodeStatus: 'Unicode Font',
+        isLengthOk: Array.from(styled).length <= FF_RULES.recommendedMax
+      });
+    });
+  }
+
+  // 2. Generate Free Fire battle framed and decorated variations
+  const count = 12;
   for (let i = 0; i < count; i++) {
-    const preset = selectedPresets[(i + batchIdx * 3) % selectedPresets.length];
-    
-    // Choose font
+    const preset = selectedPresets[(i + batchIdx * 4) % selectedPresets.length];
     const fontFn = FONT_MAPS[preset.font] || FONT_MAPS.bold;
     
     let variationName = baseName;
-    // Add subtle variation on higher batch numbers or random mode
     if (AppState.mode === 'random' && i % 3 === 0) {
       const suffix = NAME_SUFFIXES[(i + batchIdx) % NAME_SUFFIXES.length];
       variationName = `${baseName}${suffix}`;
     }
 
     const styledName = `${preset.prefix}${fontFn(variationName)}${preset.suffix}`;
-    
-    // Character length check
     const charLength = Array.from(styledName).length;
-    
-    // Unicode safety score
     const hasComplexUnicode = /[^\u0000-\u007F]/.test(styledName);
     const unicodeStatus = hasComplexUnicode ? 'Unicode Glyphs' : 'Standard';
 
@@ -266,8 +323,8 @@ function generateNicknameBatch(batchIdx) {
     });
   }
 
-  // Track in Recents
-  if (results.length > 0) {
+  // Save to Recents
+  if (results.length > 0 && rawInput.length > 0) {
     addToRecents(results[0].styledText);
   }
 
@@ -281,7 +338,7 @@ function getRandomBaseName(category) {
 }
 
 /* ===================================================================
-   RESULT CARD RENDERING & INTERACTIONS
+   RESULT CARD RENDERING & MOBILE-FIRST INTERACTIONS
    =================================================================== */
 
 function renderResultGrid(items, append = false) {
@@ -297,7 +354,7 @@ function renderResultGrid(items, append = false) {
     grid.appendChild(card);
   });
 
-  // Update live preview with first item if preview stage exists
+  // Update live preview with first item
   if (!append && items.length > 0) {
     updatePreviewDisplay(items[0].styledText);
   }
@@ -317,27 +374,28 @@ function createResultCard(item) {
           ${item.length} Chars ${item.isLengthOk ? '✓' : '⚠'}
         </span>
         <span class="result-badge ${item.unicodeStatus === 'Standard' ? 'badge-unicode-check' : 'badge-unicode-notice'}">
-          ${item.unicodeStatus}
+          ${item.desc || item.unicodeStatus}
         </span>
       </div>
       <div class="result-top-btns">
-        <button class="btn-icon-top ${isFavorited ? 'favorited' : ''}" title="${isFavorited ? 'Remove Favorite' : 'Save Favorite'}" data-action="favorite">
+        <button class="btn-icon-top ${isFavorited ? 'favorited' : ''}" title="${isFavorited ? 'Remove Favorite' : 'Save Favorite'}" data-action="favorite" aria-label="Favorite">
           ${isFavorited ? '♥' : '♡'}
         </button>
       </div>
     </div>
 
-    <div class="result-nickname-box" title="Click to copy">
+    <div class="result-nickname-box" title="Tap to copy nickname instantly">
       <div class="result-nickname-text">${escapeHtml(item.styledText)}</div>
+      <span class="tap-to-copy-hint">Tap to Copy 📋</span>
     </div>
 
     <div class="result-card-actions">
-      <button class="btn-copy-card" data-action="copy">
+      <button class="btn-copy-card" data-action="copy" aria-label="Copy ${item.styledText}">
         <span class="copy-icon">📋</span>
         <span class="copy-label">Copy Nickname</span>
       </button>
       <div class="result-card-secondary-btns">
-        <button class="btn-card-sub" data-action="remix" title="Remix this name">
+        <button class="btn-card-sub" data-action="remix" title="Remix this design">
           <span>↻</span> Remix
         </button>
         <button class="btn-card-sub" data-action="preview" title="Test in Game Preview">
@@ -358,33 +416,42 @@ function createResultCard(item) {
   const customizeBtn = card.querySelector('[data-action="customize"]');
   const nickBox = card.querySelector('.result-nickname-box');
 
-  // Copy click
+  // One-Tap Copy with tactile mobile feedback
   const triggerCopy = () => {
     copyToClipboard(item.styledText);
+    
+    // Tactile haptic vibration on supported mobile devices
+    if (navigator.vibrate) {
+      try { navigator.vibrate(35); } catch (e) {}
+    }
+
+    card.classList.add('card-copied');
     copyBtn.classList.add('copied');
     copyBtn.querySelector('.copy-label').textContent = '✓ Copied!';
     showToast(`✓ Copied "${item.styledText}" to clipboard!`, 'success');
+    
     setTimeout(() => {
+      card.classList.remove('card-copied');
       copyBtn.classList.remove('copied');
       copyBtn.querySelector('.copy-label').textContent = 'Copy Nickname';
-    }, 2000);
+    }, 1800);
   };
 
   copyBtn.addEventListener('click', triggerCopy);
   nickBox.addEventListener('click', triggerCopy);
 
-  // Favorite click
-  favBtn.addEventListener('click', () => {
+  favBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     toggleFavorite(item.styledText, favBtn);
   });
 
-  // Remix click
-  remixBtn.addEventListener('click', () => {
+  remixBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     handleRemix(item);
   });
 
-  // Preview click
-  previewBtn.addEventListener('click', () => {
+  previewBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     updatePreviewDisplay(item.styledText);
     const previewSection = document.getElementById('preview-sandbox');
     if (previewSection) {
@@ -393,8 +460,8 @@ function createResultCard(item) {
     showToast(`Testing "${item.styledText}" in Game Preview`);
   });
 
-  // Customize in Live Editor click
-  customizeBtn.addEventListener('click', () => {
+  customizeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     openEditorWithItem(item);
   });
 
@@ -402,23 +469,21 @@ function createResultCard(item) {
 }
 
 function handleRemix(item) {
-  // Extract base clean string
   const baseName = item.rawName || 'Shadow';
   AppState.currentInput = baseName;
-  document.getElementById('nickname-input').value = baseName;
+  const input = document.getElementById('nickname-input');
+  if (input) input.value = baseName;
   updateCharCounter(baseName);
   
-  // Randomize preset category or shuffle
   const categories = Object.keys(STYLE_PRESETS);
   AppState.category = categories[Math.floor(Math.random() * categories.length)];
   
-  // Sync category pill
   document.querySelectorAll('.btn-category').forEach(b => {
     b.classList.toggle('active', b.getAttribute('data-category') === AppState.category);
   });
 
   handleGenerate();
-  showToast(`↻ Remixed "${baseName}" with fresh gaming styles!`);
+  showToast(`↻ Remixed "${baseName}" with new styles!`);
 }
 
 /* ===================================================================
@@ -441,7 +506,6 @@ function initLiveEditor() {
     closeModal(modal);
   });
 
-  // Live input sync
   const handleEditorChange = () => {
     AppState.editor.prefix = prefixInput.value;
     AppState.editor.name = nameInput.value;
@@ -450,221 +514,105 @@ function initLiveEditor() {
     renderEditorPreview();
   };
 
-  [prefixInput, nameInput, suffixInput].forEach(inp => {
-    inp.addEventListener('input', handleEditorChange);
-  });
+  prefixInput.addEventListener('input', handleEditorChange);
+  nameInput.addEventListener('input', handleEditorChange);
+  suffixInput.addEventListener('input', handleEditorChange);
   fontSelect.addEventListener('change', handleEditorChange);
 
-  // Quick symbol bar inside editor
-  const quickSymbols = ['亗', '꧁', '꧂', '༒', '☬', '★', '⚡', '👑', '☠', '⚔', '『', '』', '乂', '✦', '💎'];
-  quickSymContainer.innerHTML = '';
-  quickSymbols.forEach(sym => {
-    const btn = document.createElement('button');
-    btn.className = 'btn-quick-sym';
-    btn.textContent = sym;
-    btn.addEventListener('click', () => {
-      // Append to whichever input had recent focus or default to suffix
-      if (document.activeElement === prefixInput) {
-        prefixInput.value += sym;
-      } else if (document.activeElement === nameInput) {
-        nameInput.value += sym;
-      } else {
-        suffixInput.value += sym;
-      }
-      handleEditorChange();
+  // Quick symbol injector chips
+  if (quickSymContainer) {
+    const quickSymbols = ['亗', '꧁', '꧂', '༒', '☬', '★', '⚡', 'メ', '『', '』', '☠', '👑', '✦'];
+    quickSymContainer.innerHTML = '';
+    quickSymbols.forEach(sym => {
+      const chip = document.createElement('button');
+      chip.className = 'editor-sym-chip';
+      chip.textContent = sym;
+      chip.addEventListener('click', () => {
+        prefixInput.value = sym;
+        suffixInput.value = sym;
+        handleEditorChange();
+      });
+      quickSymContainer.appendChild(chip);
     });
-    quickSymContainer.appendChild(btn);
-  });
+  }
 
-  copyFinalBtn.addEventListener('click', () => {
-    const finalNick = getEditorFinalNickname();
-    copyToClipboard(finalNick);
-    showToast(`✓ Final Nickname "${finalNick}" Copied!`, 'success');
-    addToRecents(finalNick);
-  });
+  if (copyFinalBtn) {
+    copyFinalBtn.addEventListener('click', () => {
+      const finalStr = getEditorResultString();
+      copyToClipboard(finalStr);
+      showToast(`✓ Copied custom nickname "${finalStr}"!`, 'success');
+      closeModal(modal);
+    });
+  }
 }
 
 function openEditorWithItem(item) {
   const modal = document.getElementById('editor-modal');
   if (!modal) return;
 
-  AppState.editor.prefix = item.prefix || '';
-  AppState.editor.name = item.rawName || 'Shadow';
-  AppState.editor.suffix = item.suffix || '';
-  AppState.editor.font = item.font || 'bold';
+  document.getElementById('editor-prefix').value = item.prefix || '';
+  document.getElementById('editor-name').value = item.rawName || 'Shadow';
+  document.getElementById('editor-suffix').value = item.suffix || '';
+  document.getElementById('editor-font').value = item.font || 'bold';
 
-  document.getElementById('editor-prefix').value = AppState.editor.prefix;
-  document.getElementById('editor-name').value = AppState.editor.name;
-  document.getElementById('editor-suffix').value = AppState.editor.suffix;
-  document.getElementById('editor-font').value = AppState.editor.font;
+  AppState.editor = {
+    prefix: item.prefix || '',
+    name: item.rawName || 'Shadow',
+    suffix: item.suffix || '',
+    font: item.font || 'bold'
+  };
 
   renderEditorPreview();
   openModal(modal);
 }
 
-function getEditorFinalNickname() {
-  const fontFn = FONT_MAPS[AppState.editor.font] || FONT_MAPS.normal;
+function getEditorResultString() {
+  const fontFn = FONT_MAPS[AppState.editor.font] || FONT_MAPS.bold;
   const styledBase = fontFn(AppState.editor.name);
   return `${AppState.editor.prefix}${styledBase}${AppState.editor.suffix}`;
 }
 
 function renderEditorPreview() {
-  const previewEl = document.getElementById('editor-preview-text');
-  const badgeEl = document.getElementById('editor-char-status');
-  if (!previewEl) return;
+  const previewBox = document.getElementById('editor-preview-text');
+  const charCounter = document.getElementById('editor-char-counter');
+  if (!previewBox) return;
 
-  const finalNick = getEditorFinalNickname();
-  previewEl.textContent = finalNick || '(Empty)';
+  const result = getEditorResultString();
+  previewBox.textContent = result;
 
-  const len = Array.from(finalNick).length;
-  if (badgeEl) {
-    if (len <= FF_RULES.recommendedMax) {
-      badgeEl.className = 'result-badge badge-length-ok';
-      badgeEl.textContent = `${len} / ${FF_RULES.recommendedMax} Chars (Optimal)`;
-    } else {
-      badgeEl.className = 'result-badge badge-length-warn';
-      badgeEl.textContent = `${len} / ${FF_RULES.recommendedMax} Chars (Long)`;
-    }
+  const len = Array.from(result).length;
+  if (charCounter) {
+    charCounter.textContent = `${len} / ${FF_RULES.recommendedMax} Chars`;
+    charCounter.className = len <= FF_RULES.recommendedMax ? 'editor-counter-ok' : 'editor-counter-warn';
   }
 }
 
 /* ===================================================================
-   SYMBOL LIBRARY & SEARCH
-   =================================================================== */
-
-function initSymbolsLibrary() {
-  const grid = document.getElementById('symbols-grid');
-  const searchInput = document.getElementById('symbol-search-input');
-  const catContainer = document.getElementById('symbol-cat-pills');
-  if (!grid || !catContainer) return;
-
-  // Categories setup
-  const cats = [
-    { id: 'all', label: 'All Symbols' },
-    { id: 'popular', label: '🔥 Popular' },
-    { id: 'crown', label: '👑 Crowns' },
-    { id: 'weapons', label: '⚔ Battle' },
-    { id: 'skull', label: '💀 Skull / Dark' },
-    { id: 'stars', label: '★ Stars' },
-    { id: 'wings', label: '𓆩 Wings' },
-    { id: 'brackets', label: '『 Brackets' },
-    { id: 'japanese', label: '乂 Ninja / Asian' },
-    { id: 'lightning', label: '⚡ Energy' },
-    { id: 'hearts', label: '♡ Cute' },
-    { id: 'decorative', label: '✿ Decorative' },
-    { id: 'rare', label: '💎 Rare / Invisible' }
-  ];
-
-  catContainer.innerHTML = '';
-  cats.forEach(c => {
-    const pill = document.createElement('button');
-    pill.className = `btn-sym-cat ${c.id === 'all' ? 'active' : ''}`;
-    pill.textContent = c.label;
-    pill.setAttribute('data-cat', c.id);
-    pill.addEventListener('click', () => {
-      catContainer.querySelectorAll('.btn-sym-cat').forEach(b => b.classList.remove('active'));
-      pill.classList.add('active');
-      filterSymbols();
-    });
-    catContainer.appendChild(pill);
-  });
-
-  searchInput.addEventListener('input', () => {
-    filterSymbols();
-  });
-
-  function filterSymbols() {
-    const q = searchInput.value.toLowerCase().trim();
-    const activeCat = catContainer.querySelector('.btn-sym-cat.active')?.getAttribute('data-cat') || 'all';
-
-    const filtered = SYMBOLS_DATABASE.filter(item => {
-      const matchesCat = activeCat === 'all' || item.cat === activeCat || item.tags.includes(activeCat);
-      const matchesQuery = !q || item.char.includes(q) || item.name.toLowerCase().includes(q) || item.tags.some(t => t.toLowerCase().includes(q));
-      return matchesCat && matchesQuery;
-    });
-
-    renderSymbols(filtered);
-  }
-
-  function renderSymbols(items) {
-    grid.innerHTML = '';
-    items.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'symbol-card';
-      card.title = `${item.name} (${item.cat})`;
-
-      card.innerHTML = `
-        <span class="symbol-card-char">${item.char}</span>
-        <div class="symbol-card-actions">
-          <button class="btn-sym-action" data-action="copy" title="Copy symbol">Copy</button>
-          <button class="btn-sym-action" data-action="insert" title="Add to Nickname Input">+Add</button>
-        </div>
-      `;
-
-      card.querySelector('[data-action="copy"]').addEventListener('click', (e) => {
-        e.stopPropagation();
-        copyToClipboard(item.char);
-        showToast(`Copied symbol "${item.char}"!`, 'success');
-      });
-
-      card.querySelector('[data-action="insert"]').addEventListener('click', (e) => {
-        e.stopPropagation();
-        insertSymbolToActive(item.char);
-      });
-
-      card.addEventListener('click', () => {
-        insertSymbolToActive(item.char);
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  // Initial render
-  renderSymbols(SYMBOLS_DATABASE);
-}
-
-function insertSymbolToActive(symbol) {
-  const mainInput = document.getElementById('nickname-input');
-  if (mainInput) {
-    mainInput.value += symbol;
-    AppState.currentInput = mainInput.value;
-    updateCharCounter(mainInput.value);
-    showToast(`Added "${symbol}" to Nickname Input`);
-    mainInput.focus();
-  }
-}
-
-/* ===================================================================
-   FREE FIRE STYLE PREVIEW SANDBOX
+   GAME PREVIEW SANDBOX
    =================================================================== */
 
 function initPreviewSandbox() {
   const tabs = document.querySelectorAll('.btn-preview-tab');
-  const stage = document.getElementById('preview-stage');
-  if (!tabs.length || !stage) return;
-
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const view = tab.getAttribute('data-view');
-      renderPreviewView(view);
+      renderPreviewSandbox(view);
     });
   });
 
-  // Render initial view
-  renderPreviewView('profile');
+  renderPreviewSandbox('profile');
 }
 
 function updatePreviewDisplay(nickname) {
   AppState.previewNickname = nickname;
   const activeTab = document.querySelector('.btn-preview-tab.active');
   const view = activeTab ? activeTab.getAttribute('data-view') : 'profile';
-  renderPreviewView(view);
+  renderPreviewSandbox(view);
 }
 
-function renderPreviewView(view) {
+function renderPreviewSandbox(view) {
   const stage = document.getElementById('preview-stage');
   if (!stage) return;
 
@@ -673,272 +621,357 @@ function renderPreviewView(view) {
   if (view === 'profile') {
     stage.innerHTML = `
       <div class="mock-profile-card">
-        <div class="mock-profile-header">
-          <div class="mock-avatar-badge">🔥</div>
-          <div class="mock-profile-info">
-            <div class="mock-profile-name">${escapeHtml(nick)}</div>
-            <div class="mock-profile-sub">
-              <span class="mock-level-tag">LVL 75</span>
-              <span>UID: 284918491</span>
-              <span>👑 Grandmaster</span>
-            </div>
-          </div>
+        <div class="mock-profile-banner">
+          <div class="mock-badge-rank">GRANDMASTER</div>
+          <div class="mock-level-badge">LV. 78</div>
         </div>
-        <div class="mock-profile-stats">
-          <div class="mock-stat-item">
-            <span class="mock-stat-val">68.4%</span>
-            <span class="mock-stat-label">Headshot Rate</span>
-          </div>
-          <div class="mock-stat-item">
-            <span class="mock-stat-val">4,892</span>
-            <span class="mock-stat-label">Total Likes</span>
-          </div>
-          <div class="mock-stat-item">
-            <span class="mock-stat-val">Master IV</span>
-            <span class="mock-stat-label">Battle Royale</span>
+        <div class="mock-profile-body">
+          <div class="mock-avatar">🔥</div>
+          <div class="mock-user-info">
+            <div class="mock-nickname">${escapeHtml(nick)}</div>
+            <div class="mock-uid">UID: 9842107412</div>
+            <div class="mock-guild">GUILD: APEX LEGENDS [Lv.6]</div>
           </div>
         </div>
       </div>
     `;
   } else if (view === 'killfeed') {
     stage.innerHTML = `
-      <div class="mock-killfeed-view">
-        <div class="mock-killfeed-item">
-          <span class="killfeed-killer">${escapeHtml(nick)}</span>
-          <span class="killfeed-weapon">⚔️ HEADSHOT [M1887]</span>
-          <span class="killfeed-victim">EnemyPlayer_99</span>
+      <div class="mock-killfeed-stage">
+        <div class="mock-killfeed-row">
+          <span class="kill-actor">${escapeHtml(nick)}</span>
+          <span class="kill-weapon">︻╦╤─</span>
+          <span class="kill-victim">Enemy_Hunter</span>
+          <span class="kill-headshot">HEADSHOT!</span>
         </div>
-        <div class="mock-killfeed-item" style="animation-delay: 0.1s;">
-          <span class="killfeed-killer">${escapeHtml(nick)}</span>
-          <span class="killfeed-weapon">🎯 SNIPER [AWM]</span>
-          <span class="killfeed-victim">ApexRusher</span>
+        <div class="mock-killfeed-row secondary">
+          <span class="kill-actor">Viper_99</span>
+          <span class="kill-weapon">💥</span>
+          <span class="kill-victim">Ghost_Rider</span>
         </div>
       </div>
     `;
   } else if (view === 'lobby') {
     stage.innerHTML = `
-      <div class="mock-lobby-view">
-        <div class="mock-character-podium">🥷</div>
-        <div class="mock-lobby-name">${escapeHtml(nick)}</div>
-        <span class="mock-lobby-status">READY FOR BATTLE</span>
+      <div class="mock-lobby-podium">
+        <div class="mock-podium-pedestal">
+          <div class="mock-character-silhouette">⚔️</div>
+          <div class="mock-player-plate">
+            <div class="plate-name">${escapeHtml(nick)}</div>
+            <div class="plate-sub">SEASON 34 MVP &bull; HEROIC V</div>
+          </div>
+        </div>
       </div>
     `;
   }
 }
 
 /* ===================================================================
-   NICKNAME COMPARISON TOOL
+   SYMBOL LIBRARY
    =================================================================== */
 
-function initComparisonTool() {
-  const modal = document.getElementById('comparison-modal');
-  const closeBtn = document.getElementById('btn-close-comparison');
-  if (!modal) return;
+function initSymbolsLibrary() {
+  const pillsContainer = document.getElementById('symbol-cat-pills');
+  const symbolsGrid = document.getElementById('symbols-grid');
+  const searchInput = document.getElementById('symbol-search-input');
 
-  closeBtn.addEventListener('click', () => {
-    closeModal(modal);
-  });
-}
+  if (!symbolsGrid) return;
 
-function openComparisonModal(namesToCompare) {
-  const modal = document.getElementById('comparison-modal');
-  const grid = document.getElementById('comparison-grid');
-  if (!modal || !grid) return;
+  const categories = [
+    { id: 'all', label: 'All Symbols' },
+    { id: 'popular', label: '🔥 Popular' },
+    { id: 'crown', label: '👑 Crowns' },
+    { id: 'weapons', label: '⚔ Weapons' },
+    { id: 'skull', label: '💀 Skull' },
+    { id: 'wings', label: '𓆩 Wings' },
+    { id: 'japanese', label: 'メ Japanese' },
+    { id: 'stars', label: '★ Stars' },
+    { id: 'brackets', label: '『』 Brackets' },
+    { id: 'lightning', label: '⚡ Energy' }
+  ];
 
-  grid.innerHTML = '';
-  namesToCompare.slice(0, 4).forEach(nick => {
-    const card = document.createElement('div');
-    card.className = 'compare-card';
-
-    const len = Array.from(nick).length;
-    const isStandard = !/[^\u0000-\u007F]/.test(nick);
-    const hasSymbols = /[亗꧁꧂༒☬★⚡👑☠⚔『』乂✦💎]/.test(nick);
-
-    const readability = !hasSymbols ? 'High (Standard text)' : 'Stylized (Ornamental)';
-    const decoration = hasSymbols ? 'Extensive / Battle Ready' : 'Clean / Minimal';
-    const compatWarning = isStandard ? 'Universal Display' : 'Device/Font Dependent';
-
-    card.innerHTML = `
-      <div class="compare-card-title">${escapeHtml(nick)}</div>
-      <ul class="compare-metric-list">
-        <li class="compare-metric-item">
-          <span>Length:</span>
-          <span>${len} / ${FF_RULES.recommendedMax} Chars</span>
-        </li>
-        <li class="compare-metric-item">
-          <span>Readability:</span>
-          <span>${readability}</span>
-        </li>
-        <li class="compare-metric-item">
-          <span>Decoration:</span>
-          <span>${decoration}</span>
-        </li>
-        <li class="compare-metric-item">
-          <span>Font Compatibility:</span>
-          <span>${compatWarning}</span>
-        </li>
-      </ul>
-      <button class="btn btn-primary" style="width: 100%; font-size: 0.85rem;" data-action="copy-compare">
-        Copy This Name
-      </button>
-    `;
-
-    card.querySelector('[data-action="copy-compare"]').addEventListener('click', () => {
-      copyToClipboard(nick);
-      showToast(`✓ Copied "${nick}"!`, 'success');
+  if (pillsContainer) {
+    pillsContainer.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `btn-sym-cat ${cat.id === 'all' ? 'active' : ''}`;
+      btn.textContent = cat.label;
+      btn.setAttribute('data-cat', cat.id);
+      btn.addEventListener('click', () => {
+        pillsContainer.querySelectorAll('.btn-sym-cat').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterSymbols();
+      });
+      pillsContainer.appendChild(btn);
     });
+  }
 
-    grid.appendChild(card);
-  });
+  function renderSymbols(symbols) {
+    symbolsGrid.innerHTML = '';
+    symbols.forEach(sym => {
+      const item = document.createElement('button');
+      item.className = 'symbol-grid-item';
+      item.title = `Click to copy ${sym.name}`;
+      item.setAttribute('aria-label', `Copy symbol ${sym.char}`);
+      item.innerHTML = `
+        <span class="sym-char">${sym.char}</span>
+        <span class="sym-name-hint">${sym.name}</span>
+      `;
+      item.addEventListener('click', () => {
+        copyToClipboard(sym.char);
+        if (navigator.vibrate) try { navigator.vibrate(25); } catch (e) {}
+        item.classList.add('copied');
+        showToast(`✓ Copied symbol "${sym.char}" to clipboard!`);
+        setTimeout(() => item.classList.remove('copied'), 1500);
+      });
+      symbolsGrid.appendChild(item);
+    });
+  }
 
-  openModal(modal);
+  function filterSymbols() {
+    const activeBtn = pillsContainer ? pillsContainer.querySelector('.btn-sym-cat.active') : null;
+    const cat = activeBtn ? activeBtn.getAttribute('data-cat') : 'all';
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    let filtered = SYMBOLS_DATABASE;
+
+    if (cat !== 'all') {
+      filtered = filtered.filter(s => s.cat === cat || s.tags.includes(cat));
+    }
+
+    if (query) {
+      filtered = filtered.filter(s => 
+        s.name.toLowerCase().includes(query) || 
+        s.char.includes(query) || 
+        s.tags.some(t => t.toLowerCase().includes(query))
+      );
+    }
+
+    renderSymbols(filtered);
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterSymbols);
+  }
+
+  filterSymbols();
 }
 
 /* ===================================================================
-   FAVORITES & HISTORY STORAGE
+   FAVORITES & SHORTLIST MANAGEMENT
    =================================================================== */
+
+function toggleFavorite(text, btn) {
+  const idx = AppState.favorites.indexOf(text);
+  if (idx === -1) {
+    AppState.favorites.push(text);
+    if (btn) {
+      btn.classList.add('favorited');
+      btn.textContent = '♥';
+    }
+    showToast(`♥ Saved "${text}" to your favorites!`);
+  } else {
+    AppState.favorites.splice(idx, 1);
+    if (btn) {
+      btn.classList.remove('favorited');
+      btn.textContent = '♡';
+    }
+    showToast(`Removed "${text}" from favorites.`);
+  }
+
+  localStorage.setItem('ff_favorites', JSON.stringify(AppState.favorites));
+  updateFavoritesBadge();
+}
+
+function updateFavoritesBadge() {
+  const badge = document.getElementById('fav-count-badge');
+  if (!badge) return;
+  const count = AppState.favorites.length;
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'inline-block' : 'none';
+}
 
 function initFavoritesDrawer() {
   const navFavBtn = document.getElementById('btn-nav-favorites');
   const modal = document.getElementById('favorites-modal');
   const closeBtn = document.getElementById('btn-close-favorites');
+  const listContainer = document.getElementById('favorites-list-container');
+  const clearAllBtn = document.getElementById('btn-clear-favorites');
 
-  if (navFavBtn && modal) {
-    navFavBtn.addEventListener('click', () => {
-      renderFavoritesModal();
-      openModal(modal);
+  updateFavoritesBadge();
+
+  if (!modal || !navFavBtn) return;
+
+  navFavBtn.addEventListener('click', () => {
+    renderFavoritesList();
+    openModal(modal);
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => closeModal(modal));
+  }
+
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener('click', () => {
+      AppState.favorites = [];
+      localStorage.removeItem('ff_favorites');
+      updateFavoritesBadge();
+      renderFavoritesList();
+      showToast('All saved favorites cleared.');
     });
   }
 
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
-      closeModal(modal);
+  function renderFavoritesList() {
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+
+    if (AppState.favorites.length === 0) {
+      listContainer.innerHTML = `
+        <div class="empty-fav-message">
+          <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">♡</span>
+          <p>You haven't saved any nicknames yet.</p>
+          <small style="color: var(--text-muted);">Tap the heart icon on any generated nickname to save it here.</small>
+        </div>
+      `;
+      return;
+    }
+
+    AppState.favorites.forEach((name, index) => {
+      const row = document.createElement('div');
+      row.className = 'fav-row-item';
+      row.innerHTML = `
+        <span class="fav-item-text">${escapeHtml(name)}</span>
+        <div class="fav-item-actions">
+          <button class="btn btn-secondary btn-sm" data-action="copy">Copy</button>
+          <button class="btn-fav-remove" data-action="delete" title="Remove">✕</button>
+        </div>
+      `;
+
+      row.querySelector('[data-action="copy"]').addEventListener('click', () => {
+        copyToClipboard(name);
+        showToast(`✓ Copied "${name}"!`, 'success');
+      });
+
+      row.querySelector('[data-action="delete"]').addEventListener('click', () => {
+        toggleFavorite(name);
+        renderFavoritesList();
+      });
+
+      listContainer.appendChild(row);
     });
   }
 }
 
-function toggleFavorite(styledName, buttonEl) {
-  const idx = AppState.favorites.indexOf(styledName);
-  if (idx > -1) {
-    AppState.favorites.splice(idx, 1);
-    if (buttonEl) {
-      buttonEl.classList.remove('favorited');
-      buttonEl.textContent = '♡';
-      buttonEl.title = 'Save Favorite';
-    }
-    showToast(`Removed from favorites`);
-  } else {
-    AppState.favorites.push(styledName);
-    if (buttonEl) {
-      buttonEl.classList.add('favorited');
-      buttonEl.textContent = '♥';
-      buttonEl.title = 'Remove Favorite';
-    }
-    showToast(`♥ Saved "${styledName}" to Favorites!`, 'success');
-  }
-
-  localStorage.setItem('ff_favorites', JSON.stringify(AppState.favorites));
-  updateFavoritesCountBadge();
-}
-
-function updateFavoritesCountBadge() {
-  const badge = document.getElementById('fav-count-badge');
-  if (badge) {
-    badge.textContent = AppState.favorites.length;
-    badge.style.display = AppState.favorites.length > 0 ? 'inline-block' : 'none';
-  }
-}
-
-function addToRecents(styledName) {
-  if (!styledName) return;
-  // Unique only
-  AppState.recents = AppState.recents.filter(n => n !== styledName);
-  AppState.recents.unshift(styledName);
-  if (AppState.recents.length > 15) {
-    AppState.recents.pop();
-  }
+function addToRecents(text) {
+  if (!text) return;
+  AppState.recents = AppState.recents.filter(item => item !== text);
+  AppState.recents.unshift(text);
+  if (AppState.recents.length > 15) AppState.recents.pop();
   localStorage.setItem('ff_recents', JSON.stringify(AppState.recents));
 }
 
-function renderFavoritesModal() {
-  const listEl = document.getElementById('favorites-list');
-  if (!listEl) return;
+/* ===================================================================
+   MODAL & COMPARISON UTILITIES
+   =================================================================== */
 
-  if (AppState.favorites.length === 0) {
-    listEl.innerHTML = `
-      <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
-        <p style="font-size: 2.5rem; margin-bottom: 0.5rem;">♡</p>
-        <p style="font-size: 1.1rem; color: var(--text-high); margin-bottom: 0.5rem;">No saved favorites yet.</p>
-        <p style="font-size: 0.9rem;">Click the heart icon on any nickname card to save it here.</p>
-      </div>
-    `;
-    return;
+function initComparisonTool() {
+  const modal = document.getElementById('comparison-modal');
+  const closeBtn = document.getElementById('btn-close-comparison');
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => closeModal(modal));
+  }
+}
+
+function openModal(modalEl) {
+  if (!modalEl) return;
+  modalEl.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalEl) {
+  if (!modalEl) return;
+  modalEl.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.style.position = 'fixed';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.focus();
+  el.select();
+  try {
+    document.execCommand('copy');
+  } catch (err) {}
+  document.body.removeChild(el);
+}
+
+function showToast(message, type = 'default') {
+  let toast = document.getElementById('studio-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'studio-toast';
+    toast.className = 'studio-toast';
+    document.body.appendChild(toast);
   }
 
-  listEl.innerHTML = '';
-  AppState.favorites.forEach(name => {
-    const row = document.createElement('div');
-    row.style.cssText = `
-      display: flex; align-items: center; justify-content: space-between; 
-      padding: 0.85rem 1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); 
-      border-radius: var(--radius-md); margin-bottom: 0.75rem;
-    `;
-    row.innerHTML = `
-      <span style="font-family: var(--font-gaming); font-size: 1.15rem; color: #fff;">${escapeHtml(name)}</span>
-      <div style="display: flex; gap: 0.5rem;">
-        <button class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" data-action="copy-fav">Copy</button>
-        <button class="btn btn-secondary" style="padding: 0.4rem 0.6rem; font-size: 0.8rem;" data-action="delete-fav" title="Delete">✕</button>
-      </div>
-    `;
+  toast.textContent = message;
+  toast.className = `studio-toast show ${type}`;
 
-    row.querySelector('[data-action="copy-fav"]').addEventListener('click', () => {
-      copyToClipboard(name);
-      showToast(`✓ Copied "${name}"!`, 'success');
-    });
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2400);
+}
 
-    row.querySelector('[data-action="delete-fav"]').addEventListener('click', () => {
-      toggleFavorite(name, null);
-      renderFavoritesModal();
-    });
-
-    listEl.appendChild(row);
-  });
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>'"]/g, 
+    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+  );
 }
 
 /* ===================================================================
-   AMBIENT BACKGROUND CANVAS (Embers / Floating Sparks)
+   AMBIENT EMBERS CANVAS ANIMATION
    =================================================================== */
 
 function initAmbientCanvas() {
   const canvas = document.getElementById('ambient-canvas');
   if (!canvas) return;
-
   const ctx = canvas.getContext('2d');
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
 
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   });
 
-  // Check reduced motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) return;
-
-  const particleCount = Math.min(45, Math.floor(window.innerWidth / 30));
   const particles = [];
+  const particleCount = Math.min(30, Math.floor(width / 35));
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2 + 0.75,
-      speedY: -(Math.random() * 0.8 + 0.3),
-      speedX: (Math.random() - 0.5) * 0.4,
-      alpha: Math.random() * 0.7 + 0.2,
-      fadeRate: Math.random() * 0.005 + 0.002,
-      color: Math.random() > 0.4 ? '255, 87, 34' : '255, 170, 0'
+      size: Math.random() * 2.2 + 0.8,
+      speedY: Math.random() * 0.45 + 0.2,
+      speedX: (Math.random() - 0.5) * 0.35,
+      opacity: Math.random() * 0.6 + 0.2,
+      color: Math.random() > 0.4 ? '#ff5722' : '#ffaa00'
     });
   }
 
@@ -946,136 +979,36 @@ function initAmbientCanvas() {
     ctx.clearRect(0, 0, width, height);
 
     particles.forEach(p => {
-      p.y += p.speedY;
+      p.y -= p.speedY;
       p.x += p.speedX;
-      p.alpha -= p.fadeRate;
 
-      if (p.alpha <= 0 || p.y < -10) {
+      if (p.y < 0) {
         p.y = height + 10;
         p.x = Math.random() * width;
-        p.alpha = Math.random() * 0.7 + 0.2;
       }
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = `rgba(${p.color}, 0.8)`;
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = p.color;
       ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     requestAnimationFrame(animate);
   }
 
-  requestAnimationFrame(animate);
+  animate();
 }
 
-/* ===================================================================
-   KEYBOARD SHORTCUTS & MODAL HELPERS
-   =================================================================== */
-
 function initKeyboardShortcuts() {
-  document.addEventListener('keydown', (e) => {
-    // Enter on main input generates
-    if (e.key === 'Enter' && document.activeElement === document.getElementById('nickname-input')) {
-      e.preventDefault();
-      handleGenerate();
-    }
-    // Ctrl/Cmd + Enter generates more
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      handleGenerateMore();
-    }
-    // Escape closes modals
+  window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m));
     }
   });
-
-  // Modal click outside to close
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        closeModal(overlay);
-      }
-    });
-  });
-
-  // FAQ Accordion
-  document.querySelectorAll('.faq-item').forEach(item => {
-    const questionBtn = item.querySelector('.faq-question');
-    questionBtn.addEventListener('click', () => {
-      item.classList.toggle('active');
-    });
-  });
-}
-
-function openModal(modalEl) {
-  modalEl.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(modalEl) {
-  modalEl.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-/* ===================================================================
-   UTILITY FUNCTIONS
-   =================================================================== */
-
-function copyToClipboard(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).catch(() => {
-      fallbackCopyText(text);
-    });
-  } else {
-    fallbackCopyText(text);
-  }
-}
-
-function fallbackCopyText(text) {
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  textarea.style.position = 'fixed';
-  textarea.style.top = '0';
-  textarea.style.left = '0';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
-  try {
-    document.execCommand('copy');
-  } catch (err) {
-    console.error('Fallback copy error:', err);
-  }
-  document.body.removeChild(textarea);
-}
-
-function showToast(message, type = 'info') {
-  let container = document.querySelector('.toast-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.className = 'toast-container';
-    document.body.appendChild(container);
-  }
-
-  const toast = document.createElement('div');
-  toast.className = `toast ${type === 'success' ? 'toast-success' : ''}`;
-  toast.textContent = message;
-
-  container.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(10px)';
-    toast.style.transition = 'all 0.25s ease';
-    setTimeout(() => toast.remove(), 250);
-  }, 2600);
-}
-
-function escapeHtml(string) {
-  const div = document.createElement('div');
-  div.textContent = string;
-  return div.innerHTML;
 }

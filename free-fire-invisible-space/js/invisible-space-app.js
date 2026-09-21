@@ -1,12 +1,14 @@
 /**
  * Free Fire Invisible Space - Application Controller
- * Handles 1-tap copy, custom generator, cursor-aware builder, fictional previews,
- * character inspector, multiple character alternatives, troubleshooter, and recents.
+ * Handles 1-tap copy, multi-character Unicode switching (U+3164, U+00A0, U+2800, U+FFA0),
+ * two-word builder, cursor-aware builder, live gaming previews, paste-back Unicode detector,
+ * transparent compatibility matrix, and troubleshooter decision tree.
  */
 
 const AppState = {
   activeCharId: 'u3164',
   customCount: 3,
+  twoWordGapQty: 1,
   builderText: 'DarkKing',
   builderHistory: [],
   showInvisiblePlaceholder: false,
@@ -16,11 +18,14 @@ const AppState = {
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeroQuickCopy();
+  initHeroCharSelector();
+  initTwoWordBuilder();
   initCustomGenerator();
   initNicknameBuilder();
   initGamingPreviews();
   initCharacterInspector();
   initAlternativeCharacters();
+  initCompatibilityMatrix();
   initTroubleshooter();
   initBlankNameSection();
   initReadyMadeExamples();
@@ -72,25 +77,24 @@ function handleCopySuccess(feedbackMsg, triggerBtn) {
   showToast(feedbackMsg || 'Invisible space copied! Paste into Free Fire.');
   if (triggerBtn) {
     triggerBtn.classList.add('copied');
-    const originalText = triggerBtn.getAttribute('data-original-text') || triggerBtn.innerHTML;
-    if (!triggerBtn.getAttribute('data-original-text')) {
-      triggerBtn.setAttribute('data-original-text', originalText);
+    const originalHtml = triggerBtn.getAttribute('data-original-html') || triggerBtn.innerHTML;
+    if (!triggerBtn.getAttribute('data-original-html')) {
+      triggerBtn.setAttribute('data-original-html', originalHtml);
     }
     
-    // If it has a specific span for status
     const statusSpan = triggerBtn.querySelector('.copy-status-text');
     if (statusSpan) {
       statusSpan.textContent = '✓ Copied!';
-    } else if (triggerBtn.childNodes.length === 1 || triggerBtn.classList.contains('btn-huge-copy')) {
+    } else {
       triggerBtn.innerHTML = '<span>✓</span> Copied!';
     }
 
     setTimeout(() => {
       triggerBtn.classList.remove('copied');
       if (statusSpan) {
-        statusSpan.textContent = triggerBtn.getAttribute('data-default-label') || 'Copy';
+        statusSpan.textContent = triggerBtn.getAttribute('data-default-label') || 'COPY INVISIBLE SPACE';
       } else {
-        triggerBtn.innerHTML = triggerBtn.getAttribute('data-original-text');
+        triggerBtn.innerHTML = triggerBtn.getAttribute('data-original-html');
       }
     }, 1800);
   }
@@ -122,8 +126,35 @@ function showToast(msg, type = 'success') {
 }
 
 /* ===================================================================
-   1. LEVEL 1: QUICK COPY HERO
+   1. HERO QUICK COPY & CHARACTER SELECTOR
    =================================================================== */
+
+function initHeroCharSelector() {
+  const heroOptBtns = document.querySelectorAll('.btn-hero-char-opt');
+  heroOptBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const charId = btn.getAttribute('data-char-id');
+      if (charId) {
+        setActiveCharacter(charId);
+      }
+    });
+  });
+
+  const nextAltBtn = document.getElementById('btn-hero-try-next');
+  if (nextAltBtn) {
+    nextAltBtn.addEventListener('click', () => {
+      cycleToNextCharacter();
+    });
+  }
+}
+
+function cycleToNextCharacter() {
+  const currentIndex = INVISIBLE_CHARACTERS.findIndex(c => c.id === AppState.activeCharId);
+  const nextIndex = (currentIndex + 1) % INVISIBLE_CHARACTERS.length;
+  const nextChar = INVISIBLE_CHARACTERS[nextIndex];
+  setActiveCharacter(nextChar.id);
+  copyTextToClipboard(nextChar.char, `Switched to ${nextChar.name} (${nextChar.code}) and copied!`);
+}
 
 function initHeroQuickCopy() {
   const mainCopyBtn = document.getElementById('btn-hero-copy');
@@ -133,8 +164,8 @@ function initHeroQuickCopy() {
   const preset3Btn = document.getElementById('btn-preset-3');
 
   function copySingleSpace(btn) {
-    const char = getActiveChar().char;
-    copyTextToClipboard(char, '1 Invisible Space copied!', btn);
+    const charObj = getActiveChar();
+    copyTextToClipboard(charObj.char, `1 Invisible Space (${charObj.code}) copied!`, btn);
   }
 
   if (mainCopyBtn) {
@@ -147,28 +178,166 @@ function initHeroQuickCopy() {
 
   if (preset1Btn) {
     preset1Btn.addEventListener('click', () => {
-      const char = getActiveChar().char;
-      copyTextToClipboard(char, '1 Invisible Space copied!', preset1Btn);
+      const charObj = getActiveChar();
+      copyTextToClipboard(charObj.char, `1 Invisible Space (${charObj.code}) copied!`, preset1Btn);
     });
   }
 
   if (preset2Btn) {
     preset2Btn.addEventListener('click', () => {
-      const char = getActiveChar().char.repeat(2);
-      copyTextToClipboard(char, '2 Invisible Spaces copied!', preset2Btn);
+      const charObj = getActiveChar();
+      const char = charObj.char.repeat(2);
+      copyTextToClipboard(char, `2 Invisible Spaces (${charObj.code}) copied!`, preset2Btn);
     });
   }
 
   if (preset3Btn) {
     preset3Btn.addEventListener('click', () => {
-      const char = getActiveChar().char.repeat(3);
-      copyTextToClipboard(char, '3 Invisible Spaces copied!', preset3Btn);
+      const charObj = getActiveChar();
+      const char = charObj.char.repeat(3);
+      copyTextToClipboard(char, `3 Invisible Spaces (${charObj.code}) copied!`, preset3Btn);
     });
   }
 }
 
+function setActiveCharacter(charId) {
+  AppState.activeCharId = charId;
+  const activeObj = getActiveChar();
+
+  // Update Hero Selector Buttons
+  document.querySelectorAll('.btn-hero-char-opt').forEach(btn => {
+    if (btn.getAttribute('data-char-id') === charId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update Hero Badges & Labels
+  const heroBadge = document.getElementById('hero-active-code-badge');
+  if (heroBadge) {
+    heroBadge.textContent = `${activeObj.code} (${activeObj.name})`;
+  }
+
+  const heroBtnLabel = document.getElementById('hero-btn-char-name');
+  if (heroBtnLabel) {
+    heroBtnLabel.textContent = `(${activeObj.code})`;
+  }
+
+  // Update Visualizer Token Label
+  const visualToken = document.getElementById('hero-visual-token-text');
+  if (visualToken) {
+    visualToken.textContent = `[• ${activeObj.code} •]`;
+  }
+
+  // Update Character Alternative Cards in Section 5
+  document.querySelectorAll('.character-card').forEach(c => c.classList.remove('active'));
+  const activeCard = document.getElementById(`char-card-${charId}`);
+  if (activeCard) activeCard.classList.add('active');
+
+  document.querySelectorAll('.btn-use-as-default').forEach(btn => {
+    if (btn.getAttribute('data-char-id') === charId) {
+      btn.textContent = '✓ Active in Tool';
+      btn.style.color = 'var(--neon-green)';
+    } else {
+      btn.textContent = 'Use in Tool';
+      btn.style.color = 'var(--text-med)';
+    }
+  });
+
+  // Update Two-Word Builder
+  updateTwoWordBuilder();
+
+  // Update Custom Generator
+  const customCountBtn = document.getElementById('btn-copy-custom-spaces');
+  if (customCountBtn) {
+    const label = customCountBtn.querySelector('.custom-char-code-label');
+    if (label) label.textContent = `(${activeObj.code})`;
+  }
+
+  showToast(`Active Character: ${activeObj.name} (${activeObj.code})`);
+}
+
 /* ===================================================================
-   2. LEVEL 2: CUSTOM SPACE GENERATOR
+   2. TWO-WORD NICKNAME SPACING BUILDER
+   =================================================================== */
+
+function initTwoWordBuilder() {
+  const firstInput = document.getElementById('two-word-first');
+  const secondInput = document.getElementById('two-word-second');
+  const gapBtns = document.querySelectorAll('.btn-gap-qty');
+  const copyBtn = document.getElementById('btn-copy-two-word');
+  const resetBtn = document.getElementById('btn-reset-two-word');
+
+  if (firstInput) {
+    firstInput.addEventListener('input', updateTwoWordBuilder);
+  }
+  if (secondInput) {
+    secondInput.addEventListener('input', updateTwoWordBuilder);
+  }
+
+  gapBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      gapBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      AppState.twoWordGapQty = parseInt(btn.getAttribute('data-gap') || '1', 10);
+      updateTwoWordBuilder();
+    });
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const outputDisplay = document.getElementById('two-word-output');
+      const raw = outputDisplay ? outputDisplay.getAttribute('data-raw') : '';
+      if (!raw) {
+        showToast('Please enter words first.', 'error');
+        return;
+      }
+      copyTextToClipboard(raw, 'Spaced nickname copied to clipboard!', copyBtn);
+      saveToRecentNames(raw);
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (firstInput) firstInput.value = 'DARK';
+      if (secondInput) secondInput.value = 'KING';
+      AppState.twoWordGapQty = 1;
+      gapBtns.forEach((b, idx) => {
+        if (idx === 0) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      updateTwoWordBuilder();
+      showToast('Reset builder to default.');
+    });
+  }
+
+  updateTwoWordBuilder();
+}
+
+function updateTwoWordBuilder() {
+  const firstInput = document.getElementById('two-word-first');
+  const secondInput = document.getElementById('two-word-second');
+  const outputDisplay = document.getElementById('two-word-output');
+  if (!outputDisplay) return;
+
+  const first = firstInput ? firstInput.value : 'DARK';
+  const second = secondInput ? secondInput.value : 'KING';
+  const char = getActiveChar().char;
+  const gapString = char.repeat(AppState.twoWordGapQty);
+
+  const rawNickname = first + gapString + second;
+  outputDisplay.setAttribute('data-raw', rawNickname);
+
+  if (AppState.showInvisiblePlaceholder) {
+    outputDisplay.textContent = `${first}[• ${'░'.repeat(AppState.twoWordGapQty)} •]${second}`;
+  } else {
+    outputDisplay.textContent = `${first}${gapString}${second}`;
+  }
+}
+
+/* ===================================================================
+   3. CUSTOM SPACE GENERATOR
    =================================================================== */
 
 function initCustomGenerator() {
@@ -182,13 +351,14 @@ function initCustomGenerator() {
   function updateDisplay() {
     if (stepperVal) stepperVal.textContent = AppState.customCount;
     if (copyCustomBtn) {
-      copyCustomBtn.querySelector('.custom-count-label').textContent = AppState.customCount;
+      const label = copyCustomBtn.querySelector('.custom-count-label');
+      if (label) label.textContent = AppState.customCount;
     }
     if (customPreviewTokens) {
-      customPreviewTokens.textContent = `[invisible × ${AppState.customCount}]`;
+      const active = getActiveChar();
+      customPreviewTokens.textContent = `[• ${active.code} × ${AppState.customCount} •]`;
     }
 
-    // Update chips active state
     chips.forEach(chip => {
       const val = parseInt(chip.getAttribute('data-qty'), 10);
       if (val === AppState.customCount) {
@@ -198,12 +368,8 @@ function initCustomGenerator() {
       }
     });
 
-    if (stepperMinus) {
-      stepperMinus.disabled = AppState.customCount <= 1;
-    }
-    if (stepperPlus) {
-      stepperPlus.disabled = AppState.customCount >= 20;
-    }
+    if (stepperMinus) stepperMinus.disabled = AppState.customCount <= 1;
+    if (stepperPlus) stepperPlus.disabled = AppState.customCount >= 20;
   }
 
   if (stepperMinus) {
@@ -236,8 +402,9 @@ function initCustomGenerator() {
 
   if (copyCustomBtn) {
     copyCustomBtn.addEventListener('click', () => {
-      const char = getActiveChar().char.repeat(AppState.customCount);
-      copyTextToClipboard(char, `${AppState.customCount} Invisible Spaces copied!`, copyCustomBtn);
+      const activeObj = getActiveChar();
+      const char = activeObj.char.repeat(AppState.customCount);
+      copyTextToClipboard(char, `${AppState.customCount} Invisible Spaces (${activeObj.code}) copied!`, copyCustomBtn);
     });
   }
 
@@ -245,7 +412,7 @@ function initCustomGenerator() {
 }
 
 /* ===================================================================
-   3. LEVEL 3: NICKNAME BUILDER & CURSOR-AWARE CONTROLS
+   4. NICKNAME BUILDER & CURSOR-AWARE CONTROLS
    =================================================================== */
 
 function initNicknameBuilder() {
@@ -263,6 +430,7 @@ function initNicknameBuilder() {
   const toggleShowInvisible = document.getElementById('toggle-show-invisible');
 
   function saveHistory() {
+    if (!input) return;
     AppState.builderHistory.push(input.value);
     if (AppState.builderHistory.length > 25) {
       AppState.builderHistory.shift();
@@ -271,6 +439,7 @@ function initNicknameBuilder() {
   }
 
   function updateLengthAndPreviews() {
+    if (!input) return;
     const val = input.value;
     AppState.builderText = val;
     const len = Array.from(val).length;
@@ -285,7 +454,7 @@ function initNicknameBuilder() {
         statusBadge.textContent = 'Empty Name';
         statusBadge.classList.add('warn');
       } else if (len <= 12) {
-        statusBadge.textContent = '✓ Recommended Limit';
+        statusBadge.textContent = '✓ Within 12-Char Limit';
         statusBadge.classList.add('ok');
       } else {
         statusBadge.textContent = '⚠ Exceeds 12 Chars';
@@ -297,6 +466,7 @@ function initNicknameBuilder() {
   }
 
   function insertAtPosition(posType, count = 1) {
+    if (!input) return;
     saveHistory();
     const char = getActiveChar().char.repeat(count);
     const text = input.value;
@@ -313,7 +483,6 @@ function initNicknameBuilder() {
       newText = text + char;
       newCursorPos = newText.length;
     } else {
-      // cursor
       newText = text.substring(0, start) + char + text.substring(end);
       newCursorPos = start + char.length;
     }
@@ -332,31 +501,17 @@ function initNicknameBuilder() {
     });
   }
 
-  if (btnInsertStart) {
-    btnInsertStart.addEventListener('click', () => insertAtPosition('start', 1));
-  }
-
-  if (btnInsertCursor) {
-    btnInsertCursor.addEventListener('click', () => insertAtPosition('cursor', 1));
-  }
-
-  if (btnInsertEnd) {
-    btnInsertEnd.addEventListener('click', () => insertAtPosition('end', 1));
-  }
-
-  if (btnAdd1Space) {
-    btnAdd1Space.addEventListener('click', () => insertAtPosition('cursor', 1));
-  }
-
-  if (btnAdd2Spaces) {
-    btnAdd2Spaces.addEventListener('click', () => insertAtPosition('cursor', 2));
-  }
+  if (btnInsertStart) btnInsertStart.addEventListener('click', () => insertAtPosition('start', 1));
+  if (btnInsertCursor) btnInsertCursor.addEventListener('click', () => insertAtPosition('cursor', 1));
+  if (btnInsertEnd) btnInsertEnd.addEventListener('click', () => insertAtPosition('end', 1));
+  if (btnAdd1Space) btnAdd1Space.addEventListener('click', () => insertAtPosition('cursor', 1));
+  if (btnAdd2Spaces) btnAdd2Spaces.addEventListener('click', () => insertAtPosition('cursor', 2));
 
   if (btnUndo) {
     btnUndo.addEventListener('click', () => {
       if (AppState.builderHistory.length > 0) {
         const prev = AppState.builderHistory.pop();
-        input.value = prev;
+        if (input) input.value = prev;
         btnUndo.disabled = AppState.builderHistory.length === 0;
         updateLengthAndPreviews();
       }
@@ -365,7 +520,7 @@ function initNicknameBuilder() {
 
   if (btnClear) {
     btnClear.addEventListener('click', () => {
-      if (input.value.length > 0) {
+      if (input && input.value.length > 0) {
         saveHistory();
         input.value = '';
         updateLengthAndPreviews();
@@ -376,6 +531,7 @@ function initNicknameBuilder() {
 
   if (btnCopyNickname) {
     btnCopyNickname.addEventListener('click', () => {
+      if (!input) return;
       const textToCopy = input.value;
       if (!textToCopy) {
         showToast('Type a nickname first before copying.', 'error');
@@ -390,6 +546,7 @@ function initNicknameBuilder() {
     toggleShowInvisible.addEventListener('change', (e) => {
       AppState.showInvisiblePlaceholder = e.target.checked;
       renderAllPreviews();
+      updateTwoWordBuilder();
     });
   }
 
@@ -397,14 +554,13 @@ function initNicknameBuilder() {
 }
 
 /* ===================================================================
-   4. LIVE FICTIONAL GAMING PREVIEWS
+   5. LIVE FICTIONAL GAMING PREVIEWS
    =================================================================== */
 
 function formatPreviewString(rawText) {
   if (!rawText) return 'Player';
   if (!AppState.showInvisiblePlaceholder) return rawText;
 
-  // Replace all invisible chars with visible representation
   let formatted = '';
   for (const char of rawText) {
     const isSpecialInvisible = INVISIBLE_REGEX_CHARS.some(item => item.char === char);
@@ -420,15 +576,12 @@ function formatPreviewString(rawText) {
 function renderAllPreviews() {
   const previewText = formatPreviewString(AppState.builderText);
 
-  // Profile display
   const profileName = document.getElementById('preview-profile-name');
   if (profileName) profileName.textContent = previewText;
 
-  // Lobby display
   const lobbyName = document.getElementById('preview-lobby-name');
   if (lobbyName) lobbyName.textContent = previewText;
 
-  // Killfeed display
   const killfeedName = document.getElementById('preview-killfeed-name');
   if (killfeedName) killfeedName.textContent = previewText;
 }
@@ -455,7 +608,7 @@ function initGamingPreviews() {
 }
 
 /* ===================================================================
-   5. LEVEL 4: CHARACTER INSPECTOR
+   6. PASTE-BACK UNICODE DETECTOR (CLIPBOARD TESTER)
    =================================================================== */
 
 function initCharacterInspector() {
@@ -466,14 +619,27 @@ function initCharacterInspector() {
   const statusDisplay = document.getElementById('inspector-status-text');
   const detectedList = document.getElementById('inspector-detected-list');
   const clearBtn = document.getElementById('btn-clear-inspector');
+  const stepCopyBtn = document.getElementById('btn-inspector-step-copy');
+
+  if (stepCopyBtn) {
+    stepCopyBtn.addEventListener('click', () => {
+      const active = getActiveChar();
+      copyTextToClipboard(active.char, `Step 1 complete! ${active.name} (${active.code}) copied. Now paste in Step 2.`, stepCopyBtn);
+    });
+  }
 
   function analyzeText(text) {
     if (!text) {
       if (totalDisplay) totalDisplay.textContent = '0';
       if (invisibleDisplay) invisibleDisplay.textContent = '0';
       if (visibleDisplay) visibleDisplay.textContent = '0';
-      if (statusDisplay) statusDisplay.textContent = 'Waiting for input';
-      if (detectedList) detectedList.innerHTML = '<span style="color: var(--text-muted);">Paste or type text above to test clipboard characters.</span>';
+      if (statusDisplay) {
+        statusDisplay.textContent = 'Waiting for paste';
+        statusDisplay.style.color = 'var(--text-muted)';
+      }
+      if (detectedList) {
+        detectedList.innerHTML = '<span style="color: var(--text-muted);">Paste copied text above to detect hidden characters.</span>';
+      }
       return;
     }
 
@@ -498,22 +664,32 @@ function initCharacterInspector() {
 
     if (statusDisplay) {
       if (invisibleCount > 0) {
-        statusDisplay.textContent = '✓ Invisible Detected';
+        statusDisplay.textContent = '✓ Invisible Confirmed';
         statusDisplay.style.color = 'var(--neon-green)';
       } else {
         statusDisplay.textContent = 'No Invisible Found';
-        statusDisplay.style.color = 'var(--text-muted)';
+        statusDisplay.style.color = '#ff4444';
       }
     }
 
     if (detectedList) {
       if (invisibleCount === 0) {
-        detectedList.innerHTML = '<span style="color: var(--neon-amber);">Only visible characters detected. No invisible spaces present.</span>';
+        detectedList.innerHTML = '<span style="color: var(--neon-amber);">Only standard visible characters detected. No invisible Unicode filler characters present.</span>';
       } else {
         let pills = '';
         detectedInvisibles.forEach((count, code) => {
           const info = INVISIBLE_REGEX_CHARS.find(i => i.code === code);
-          pills += `<span class="char-codepoint" style="margin-right: 0.5rem; display: inline-block; margin-bottom: 0.25rem;">${code} (${info ? info.name : 'Unknown'}) × ${count}</span>`;
+          const cat = info && info.category ? ` &bull; ${info.category}` : '';
+          pills += `
+            <div style="background: rgba(255, 87, 34, 0.12); border: 1px solid rgba(255, 87, 34, 0.4); border-radius: 6px; padding: 0.4rem 0.75rem; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <strong style="color: #ffaa00; font-family: monospace;">${code}</strong> 
+                <span style="color: #fff; margin-left: 0.4rem;">${info ? info.name : 'Unknown'}</span>
+                <span style="color: var(--text-muted); font-size: 0.72rem; margin-left: 0.3rem;">${cat}</span>
+              </div>
+              <span style="background: rgba(255, 170, 0, 0.2); color: #ffaa00; font-weight: 700; padding: 1px 8px; border-radius: 99px; font-size: 0.75rem;">Count: ${count}</span>
+            </div>
+          `;
         });
         detectedList.innerHTML = pills;
       }
@@ -534,15 +710,15 @@ function initCharacterInspector() {
     });
   }
 
-  // Pre-fill with a sample string showing invisible chars
+  // Initial demonstration
   if (input) {
-    input.value = 'Dark\u3164King';
+    input.value = 'DARK\u3164KING';
     analyzeText(input.value);
   }
 }
 
 /* ===================================================================
-   6. LEVEL 5: MULTIPLE CHARACTER OPTIONS & FALLBACK
+   7. MULTIPLE CHARACTER OPTIONS & FALLBACK CARDS
    =================================================================== */
 
 function initAlternativeCharacters() {
@@ -561,10 +737,10 @@ function initAlternativeCharacters() {
           <span class="char-codepoint">${item.code}</span>
           <span class="char-badge-status ${item.statusClass}">${item.status}</span>
         </div>
-        <div class="char-name">${item.name}</div>
+        <div class="char-name">${item.optionLetter}: ${item.name}</div>
         <p class="char-desc">${item.description}</p>
         <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.45rem;">
-          <strong>Width:</strong> ${item.displayWidth}
+          <strong>Category:</strong> ${item.category} &bull; <strong>Width:</strong> ${item.displayWidth}
         </div>
         <div style="font-size: 0.75rem; color: var(--text-muted); font-style: italic;">
           ${item.technicalNotes}
@@ -575,18 +751,16 @@ function initAlternativeCharacters() {
           <span>📋</span> Copy
         </button>
         <button class="btn-use-as-default" data-char-id="${item.id}">
-          ${item.id === AppState.activeCharId ? '✓ Active' : 'Use in Tool'}
+          ${item.id === AppState.activeCharId ? '✓ Active in Tool' : 'Use in Tool'}
         </button>
       </div>
     `;
 
-    // Bind copy button
     const copyBtn = card.querySelector('.btn-copy-char-card');
     copyBtn.addEventListener('click', () => {
       copyTextToClipboard(item.char, `${item.name} (${item.code}) copied!`, copyBtn);
     });
 
-    // Bind switch active button
     const useBtn = card.querySelector('.btn-use-as-default');
     useBtn.addEventListener('click', () => {
       setActiveCharacter(item.id);
@@ -596,36 +770,31 @@ function initAlternativeCharacters() {
   });
 }
 
-function setActiveCharacter(charId) {
-  AppState.activeCharId = charId;
-  const activeObj = getActiveChar();
+/* ===================================================================
+   8. COMPATIBILITY MATRIX TABLE
+   =================================================================== */
 
-  // Update cards styling
-  document.querySelectorAll('.character-card').forEach(c => c.classList.remove('active'));
-  const activeCard = document.getElementById(`char-card-${charId}`);
-  if (activeCard) activeCard.classList.add('active');
+function initCompatibilityMatrix() {
+  const tbody = document.getElementById('compat-matrix-body');
+  if (!tbody || typeof COMPATIBILITY_MATRIX === 'undefined') return;
 
-  document.querySelectorAll('.btn-use-as-default').forEach(btn => {
-    if (btn.getAttribute('data-char-id') === charId) {
-      btn.textContent = '✓ Active';
-      btn.style.color = 'var(--neon-green)';
-    } else {
-      btn.textContent = 'Use in Tool';
-      btn.style.color = 'var(--text-med)';
-    }
+  tbody.innerHTML = '';
+  COMPATIBILITY_MATRIX.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${row.character}</strong></td>
+      <td><code>${row.code}</code></td>
+      <td>${row.category}</td>
+      <td>${row.apparentWidth}</td>
+      <td><span class="${row.statusBadge}">${row.currentStatus}</span></td>
+      <td style="font-size: 0.8rem;">${row.recommendation}</td>
+    `;
+    tbody.appendChild(tr);
   });
-
-  // Update Hero visualizer token label
-  const heroCodeBadge = document.getElementById('hero-active-code-badge');
-  if (heroCodeBadge) {
-    heroCodeBadge.textContent = `${activeObj.code} (${activeObj.name})`;
-  }
-
-  showToast(`Switched active invisible space to ${activeObj.name} (${activeObj.code})`);
 }
 
 /* ===================================================================
-   7. LEVEL 6: "SPACE NOT WORKING?" TROUBLESHOOTER
+   9. "SPACE NOT WORKING?" TROUBLESHOOTER
    =================================================================== */
 
 function initTroubleshooter() {
@@ -646,7 +815,6 @@ function initTroubleshooter() {
     chipsContainer.appendChild(chip);
   });
 
-  // Render initial guide
   if (TROUBLESHOOTING_GUIDES.length > 0) {
     renderTroubleSolution(TROUBLESHOOTING_GUIDES[0]);
   }
@@ -680,7 +848,7 @@ function renderTroubleSolution(guide) {
       ${causesListHtml}
     </ul>
 
-    <div class="trouble-list-title">Recommended Solution:</div>
+    <div class="trouble-list-title">Recommended Action:</div>
     <ul class="trouble-steps-list">
       ${solutionsListHtml}
     </ul>
@@ -690,7 +858,7 @@ function renderTroubleSolution(guide) {
         <span>🔄</span> Switch to ${recChar.name} (${recChar.code}) &amp; Copy
       </button>
       <span style="font-size: 0.78rem; color: var(--text-muted);">
-        Tested alternative character to bypass filter restrictions.
+        Switch active character in tool and verify in your Free Fire rename field.
       </span>
     </div>
   `;
@@ -705,21 +873,20 @@ function renderTroubleSolution(guide) {
 }
 
 /* ===================================================================
-   8. LEVEL 7: BLANK-LOOKING NAME & SPACED NAME MODE
+   10. BLANK-LOOKING NAME & SPACED NAME MODE
    =================================================================== */
 
 function initBlankNameSection() {
   const btnGenBlank = document.getElementById('btn-gen-blank-name');
-  const btnSpacedConvert = document.getElementById('btn-spaced-convert');
   const spacedInput = document.getElementById('spaced-name-input');
   const spacedOutput = document.getElementById('spaced-name-output');
   const btnCopySpaced = document.getElementById('btn-copy-spaced');
 
   if (btnGenBlank) {
     btnGenBlank.addEventListener('click', () => {
-      // Free Fire blank names traditionally use 3 Hangul Fillers
-      const blankString = '\u3164\u3164\u3164';
-      copyTextToClipboard(blankString, 'Blank-looking name copied (3 invisible spaces)!', btnGenBlank);
+      const char = getActiveChar().char;
+      const blankString = char.repeat(3);
+      copyTextToClipboard(blankString, `Blank-looking name copied (3 × ${getActiveChar().code})!`, btnGenBlank);
     });
   }
 
@@ -731,7 +898,6 @@ function initBlankNameSection() {
       return;
     }
     const char = getActiveChar().char;
-    // Replace standard spaces with 2 invisible spaces
     const spaced = raw.split(/\s+/).join(char + char);
     spacedOutput.value = spaced;
   }
@@ -744,7 +910,7 @@ function initBlankNameSection() {
   if (btnCopySpaced) {
     btnCopySpaced.addEventListener('click', () => {
       if (spacedOutput && spacedOutput.value) {
-        copyTextToClipboard(spacedOutput.value, 'Spaced name copied to clipboard!', btnCopySpaced);
+        copyTextToClipboard(spacedOutput.value, 'Spaced nickname copied to clipboard!', btnCopySpaced);
         saveToRecentNames(spacedOutput.value);
       } else {
         showToast('Enter words above first.', 'error');
@@ -754,7 +920,7 @@ function initBlankNameSection() {
 }
 
 /* ===================================================================
-   9. READY-MADE EXAMPLES
+   11. READY-MADE EXAMPLES
    =================================================================== */
 
 function initReadyMadeExamples() {
@@ -804,7 +970,7 @@ function initReadyMadeExamples() {
 }
 
 /* ===================================================================
-   10. RECENT NAMES SHELF (LOCALSTORAGE)
+   12. RECENT NAMES SHELF (LOCALSTORAGE)
    =================================================================== */
 
 function saveToRecentNames(name) {
@@ -839,7 +1005,6 @@ function renderRecentNames() {
     const chip = document.createElement('div');
     chip.className = 'recent-name-chip';
 
-    // Format display for chip
     let display = formatPreviewString(name);
     if (display.length > 15) display = display.substring(0, 15) + '…';
 
@@ -867,7 +1032,7 @@ function renderRecentNames() {
 }
 
 /* ===================================================================
-   11. MOBILE STICKY BOTTOM BAR
+   13. MOBILE STICKY BOTTOM BAR
    =================================================================== */
 
 function initMobileStickyBar() {
@@ -891,14 +1056,14 @@ function initMobileStickyBar() {
 
   if (stickyCopyBtn) {
     stickyCopyBtn.addEventListener('click', () => {
-      const char = getActiveChar().char;
-      copyTextToClipboard(char, 'Invisible space copied!', stickyCopyBtn);
+      const active = getActiveChar();
+      copyTextToClipboard(active.char, `Invisible space (${active.code}) copied!`, stickyCopyBtn);
     });
   }
 }
 
 /* ===================================================================
-   12. FAQ ACCORDION
+   14. FAQ ACCORDION
    =================================================================== */
 
 function initFAQAccordion() {
@@ -908,7 +1073,6 @@ function initFAQAccordion() {
     if (questionBtn) {
       questionBtn.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
-        // Close other items
         faqItems.forEach(i => i.classList.remove('open'));
         if (!isOpen) {
           item.classList.add('open');
@@ -919,7 +1083,7 @@ function initFAQAccordion() {
 }
 
 /* ===================================================================
-   13. AMBIENT EMBERS CANVAS BACKGROUND
+   15. AMBIENT EMBERS CANVAS BACKGROUND
    =================================================================== */
 
 function initAmbientEmbers() {
