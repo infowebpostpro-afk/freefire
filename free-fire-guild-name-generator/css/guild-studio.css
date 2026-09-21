@@ -10,11 +10,26 @@
 }
 
 /* -------------------------------------------------------------
-   1. PRIMARY GENERATOR HERO & PAS INTRO
+   1. PRIMARY GENERATOR HERO & SLEEK HIGHLIGHTS
    ------------------------------------------------------------- */
 .guild-hero-section {
   text-align: center;
-  padding: 2.25rem 0 1.5rem;
+  padding: 1.5rem 0 1.25rem;
+  position: relative;
+}
+
+.guild-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(255, 87, 34, 0.15) 0%, rgba(255, 170, 0, 0.05) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(40px);
 }
 
 .hero-pill-badge {
@@ -22,50 +37,82 @@
   align-items: center;
   gap: 0.5rem;
   background: rgba(255, 87, 34, 0.12);
-  border: 1px solid rgba(255, 87, 34, 0.3);
+  border: 1px solid rgba(255, 87, 34, 0.35);
   padding: 0.35rem 0.95rem;
   border-radius: var(--radius-pill);
   font-family: var(--font-gaming);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #ffaa00;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 0 16px rgba(255, 87, 34, 0.2);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: #ffaa00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ffaa00;
+  animation: pulse-glow 1.8s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 4px #ffaa00; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #ff5722; }
+  100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 4px #ffaa00; }
 }
 
 .hero-title {
-  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-size: clamp(2rem, 5.5vw, 2.9rem);
   font-weight: 900;
   line-height: 1.15;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
 .hero-subtitle {
-  font-size: 1.05rem;
-  color: #ffc107;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-}
-
-.hero-pas-intro {
-  max-width: 780px;
-  margin: 0 auto 1.75rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.hero-pas-intro p {
   font-size: 1rem;
-  line-height: 1.6;
   color: var(--text-med);
+  font-weight: 500;
+  max-width: 680px;
+  margin: 0 auto 1rem;
+  line-height: 1.5;
 }
 
-.hero-pas-intro strong {
-  color: var(--text-pure);
+.hero-feature-pills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 auto 0.5rem;
+  max-width: 800px;
+}
+
+.hero-feat-pill {
+  background: rgba(22, 26, 36, 0.85);
+  border: 1px solid rgba(255, 170, 0, 0.25);
+  border-radius: var(--radius-pill);
+  padding: 0.32rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffc107;
+  backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero-feat-pill:hover {
+  border-color: #ffaa00;
+  background: rgba(255, 170, 0, 0.15);
+  transform: translateY(-1px);
+  color: #fff;
 }
 
 /* -------------------------------------------------------------
