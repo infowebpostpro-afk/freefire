@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Nicknames for Boys – Browse, Filter &amp; Copy</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/boys-browser.css">
+</head>
+<body>
+  <!-- Ambient Embers Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper boys-browser-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge boys-badge">Boys Browser</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="../" class="nav-link">Nickname Creator</a></li>
+            <li><a href="#boys-app" class="nav-link active">Boys Nicknames</a></li>
+            <li><a href="../free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-nav-favorites" class="btn-nav-fav" aria-label="View Saved Nicknames">
+            <span>♡</span>
+            <span>Saved</span>
+            <span id="fav-count-badge" style="display: none; background: #ff2a5f; color: #fff; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+          <button id="btn-nav-shortlist" class="btn-nav-fav" aria-label="View Shortlist" style="margin-left: 0.4rem;">
+            <span>★</span>
+            <span>Shortlist</span>
+            <span id="shortlist-count-badge" style="display: none; background: #ffaa00; color: #000; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Nickname Explorer Application -->
+    <main id="boys-app" class="container" style="flex: 1;">
+      <!-- Hero Header -->
+      <section class="boys-hero">
+        <div class="hero-pill-badge">
+          <span>⚡</span>
+          <span>Free Fire Boys Name Explorer</span>
+        </div>
+
+        <h1 class="boys-hero-title">
+          <span class="gradient-text">Free Fire Nicknames for Boys</span>
+        </h1>
+
+        <p class="boys-hero-subtitle">
+          Find a bold gaming identity that matches your playstyle. Instant search, clean &amp; pro styles, one-tap copy.
+        </p>
+
+        <!-- Primary Instant Search Bar -->
+        <div class="boys-search-section">
+          <div class="boys-search-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="boys-search-input" 
+              class="boys-search-input" 
+              placeholder="Search nicknames, vibes, or tags (e.g. Shadow, King, Sniper, Ghost)..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search Free Fire nicknames"
+            >
+            <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear search input">✕</button>
+          </div>
+
+          <!-- Quick Search Suggestions Dropdown on Focus -->
+          <div id="search-suggestions" class="search-suggestions-dropdown">
+            <div class="search-suggestions-title">Try Searching:</div>
+            <div class="search-tags-row">
+              <button class="search-tag-chip" data-tag="Shadow">Shadow</button>
+              <button class="search-tag-chip" data-tag="King">King</button>
+              <button class="search-tag-chip" data-tag="Ghost">Ghost</button>
+              <button class="search-tag-chip" data-tag="Sniper">Sniper</button>
+              <button class="search-tag-chip" data-tag="Venom">Venom</button>
+              <button class="search-tag-chip" data-tag="Titan">Titan</button>
+              <button class="search-tag-chip" data-tag="Apex">Apex</button>
+              <button class="search-tag-chip" data-tag="Dark">Dark</button>
+              <button class="search-tag-chip" data-tag="Pro">Pro</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrolling Category Navigation Bar -->
+        <div class="category-nav-wrapper">
+          <div id="category-scroll-nav" class="category-scroll-container" role="tablist" aria-label="Categories"></div>
+        </div>
+
+        <!-- Vibe-First Discovery Cards ("What's Your Vibe?") -->
+        <div class="vibe-discovery-card">
+          <div class="vibe-discovery-header">
+            <div class="vibe-discovery-title">
+              <span>🔥</span> What's Your Vibe?
+            </div>
+            <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Tap to filter</span>
+          </div>
+          <div id="vibe-cards-grid" class="vibe-cards-grid"></div>
+        </div>
+
+        <!-- Quick Action Toolbar & Sorting -->
+        <div class="boys-action-bar">
+          <div class="action-buttons-group">
+            <button id="btn-action-shuffle" class="btn-tool-action" title="Shuffle results keeping active filters">
+              <span>🔀</span> Shuffle Names
+            </button>
+            <button id="btn-action-surprise" class="btn-tool-action" title="Show fresh random selections">
+              <span>🎲</span> Surprise Me
+            </button>
+            <button id="btn-action-pick-for-me" class="btn-tool-action btn-accent" title="Answer 2 quick questions to find your name">
+              <span>🎯</span> Pick For Me
+            </button>
+            <button id="btn-action-random-slot" class="btn-tool-action" title="Play random name roulette">
+              <span>🎰</span> Random Pick
+            </button>
+          </div>
+
+          <div class="sort-select-wrap">
+            <label for="boys-sort-select">Sort:</label>
+            <select id="boys-sort-select" class="boys-sort-select" aria-label="Sort nicknames">
+              <option value="recommended">Recommended</option>
+              <option value="az">A – Z</option>
+              <option value="shortest">Shortest</option>
+              <option value="recently-added">Recently Added</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Active Filter Chips Row -->
+        <div id="active-filters-container" class="active-filters-container" style="display: none;"></div>
+      </section>
+
+      <!-- Main Explorer Layout: Sidebar + Grid -->
+      <section class="explorer-layout">
+        <!-- Desktop Filters Sidebar -->
+        <aside class="explorer-sidebar" aria-label="Filter options">
+          <div class="sidebar-title">
+            <span>⚙ Filters</span>
+          </div>
+
+          <!-- Playstyle Filter Group -->
+          <div class="sidebar-group">
+            <div class="sidebar-group-label">Playstyle:</div>
+            <div class="sidebar-filter-list">
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="rusher">
+                <span>⚡ Rusher</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="sniper">
+                <span>🎯 Sniper</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="tactical">
+                <span>🛡 Tactical</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="leader">
+                <span>👑 Leader</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="stealth">
+                <span>🥷 Stealth</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="playstyle" data-filter-val="casual">
+                <span>🎮 Casual</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Length Filter Group -->
+          <div class="sidebar-group">
+            <div class="sidebar-group-label">Name Length:</div>
+            <div class="sidebar-filter-list">
+              <button class="sidebar-filter-btn active" data-filter-type="length" data-filter-val="any">
+                <span>Any Length</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="length" data-filter-val="short">
+                <span>Short (≤ 5 chars)</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="length" data-filter-val="medium">
+                <span>Medium (6–9 chars)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Word Count Filter Group -->
+          <div class="sidebar-group">
+            <div class="sidebar-group-label">Word Count:</div>
+            <div class="sidebar-filter-list">
+              <button class="sidebar-filter-btn active" data-filter-type="wordCount" data-filter-val="any">
+                <span>Any</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="wordCount" data-filter-val="1">
+                <span>One Word</span>
+              </button>
+              <button class="sidebar-filter-btn" data-filter-type="wordCount" data-filter-val="2">
+                <span>Two Words</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Home Generator Link -->
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 0.4rem;">Have your own name?</div>
+            <a href="../" style="color: #ffaa00; font-size: 0.82rem; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <span>Style My Own Name →</span>
+            </a>
+          </div>
+        </aside>
+
+        <!-- Nickname Results Grid & Load More -->
+        <section class="explorer-content">
+          <div id="nickname-grid" class="nickname-grid" role="region" aria-label="Nicknames results"></div>
+
+          <!-- Load More Names Pagination -->
+          <div class="load-more-section">
+            <button id="btn-load-more" class="btn-load-more" aria-label="Load more nicknames">
+              <span>⚡</span> Load More Names
+            </button>
+            <div id="results-count" class="results-count-text">Showing nicknames</div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar (Section 64) -->
+    <nav class="boys-bottom-nav" aria-label="Mobile Navigation">
+      <button id="mob-nav-browse" class="bottom-nav-item active">
+        <span class="bottom-nav-icon">🧭</span>
+        <span>Browse</span>
+      </button>
+      <button id="mob-nav-search" class="bottom-nav-item">
+        <span class="bottom-nav-icon">🔍</span>
+        <span>Search</span>
+      </button>
+      <button id="mob-nav-saved" class="bottom-nav-item">
+        <span class="bottom-nav-icon">♡</span>
+        <span>Saved</span>
+        <span id="mob-fav-badge" class="nav-badge-bubble" style="display: none;">0</span>
+      </button>
+      <button id="mob-nav-shortlist" class="bottom-nav-item">
+        <span class="bottom-nav-icon">★</span>
+        <span>Shortlist</span>
+        <span id="mob-short-badge" class="nav-badge-bubble" style="display: none;">0</span>
+      </button>
+      <button id="mob-nav-filters" class="bottom-nav-item">
+        <span class="bottom-nav-icon">⚙</span>
+        <span>Filters</span>
+      </button>
+    </nav>
+
+    <!-- ===================================================================
+         MODALS & DRAWERS
+         =================================================================== -->
+
+    <!-- Quick Preview Modal (Simulated Game UI) -->
+    <div id="preview-modal" class="boys-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="preview-modal-title">
+      <div class="boys-modal-box">
+        <button class="modal-close-btn" aria-label="Close preview">✕</button>
+        <div class="simulated-badge-notice">Simulated In-Game Preview</div>
+        <h3 id="preview-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1rem;">
+          Player Identity Sandbox
+        </h3>
+
+        <!-- Context Tabs (Profile, Killfeed, Lobby) -->
+        <div class="preview-tabs" role="tablist">
+          <button class="preview-tab-btn active" data-tab="profile">Player Profile</button>
+          <button class="preview-tab-btn" data-tab="killfeed">Kill-Feed</button>
+          <button class="preview-tab-btn" data-tab="lobby">Squad Lobby</button>
+        </div>
+
+        <!-- Tab 1: Profile View -->
+        <div id="sim-profile-view" style="display: block;">
+          <div class="simulated-profile-box">
+            <div class="sim-player-top">
+              <div class="sim-avatar-box">👑</div>
+              <div class="sim-player-details">
+                <div id="sim-profile-ign" class="sim-nickname-display">亗 SHADOW 亗</div>
+                <div class="sim-rank-badge">
+                  <span>★</span> HEROIC III &bull; LV. 58
+                </div>
+              </div>
+            </div>
+            <div class="sim-level-bar">
+              <span>EXP: 84,200 / 100,000</span>
+              <span>LIKES: 1,420</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Kill-Feed View -->
+        <div id="sim-killfeed-view" style="display: none;">
+          <div class="simulated-killfeed-box">
+            <span id="sim-killfeed-killer" class="killfeed-killer">亗 SHADOW 亗</span>
+            <span class="killfeed-weapon">⚔ [AWM Headshot]</span>
+            <span class="killfeed-victim">ENEMY_07</span>
+          </div>
+        </div>
+
+        <!-- Tab 3: Squad Lobby View -->
+        <div id="sim-lobby-view" style="display: none;">
+          <div class="simulated-squad-box">
+            <div class="squad-slot leader">
+              <div style="font-size: 1.1rem;">👑</div>
+              <div id="sim-squad-leader" class="squad-slot-ign">亗 SHADOW 亗</div>
+              <div class="squad-slot-tag">Leader</div>
+            </div>
+            <div class="squad-slot">
+              <div style="font-size: 1.1rem;">⚡</div>
+              <div class="squad-slot-ign">APEX_PRO</div>
+              <div class="squad-slot-tag">Rusher</div>
+            </div>
+            <div class="squad-slot">
+              <div style="font-size: 1.1rem;">🎯</div>
+              <div class="squad-slot-ign">DEADSHOT</div>
+              <div class="squad-slot-tag">Sniper</div>
+            </div>
+            <div class="squad-slot">
+              <div style="font-size: 1.1rem;">🛡</div>
+              <div class="squad-slot-ign">VANGUARD</div>
+              <div class="squad-slot-tag">Support</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style Progression & Readability Toggle -->
+        <div class="style-progression-bar">
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+            Style Level:
+          </div>
+          <div class="action-buttons-group">
+            <button id="btn-make-cleaner" class="btn-tool-action" title="Simplify styling">
+              <span>←</span> Cleaner
+            </button>
+            <button class="btn-tool-action preview-style-level-btn" data-level="clean">Clean</button>
+            <button class="btn-tool-action preview-style-level-btn active" data-level="pro">Pro</button>
+            <button class="btn-tool-action preview-style-level-btn" data-level="extreme">Extreme</button>
+            <button id="btn-add-style" class="btn-tool-action" title="Increase styling intensity">
+              <span>+</span> Add Style
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Remixes -->
+        <div style="margin-top: 1rem;">
+          <div style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">
+            Instant Remixes:
+          </div>
+          <div id="preview-remixes-container" style="display: flex; gap: 0.4rem; flex-wrap: wrap;"></div>
+        </div>
+
+        <!-- Copy Action -->
+        <button id="btn-preview-copy-selected" class="btn-card-copy" style="margin-top: 1.25rem; height: 46px;">
+          <span>📋</span> Copy Selected Style
+        </button>
+      </div>
+    </div>
+
+    <!-- Lightweight Customizer Modal (Section 24, 25, 26, 27) -->
+    <div id="customizer-modal" class="boys-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="customizer-modal-title">
+      <div class="boys-modal-box">
+        <button class="modal-close-btn" aria-label="Close customizer">✕</button>
+        <h3 id="customizer-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1rem;">
+          Customize Nickname
+        </h3>
+
+        <!-- Base Word Input -->
+        <div class="customizer-section-label">Base Nickname:</div>
+        <input type="text" id="customizer-base-input" class="customizer-input-field" maxlength="16" spellcheck="false">
+
+        <!-- Character Counter & Notice -->
+        <div class="char-counter-badge">
+          <span id="customizer-char-count">8 characters</span>
+          <span>Max length depends on in-game display</span>
+        </div>
+
+        <!-- Special Unicode Alert (Section 42) -->
+        <div id="customizer-special-alert" class="special-unicode-alert" style="display: none;">
+          Special characters detected. Final visual rendering can vary slightly across game versions and devices.
+        </div>
+
+        <!-- Frame Presets -->
+        <div class="customizer-section-label">Frame Presets:</div>
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+          <button class="btn-tool-action btn-frame-preset active" data-frame="pro_crown">亗 Name 亗</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="cross">乂 Name 乂</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="star">★ Name ★</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="royal">♛ Name ♛</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="brackets">『 Name 』</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="flourish">꧁ Name ꧂</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="slash">〆 Name 〆</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="wings">彡 Name 彡</button>
+          <button class="btn-tool-action btn-frame-preset" data-frame="none">None</button>
+        </div>
+
+        <!-- Symbol Mini-Picker -->
+        <div class="customizer-section-label">Insert Popular Gaming Symbol:</div>
+        <div id="customizer-symbols-wrap" class="symbol-mini-picker"></div>
+
+        <!-- Live Preview Box -->
+        <div style="background: rgba(10, 12, 18, 0.95); border: 1.5px dashed rgba(255, 170, 0, 0.4); border-radius: 8px; padding: 1.25rem; text-align: center; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">Preview</div>
+          <div id="customizer-live-preview" style="font-family: var(--font-gaming); font-size: 1.5rem; font-weight: 800; color: #fff;">
+            亗 SHADOW 亗
+          </div>
+        </div>
+
+        <!-- Copy Customized Name Button -->
+        <button id="btn-customizer-copy" class="btn-card-copy" style="height: 48px;">
+          <span>📋</span> Copy Customized Nickname
+        </button>
+
+        <!-- Focused Tool Links (Section 26, 56, 57, 58) -->
+        <div class="related-tools-links">
+          <a href="../free-fire-symbols/">
+            <span>★</span> Need more symbols? Open Symbols Studio →
+          </a>
+          <a href="../free-fire-invisible-space/">
+            <span>␣</span> Need blank spacing? Invisible Space Tool →
+          </a>
+          <a href="../">
+            <span>✨</span> Want full custom styling from scratch? Style My Own Name →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- "Pick For Me" 2-Question Modal (Section 33) -->
+    <div id="pick-for-me-modal" class="boys-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pick-modal-title">
+      <div class="boys-modal-box">
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        <h3 id="pick-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 0.5rem;">
+          🎯 Pick For Me
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--text-med); margin-bottom: 1.25rem;">
+          Answer 2 quick choices and we'll instantly match 8 curated gaming identities.
+        </p>
+
+        <!-- Question 1: Playstyle -->
+        <div class="customizer-section-label">1. Choose Your Playstyle:</div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1.25rem;">
+          <button class="btn-tool-action btn-pick-ps active" data-ps="rusher" style="justify-content: center; padding: 0.75rem;">
+            <span>⚡ Rusher</span>
+          </button>
+          <button class="btn-tool-action btn-pick-ps" data-ps="sniper" style="justify-content: center; padding: 0.75rem;">
+            <span>🎯 Sniper</span>
+          </button>
+          <button class="btn-tool-action btn-pick-ps" data-ps="tactical" style="justify-content: center; padding: 0.75rem;">
+            <span>🛡 Tactical</span>
+          </button>
+          <button class="btn-tool-action btn-pick-ps" data-ps="casual" style="justify-content: center; padding: 0.75rem;">
+            <span>🎮 Casual</span>
+          </button>
+        </div>
+
+        <!-- Question 2: Vibe -->
+        <div class="customizer-section-label">2. Choose Your Vibe:</div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1.5rem;">
+          <button class="btn-tool-action btn-pick-vibe active" data-vibe="dark" style="justify-content: center; padding: 0.75rem;">
+            <span>☠ Dark</span>
+          </button>
+          <button class="btn-tool-action btn-pick-vibe" data-vibe="pro" style="justify-content: center; padding: 0.75rem;">
+            <span>⚡ Pro</span>
+          </button>
+          <button class="btn-tool-action btn-pick-vibe" data-vibe="royal" style="justify-content: center; padding: 0.75rem;">
+            <span>👑 Royal</span>
+          </button>
+          <button class="btn-tool-action btn-pick-vibe" data-vibe="minimal" style="justify-content: center; padding: 0.75rem;">
+            <span>🧊 Minimal</span>
+          </button>
+        </div>
+
+        <button id="btn-submit-pick-for-me" class="btn-card-copy" style="height: 48px; background: var(--fire-gradient); color: #fff; border: none;">
+          <span>🎯</span> Show My Names
+        </button>
+      </div>
+    </div>
+
+    <!-- Random Roulette Reel Modal (Section 62) -->
+    <div id="roulette-modal" class="boys-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="roulette-modal-title">
+      <div class="boys-modal-box" style="text-align: center;">
+        <button class="modal-close-btn" aria-label="Close roulette">✕</button>
+        <h3 id="roulette-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 0.5rem;">
+          🎰 Random Name Pick
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--text-med);">
+          Rapidly cycling the database to settle on a clean match.
+        </p>
+
+        <div class="roulette-slot-display">
+          <div id="roulette-display-text" class="roulette-nickname-text">亗 SHADOW 亗</div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;">
+          <button id="btn-spin-again" class="btn-tool-action" style="padding: 0.65rem 1.25rem;">
+            <span>🎲</span> Spin Again
+          </button>
+          <button id="btn-copy-roulette" class="btn-tool-action btn-accent" style="padding: 0.65rem 1.25rem;">
+            <span>📋</span> Copy Name
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Modal (Section 29) -->
+    <div id="comparison-modal" class="boys-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="comparison-modal-title">
+      <div class="boys-modal-box" style="max-width: 680px;">
+        <button class="modal-close-btn" aria-label="Close comparison">✕</button>
+        <h3 id="comparison-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1.25rem;">
+          ⚖ Compare Shortlisted Names
+        </h3>
+        <div id="comparison-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem;"></div>
+      </div>
+    </div>
+
+    <!-- Slide-Out Drawers Overlay (Saved & Shortlist) -->
+    <div id="boys-drawer-overlay" class="boys-drawer-overlay">
+      <!-- Saved Names Panel -->
+      <div id="saved-drawer-panel" class="boys-drawer-panel" style="display: none;">
+        <div class="drawer-header">
+          <div class="drawer-title">
+            <span>♡</span> Saved Names
+          </div>
+          <button class="modal-close-btn" aria-label="Close saved drawer">✕</button>
+        </div>
+        <div id="saved-drawer-body" class="drawer-body"></div>
+      </div>
+
+      <!-- Shortlist Panel -->
+      <div id="shortlist-drawer-panel" class="boys-drawer-panel" style="display: none;">
+        <div class="drawer-header">
+          <div class="drawer-title">
+            <span>★</span> My Shortlist
+          </div>
+          <button class="modal-close-btn" aria-label="Close shortlist drawer">✕</button>
+        </div>
+        <div id="shortlist-drawer-body" class="drawer-body"></div>
+        <div class="drawer-footer">
+          <button id="btn-copy-shortlist-all" class="btn-tool-action" style="flex: 1;">
+            <span>📋</span> Copy List
+          </button>
+          <button id="btn-share-shortlist" class="btn-tool-action" style="flex: 1;">
+            <span>🔗</span> Share
+          </button>
+          <button id="btn-compare-shortlist" class="btn-tool-action btn-accent" style="flex: 1;">
+            <span>⚖</span> Compare
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="boys-toast" class="boys-toast" role="status" aria-live="polite"></div>
+
+    <!-- Clean Gaming Footer -->
+    <footer class="site-footer" style="margin-top: 3.5rem;">
+      <div class="container">
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan-made gaming tool and is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All trademarks and brand names are property of their respective owners.
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for competitive players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/boys-data.js"></script>
+  <script src="js/boys-engine.js"></script>
+  <script src="js/boys-app.js"></script>
+</body>
+</html>

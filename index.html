@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Metadata -->
+  <title>Free Fire Nickname Generator – Create Stylish FF Names</title>
+  <meta name="description" content="Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.">
+  <meta name="keywords" content="Free Fire Nickname, Free Fire name, stylish Free Fire nickname, Free Fire nickname generator, FF symbols, gaming nickname studio">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://example.com/free-fire-nickname">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/free-fire-nickname">
+  <meta property="og:title" content="Free Fire Nickname Generator – Create Stylish FF Names">
+  <meta property="og:description" content="Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Fire Nickname Generator – Create Stylish FF Names">
+  <meta name="twitter:description" content="Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.">
+
+  <!-- Google Fonts Preconnect & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://example.com/#website",
+        "url": "https://example.com/",
+        "name": "Free Fire Nickname Studio",
+        "description": "Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://example.com/#webapp",
+        "name": "Free Fire Nickname Generator",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://example.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is this a nickname generator or a stylish text generator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It does both parts of the nickname workflow. You can enter an existing name and explore styled versions, or start with name ideas when you do not yet know what to use. After choosing a base name, you can customize and copy the final result."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are these “fonts” actually fonts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many effects commonly called fancy fonts are made from different Unicode characters rather than a downloadable font applied to ordinary letters. Unicode includes encoded letter-like and mathematical alphanumeric characters with visual forms such as bold, script, Fraktur, and double-struck. Because they are characters, they can be copied as text. Their appearance and acceptance can still vary between software."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will every generated nickname work in Free Fire?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Do not assume that every Unicode character or decoration will be accepted. A character can work in your browser and still be rejected or displayed differently in another application. Try your preferred version in the game's nickname field before confirming a rename, and keep the clean version available as a fallback."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I do if my nickname shows boxes or is rejected?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Try the simpler version first. Remove unusual symbols or emoji, reduce decoration, switch to a cleaner character style, and shorten the name if necessary. If the decorated version still fails, use the plain base name and add styling back one element at a time."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Ambient Embers Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="#" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge">Nickname Creator</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="#studio-section" class="nav-link active">Studio</a></li>
+            <li><a href="#how-to-create" class="nav-link">How to Create</a></li>
+            <li><a href="attitude-free-fire-nicknames/" class="nav-link">Attitude Names</a></li>
+            <li><a href="stylish-free-fire-nicknames/" class="nav-link">Stylish Names</a></li>
+            <li><a href="free-fire-nicknames-for-boys/" class="nav-link">Boys Nicknames</a></li>
+            <li><a href="free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
+            <li><a href="free-fire-symbols/" class="nav-link">Symbols</a></li>
+            <li><a href="free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+            <li><a href="free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-nav-favorites" class="btn-nav-fav" aria-label="View Saved Nicknames">
+            <span>♥</span>
+            <span>Favorites</span>
+            <span id="fav-count-badge" style="display: none; background: #fff; color: #ff2a5f; padding: 1px 6px; border-radius: 99px; font-size: 0.72rem;">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="container">
+          <div class="hero-pill-badge">
+            <span>⚡</span>
+            <span>Free Fire Nickname Studio</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="gradient-text">Free Fire Nickname</span> Generator — Create &amp; Style Your Name
+          </h1>
+
+          <p class="hero-subtitle">Create, style, preview, save, and copy a Free Fire nickname from your own name or a fresh idea.</p>
+
+          <div class="hero-cta-group">
+            <button class="btn btn-primary" onclick="document.getElementById('nickname-input').focus();">
+              <span>⚔</span> Style My Name
+            </button>
+            <button class="btn btn-secondary" onclick="document.getElementById('mode-random-btn').click();">
+              <span>🎲</span> Give Me Ideas
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Nickname Studio Card -->
+      <section id="studio-section" class="container">
+        <div class="studio-card">
+          <!-- Studio Header & Modes -->
+          <div class="studio-header">
+            <div class="studio-title-box">
+              <h2>Nickname Studio</h2>
+            </div>
+
+            <div class="studio-mode-pills" role="tablist">
+              <button id="mode-style-btn" class="mode-btn active" role="tab" aria-selected="true">
+                <span>✎</span> Style My Name
+              </button>
+              <button id="mode-random-btn" class="mode-btn" role="tab" aria-selected="false">
+                <span>🎲</span> Give Me Ideas
+              </button>
+            </div>
+          </div>
+
+          <!-- Studio Input Controls -->
+          <div class="studio-input-wrapper">
+            <div class="input-row-main">
+              <div class="input-box">
+                <input 
+                  type="text" 
+                  id="nickname-input" 
+                  placeholder="Enter your name (e.g. Shadow, Hunter, Venom)..." 
+                  maxlength="20"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Enter your nickname to style"
+                >
+                <button id="input-clear-btn" class="input-clear-btn" aria-label="Clear input">✕</button>
+              </div>
+
+              <button id="btn-generate-main" class="btn btn-primary btn-generate-main">
+                <span>⚡</span> Style Name
+              </button>
+            </div>
+          </div>
+
+          <!-- Studio Meta Controls: Counter, Intensity -->
+          <div class="studio-meta-bar">
+            <!-- Live Character Counter -->
+            <div class="char-counter-container">
+              <span class="char-counter-label">Length:</span>
+              <span id="char-count" class="char-counter-count">0 / 12</span>
+              <div class="char-progress-track">
+                <div id="char-progress-bar" class="char-progress-bar" style="width: 0%;"></div>
+              </div>
+              <span id="char-status-badge" class="char-status-badge">✓ Recommended Limit</span>
+            </div>
+
+            <!-- Style Intensity Selector -->
+            <div class="intensity-control">
+              <span class="intensity-label">Intensity:</span>
+              <div class="intensity-buttons" role="radiogroup" aria-label="Style Intensity">
+                <button class="btn-intensity" data-intensity="clean">Clean</button>
+                <button class="btn-intensity active" data-intensity="pro">Pro</button>
+                <button class="btn-intensity" data-intensity="extreme">Decorated</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horizontal Category Filter Pills -->
+          <div class="category-filter-wrapper">
+            <div id="category-pills" class="category-scroll-container" role="tablist" aria-label="Nickname Categories">
+              <button class="btn-category active" data-category="popular">🔥 Popular</button>
+              <button class="btn-category" data-category="pro">⚡ Pro</button>
+              <button class="btn-category" data-category="cool">😎 Cool</button>
+              <button class="btn-category" data-category="royal">👑 Royal</button>
+              <button class="btn-category" data-category="dark">💀 Dark</button>
+              <button class="btn-category" data-category="gaming">🎮 Gaming</button>
+              <button class="btn-category" data-category="ninja">🥷 Ninja</button>
+              <button class="btn-category" data-category="stylish">✨ Stylish</button>
+              <button class="btn-category" data-category="cute">❤️ Cute</button>
+              <button class="btn-category" data-category="luxury">💎 Luxury</button>
+            </div>
+          </div>
+
+          <!-- Smart Name Suggestions (Appears when user types) -->
+          <div id="smart-suggestions-box" class="smart-suggestions-box" style="display: none;">
+            <span class="smart-suggestions-label">💡 Smart Variations:</span>
+            <div id="smart-tags-list" class="smart-tags-list"></div>
+          </div>
+
+          <!-- Results Header -->
+          <div class="results-header-row">
+            <h3 class="results-count-title">
+              <span>🎯</span> Generated Designs
+            </h3>
+            <div class="results-actions-right">
+              <small style="color: var(--text-muted); font-size: 0.8rem;">Click any name or card to copy</small>
+            </div>
+          </div>
+
+          <!-- Results Grid -->
+          <div id="results-grid" class="results-grid" aria-live="polite"></div>
+
+          <!-- Generate More Button -->
+          <div class="generate-more-wrapper">
+            <button id="btn-generate-more" class="btn btn-generate-more">
+              <span>↻</span> Generate More Variations
+            </button>
+          </div>
+
+          <!-- Tool Compatibility Notice -->
+          <div class="tool-compatibility-banner">
+            <span>⚠️ <strong>Compatibility Note:</strong> Character acceptance and rendering can vary by device firmware and game client. We recommend testing your preferred nickname in Free Fire before confirming a rename.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Free Fire Game Preview Sandbox -->
+      <section id="preview-sandbox" class="container">
+        <div class="preview-sandbox-section">
+          <div class="preview-header-box">
+            <div>
+              <h2 style="font-family: var(--font-gaming); font-size: 1.5rem; text-transform: uppercase;">
+                Game Environment Preview
+              </h2>
+              <p style="color: var(--text-med); font-size: 0.9rem; margin-top: 0.2rem;">
+                See how your custom nickname visually renders in fictional gaming scenarios.
+              </p>
+            </div>
+
+            <div class="preview-tabs" role="tablist">
+              <button class="btn-preview-tab active" data-view="profile">Profile Card</button>
+              <button class="btn-preview-tab" data-view="killfeed">Kill Feed</button>
+              <button class="btn-preview-tab" data-view="lobby">Lobby Podium</button>
+            </div>
+          </div>
+
+          <div id="preview-stage" class="preview-display-stage"></div>
+        </div>
+      </section>
+
+      <!-- Symbol Library & Search Section -->
+      <section id="symbol-library" class="container">
+        <div class="symbol-library-section">
+          <div class="symbol-lib-header">
+            <div>
+              <h2 style="font-family: var(--font-gaming); font-size: 1.5rem; text-transform: uppercase;">
+                Free Fire Symbol Library
+              </h2>
+              <p style="color: var(--text-med); font-size: 0.9rem; margin-top: 0.2rem;">
+                Search signature tridents, wings, crowns, crosshairs, and rare symbols.
+              </p>
+            </div>
+
+            <div class="symbol-search-box">
+              <span class="symbol-search-icon">🔍</span>
+              <input type="text" id="symbol-search-input" placeholder="Search symbols (crown, wings, star)..." aria-label="Search symbols">
+            </div>
+          </div>
+
+          <div id="symbol-cat-pills" class="symbol-cat-pills"></div>
+
+          <div id="symbols-grid" class="symbols-grid"></div>
+        </div>
+      </section>
+
+      <!-- Comprehensive Editorial & Guide Section -->
+      <section id="content-section" class="seo-content-area container">
+
+        <!-- 1. How to Create a Free Fire Nickname -->
+        <article id="how-to-create" class="content-block">
+          <h2 class="content-h2">How to Create a Free Fire Nickname</h2>
+          <p class="content-p">
+            Finding a Free Fire nickname is easy until every idea you like feels too plain, already familiar, or becomes unreadable once you add too many decorative characters. Copying a random name from a giant list does not solve much either when what you really want is a nickname that feels like yours.
+          </p>
+          <p class="content-p">
+            You do not need to know Unicode codes or build decorated names character by character. Start with a base name or generate a fresh idea using the studio above, explore the generated versions, customize the ones you like, and copy your final choice.
+          </p>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Enter or Generate a Base Name</h3>
+            <p class="content-p">
+              Already know what you want to be called? Enter your name, gamer tag, initials, or another short word into the generator.
+            </p>
+            <p class="content-p">For example, a simple base such as <strong>Shadow</strong> can become different visual treatments such as:</p>
+            <div class="examples-tag-cloud">
+              <span class="example-pill">SHADOW</span>
+              <span class="example-pill">Sʜᴀᴅᴏᴡ</span>
+              <span class="example-pill">亗Shadow亗</span>
+              <span class="example-pill">『Shadow』</span>
+            </div>
+            <p class="content-p">
+              If you do not have an idea yet, use the name-discovery option first. Choose a result you like, then style that name instead of scrolling through an endless static list.
+            </p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Choose a Style</h3>
+            <p class="content-p">
+              A good nickname does not need the maximum amount of decoration. Start with the level that fits what you want:
+            </p>
+            <ul class="content-feature-list">
+              <li><strong>Clean</strong> keeps the name simple and readable.</li>
+              <li><strong>Pro</strong> adds a recognizable gaming-style treatment without overwhelming the base name.</li>
+              <li><strong>Decorated</strong> uses stronger frames, symbols, or styled characters for a more expressive appearance.</li>
+            </ul>
+            <p class="content-p">
+              Try several versions side by side. The easiest one to notice is not always the easiest one to read.
+            </p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Customize Symbols and Decorations</h3>
+            <p class="content-p">
+              Small symbols can change the look of a nickname without replacing the identity of the name itself.
+            </p>
+            <p class="content-p">For example, <strong>Shadow</strong> can become:</p>
+            <div class="examples-tag-cloud">
+              <span class="example-pill">亗Shadow</span>
+              <span class="example-pill">『Shadow』</span>
+              <span class="example-pill">亗Shadow亗</span>
+            </div>
+            <p class="content-p">
+              Use the small symbol picker for quick customization. If you want to browse symbols independently rather than generate an entire nickname, use the dedicated <a href="free-fire-symbols/" class="content-link">Free Fire Symbols</a> collection.
+            </p>
+            <div class="content-note-callout">
+              <strong>Important:</strong> Avoid assuming that every character you can copy from the web will necessarily be accepted or rendered the same way in the game. Unicode contains many different encoded characters, and support can vary by the software and font displaying them.
+            </div>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Preview, Save and Copy</h3>
+            <p class="content-p">
+              Do not choose only from a long vertical list. Open a nickname you like and compare its clean and decorated versions. Preview it at different sizes, save promising choices to your shortlist, and use <em>More Like This</em> when you want alternatives without starting again.
+            </p>
+            <p class="content-p">
+              When you are ready, tap <strong>Copy</strong>.
+            </p>
+            <p class="content-p">
+              Keep the clean version available as a fallback. If a highly decorated version is rejected or displays incorrectly, you can quickly try the simpler version instead.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2. What Makes a Good Free Fire Nickname? -->
+        <article id="what-makes-a-good-nickname" class="content-block">
+          <h2 class="content-h2">What Makes a Good Free Fire Nickname?</h2>
+          <p class="content-p">
+            A useful gaming nickname needs to do more than look unusual. It should still be recognizable when displayed at a small size and easy enough for you to remember.
+          </p>
+          <p class="content-p">
+            There is no single style that works for everyone. A clean one-word name may suit one player, while another may prefer a symbol-framed or heavily styled identity.
+          </p>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Keep the Base Name Easy to Recognize</h3>
+            <p class="content-p">
+              Start with the identity of the name before decorating it.
+            </p>
+            <p class="content-p">
+              Compare <strong>Shadow</strong> with a version surrounded by several layers of symbols and combining characters. The second version may attract more attention, but extra decoration can make the actual word harder to identify.
+            </p>
+            <div class="workflow-badge-strip">
+              <span class="wf-step">Base Name</span>
+              <span class="wf-arrow">→</span>
+              <span class="wf-step">One Style</span>
+              <span class="wf-arrow">→</span>
+              <span class="wf-step">Limited Decoration</span>
+            </div>
+            <p class="content-p">
+              A practical approach is: base name → one style → limited decoration, rather than adding every available effect at once.
+            </p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Use Decoration Without Losing Readability</h3>
+            <p class="content-p">
+              Decorations work best when they support the base name rather than hide it.
+            </p>
+            <p class="content-p">
+              For example, <strong>亗NOVA亗</strong> keeps NOVA easy to identify while giving it a stronger visual frame. If you need to stare at your own nickname to work out what it says, simplify it.
+            </p>
+            <p class="content-p">
+              The generator's <strong>Make It Cleaner</strong> option can step a decorated result back toward a simpler version without forcing you to rebuild the nickname.
+            </p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Keep a Clean Version</h3>
+            <p class="content-p">
+              Always keep the plain base name available.
+            </p>
+            <p class="content-p">
+              Some decorative styles use Unicode characters that look like familiar letters but are actually separate encoded characters. Unicode, for example, includes mathematical alphanumeric characters for styles such as bold, script, Fraktur, and double-struck. That does not mean every app or game field must accept or display every Unicode character in exactly the same way.
+            </p>
+            <p class="content-p">
+              A clean fallback gives you another option immediately if your preferred design is rejected or renders poorly.
+            </p>
+          </div>
+        </article>
+
+        <!-- 3. Why Some Stylish Nicknames Don't Work -->
+        <article id="why-some-nicknames-dont-work" class="content-block">
+          <h2 class="content-h2">Why Some Stylish Nicknames Don't Work</h2>
+          <p class="content-p">
+            A character appearing correctly in your browser does not guarantee that another application will accept or render it. That distinction matters with nickname generators.
+          </p>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">A Unicode Character Can Be Valid but Still Be Rejected</h3>
+            <p class="content-p">
+              Unicode defines characters; an application decides what it accepts in a particular input field. This means a character can:
+            </p>
+            <ul class="content-check-list">
+              <li>Copy correctly</li>
+              <li>Paste correctly elsewhere</li>
+              <li>Be valid Unicode</li>
+              <li>...and still be rejected by a game's nickname field.</li>
+            </ul>
+            <p class="content-p">
+              For that reason, this site should not label an untested style as guaranteed compatible. Use the generator to build and preview your nickname, but verify the final result in Free Fire before committing to a rename.
+            </p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">Why Some Characters Show as Boxes</h3>
+            <p class="content-p">
+              A square or missing-character symbol usually indicates that the font or software displaying the text does not have a usable glyph for that character.
+            </p>
+            <p class="content-p">
+              If a decorated nickname looks correct in your browser but displays poorly elsewhere, try a simpler style. Start by removing:
+            </p>
+            <ul class="content-feature-list">
+              <li>Unusual emoji</li>
+              <li>Stacked marks</li>
+              <li>Complex decorations</li>
+              <li>Less common styled characters</li>
+            </ul>
+            <p class="content-p">Then try the clean base name.</p>
+          </div>
+
+          <div class="content-sub-block">
+            <h3 class="content-h3">What to Try When a Nickname Is Rejected</h3>
+            <p class="content-p">
+              Do not immediately abandon the name. Simplify it in stages:
+            </p>
+            <div class="stages-step-container">
+              <div class="stage-step-row">
+                <span class="stage-num">Step 1</span>
+                <span class="stage-desc">Remove the outermost decorations.</span>
+              </div>
+              <div class="stage-step-row">
+                <span class="stage-num">Step 2</span>
+                <span class="stage-desc">Remove emoji or unusual symbols.</span>
+              </div>
+              <div class="stage-step-row">
+                <span class="stage-num">Step 3</span>
+                <span class="stage-desc">Switch from an elaborate letter style to a cleaner one.</span>
+              </div>
+              <div class="stage-step-row">
+                <span class="stage-num">Step 4</span>
+                <span class="stage-desc">Shorten the base name if necessary.</span>
+              </div>
+              <div class="stage-step-row">
+                <span class="stage-num">Step 5</span>
+                <span class="stage-desc">Try the plain-text version.</span>
+              </div>
+            </div>
+            <p class="content-p" style="margin-top: 1rem;">
+              This method helps identify which part of the nickname is causing the problem instead of making you create a completely different identity.
+            </p>
+          </div>
+        </article>
+
+        <!-- 4. Free Fire Nickname Ideas -->
+        <article id="nickname-ideas" class="content-block">
+          <h2 class="content-h2">Free Fire Nickname Ideas</h2>
+          <p class="content-p">
+            Not sure what direction to choose? Start with the type of identity you want rather than browsing thousands of unrelated names:
+          </p>
+
+          <div class="gateway-links-grid">
+            <a href="attitude-free-fire-nicknames/" class="gateway-card">
+              <div class="gateway-card-title">🔥 Attitude Free Fire Nicknames</div>
+              <div class="gateway-card-desc">Choose names around a persona such as confident, rebel, cold, boss, or lone-wolf.</div>
+            </a>
+            <a href="stylish-free-fire-nicknames/" class="gateway-card">
+              <div class="gateway-card-title">✨ Stylish Free Fire Nicknames</div>
+              <div class="gateway-card-desc">Explore names by visual design, mathematical bolding, and clean brackets.</div>
+            </a>
+            <a href="free-fire-nicknames-for-boys/" class="gateway-card">
+              <div class="gateway-card-title">⚡ Free Fire Nicknames for Boys</div>
+              <div class="gateway-card-desc">Browse the dedicated boys nickname collection curated by aggressive playstyles.</div>
+            </a>
+            <a href="free-fire-nicknames-for-girls/" class="gateway-card">
+              <div class="gateway-card-title">👑 Free Fire Nicknames for Girls</div>
+              <div class="gateway-card-desc">Browse the dedicated girls nickname collection with aesthetic and fierce tags.</div>
+            </a>
+          </div>
+
+          <p class="content-p" style="margin-top: 1.25rem;">
+            These collections are for discovery. Once you find a base name you like, bring it back to the main generator to customize the final version.
+          </p>
+        </article>
+
+        <!-- 5. Explore More Free Fire Name Tools -->
+        <article id="more-tools" class="content-block">
+          <h2 class="content-h2">Explore More Free Fire Name Tools</h2>
+          <p class="content-p">
+            The main generator is designed for creating and styling your player nickname. More specific tasks have their own tools so you do not have to dig through an oversized generator:
+          </p>
+
+          <div class="gateway-links-grid">
+            <a href="free-fire-symbols/" class="gateway-card">
+              <div class="gateway-card-title">★ Free Fire Symbols</div>
+              <div class="gateway-card-desc">Use when you already have a name and only need decorative tridents, wings, crowns, or brackets.</div>
+            </a>
+            <a href="free-fire-invisible-space/" class="gateway-card">
+              <div class="gateway-card-title">ㅤ Free Fire Invisible Space</div>
+              <div class="gateway-card-desc">Use when your specific problem involves blank-looking spacing and testing current support notes.</div>
+            </a>
+            <a href="free-fire-guild-name-generator/" class="gateway-card">
+              <div class="gateway-card-title">⚔ Free Fire Guild Name Generator</div>
+              <div class="gateway-card-desc">Use when you are naming a squad or guild rather than an individual player.</div>
+            </a>
+            <a href="free-fire-bio-copy/" class="gateway-card">
+              <div class="gateway-card-title">📋 Free Fire Bio Copy</div>
+              <div class="gateway-card-desc">Use when you want profile-bio color codes and badges rather than a player nickname.</div>
+            </a>
+          </div>
+
+          <p class="content-p" style="margin-top: 1.25rem;">
+            That separation keeps each tool focused on one job.
+          </p>
+        </article>
+
+        <!-- 6. Frequently Asked Questions -->
+        <article id="faq-section" class="content-block">
+          <h2 class="content-h2">Frequently Asked Questions</h2>
+          <div class="faq-accordion">
+            <div class="faq-item active">
+              <button class="faq-question">
+                <span>Is this a nickname generator or a stylish text generator?</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div class="faq-answer">
+                <p>It does both parts of the nickname workflow. You can enter an existing name and explore styled versions, or start with name ideas when you do not yet know what to use. After choosing a base name, you can customize and copy the final result.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Are these “fonts” actually fonts?</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div class="faq-answer">
+                <p>Many effects commonly called fancy fonts are made from different Unicode characters rather than a downloadable font applied to ordinary letters. Unicode includes encoded letter-like and mathematical alphanumeric characters with visual forms such as bold, script, Fraktur, and double-struck.</p>
+                <p>Because they are characters, they can be copied as text. Their appearance and acceptance can still vary between software.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Will every generated nickname work in Free Fire?</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div class="faq-answer">
+                <p>Do not assume that every Unicode character or decoration will be accepted. A character can work in your browser and still be rejected or displayed differently in another application.</p>
+                <p>Try your preferred version in the game's nickname field before confirming a rename, and keep the clean version available as a fallback.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What should I do if my nickname shows boxes or is rejected?</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div class="faq-answer">
+                <p>Try the simpler version first. Remove unusual symbols or emoji, reduce decoration, switch to a cleaner character style, and shorten the name if necessary. If the decorated version still fails, use the plain base name and add styling back one element at a time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-summary-box">
+            <p>
+              A Free Fire nickname works best when the name itself remains recognizable. Start simple, add the style that actually improves it, and keep a clean backup rather than treating more symbols as automatically better.
+            </p>
+            <p>
+              Use the generator to explore several versions, save the ones you genuinely like, and copy your final choice only after checking how the result looks where you intend to use it.
+            </p>
+          </div>
+        </article>
+
+      </section>
+    </main>
+
+    <!-- Modals & Drawers -->
+
+    <!-- Live Nickname Editor Modal -->
+    <div id="editor-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editor-modal-title">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="editor-modal-title">Live Nickname Editor</h3>
+          <button id="btn-close-editor" class="btn-modal-close" aria-label="Close editor">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="editor-preview-banner">
+            <div id="editor-preview-text" class="editor-preview-text">亗𝐒𝐇𝐀𝐃𝐎𝐖亗</div>
+            <span id="editor-char-status" class="result-badge badge-length-ok">7 / 12 Chars (Optimal)</span>
+          </div>
+
+          <div class="editor-form-row">
+            <label>Prefix, Base Name &amp; Suffix</label>
+            <div class="editor-inputs-group">
+              <input type="text" id="editor-prefix" placeholder="Prefix" value="亗">
+              <input type="text" id="editor-name" placeholder="Name" value="Shadow">
+              <input type="text" id="editor-suffix" placeholder="Suffix" value="亗">
+            </div>
+          </div>
+
+          <div class="editor-form-row">
+            <label for="editor-font">Typography Style</label>
+            <select id="editor-font" style="width: 100%;">
+              <option value="bold">Mathematical Bold (𝐒𝐡𝐚𝐝𝐨𝐰)</option>
+              <option value="gothic">Gothic / Fraktur (𝕾𝖍𝖆𝖉𝖔𝖜)</option>
+              <option value="script">Calligraphic Script (𝓢𝓱𝓪𝓭𝓸𝔀)</option>
+              <option value="doubleStruck">Double-Struck (𝕊𝕙𝕒𝕕ⓞ𝕨)</option>
+              <option value="smallCaps">Small Capitals (sʜᴀᴅᴏᴡ)</option>
+              <option value="monospace">Monospace Typewriter (𝚂𝚑𝚊𝚍𝚘𝚠)</option>
+              <option value="bubbles">Circled Bubbles (Ⓢⓗⓐⓓⓞⓦ)</option>
+              <option value="normal">Normal Alphabet (Shadow)</option>
+            </select>
+          </div>
+
+          <div class="editor-form-row">
+            <label>Quick Symbol Insertion</label>
+            <div id="editor-quick-symbols" class="quick-symbols-bar"></div>
+          </div>
+
+          <button id="btn-copy-editor-final" class="btn btn-primary" style="width: 100%; margin-top: 1rem; height: 50px;">
+            <span>📋</span> Copy Final Nickname
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparison-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="comparison-title">
+      <div class="modal-box" style="max-width: 720px;">
+        <div class="modal-header">
+          <h3 id="comparison-title">Nickname Attribute Comparison</h3>
+          <button id="btn-close-comparison" class="btn-modal-close" aria-label="Close comparison">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="comparison-grid" class="comparison-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div id="favorites-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="favorites-title">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="favorites-title">My Saved Favorites</h3>
+          <button id="btn-close-favorites" class="btn-modal-close" aria-label="Close favorites">✕</button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Your favorites are saved locally on this browser. No login or cloud sync required.
+          </p>
+          <div id="favorites-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <div class="brand-logo" style="margin-bottom: 0.75rem;">
+              <div class="brand-icon">🔥</div>
+              <div class="brand-text">
+                <span class="brand-title">Free Fire Nickname Studio</span>
+                <span class="brand-badge">Fan-Created Gaming Utility</span>
+              </div>
+            </div>
+            <p class="footer-brand-desc">
+              A specialized gaming utility to generate, style, preview, and customize battle-ready Free Fire nicknames with original typography, symbols, and length testing.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Features</h4>
+            <ul class="footer-links">
+              <li><a href="#studio-section">Nickname Generator</a></li>
+              <li><a href="#preview-sandbox">Game Preview</a></li>
+              <li><a href="free-fire-symbols/">Symbols Studio</a></li>
+              <li><a href="free-fire-invisible-space/">Invisible Space Tool</a></li>
+              <li><a href="free-fire-bio-copy/">Bio Studio</a></li>
+              <li><a href="free-fire-guild-name-generator/">Guild Name Studio</a></li>
+              <li><a href="#studio-section">Live Editor</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Guides &amp; Advice</h4>
+            <ul class="footer-links">
+              <li><a href="#how-to-create">How to Create a Nickname</a></li>
+              <li><a href="#what-makes-a-good-nickname">What Makes a Good Nickname</a></li>
+              <li><a href="#why-some-nicknames-dont-work">Troubleshooting Compatibility</a></li>
+              <li><a href="#nickname-ideas">Nickname Ideas Gateway</a></li>
+              <li><a href="#faq-section">Frequently Asked Questions</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan utility created for gaming enthusiasts. It is not affiliated with, authorized, maintained, sponsored, or endorsed by Garena, Free Fire, or any of its affiliates. All product and company names are trademarks™ or registered® trademarks of their respective holders.
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

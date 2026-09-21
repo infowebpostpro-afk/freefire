@@ -1,0 +1,984 @@
+/* ===================================================================
+   FREE FIRE BIO STUDIO — DEDICATED STYLESHEET
+   Aesthetics: Tactical Gaming, Dark Charcoal, Fiery Highlights, Glass Cards
+   =================================================================== */
+
+.bio-studio-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* -------------------------------------------------------------
+   1. PRIMARY SEGMENTED MODE CONTROL
+   ------------------------------------------------------------- */
+.mode-switch-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem auto 1.75rem;
+  max-width: 440px;
+}
+
+.mode-segmented-control {
+  display: flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.mode-tab-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  color: var(--text-med);
+  font-family: var(--font-gaming);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mode-tab-btn:hover {
+  color: var(--text-pure);
+}
+
+.mode-tab-btn.active {
+  background: var(--fire-gradient);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.4);
+}
+
+/* -------------------------------------------------------------
+   2. SEARCH & CATEGORY FILTER CHIPS
+   ------------------------------------------------------------- */
+.bio-search-bar {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto 1.25rem;
+}
+
+.bio-search-input {
+  width: 100%;
+  height: 54px;
+  padding: 0 3.25rem 0 3rem;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-pure);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.bio-search-input:focus {
+  border-color: var(--fire-primary);
+  box-shadow: 0 0 18px rgba(255, 87, 34, 0.35);
+  background: #141822;
+}
+
+.bio-search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.bio-search-clear {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-med);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.bio-search-clear:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Category Filter Chips (Horizontal Swipeable) */
+.bio-cat-scroll-container {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+  padding: 4px 0 8px;
+}
+
+.bio-cat-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.bio-cat-chips-row {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+  padding: 0 0.5rem;
+}
+
+.btn-bio-cat {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-med);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.btn-bio-cat:hover {
+  border-color: rgba(255, 87, 34, 0.4);
+  color: var(--text-pure);
+}
+
+.btn-bio-cat.active {
+  background: rgba(255, 87, 34, 0.18);
+  border-color: var(--fire-primary);
+  color: #ffaa00;
+  box-shadow: 0 0 12px rgba(255, 87, 34, 0.25);
+}
+
+/* Quick Tools Toolbar */
+.bio-quick-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.btn-surprise-me {
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 170, 0, 0.12);
+  border: 1px solid rgba(255, 170, 0, 0.35);
+  color: #ffaa00;
+  font-family: var(--font-gaming);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.btn-surprise-me:hover {
+  background: #ffaa00;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------------------------
+   3. READY BIOS CARDS GRID
+   ------------------------------------------------------------- */
+.bio-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .bio-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bio-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.bio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-fast);
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.bio-card:hover {
+  border-color: rgba(255, 87, 34, 0.45);
+  transform: translateY(-2px);
+  background: var(--bg-card-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 87, 34, 0.15);
+}
+
+.bio-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.bio-cat-badge {
+  font-family: var(--font-gaming);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-med);
+}
+
+.btn-bio-save {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  padding: 2px 6px;
+}
+
+.btn-bio-save:hover {
+  color: #ff2a5f;
+  transform: scale(1.15);
+}
+
+.btn-bio-save.saved {
+  color: #ff2a5f;
+  text-shadow: 0 0 10px rgba(255, 42, 95, 0.5);
+}
+
+.bio-text-content {
+  font-family: var(--font-gaming);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+  word-break: break-word;
+}
+
+/* Primary Copy Button on Card */
+.btn-bio-copy-card {
+  width: 100%;
+  height: 44px;
+  background: var(--fire-gradient);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-gaming);
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+  margin-bottom: 0.75rem;
+}
+
+.btn-bio-copy-card:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.btn-bio-copy-card.copied {
+  background: #00c853;
+  box-shadow: 0 4px 14px rgba(0, 200, 83, 0.4);
+}
+
+/* Action row on card (Customize, Remix) */
+.bio-card-actions {
+  display: flex;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.65rem;
+}
+
+.btn-bio-action {
+  flex: 1;
+  padding: 0.4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-med);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: var(--transition-fast);
+}
+
+.btn-bio-action:hover {
+  border-color: rgba(255, 87, 34, 0.4);
+  color: var(--text-pure);
+}
+
+/* -------------------------------------------------------------
+   4. CREATE YOUR OWN BIO STUDIO
+   ------------------------------------------------------------- */
+.bio-creator-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .bio-creator-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+/* Persona Vibes Row */
+.persona-vibes-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .persona-vibes-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.btn-persona-card {
+  padding: 0.65rem 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-high);
+  cursor: pointer;
+  text-align: center;
+  transition: var(--transition-fast);
+}
+
+.btn-persona-card:hover {
+  border-color: var(--fire-primary);
+  background: var(--bg-card);
+}
+
+.btn-persona-card.active {
+  border-color: var(--fire-primary);
+  background: rgba(255, 87, 34, 0.15);
+  box-shadow: 0 0 12px rgba(255, 87, 34, 0.25);
+}
+
+.persona-icon {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.persona-name {
+  font-family: var(--font-gaming);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* Input Area in Customizer */
+.creator-input-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.creator-bio-input {
+  width: 100%;
+  min-height: 90px;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-pure);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  resize: vertical;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.creator-bio-input:focus {
+  border-color: var(--fire-primary);
+  box-shadow: 0 0 16px rgba(255, 87, 34, 0.35);
+  background: #141822;
+}
+
+/* Dual Character Counter */
+.creator-length-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.length-badge-pill {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.length-badge-pill.ok {
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--neon-green);
+}
+
+.length-badge-pill.warn {
+  background: rgba(255, 145, 0, 0.15);
+  color: var(--neon-amber);
+}
+
+.length-badge-pill.danger {
+  background: rgba(255, 23, 68, 0.15);
+  color: var(--neon-red);
+}
+
+/* Style Level Buttons (Clean, Pro, Extreme) */
+.style-level-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.btn-style-level {
+  padding: 0.6rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-med);
+  font-family: var(--font-gaming);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: var(--transition-fast);
+}
+
+.btn-style-level:hover {
+  border-color: var(--border-active);
+  color: var(--text-pure);
+}
+
+.btn-style-level.active {
+  background: rgba(255, 87, 34, 0.18);
+  border-color: var(--fire-primary);
+  color: #ffaa00;
+}
+
+/* Quick Colors Row */
+.quick-colors-grid {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.color-swatch-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.color-swatch-btn:hover {
+  transform: scale(1.12);
+  border-color: #fff;
+}
+
+.color-swatch-btn.active {
+  border-color: #fff;
+  box-shadow: 0 0 12px currentColor;
+  transform: scale(1.15);
+}
+
+.custom-hex-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  margin-left: auto;
+}
+
+.custom-hex-input-wrap input[type="color"] {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.custom-hex-text {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #ffaa00;
+}
+
+/* Multi-Color Presets */
+.color-presets-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.btn-preset-gradient {
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-high);
+  font-family: var(--font-gaming);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: var(--transition-fast);
+}
+
+.btn-preset-gradient:hover {
+  border-color: var(--fire-primary);
+  background: var(--bg-card);
+}
+
+.btn-preset-gradient .gradient-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Compact Symbols Bar */
+.compact-symbols-container {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.btn-compact-symbol {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--text-pure);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.btn-compact-symbol:hover {
+  border-color: var(--fire-primary);
+  background: rgba(255, 87, 34, 0.15);
+  transform: scale(1.08);
+}
+
+/* -------------------------------------------------------------
+   5. FICTIONAL GAMING PROFILE PREVIEW
+   ------------------------------------------------------------- */
+.profile-preview-card {
+  background: linear-gradient(180deg, #181d28 0%, #10141d 100%);
+  border: 1.5px solid rgba(255, 170, 0, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.simulated-badge {
+  font-size: 0.72rem;
+  font-family: var(--font-gaming);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(0, 229, 255, 0.12);
+  color: var(--neon-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff5722 0%, #ff2a5f 100%);
+  border: 2px solid #ffaa00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 0 16px rgba(255, 87, 34, 0.4);
+}
+
+.profile-user-details {
+  flex: 1;
+}
+
+.profile-user-name {
+  font-family: var(--font-gaming);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.profile-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.profile-rank-badge {
+  font-size: 0.72rem;
+  font-family: var(--font-gaming);
+  font-weight: 700;
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.profile-level-badge {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Signature Display Box in Preview */
+.profile-signature-box {
+  background: rgba(8, 10, 15, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.signature-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+  font-weight: 700;
+}
+
+.signature-rendered-text {
+  font-family: var(--font-gaming);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  word-break: break-word;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.signature-raw-code {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: #ffaa00;
+  word-break: break-all;
+  line-height: 1.4;
+  display: none;
+}
+
+/* View Code Toggle Buttons */
+.preview-mode-toggle-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.btn-preview-toggle {
+  flex: 1;
+  padding: 0.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-med);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-preview-toggle.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* Dual Copy Action Buttons */
+.creator-copy-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.btn-copy-styled {
+  height: 50px;
+  background: var(--fire-gradient);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-family: var(--font-gaming);
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.4);
+  transition: var(--transition-fast);
+}
+
+.btn-copy-styled:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-copy-styled.copied {
+  background: #00c853;
+  box-shadow: 0 4px 16px rgba(0, 200, 83, 0.4);
+}
+
+.btn-copy-plain {
+  height: 42px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-med);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: var(--transition-fast);
+}
+
+.btn-copy-plain:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.btn-copy-plain.copied {
+  background: #00c853;
+  color: #fff;
+  border-color: #00c853;
+}
+
+/* -------------------------------------------------------------
+   6. SAVED BIOS & RECENT SHELF
+   ------------------------------------------------------------- */
+.shelf-section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.shelf-horizontal-list {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.45rem;
+}
+
+.shelf-bio-chip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.45rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-gaming);
+  font-size: 0.85rem;
+  color: var(--text-pure);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.shelf-bio-chip:hover {
+  border-color: var(--fire-primary);
+}
+
+.shelf-bio-chip .chip-del {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 0.25rem;
+}
+
+.shelf-bio-chip .chip-del:hover {
+  color: #ff1744;
+}
+
+/* -------------------------------------------------------------
+   7. INTERACTIVE TROUBLESHOOTER
+   ------------------------------------------------------------- */
+.bio-trouble-card {
+  background: linear-gradient(180deg, rgba(22, 26, 36, 0.9) 0%, rgba(14, 16, 22, 0.95) 100%);
+  border: 1px solid rgba(255, 87, 34, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-top: 3rem;
+}
+
+.bio-trouble-chips-grid {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.btn-bio-trouble {
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-high);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: var(--transition-fast);
+}
+
+.btn-bio-trouble:hover {
+  border-color: var(--fire-primary);
+  background: rgba(255, 87, 34, 0.1);
+}
+
+.btn-bio-trouble.active {
+  background: rgba(255, 87, 34, 0.2);
+  border-color: var(--fire-primary);
+  color: #ffaa00;
+  box-shadow: 0 0 12px rgba(255, 87, 34, 0.25);
+}
+
+.bio-trouble-solution-box {
+  background: rgba(10, 12, 16, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #ffaa00;
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+}
+
+/* -------------------------------------------------------------
+   8. MOBILE STICKY COPY BAR & TOAST
+   ------------------------------------------------------------- */
+.bio-sticky-copy-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 12, 16, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 87, 34, 0.3);
+  padding: 0.75rem 1rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transform: translateY(120%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.bio-sticky-copy-bar.visible {
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  .bio-sticky-copy-bar {
+    display: none !important;
+  }
+}

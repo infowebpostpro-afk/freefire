@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Metadata -->
+  <title>Free Fire Invisible Space – Copy Invisible Character</title>
+  <meta name="description" content="Copy a Free Fire invisible space in one tap. Create custom gaps, build blank-looking nicknames, preview your name and try alternatives if one space does not work.">
+  <meta name="keywords" content="Free Fire invisible space, Free Fire space, FF invisible space, Free Fire space code, Free Fire blank space, invisible character for Free Fire, Free Fire invisible character, Free Fire name space, Free Fire blank name, Free Fire invisible name">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://example.com/free-fire-invisible-space/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/free-fire-invisible-space/">
+  <meta property="og:title" content="Free Fire Invisible Space – Copy Invisible Character">
+  <meta property="og:description" content="Copy a Free Fire invisible space in one tap. Create custom gaps, build blank-looking nicknames, preview your name and try alternatives if one space does not work.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Fire Invisible Space – Copy Invisible Character">
+  <meta name="twitter:description" content="Copy a Free Fire invisible space in one tap. Create custom gaps, build blank-looking nicknames, preview your name and try alternatives if one space does not work.">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/invisible-space.css">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://example.com/free-fire-invisible-space/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://example.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Free Fire Invisible Space",
+            "item": "https://example.com/free-fire-invisible-space/"
+          }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://example.com/free-fire-invisible-space/#webapp",
+        "name": "Free Fire Invisible Space Studio",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://example.com/free-fire-invisible-space/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I copy an invisible space for Free Fire?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Simply tap the large 'Copy Invisible Space' button at the top of the page. The invisible character is instantly copied to your clipboard, ready to be pasted into the Free Fire nickname field."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can't I use a normal keyboard space in Free Fire?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Free Fire nickname input automatically restricts standard keyboard spaces (ASCII 32). An invisible Unicode character like the Hangul Filler (U+3164) is recognized by the system as a valid character block while remaining completely invisible."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I put a space between two words in my Free Fire name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use our Nickname Builder: type your first word, place your cursor where you want the space, and click 'Insert at Cursor'. Then copy the finished nickname and paste it into the game."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I create a blank-looking Free Fire name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Click 'Generate Blank-Looking Name' in our Blank Name section. This generates 3 consecutive invisible filler characters. Note that whether a completely empty nickname is accepted depends on your regional server validation rules."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the invisible character show as a box or question mark?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A box (tofu) appears when your device font renderer lacks the glyph map for that specific Unicode character. If this happens, use our Troubleshooter to switch to an alternative character such as U+00A0 or U+2800."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does an invisible space work on both Android and iPhone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, standard Unicode filler characters work across both Android and iOS devices, as well as emulators like BlueStacks. Simply copy client-side and paste directly into the game field."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Ambient Embers Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper space-page-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge">Invisible Space</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="../" class="nav-link">Nickname Generator</a></li>
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+            <li><a href="#quick-copy" class="nav-link active">Invisible Space</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Studio</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="#nickname-builder" class="nav-link">Name Builder</a></li>
+            <li><a href="#troubleshooter" class="nav-link">Troubleshoot</a></li>
+            <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="quick-copy" class="hero-section" style="padding-bottom: 1rem;">
+        <div class="container">
+          <div class="hero-pill-badge">
+            <span>⚡</span>
+            <span>Free Fire Invisible Space Tool</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="gradient-text">Free Fire Invisible Space</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Copy an invisible space for your Free Fire nickname, create custom gaps, or build a blank-looking name in seconds.
+          </p>
+
+          <!-- Level 1: Quick Copy Hero Card -->
+          <div class="quick-copy-hero-card" style="margin-top: 1.5rem;">
+            <div class="stealth-badge">
+              <span class="stealth-dot"></span>
+              <span id="hero-active-code-badge">U+3164 (Hangul Filler)</span> &bull; Stealth Space
+            </div>
+
+            <!-- Visualizer Box: Make the Invisible Visible -->
+            <div id="visualizer-box" class="invisible-visualizer-box" title="Click to copy invisible space">
+              <div class="visualizer-bracket-label">
+                <span>[</span>
+                <div class="visual-space-token">
+                  <span>invisible space</span>
+                </div>
+                <span>]</span>
+              </div>
+              <p class="visualizer-note">
+                The highlighted box represents the hidden character. <strong>Only the invisible space character is copied.</strong>
+              </p>
+            </div>
+
+            <!-- Primary Large CTA Button -->
+            <button id="btn-hero-copy" class="btn-huge-copy" aria-label="Copy primary invisible space">
+              <span class="copy-icon">📋</span>
+              <span class="copy-status-text">COPY INVISIBLE SPACE</span>
+            </button>
+
+            <div class="quick-status-line">
+              <span>✓</span> Ready to copy &bull; Paste into your Free Fire nickname field
+            </div>
+
+            <!-- Quick Space Size Presets -->
+            <div class="quick-presets-wrapper">
+              <div class="quick-presets-title">Choose Space Size</div>
+              <div class="quick-presets-grid">
+                <button id="btn-preset-1" class="btn-preset-card" aria-label="Copy 1 invisible space">
+                  <span class="preset-qty">1 Space</span>
+                  <span class="preset-sub">Small Gap</span>
+                  <span class="preset-copy-btn"><span>📋</span> Copy</span>
+                </button>
+                <button id="btn-preset-2" class="btn-preset-card" aria-label="Copy 2 invisible spaces">
+                  <span class="preset-qty">2 Spaces</span>
+                  <span class="preset-sub">Medium Gap</span>
+                  <span class="preset-copy-btn"><span>📋</span> Copy</span>
+                </button>
+                <button id="btn-preset-3" class="btn-preset-card" aria-label="Copy 3 invisible spaces">
+                  <span class="preset-qty">3 Spaces</span>
+                  <span class="preset-sub">Wide Gap</span>
+                  <span class="preset-copy-btn"><span>📋</span> Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Names Shelf (Local Storage) -->
+      <section id="recent-names-shelf" class="container" style="display: none; margin-top: 1.5rem;">
+        <div class="recent-names-shelf">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+            <div style="font-family: var(--font-gaming); font-size: 0.95rem; font-weight: 700; color: #ffaa00;">
+              <span>🕒</span> Recent Built Names
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Saved locally on this device</span>
+          </div>
+          <div id="recent-shelf-list" class="recent-shelf-list"></div>
+        </div>
+      </section>
+
+      <!-- Main Two-Column Studio Layout -->
+      <section class="container" style="margin-top: 2rem;">
+        <div class="space-studio-grid">
+          
+          <!-- LEFT COLUMN: Custom Generator & Fallback Characters -->
+          <div class="studio-col-left">
+
+            <!-- Level 2: Custom Space Generator -->
+            <div class="card-section-box">
+              <div class="section-card-header">
+                <div class="section-card-title">
+                  <span>⚙</span> Custom Invisible Space Generator
+                </div>
+                <span style="font-size: 0.78rem; color: var(--text-muted);">Max: 20</span>
+              </div>
+
+              <p style="font-size: 0.85rem; color: var(--text-med); margin-bottom: 1rem;">
+                Need a specific width for your clan tag or symbol alignment? Choose the exact number of invisible spaces:
+              </p>
+
+              <!-- Stepper -->
+              <div class="generator-stepper-row">
+                <button id="btn-stepper-minus" class="btn-stepper" aria-label="Decrease space count">−</button>
+                <div class="stepper-display">
+                  <span id="stepper-count-val" class="stepper-val">3</span>
+                  <span class="stepper-label">Spaces</span>
+                </div>
+                <button id="btn-stepper-plus" class="btn-stepper" aria-label="Increase space count">+</button>
+              </div>
+
+              <!-- Quick Chips -->
+              <div class="quick-chips-row">
+                <span style="font-size: 0.78rem; color: var(--text-muted); margin-right: 0.25rem;">Presets:</span>
+                <button class="btn-chip btn-chip-qty" data-qty="1">1</button>
+                <button class="btn-chip btn-chip-qty" data-qty="2">2</button>
+                <button class="btn-chip btn-chip-qty active" data-qty="3">3</button>
+                <button class="btn-chip btn-chip-qty" data-qty="5">5</button>
+                <button class="btn-chip btn-chip-qty" data-qty="10">10</button>
+                <button class="btn-chip btn-chip-qty" data-qty="15">15</button>
+              </div>
+
+              <!-- Preview Box -->
+              <div class="custom-space-preview-box">
+                <span style="font-size: 0.82rem; color: var(--text-muted);">Visualized Quantity:</span>
+                <span id="custom-preview-tokens" class="custom-preview-tokens">[invisible × 3]</span>
+              </div>
+
+              <button id="btn-copy-custom-spaces" class="btn btn-primary" style="width: 100%; height: 50px;" aria-label="Copy custom invisible spaces">
+                <span>📋</span> Copy <span class="custom-count-label">3</span> Invisible Spaces
+              </button>
+            </div>
+
+            <!-- Level 7: Blank Name & Spaced Name Mode -->
+            <div class="card-section-box">
+              <div class="section-card-header">
+                <div class="section-card-title">
+                  <span>👻</span> Blank-Looking &amp; Spaced Names
+                </div>
+                <span class="stealth-badge" style="margin-bottom: 0; padding: 2px 8px; font-size: 0.7rem;">Quick Tool</span>
+              </div>
+
+              <!-- Blank Name Card -->
+              <div style="margin-bottom: 1.5rem;">
+                <h3 style="font-family: var(--font-gaming); font-size: 0.95rem; color: #fff; margin-bottom: 0.35rem;">
+                  1. Blank-Looking Free Fire Name
+                </h3>
+                <p style="font-size: 0.82rem; color: var(--text-med); margin-bottom: 0.75rem;">
+                  Generates 3 invisible filler characters without letters, giving the appearance of a blank nickname in matches.
+                </p>
+                <button id="btn-gen-blank-name" class="btn btn-secondary" style="width: 100%; height: 46px;" aria-label="Copy blank-looking Free Fire name">
+                  <span>👻</span> Copy Blank-Looking Name
+                </button>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                  * Note: Acceptance depends on game validation rules in your region. If rejected, try inserting a small symbol or spaced name below.
+                </p>
+              </div>
+
+              <!-- Spaced Name Quick Converter -->
+              <div style="padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+                <h3 style="font-family: var(--font-gaming); font-size: 0.95rem; color: #fff; margin-bottom: 0.35rem;">
+                  2. Auto-Spaced Nickname Generator
+                </h3>
+                <p style="font-size: 0.82rem; color: var(--text-med); margin-bottom: 0.75rem;">
+                  Type your name with regular spaces and convert them into invisible game-accepted spaces instantly:
+                </p>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.6rem;">
+                  <input 
+                    type="text" 
+                    id="spaced-name-input" 
+                    value="DARK KING" 
+                    placeholder="Enter words with spaces..." 
+                    style="flex: 1; height: 44px; padding: 0 0.85rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #fff; font-size: 0.9rem;"
+                  >
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input 
+                    type="text" 
+                    id="spaced-name-output" 
+                    readonly 
+                    style="flex: 1; height: 44px; padding: 0 0.85rem; background: rgba(10, 12, 16, 0.8); border: 1px dashed rgba(255, 170, 0, 0.4); border-radius: var(--radius-sm); color: #ffaa00; font-family: var(--font-gaming); font-size: 0.95rem;"
+                  >
+                  <button id="btn-copy-spaced" class="btn btn-primary" style="height: 44px; padding: 0 1rem;" aria-label="Copy auto-spaced nickname">
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level 4: Character Inspector ("Test Your Invisible Space") -->
+            <div class="card-section-box">
+              <div class="section-card-header">
+                <div class="section-card-title">
+                  <span>🔍</span> Character Inspector (Clipboard Tester)
+                </div>
+                <button id="btn-clear-inspector" class="btn-builder-secondary" style="height: 28px; padding: 0 8px; font-size: 0.75rem;">Clear</button>
+              </div>
+
+              <p style="font-size: 0.82rem; color: var(--text-med); margin-bottom: 0.75rem;">
+                Not sure if an invisible space was actually copied to your clipboard? Paste anything here to test and inspect the hidden Unicode characters:
+              </p>
+
+              <textarea 
+                id="inspector-input" 
+                class="inspector-input-box" 
+                placeholder="Paste your copied text or nickname here to diagnose..." 
+                aria-label="Paste text to inspect invisible characters"
+              ></textarea>
+
+              <div class="inspector-metrics-grid">
+                <div class="inspector-metric-card">
+                  <div id="inspector-total-chars" class="inspector-metric-val">0</div>
+                  <div class="inspector-metric-lbl">Total Chars</div>
+                </div>
+                <div class="inspector-metric-card highlight-invis">
+                  <div id="inspector-invisible-chars" class="inspector-metric-val">0</div>
+                  <div class="inspector-metric-lbl">Invisible Spaces</div>
+                </div>
+                <div class="inspector-metric-card">
+                  <div id="inspector-visible-chars" class="inspector-metric-val">0</div>
+                  <div class="inspector-metric-lbl">Visible Letters</div>
+                </div>
+                <div class="inspector-metric-card highlight-status">
+                  <div id="inspector-status-text" class="inspector-metric-val">Waiting</div>
+                  <div class="inspector-metric-lbl">Test Status</div>
+                </div>
+              </div>
+
+              <div class="inspector-detection-box">
+                <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Detected Codepoints:</span>
+                <div id="inspector-detected-list" style="flex: 1; text-align: right;"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Nickname Builder & Gaming Previews -->
+          <div class="studio-col-right">
+
+            <!-- Level 3: Nickname Builder Card -->
+            <div id="nickname-builder" class="card-section-box" style="border-color: rgba(255, 87, 34, 0.3);">
+              <div class="section-card-header">
+                <div class="section-card-title">
+                  <span>⚡</span> Free Fire Nickname Builder
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span id="builder-char-count" class="char-counter-count" style="font-size: 0.88rem;">8 / 12 Chars</span>
+                  <span id="builder-status-badge" class="builder-char-badge ok">✓ Recommended</span>
+                </div>
+              </div>
+
+              <!-- Nickname Input -->
+              <div class="builder-input-wrapper">
+                <input 
+                  type="text" 
+                  id="builder-nickname-input" 
+                  class="builder-text-input" 
+                  placeholder="Enter your nickname..." 
+                  maxlength="24"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Nickname Builder text input"
+                >
+              </div>
+
+              <!-- Insertion Position Controls -->
+              <div style="margin-bottom: 0.75rem;">
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.45rem; font-weight: 700; text-transform: uppercase;">
+                  Insert Invisible Space:
+                </div>
+                <div class="insertion-controls-row">
+                  <button id="btn-insert-start" class="btn-insert-pos" title="Add space at the start">
+                    <span>←</span> Add at Start
+                  </button>
+                  <button id="btn-insert-cursor" class="btn-insert-pos" title="Add space where cursor is positioned">
+                    <span>+</span> At Cursor
+                  </button>
+                  <button id="btn-insert-end" class="btn-insert-pos" title="Add space at the end">
+                    Add at End <span>→</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Multi-Space Buttons -->
+              <div class="builder-quick-space-row">
+                <button id="btn-add-1-space" class="btn-builder-add-space">
+                  <span>+</span> 1 Space at Cursor
+                </button>
+                <button id="btn-add-2-spaces" class="btn-builder-add-space">
+                  <span>+</span> 2 Spaces at Cursor
+                </button>
+              </div>
+
+              <!-- Builder Main Actions (Copy, Undo, Clear) -->
+              <div class="builder-actions-row">
+                <button id="btn-copy-nickname" class="btn-builder-copy-main" aria-label="Copy finished nickname">
+                  <span>📋</span> Copy Nickname
+                </button>
+                <button id="btn-builder-undo" class="btn-builder-secondary" title="Undo last change" disabled>
+                  <span>↩</span> Undo
+                </button>
+                <button id="btn-builder-clear" class="btn-builder-secondary" title="Clear input">
+                  ✕ Clear
+                </button>
+              </div>
+
+              <!-- "Show Invisible Characters" Visual Toggle -->
+              <div class="invisible-toggle-row">
+                <div>
+                  <label for="toggle-show-invisible" class="toggle-switch-label">
+                    <input type="checkbox" id="toggle-show-invisible" style="display: none;">
+                    <div class="toggle-track">
+                      <div class="toggle-knob"></div>
+                    </div>
+                    <span>Show Invisible Characters (<strong>░</strong>)</span>
+                  </label>
+                </div>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Visual indicator only</span>
+              </div>
+
+              <!-- Fictional Gaming Preview Container -->
+              <div class="gaming-preview-container">
+                <div class="gaming-preview-tabs">
+                  <button class="gaming-tab-btn active" data-tab="profile">
+                    <span>👤</span> Profile Card
+                  </button>
+                  <button class="gaming-tab-btn" data-tab="lobby">
+                    <span>🛡️</span> Squad Lobby
+                  </button>
+                  <button class="gaming-tab-btn" data-tab="killfeed">
+                    <span>☠️</span> Kill Feed
+                  </button>
+                </div>
+
+                <div class="gaming-preview-body">
+                  <!-- Profile View -->
+                  <div id="preview-view-profile" class="preview-profile-card">
+                    <div class="preview-avatar-box">🔥</div>
+                    <div class="preview-profile-info">
+                      <div id="preview-profile-name" class="preview-name-display">DarkKing</div>
+                      <div class="preview-badge-row">
+                        <span class="preview-rank-pill">HEROIC V</span>
+                        <span class="preview-level-text">Lv. 74</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Lobby View -->
+                  <div id="preview-view-lobby" class="preview-lobby-row" style="display: none;">
+                    <div class="lobby-slot highlighted">
+                      <div class="lobby-slot-icon">👑</div>
+                      <div id="preview-lobby-name" class="lobby-slot-name">DarkKing</div>
+                      <div class="lobby-slot-tag">Leader</div>
+                    </div>
+                    <div class="lobby-slot">
+                      <div class="lobby-slot-icon">🛡️</div>
+                      <div class="lobby-slot-name">Viper</div>
+                      <div class="lobby-slot-tag">Ready</div>
+                    </div>
+                    <div class="lobby-slot">
+                      <div class="lobby-slot-icon">⚡</div>
+                      <div class="lobby-slot-name">Ghost</div>
+                      <div class="lobby-slot-tag">Ready</div>
+                    </div>
+                    <div class="lobby-slot">
+                      <div class="lobby-slot-icon">🎯</div>
+                      <div class="lobby-slot-name">Sniper</div>
+                      <div class="lobby-slot-tag">Ready</div>
+                    </div>
+                  </div>
+
+                  <!-- Killfeed View -->
+                  <div id="preview-view-killfeed" class="preview-killfeed-ticker" style="display: none;">
+                    <span id="preview-killfeed-name" class="killfeed-killer">DarkKing</span>
+                    <span class="killfeed-action">eliminated</span>
+                    <span class="killfeed-victim">Enemy_99</span>
+                    <span style="font-size: 0.8rem; margin-left: auto;">(Headshot)</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Privacy Guarantee Box -->
+            <div style="background: rgba(10, 12, 16, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem;">
+              <span style="font-size: 1.2rem; color: var(--neon-cyan);">🔒</span>
+              <div>
+                <strong style="color: var(--text-high);">100% Client-Side Privacy:</strong> Your nickname is processed entirely inside your browser. No account, no app download, and zero data sent to external servers.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Ready-Made Nicknames Section -->
+      <section class="container" style="margin-top: 3rem;">
+        <div style="margin-bottom: 1.25rem;">
+          <h2 style="font-family: var(--font-gaming); font-size: 1.45rem; color: var(--text-pure); margin-bottom: 0.35rem;">
+            Free Fire Names With Invisible Spaces
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--text-med);">
+            Popular styles crafted with invisible spacing. Copy immediately or load them into the builder to customize:
+          </p>
+        </div>
+
+        <div id="examples-grid" class="examples-grid"></div>
+      </section>
+
+      <!-- Level 5: Multiple Character Options & Fallback Section -->
+      <section id="alternatives" class="container" style="margin-top: 3.5rem;">
+        <div style="margin-bottom: 1.5rem;">
+          <div class="stealth-badge">Unicode Fallback System</div>
+          <h2 style="font-family: var(--font-gaming); font-size: 1.45rem; color: var(--text-pure); margin-bottom: 0.35rem;">
+            Multiple Invisible Space Characters &amp; Status
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--text-med); max-width: 800px;">
+            Free Fire's handling of invisible Unicode characters can change between game updates and server regions. If your chosen character is rejected, switch to an alternative below without having to search elsewhere.
+          </p>
+        </div>
+
+        <div id="characters-grid" class="characters-grid"></div>
+      </section>
+
+      <!-- Level 6: "Space Not Working?" Troubleshooter -->
+      <section id="troubleshooter" class="container" style="margin-top: 3.5rem;">
+        <div class="troubleshooter-card">
+          <div style="margin-bottom: 1.25rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+              <span style="font-size: 1.25rem;">🛠️</span>
+              <h2 style="font-family: var(--font-gaming); font-size: 1.35rem; color: var(--text-pure); margin: 0;">
+                Free Fire Invisible Space Not Working?
+              </h2>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-med);">
+              Select what happened to see the exact cause and get an instant one-click fix:
+            </p>
+          </div>
+
+          <!-- Problem Selector Chips -->
+          <div id="trouble-chips-container" class="trouble-chips-grid"></div>
+
+          <!-- Solution Container -->
+          <div id="trouble-solution-container" class="trouble-solution-box"></div>
+        </div>
+      </section>
+
+      <!-- 3-Step Visual Walkthrough & Explanations -->
+      <section class="container" style="margin-top: 3.5rem;">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 1.5rem;">
+          <h2 style="font-family: var(--font-gaming); font-size: 1.45rem; color: var(--text-pure); margin-bottom: 0.35rem;">
+            How to Use Invisible Space in Free Fire
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--text-med);">
+            Three simple steps to add invisible gaps to your gamer tag on Android, iPhone, and PC emulators.
+          </p>
+        </div>
+
+        <div class="three-steps-grid">
+          <div class="step-card">
+            <span class="step-number">01</span>
+            <h3>1. Copy Space</h3>
+            <p>
+              Tap the large <strong>Copy Invisible Space</strong> button at the top. The hidden character is copied straight to your device clipboard.
+            </p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">02</span>
+            <h3>2. Open Free Fire</h3>
+            <p>
+              Launch Free Fire or Free Fire MAX, tap your player profile, click the yellow edit icon next to your nickname, and tap the nickname text box.
+            </p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">03</span>
+            <h3>3. Paste &amp; Confirm</h3>
+            <p>
+              Paste the invisible character where you want the gap (e.g. between <code>DARK</code> and <code>KING</code>). Preview the name and confirm your change!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Content Section: Blank Name vs Invisible Space -->
+      <section class="container" style="margin-top: 3rem;">
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem;">
+          <h2 style="font-family: var(--font-gaming); font-size: 1.35rem; color: var(--text-pure); margin-bottom: 1rem;">
+            Blank Name vs. Invisible Space: What Is the Difference?
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+              <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border-left: 3px solid var(--fire-primary);">
+                <h4 style="font-family: var(--font-gaming); font-size: 1.05rem; color: #ffaa00; margin-bottom: 0.35rem;">
+                  Invisible Space (Spaced Nickname)
+                </h4>
+                <p style="font-size: 0.85rem; color: var(--text-med); line-height: 1.5;">
+                  Combines visible letters with one or more invisible filler characters to create clean gaps (e.g. <code>DARK   KING</code>). Widely accepted and supported by game text validators.
+                </p>
+              </div>
+
+              <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border-left: 3px solid var(--neon-cyan);">
+                <h4 style="font-family: var(--font-gaming); font-size: 1.05rem; color: var(--neon-cyan); margin-bottom: 0.35rem;">
+                  Blank-Looking Name
+                </h4>
+                <p style="font-size: 0.85rem; color: var(--text-med); line-height: 1.5;">
+                  Uses solely invisible characters without visible letters, creating an empty nickname in lobbies. Game updates periodically adjust validation rules for empty names.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="font-family: var(--font-gaming); font-size: 1.1rem; color: var(--text-pure); margin-bottom: 0.5rem;">
+            Why Do Some Invisible Characters Stop Working?
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-med); line-height: 1.6; margin-bottom: 0.85rem;">
+            Game publishers regularly patch their client sanitization libraries to prevent spam and name spoofing. When a patch filters standard whitespace (like U+0020 or U+00A0), characters classified in different Unicode categories (such as Hangul Fillers U+3164 or Braille Cells U+2800) continue to operate because the game server processes them as regular script letters.
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+            * Compatibility Note: We do not guarantee permanent 100% acceptance across all game versions. If one character fails, our fallback system provides the other observed alternatives.
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq-section" class="container faq-section" style="margin-top: 3.5rem;">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto 1.5rem;">
+          <h2 style="font-family: var(--font-gaming); font-size: 1.45rem; color: var(--text-pure); margin-bottom: 0.35rem;">
+            Frequently Asked Questions
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--text-med);">
+            Clear, evidence-aware answers to common questions about Free Fire invisible spaces.
+          </p>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I copy an invisible space for Free Fire?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Simply tap the large "Copy Invisible Space" button at the top of this page. The invisible character is instantly copied to your clipboard without any downloads, signups, or extra steps.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Why can't I use a normal keyboard space?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Free Fire's nickname field blocks standard spacebar input (ASCII space 32) to prevent formatting glitches. Invisible Unicode characters such as the Hangul Filler (U+3164) act as letter blocks visually rendering as blank space, bypassing this restriction.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I put a space between two words in my Free Fire name?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                In our Nickname Builder above, type your first word, position your cursor between the words, and click "At Cursor". Alternatively, copy a single invisible space and paste it directly between your words in Free Fire.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I create a blank-looking Free Fire name?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Use the "Copy Blank-Looking Name" button in our Blank Name section. This copies 3 invisible filler characters. Note that whether a completely empty nickname is accepted varies by server region and current game update.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Why does the invisible space show as a square box (tofu)?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                A box appears when your smartphone font renderer cannot map that specific Unicode character. If U+3164 produces a box on your device, switch to No-Break Space (U+00A0) or Braille Blank (U+2800) in our Character Alternatives section.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does an invisible space count toward the 12-character limit?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Yes! Every invisible character takes up 1 character slot in Free Fire. If your visible name has 10 letters, you can only add 2 invisible spaces before hitting the 12-character game limit.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does this work on both Android and iPhone?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Yes. The Unicode filler characters copied by this tool are standard across modern Android and iOS operating systems, as well as desktop emulators like BlueStacks, LDPlayer, and Nox.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Tools Section -->
+      <section class="container" style="margin-top: 3.5rem; margin-bottom: 2rem;">
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h3 style="font-family: var(--font-gaming); font-size: 1.25rem; color: var(--text-pure); margin-bottom: 0.35rem;">
+            Explore More Free Fire Tools
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-med); margin-bottom: 1rem;">
+            Complement your invisible space with customized fonts and special gaming symbols:
+          </p>
+
+          <div class="related-tools-grid">
+            <a href="../" class="related-tool-card">
+              <div class="related-tool-icon">🔥</div>
+              <div class="related-tool-info">
+                <h4>Free Fire Nickname Generator</h4>
+                <p>Generate stylish gaming names with 50+ battle fonts and length checking.</p>
+              </div>
+            </a>
+            <a href="../free-fire-symbols/" class="related-tool-card">
+              <div class="related-tool-icon">★</div>
+              <div class="related-tool-info">
+                <h4>Free Fire Symbols Studio</h4>
+                <p>Browse tridents (亗), wings, crowns, badges, and frames for nicknames.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mobile Sticky Copy Bar -->
+    <div id="mobile-sticky-bar" class="mobile-sticky-copy-bar" aria-label="Quick copy sticky bar">
+      <div>
+        <div class="sticky-bar-text">Free Fire Invisible Space</div>
+        <div class="sticky-bar-sub">Ready to paste into your nickname</div>
+      </div>
+      <button id="btn-sticky-copy" class="btn-sticky-copy">
+        <span>📋</span> Copy Space
+      </button>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="space-toast" class="space-toast" role="status" aria-live="polite"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <div class="brand-logo" style="margin-bottom: 0.75rem;">
+              <div class="brand-icon">🔥</div>
+              <div class="brand-text">
+                <span class="brand-title">Free Fire Invisible Space Tool</span>
+                <span class="brand-badge">Fan-Created Utility</span>
+              </div>
+            </div>
+            <p class="footer-brand-desc">
+              A dedicated gaming utility to copy invisible spaces, generate custom gaps, build spaced nicknames, and diagnose Unicode compatibility for Free Fire players worldwide.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <ul class="footer-links">
+              <li><a href="#quick-copy">Invisible Space Copy</a></li>
+              <li><a href="#nickname-builder">Nickname Builder</a></li>
+              <li><a href="#alternatives">Character Alternatives</a></li>
+              <li><a href="#troubleshooter">Troubleshooter</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Related Hubs</h4>
+            <ul class="footer-links">
+              <li><a href="../">Free Fire Nicknames</a></li>
+              <li><a href="../free-fire-symbols/">Symbols Studio</a></li>
+              <li><a href="../free-fire-bio-copy/">Bio Studio</a></li>
+              <li><a href="../free-fire-guild-name-generator/">Guild Name Studio</a></li>
+              <li><a href="#faq-section">FAQ &amp; Guide</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan utility. It is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All product names, logos, and brands are property of their respective owners.
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/invisible-space-data.js"></script>
+  <script src="js/invisible-space-app.js"></script>
+</body>
+</html>

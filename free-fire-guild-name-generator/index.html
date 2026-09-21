@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Guild Name Generator – Squad &amp; Clan Name Studio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/guild-studio.css">
+</head>
+<body>
+  <!-- Ambient Embers Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper guild-studio-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge">Guild Studio</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="../" class="nav-link">Nickname Creator</a></li>
+            <li><a href="../free-fire-nicknames-for-boys/" class="nav-link">Boys Nicknames</a></li>
+            <li><a href="../free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+            <li><a href="#guild-generator-app" class="nav-link active">Guild Names</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-toggle-shortlist" class="btn-nav-fav" aria-label="View Squad Shortlist">
+            <span>★</span>
+            <span>Shortlist</span>
+            <span id="shortlist-count-badge" style="display: none; background: #ffaa00; color: #000; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="guild-generator-app" class="container">
+      <!-- Hero Header -->
+      <section class="guild-hero-section">
+        <div class="hero-pill-badge">
+          <span>⚡</span>
+          <span>Free Fire Guild Identity Studio</span>
+        </div>
+
+        <h1 class="hero-title" style="margin-bottom: 0.35rem;">
+          <span class="gradient-text">Free Fire Guild Name Generator</span>
+        </h1>
+
+        <p class="hero-subtitle" style="max-width: 600px; margin: 0 auto;">
+          Create a bold, battle-tested identity your squad will remember.
+        </p>
+
+        <!-- 3 Modes Segmented Control -->
+        <div class="guild-modes-container">
+          <div class="guild-mode-segmented" role="tablist">
+            <button class="guild-mode-btn active" data-mode="quick" role="tab" aria-selected="true">
+              <span>⚡</span> Quick
+            </button>
+            <button class="guild-mode-btn" data-mode="custom" role="tab" aria-selected="false">
+              <span>⚙</span> Custom
+            </button>
+            <button class="guild-mode-btn" data-mode="tagname" role="tab" aria-selected="false">
+              <span>🏷</span> Tag + Name
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Generator Control Card -->
+      <section class="guild-control-card">
+        <!-- Keyword Seed -->
+        <div class="generator-keyword-group">
+          <div class="filter-group-label">Optional Keyword / Seed Concept:</div>
+          <div class="keyword-input-wrap">
+            <input 
+              type="text" 
+              id="guild-keyword-input" 
+              class="guild-keyword-input" 
+              placeholder="e.g. Shadow, Apex, Wolf, Storm (or leave blank)..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Seed keyword input"
+            >
+          </div>
+        </div>
+
+        <!-- Vibe Selector Grid -->
+        <div>
+          <div class="filter-group-label">Choose Your Squad Vibe:</div>
+          <div id="guild-vibes-grid" class="guild-vibes-grid"></div>
+        </div>
+
+        <!-- Advanced Custom Filters (Toggled in Custom / Tag+Name modes) -->
+        <div id="custom-filters-section" class="custom-filters-row" style="display: none;">
+          <div>
+            <div class="filter-group-label">Name Length:</div>
+            <div class="segmented-chips">
+              <button class="btn-segmented-chip btn-len-chip active" data-len="any">Any</button>
+              <button class="btn-segmented-chip btn-len-chip" data-len="short">Short</button>
+              <button class="btn-segmented-chip btn-len-chip" data-len="medium">Medium</button>
+            </div>
+          </div>
+          <div>
+            <div class="filter-group-label">Style Intensity:</div>
+            <div class="segmented-chips">
+              <button class="btn-segmented-chip btn-style-chip active" data-style="clean">Clean</button>
+              <button class="btn-segmented-chip btn-style-chip" data-style="pro">⚡ Pro</button>
+              <button class="btn-segmented-chip btn-style-chip" data-style="extreme">亗 Extreme 亗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tag Length Row (Visible in Tag+Name mode) -->
+        <div id="tag-length-row" style="display: none; margin-bottom: 1.25rem;">
+          <div class="filter-group-label">Target Tag Length:</div>
+          <div class="segmented-chips" style="max-width: 280px;">
+            <button class="btn-segmented-chip active">2 Letters (SL)</button>
+            <button class="btn-segmented-chip">3 Letters (SHD)</button>
+            <button class="btn-segmented-chip">4 Letters (SLEG)</button>
+          </div>
+        </div>
+
+        <!-- Primary CTA Buttons -->
+        <div class="generator-cta-row">
+          <button id="btn-main-generate" class="btn-huge-generate" aria-label="Generate Guild Names">
+            <span>⚡</span> GENERATE GUILD NAMES
+          </button>
+          <button id="btn-surprise-generate" class="btn-surprise-generate" title="Generate random high-energy ideas">
+            <span>🎲</span> Surprise Me
+          </button>
+        </div>
+      </section>
+
+      <!-- Word Lock Workbench -->
+      <section id="word-lock-workbench" class="word-lock-workbench">
+        <div class="word-lock-header">
+          <span>🔒 Word Lock Studio</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Lock one word &amp; spin the other</span>
+        </div>
+        <div class="word-lock-chips">
+          <div id="lock-card-0" class="word-lock-card locked">
+            <span id="lock-word-0-text" style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 800; color: #fff;">SHADOW</span>
+            <button id="btn-lock-toggle-0" class="btn-lock-toggle active">🔒 Locked</button>
+          </div>
+          <div id="lock-card-1" class="word-lock-card">
+            <span id="lock-word-1-text" style="font-family: var(--font-gaming); font-size: 1.15rem; font-weight: 800; color: #fff;">LEGION</span>
+            <button id="btn-lock-toggle-1" class="btn-lock-toggle">↻ Dynamic</button>
+          </div>
+          <button id="btn-regen-unlocked" class="btn btn-primary" style="height: 48px; padding: 0 1.25rem; font-size: 0.88rem;">
+            <span>↻</span> Regenerate
+          </button>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section id="guild-results-section" style="margin-top: 1rem;">
+        <div class="results-header-toolbar">
+          <div id="results-count-title" class="results-count-title">Guild Ideas Ready</div>
+          <div class="results-toolbar-actions">
+            <button onclick="openComparison()" class="btn btn-secondary" style="height: 38px; padding: 0 0.85rem; font-size: 0.8rem;">
+              <span>⚖</span> Compare Shortlisted
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Results Grid -->
+        <div id="guild-results-grid" class="guild-results-grid"></div>
+
+        <!-- Generate More Button -->
+        <div style="text-align: center; margin: 2rem 0 3rem;">
+          <button id="btn-generate-more" class="btn btn-secondary" style="height: 52px; padding: 0 2.25rem; font-family: var(--font-gaming); font-size: 0.95rem; font-weight: 800;">
+            <span>↻</span> GENERATE MORE GUILD NAMES
+          </button>
+        </div>
+      </section>
+
+      <!-- Fictional Squad & Identity Preview Sandbox -->
+      <section class="guild-identity-sandbox">
+        <div class="sandbox-header">
+          <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 700; color: #ffaa00;">
+            🛡️ Squad &amp; Clan Identity Sandbox
+          </div>
+          <span class="simulated-badge">Simulated Preview</span>
+        </div>
+
+        <!-- Guild Banner -->
+        <div class="sandbox-guild-banner">
+          <div class="guild-crest-badge">⚔️</div>
+          <div class="guild-crest-info">
+            <div id="sandbox-guild-name" class="sandbox-guild-name">SHADOW LEGION</div>
+            <div class="sandbox-meta-row">
+              <span id="sandbox-tag-pill" class="guild-tag-badge">[ SL ]</span>
+              <span id="sandbox-vibe-pill" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">DARK</span>
+              <span style="font-size: 0.72rem; color: #ffaa00; font-weight: 700;">Level 5 Guild</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member Plates with Tag -->
+        <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 700;">
+          Squad Nameplate Preview:
+        </div>
+        <div class="squad-roster-grid">
+          <div class="squad-member-plate">
+            <span id="roster-ign-1" class="member-ign">[SL] SHADOW</span>
+            <span class="member-role" style="color: #ffaa00;">Leader 👑</span>
+          </div>
+          <div class="squad-member-plate">
+            <span id="roster-ign-2" class="member-ign">[SL] GHOST</span>
+            <span class="member-role">Officer</span>
+          </div>
+          <div class="squad-member-plate">
+            <span id="roster-ign-3" class="member-ign">[SL] VIPER</span>
+            <span class="member-role">Rusher</span>
+          </div>
+          <div class="squad-member-plate">
+            <span id="roster-ign-4" class="member-ign">[SL] HUNTER</span>
+            <span class="member-role">Sniper</span>
+          </div>
+        </div>
+
+        <!-- Custom Player Handle Input -->
+        <div class="custom-player-ign-wrap">
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Personalize Leader Tag:</span>
+          <input type="text" id="sandbox-player-ign" value="Shadow" maxlength="16" placeholder="Your handle..." aria-label="Customize personal player name">
+        </div>
+      </section>
+    </main>
+
+    <!-- Shortlist Drawer -->
+    <div id="shortlist-drawer" class="shortlist-drawer" aria-label="Squad Shortlist Drawer">
+      <div class="shortlist-header">
+        <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 700; color: #ffaa00;">
+          <span>★</span> My Squad Shortlist
+        </div>
+        <button id="btn-close-shortlist" class="modal-close-btn" style="position: static; font-size: 1rem;">✕ Close</button>
+      </div>
+      <div id="shortlist-items-container" class="shortlist-items-scroll"></div>
+      <div class="shortlist-actions-bar">
+        <button id="btn-copy-shortlist" class="btn btn-primary" style="flex: 1; height: 44px; font-size: 0.88rem;">
+          <span>📋</span> Copy Shortlist
+        </button>
+        <button id="btn-share-shortlist" class="btn btn-secondary" style="flex: 1; height: 44px; font-size: 0.88rem;">
+          <span>↗</span> Share with Squad
+        </button>
+      </div>
+    </div>
+
+    <!-- Guild Editor Modal -->
+    <div id="guild-editor-modal" class="guild-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editor-modal-title">
+      <div class="guild-modal-box">
+        <button id="btn-close-editor" class="modal-close-btn" aria-label="Close editor">✕</button>
+        <h3 id="editor-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1.25rem;">
+          ✎ Customize Guild Identity
+        </h3>
+
+        <div style="margin-bottom: 1rem;">
+          <div class="filter-group-label">Guild Name:</div>
+          <input type="text" id="editor-guild-name" class="guild-keyword-input" style="height: 46px; width: 100%;">
+          <div style="text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;" id="editor-char-count">0 Chars</div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <div class="filter-group-label">Guild Tag:</div>
+          <input type="text" id="editor-guild-tag" class="guild-keyword-input" style="height: 46px; width: 120px; font-family: var(--font-gaming); font-weight: 800; color: #ffaa00;">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <div class="filter-group-label">Style Intensity:</div>
+          <div class="segmented-chips">
+            <button class="btn-segmented-chip btn-editor-style active" data-style="clean">Clean</button>
+            <button class="btn-segmented-chip btn-editor-style" data-style="pro">亗 Pro</button>
+            <button class="btn-segmented-chip btn-editor-style" data-style="extreme">꧁ Extreme ꧂</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <div class="filter-group-label">Insert Gaming Symbols:</div>
+          <div id="editor-symbols-container" style="display: flex; gap: 0.4rem; flex-wrap: wrap;"></div>
+        </div>
+
+        <div style="background: rgba(10, 12, 18, 0.9); border: 1px dashed rgba(255, 170, 0, 0.4); border-radius: 6px; padding: 1rem; text-align: center; margin-bottom: 1.25rem;">
+          <div id="editor-preview-name" style="font-family: var(--font-gaming); font-size: 1.3rem; font-weight: 800; color: #fff;">NAME</div>
+          <div id="editor-preview-tag" style="font-family: var(--font-gaming); font-size: 0.9rem; font-weight: 800; color: #ffaa00; margin-top: 0.25rem;">[ TAG ]</div>
+        </div>
+
+        <button id="btn-editor-copy" class="btn btn-primary" style="width: 100%; height: 48px;">
+          <span>📋</span> Copy Customized Guild Identity
+        </button>
+      </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparison-modal" class="guild-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="comparison-modal-title">
+      <div class="guild-modal-box" style="max-width: 680px;">
+        <button id="btn-close-comparison" class="modal-close-btn" aria-label="Close comparison">✕</button>
+        <h3 id="comparison-modal-title" style="font-family: var(--font-gaming); color: #fff; margin-bottom: 1.25rem;">
+          ⚖ Compare Guild Candidates
+        </h3>
+        <div id="comparison-table-body" style="overflow-x: auto;"></div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="guild-toast" class="space-toast" role="status" aria-live="polite"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 4rem;">
+      <div class="container">
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan-made gaming utility and is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All product names, logos, and brands are property of their respective owners.
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/guild-engine.js"></script>
+  <script src="js/guild-app.js"></script>
+</body>
+</html>

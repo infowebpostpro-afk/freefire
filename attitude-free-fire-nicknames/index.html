@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attitude Free Fire Nicknames – Personality, Persona &amp; Gamer Handles</title>
+  <meta name="description" content="Discover Free Fire nicknames that express your gaming persona. Browse Boss, Rebel, Cold, Lone Wolf, Fearless, and Savage identities, preview in simulated gaming contexts, and copy instantly.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/attitude-styles.css">
+</head>
+<body>
+  <!-- Ambient Particles Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper attitude-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge attitude-badge">Attitude</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="../" class="nav-link">Nickname Creator</a></li>
+            <li><a href="#attitude-app" class="nav-link active">Attitude Names</a></li>
+            <li><a href="../stylish-free-fire-nicknames/" class="nav-link">Stylish Names</a></li>
+            <li><a href="../free-fire-nicknames-for-boys/" class="nav-link">Boys Nicknames</a></li>
+            <li><a href="../free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-nav-saved" class="btn-nav-fav" aria-label="View Saved Nicknames">
+            <span>♡</span>
+            <span>Saved</span>
+            <span id="saved-count-badge" style="display: none; background: #ff2a5f; color: #fff; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+          <button id="btn-nav-shortlist" class="btn-nav-fav" aria-label="View Shortlist" style="margin-left: 0.4rem;">
+            <span>★</span>
+            <span>Shortlist</span>
+            <span id="shortlist-count-badge" style="display: none; background: #ffaa00; color: #000; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Nickname Explorer Application -->
+    <main id="attitude-app" class="container" style="flex: 1;">
+      <!-- Hero Header (Beginner-First Viewport) -->
+      <section class="attitude-hero">
+        <div class="hero-pill-badge">
+          <span>🔥</span>
+          <span>Persona Nickname Explorer</span>
+        </div>
+
+        <h1 class="attitude-hero-title">
+          <span class="attitude-gradient-text">Attitude Free Fire Nicknames</span>
+        </h1>
+
+        <p class="attitude-hero-subtitle">
+          Find a name that matches your persona. Select up to 2 attitudes to mix.
+        </p>
+
+        <!-- Primary Instant Search Bar -->
+        <div class="attitude-search-section">
+          <div class="attitude-search-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="attitude-search-input" 
+              class="attitude-search-input" 
+              placeholder="Search attitude names... (Try: Boss, Rebel, King, Wolf, Savage...)"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search attitude Free Fire nicknames"
+            >
+            <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear search input">✕</button>
+          </div>
+
+          <!-- Quick Search Suggestions Dropdown -->
+          <div id="search-suggestions" class="search-suggestions-dropdown">
+            <div class="search-suggestions-title">Try Searching:</div>
+            <div class="search-tags-row">
+              <button class="search-tag-chip" data-query="Boss">👑 Boss</button>
+              <button class="search-tag-chip" data-query="Rebel">😈 Rebel</button>
+              <button class="search-tag-chip" data-query="Cold">🧊 Cold</button>
+              <button class="search-tag-chip" data-query="Wolf">🐺 Lone Wolf</button>
+              <button class="search-tag-chip" data-query="Fearless">🔥 Fearless</button>
+              <button class="search-tag-chip" data-query="Silent">🥷 Silent</button>
+              <button class="search-tag-chip" data-query="Savage">💀 Savage</button>
+              <button class="search-tag-chip" data-query="leader">Leader</button>
+              <button class="search-tag-chip" data-query="ice">Ice</button>
+              <button class="search-tag-chip" data-query="solo">Solo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persona Selector Carousel (Up to 2 selectable) -->
+        <section class="persona-selector-section">
+          <div class="persona-selector-header">
+            <span class="persona-selector-title">What's Your Attitude?</span>
+            <span id="persona-mix-status" class="persona-mix-indicator">Tap up to 2 to mix</span>
+          </div>
+
+          <div class="persona-scroll-wrapper">
+            <div id="persona-carousel" class="persona-chips-carousel" role="tablist" aria-label="Attitude Personas">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Try These Combos -->
+          <div class="combos-row-wrapper">
+            <span class="combos-title">Try Combos:</span>
+            <button class="combo-chip" data-combo="boss,cold">👑 Boss + 🧊 Cold</button>
+            <button class="combo-chip" data-combo="lone-wolf,mysterious">🐺 Lone Wolf + 🌑 Mysterious</button>
+            <button class="combo-chip" data-combo="fearless,bold">🔥 Fearless + ⚡ Bold</button>
+            <button class="combo-chip" data-combo="rebel,silent">😈 Rebel + 🥷 Silent</button>
+            <button class="combo-chip" data-combo="savage,fearless">💀 Savage + 🔥 Fearless</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Persona Lock Status Banner -->
+      <section id="persona-lock-banner" class="persona-lock-banner" aria-live="polite">
+        <div class="lock-info">
+          <span class="lock-icon">🔒</span>
+          <span>Persona Locked: <strong id="lock-persona-label" class="lock-persona-name">Lone Wolf</strong></span>
+        </div>
+        <button id="btn-unlock-persona" class="btn-unlock">✕ Unlock</button>
+      </section>
+
+      <!-- Discovery Trail (Breadcrumb Trail) -->
+      <section id="discovery-trail-bar" class="discovery-trail-bar" aria-label="Discovery Trail">
+        <div class="trail-crumbs" id="trail-crumbs-container"></div>
+        <button id="btn-trail-back" class="btn-trail-back">← Back</button>
+      </section>
+
+      <!-- Control Bar -->
+      <section class="attitude-control-bar">
+        <div id="results-stats" class="attitude-stats">
+          Showing <strong id="results-count">24</strong> attitude nicknames
+        </div>
+
+        <div class="control-actions-cluster">
+          <button id="btn-open-quiz" class="btn-action-trigger btn-accent-trigger" aria-label="Pick My Attitude Quiz">
+            <span>🎯</span> Pick My Attitude
+          </button>
+          <button id="btn-pick-for-me" class="btn-action-trigger" aria-label="Pick For Me Randomizer">
+            <span>🎲</span> Pick For Me
+          </button>
+          <button id="btn-shuffle" class="btn-action-trigger" aria-label="Shuffle Results">
+            <span>🔀</span> Shuffle
+          </button>
+          <button id="btn-open-filter" class="btn-action-trigger" aria-label="Filter Options">
+            <span>🌪</span> Filters
+          </button>
+          <button id="btn-open-customize" class="btn-action-trigger" aria-label="Customize Nickname">
+            <span>🛠</span> Customize
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Filter Chips -->
+      <div id="active-filters-row" class="active-filters-row"></div>
+
+      <!-- Main Nickname Grid (Dominates First Viewport) -->
+      <section id="nickname-grid" class="nickname-grid" aria-label="Attitude Nicknames">
+        <!-- Nickname cards dynamically injected -->
+      </section>
+
+      <!-- Progressive Load More Section -->
+      <div id="load-more-container" class="load-more-section">
+        <button id="btn-load-more" class="btn-load-more">
+          Load More Names
+        </button>
+      </div>
+
+      <!-- Curated Persona Collections -->
+      <section class="collections-section">
+        <div class="section-header-compact">
+          <h2 class="section-title-compact">
+            <span>✨</span> Curated Attitude Packs
+          </h2>
+        </div>
+        <div id="collections-grid" class="collections-grid">
+          <!-- Dynamically injected -->
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         MODALS & DRAWERS
+         =================================================================== -->
+
+    <!-- Quick View / Simulated Gaming Preview Modal -->
+    <div id="preview-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>👁</span> Attitude Inspector
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Context Switcher Tabs -->
+          <div class="preview-context-tabs">
+            <button class="preview-tab-btn active" data-tab="profile">Profile Card</button>
+            <button class="preview-tab-btn" data-tab="squad">Squad Roster</button>
+            <button class="preview-tab-btn" data-tab="feed">Match Feed</button>
+          </div>
+
+          <!-- Context 1: Profile Card -->
+          <div id="context-profile" class="preview-player-card">
+            <div class="player-rank-badge">Heroic • LV. 58</div>
+            <div id="modal-player-nickname" class="player-simulated-nickname">ROGUE</div>
+            <div id="modal-player-persona-sub" class="player-sub-meta">Rebel • Lone Wolf • Attitude</div>
+          </div>
+
+          <!-- Context 2: Squad Roster -->
+          <div id="context-squad" class="squad-preview-box" style="display: none;">
+            <div class="squad-slots">
+              <div id="squad-slot-selected" class="squad-slot selected">ROGUE</div>
+              <div class="squad-slot">VORTEX</div>
+              <div class="squad-slot">NOVA</div>
+              <div class="squad-slot">SHADOW</div>
+            </div>
+          </div>
+
+          <!-- Context 3: Match Feed -->
+          <div id="context-feed" class="feed-preview-box" style="display: none;">
+            <span id="feed-killer-name" class="feed-killer">ROGUE</span>
+            <span class="feed-icon">⚔</span>
+            <span class="feed-victim">OPPONENT</span>
+          </div>
+
+          <!-- Primary Copy CTAs -->
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.15rem;">
+            <button id="btn-modal-copy-styled" class="btn-copy-name" style="flex: 2; margin-bottom: 0;">
+              <span>📋</span> Copy Name
+            </button>
+            <button id="btn-modal-copy-clean" class="btn-step" style="flex: 1;">
+              Copy Clean
+            </button>
+          </div>
+
+          <!-- Quick Style Switcher (Clean, Pro, Extreme) -->
+          <div style="text-align: center; margin-bottom: 1.15rem;">
+            <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 0.35rem;">
+              Finishing Style
+            </span>
+            <div class="style-switcher-row">
+              <button class="style-switch-btn active" data-style="clean">Clean</button>
+              <button class="style-switch-btn" data-style="pro">Pro 亗</button>
+              <button class="style-switch-btn" data-style="royal">Royal ♛</button>
+              <button class="style-switch-btn" data-style="dark">Dark ☠</button>
+              <button class="style-switch-btn" data-style="extreme">Extreme ꧁</button>
+            </div>
+          </div>
+
+          <!-- Step Ladder Buttons -->
+          <div class="step-actions-row">
+            <button id="btn-step-cleaner" class="btn-step">
+              <span>🧹</span> Make It Cleaner
+            </button>
+            <button id="btn-step-bolder" class="btn-step">
+              <span>🔥</span> Make It Bolder
+            </button>
+          </div>
+
+          <!-- Readability Scale -->
+          <div class="readability-grid">
+            <div class="readability-row">
+              <span class="readability-label">Small</span>
+              <span id="read-small" style="font-family: var(--font-display); font-size: 0.82rem; color: #fff;">ROGUE</span>
+            </div>
+            <div class="readability-row">
+              <span class="readability-label">Normal</span>
+              <span id="read-norm" style="font-family: var(--font-display); font-size: 1.05rem; color: #fff;">ROGUE</span>
+            </div>
+            <div class="readability-row">
+              <span class="readability-label">Large</span>
+              <span id="read-large" style="font-family: var(--font-display); font-size: 1.4rem; color: #fff; font-weight: 800;">ROGUE</span>
+            </div>
+          </div>
+
+          <!-- Similar vs Opposite Persona Tabs -->
+          <div>
+            <div class="sim-opp-tabs">
+              <button id="tab-btn-similar" class="sim-opp-btn active">Similar Attitude</button>
+              <button id="tab-btn-opposite" class="sim-opp-btn">Opposite Vibe</button>
+            </div>
+            <div id="sim-opp-list" class="sim-opp-list"></div>
+          </div>
+
+          <!-- Quick Action Buttons: Lock Persona & Same Attitude -->
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+            <button id="btn-modal-lock-persona" class="btn-step" style="flex: 1;">
+              <span>🔒</span> Lock Persona
+            </button>
+            <button id="btn-modal-same-attitude" class="btn-step" style="flex: 1;">
+              <span>↻</span> Same Attitude
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-Step Pick My Attitude Quiz Modal -->
+    <div id="quiz-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🎯</span> Pick My Attitude
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Step 1 -->
+          <div id="quiz-step-1" class="quiz-step-box">
+            <div class="quiz-question">1. How should your nickname feel?</div>
+            <div class="quiz-options-grid">
+              <button class="quiz-option-btn" data-feel="powerful">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">👑</span>
+                <strong>Powerful &amp; Dominant</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Boss, Titan, Prime</div>
+              </button>
+              <button class="quiz-option-btn" data-feel="mysterious">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">🌑</span>
+                <strong>Mysterious &amp; Silent</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Phantom, Ghost, Cipher</div>
+              </button>
+              <button class="quiz-option-btn" data-feel="independent">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">🐺</span>
+                <strong>Independent &amp; Rebel</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Rogue, Nomad, Solo</div>
+              </button>
+              <button class="quiz-option-btn" data-feel="calm">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">🧊</span>
+                <strong>Calm &amp; Confident</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Frost, Zero, Ace</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="quiz-step-2" class="quiz-step-box" style="display: none;">
+            <div class="quiz-question">2. What look do you want?</div>
+            <div class="quiz-options-grid">
+              <button class="quiz-option-btn" data-look="clean">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">🧊</span>
+                <strong>Clean &amp; Minimal</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Uncluttered pure letters</div>
+              </button>
+              <button class="quiz-option-btn" data-look="pro">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">⚡</span>
+                <strong>Pro Clan Style</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Trident 亗 &amp; Slashes</div>
+              </button>
+              <button class="quiz-option-btn" data-look="royal">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">♛</span>
+                <strong>Royal Crown</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Crown &amp; Prestige glyphs</div>
+              </button>
+              <button class="quiz-option-btn" data-look="dark">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 0.3rem;">☠</span>
+                <strong>Dark Skull</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Skulls &amp; Hazard markers</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3 Results -->
+          <div id="quiz-results" style="display: none;">
+            <div class="quiz-question" style="text-align: center;">Your Curated Attitude Matches:</div>
+            <div id="quiz-matches-list" class="sim-opp-list"></div>
+            <button id="btn-quiz-restart" class="btn-step" style="width: 100%; margin-top: 1rem;">
+              ↻ Start Over
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pick For Me Modal -->
+    <div id="pick-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel" style="max-width: 480px; text-align: center;">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🎲</span> Your Attitude Pick
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
+            Generated Identity
+          </div>
+          <div id="pick-nickname-display" class="player-simulated-nickname" style="font-size: 2rem; margin-bottom: 0.5rem;">
+            亗 ROGUE 亗
+          </div>
+          <div id="pick-persona-sub" style="font-size: 0.82rem; color: #ffaa00; margin-bottom: 1.5rem;">
+            Rebel • Lone Wolf
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <button id="btn-pick-keep" class="btn-copy-name" style="margin-bottom: 0;">
+              ★ Keep It (Add to Shortlist)
+            </button>
+            <button id="btn-pick-copy" class="btn-step">
+              📋 Copy Name
+            </button>
+            <button id="btn-pick-again" class="btn-step">
+              🎲 Try Another Pick
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Bottom Sheet / Modal -->
+    <div id="filter-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🌪</span> Filter Attitude Names
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Length Profile -->
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;">
+              Name Length
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="length" data-val="all">Any</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="short">Short (&le;6)</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="medium">Med (7-10)</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="long">Long (&gt;10)</button>
+            </div>
+          </div>
+
+          <!-- Word Count -->
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;">
+              Word Count
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="wordCount" data-val="all">Any</button>
+              <button class="btn-step filter-btn" data-filter="wordCount" data-val="1">One Word</button>
+              <button class="btn-step filter-btn" data-filter="wordCount" data-val="2">Two Words</button>
+            </div>
+          </div>
+
+          <!-- Appearance -->
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;">
+              Appearance
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="appearance" data-val="all">Any</button>
+              <button class="btn-step filter-btn" data-filter="appearance" data-val="clean">Clean</button>
+              <button class="btn-step filter-btn" data-filter="appearance" data-val="pro">Pro 亗</button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+            <button id="btn-reset-filters" class="btn-step" style="flex: 1;">
+              Reset
+            </button>
+            <button id="btn-apply-filters" class="btn-copy-name" style="flex: 1; margin-bottom: 0;">
+              Apply Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customize Finishing Modal -->
+    <div id="customize-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🛠</span> Customize Nickname
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div style="background: #0b0e14; border: 1px solid rgba(255, 87, 34, 0.3); border-radius: var(--radius-md); padding: 1.25rem; text-align: center; margin-bottom: 1.25rem;">
+            <div id="cust-preview-text" class="player-simulated-nickname" style="font-size: 1.8rem; margin-bottom: 0.3rem;">
+              亗 ROGUE 亗
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+              Base Name
+            </label>
+            <input type="text" id="cust-base-input" class="attitude-search-input" style="background: #0b0e14; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.5rem 0.8rem; width: 100%;" value="Rogue">
+            <a href="../" style="font-size: 0.72rem; color: #ffaa00; display: inline-block; margin-top: 0.35rem;">Style My Own Name (Full Generator) →</a>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+              Style Finishing
+            </label>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn-step cust-style-btn" data-style="clean">Clean</button>
+              <button class="btn-step cust-style-btn active" data-style="pro">Pro 亗</button>
+              <button class="btn-step cust-style-btn" data-style="royal">Royal ♛</button>
+              <button class="btn-step cust-style-btn" data-style="extreme">Extreme ꧁</button>
+            </div>
+            <a href="../stylish-free-fire-nicknames/" style="font-size: 0.72rem; color: #ffaa00; display: inline-block; margin-top: 0.35rem;">Explore All 60+ Visual Styles →</a>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+            <button id="btn-cust-copy" class="btn-copy-name" style="flex: 1; margin-bottom: 0;">
+              Copy Name
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Names Drawer / Modal -->
+    <div id="saved-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>♡</span> Saved Names
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="saved-list-container" class="sim-opp-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortlist & Compare Modal -->
+    <div id="shortlist-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel" style="max-width: 680px;">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>★</span> My Shortlist &amp; Compare
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="shortlist-container" class="sim-opp-list" style="margin-bottom: 1.25rem;"></div>
+
+          <div id="shortlist-compare-view" style="display: none; margin-bottom: 1.25rem;">
+            <div class="section-title-compact" style="margin-bottom: 0.65rem;">Side-by-Side Comparison</div>
+            <div id="compare-grid" class="compare-grid"></div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+            <button id="btn-shortlist-compare" class="btn-copy-name" style="margin-bottom: 0; font-size: 0.8rem;">
+              ⚖ Compare
+            </button>
+            <button id="btn-shortlist-copy-all" class="btn-step" style="font-size: 0.8rem;">
+              📋 Copy All
+            </button>
+            <button id="btn-shortlist-share" class="btn-step" style="font-size: 0.8rem;">
+              🔗 Share
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="attitude-toast" class="attitude-toast" role="status" aria-live="polite">
+      <span>✓</span>
+      <span id="toast-message">Nickname copied.</span>
+    </div>
+
+    <!-- Clean Gaming Footer -->
+    <footer class="site-footer" style="margin-top: 3.5rem;">
+      <div class="container">
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan-made gaming tool and is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All trademarks and brand names are property of their respective owners.
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for competitive players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/attitude-data.js?v=1"></script>
+  <script src="js/attitude-engine.js?v=1"></script>
+  <script src="js/attitude-app.js?v=1"></script>
+</body>
+</html>

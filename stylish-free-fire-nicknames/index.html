@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Free Fire Nicknames – Visual Style Gallery &amp; Nickname Designs</title>
+  <meta name="description" content="Browse visually stylish Free Fire nickname designs, explore pro, royal, dark, and framed visual treatments, preview in simulated gaming contexts and copy instantly.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/stylish-styles.css">
+</head>
+<body>
+  <!-- Ambient Particles Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper stylish-gallery-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Studio Homepage">
+          <div class="brand-icon">🔥</div>
+          <div class="brand-text">
+            <span class="brand-title">FF Studio</span>
+            <span class="brand-badge stylish-badge">Style Gallery</span>
+          </div>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="../" class="nav-link">Nickname Creator</a></li>
+            <li><a href="#stylish-app" class="nav-link active">Stylish Names</a></li>
+            <li><a href="../free-fire-nicknames-for-boys/" class="nav-link">Boys Nicknames</a></li>
+            <li><a href="../free-fire-nicknames-for-girls/" class="nav-link">Girls Nicknames</a></li>
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols Studio</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio Copy</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="btn-nav-saved" class="btn-nav-fav" aria-label="View Saved Nicknames & Styles">
+            <span>♡</span>
+            <span>Saved</span>
+            <span id="saved-count-badge" style="display: none; background: #ff2a5f; color: #fff; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+          <button id="btn-nav-shortlist" class="btn-nav-fav" aria-label="View Shortlist" style="margin-left: 0.4rem;">
+            <span>★</span>
+            <span>Shortlist</span>
+            <span id="shortlist-count-badge" style="display: none; background: #ffaa00; color: #000; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 800;">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Nickname Style Gallery Application -->
+    <main id="stylish-app" class="container" style="flex: 1;">
+      <!-- Hero Header (Beginner-First Viewport) -->
+      <section class="stylish-hero">
+        <div class="hero-pill-badge">
+          <span>✨</span>
+          <span>Free Fire Style Gallery</span>
+        </div>
+
+        <h1 class="stylish-hero-title">
+          <span class="stylish-gradient-text">Stylish Free Fire Nicknames</span>
+        </h1>
+
+        <p class="stylish-hero-subtitle">
+          Find a style that fits your identity. Two-way exploration: Style → Names or Name → Styles.
+        </p>
+
+        <!-- Two Discovery Modes Segmented Control -->
+        <div class="mode-switch-wrapper">
+          <div class="mode-segmented-control" role="tablist" aria-label="Discovery Modes">
+            <button id="mode-btn-styles" class="mode-btn active" role="tab" aria-selected="true">
+              <span>⚡</span> Browse Styles
+            </button>
+            <button id="mode-btn-names" class="mode-btn" role="tab" aria-selected="false">
+              <span>🎯</span> Browse Names
+            </button>
+          </div>
+        </div>
+
+        <!-- Primary Instant Search Bar -->
+        <div class="stylish-search-section">
+          <div class="stylish-search-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="stylish-search-input" 
+              class="stylish-search-input" 
+              placeholder="Search names or styles... (Try: Shadow, crown, pro, dark, 亗...)"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search Free Fire names or styles"
+            >
+            <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear search input">✕</button>
+          </div>
+
+          <!-- Quick Search Suggestions Dropdown -->
+          <div id="search-suggestions" class="search-suggestions-dropdown">
+            <div class="search-suggestions-title">Try Searching:</div>
+            <div class="search-tags-row">
+              <button class="search-tag-chip" data-query="Shadow">Shadow</button>
+              <button class="search-tag-chip" data-query="亗">亗 Trident</button>
+              <button class="search-tag-chip" data-query="crown">Crown / Royal</button>
+              <button class="search-tag-chip" data-query="dark">Dark / Skull</button>
+              <button class="search-tag-chip" data-query="pro">Pro / Clan</button>
+              <button class="search-tag-chip" data-query="『">『 』 Framed</button>
+              <button class="search-tag-chip" data-query="flame">Fire / Flame</button>
+              <button class="search-tag-chip" data-query="cyber">Cyber</button>
+              <button class="search-tag-chip" data-query="clean">Clean</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Style Categories Carousel (Mobile Swipe) -->
+        <div class="category-carousel-wrapper">
+          <div id="category-carousel" class="category-carousel" role="tablist" aria-label="Style Categories">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Active Lock Status Banner (Name Lock / Style Lock) -->
+      <section id="lock-banner" class="lock-banner" aria-live="polite">
+        <div class="lock-info">
+          <span class="lock-icon">🔒</span>
+          <span>Locked: <span id="lock-type-label">Name</span>: <strong id="lock-target-label" class="lock-target-name">Shadow</strong></span>
+        </div>
+        <button id="btn-unlock-banner" class="btn-unlock">✕ Unlock</button>
+      </section>
+
+      <!-- Gallery Control & Filter Bar -->
+      <section class="gallery-control-bar">
+        <div id="results-stats" class="gallery-stats">
+          Showing <strong id="results-count">24</strong> stylish combinations
+        </div>
+
+        <div class="gallery-actions-cluster">
+          <button id="btn-open-style-lab" class="btn-style-lab-trigger" aria-label="Open Style Lab">
+            <span>🛠</span> Style Lab
+          </button>
+          <button id="btn-open-filter" class="btn-filter-trigger" aria-label="Filter Styles">
+            <span>🌪</span> Filters
+          </button>
+          <button id="btn-random-style" class="btn-random-trigger" aria-label="Random Style">
+            <span>🎲</span> Random
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Filter Chips -->
+      <div id="active-filters-row" class="active-filters-row"></div>
+
+      <!-- Main Nickname Grid (Dominates First Viewport) -->
+      <section id="nickname-grid" class="nickname-grid" aria-label="Stylish Nicknames">
+        <!-- Nickname cards dynamically injected -->
+      </section>
+
+      <!-- Progressive Load More Section -->
+      <div id="load-more-container" class="load-more-section">
+        <button id="btn-load-more" class="btn-load-more">
+          Load More Styles
+        </button>
+      </div>
+
+      <!-- Visual Style Category Cards (Explore Families) -->
+      <section id="style-category-cards-section" class="style-category-cards-section">
+        <div class="section-header-compact">
+          <h2 class="section-title-compact">
+            <span>✨</span> Explore Style Families
+          </h2>
+          <button id="btn-toggle-category-cards" class="btn-tool-action" style="font-size: 0.78rem; padding: 0.2rem 0.6rem;">
+            Hide Families ▲
+          </button>
+        </div>
+        <div id="style-category-grid" class="style-category-grid">
+          <!-- Rendered dynamically with live examples -->
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         MODALS & DRAWERS
+         =================================================================== -->
+
+    <!-- Quick View / Simulated Gaming Preview Modal -->
+    <div id="preview-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>👁</span> Nickname Inspector
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Simulated Gaming Player Card -->
+          <div class="preview-player-card">
+            <div class="player-rank-badge">Grandmaster • LV. 58</div>
+            <div id="modal-player-nickname" class="player-simulated-nickname">亗SHADOW亗</div>
+            <div class="player-sub-meta">Competitive Player • Season 34</div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <button id="btn-modal-copy-styled" class="btn-copy-nickname" style="flex: 2; margin-bottom: 0;">
+              <span>📋</span> Copy Styled
+            </button>
+            <button id="btn-modal-copy-clean" class="btn-step" style="flex: 1;">
+              Copy Clean
+            </button>
+          </div>
+
+          <!-- Step Ladder: Cleaner vs More Stylish -->
+          <div class="step-actions-row">
+            <button id="btn-step-cleaner" class="btn-step">
+              <span>🧹</span> Make It Cleaner
+            </button>
+            <button id="btn-step-stylish" class="btn-step">
+              <span>✨</span> Make It More Stylish
+            </button>
+          </div>
+
+          <!-- Objective Specs -->
+          <div id="modal-specs-box" class="readability-grid" style="margin-bottom: 1.25rem;">
+            <div class="readability-row">
+              <span class="readability-label">Base</span>
+              <strong id="spec-base-name" style="color: #fff;">Shadow</strong>
+            </div>
+            <div class="readability-row">
+              <span class="readability-label">Length</span>
+              <span id="spec-length-info" style="color: var(--text-med);">Base: 6 • Styled: 8</span>
+            </div>
+            <div class="readability-row">
+              <span class="readability-label">Structure</span>
+              <span id="spec-structure-info" style="color: var(--text-med);">Both Sides • 2 Symbols</span>
+            </div>
+          </div>
+
+          <!-- Special Character Notice -->
+          <div class="char-notice-box">
+            <span>⚠️</span>
+            <span>Special characters used. Rendering or acceptance may vary by device/version.</span>
+          </div>
+
+          <!-- Multi-Context: Readability Tester -->
+          <div style="margin-bottom: 1.25rem;">
+            <div class="squad-title">Readability Scale</div>
+            <div class="readability-grid">
+              <div class="readability-row">
+                <span class="readability-label">Small</span>
+                <span id="read-small" class="readability-text-small">亗SHADOW亗</span>
+              </div>
+              <div class="readability-row">
+                <span class="readability-label">Normal</span>
+                <span id="read-norm" class="readability-text-norm">亗SHADOW亗</span>
+              </div>
+              <div class="readability-row">
+                <span class="readability-label">Large</span>
+                <span id="read-large" class="readability-text-large">亗SHADOW亗</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Context: Dark vs Light Surface Test -->
+          <div style="margin-bottom: 1.25rem;">
+            <div class="squad-title">Surface Contrast Test</div>
+            <div class="surface-test-row">
+              <div class="surface-box-dark">
+                <div id="surface-dark-text" class="surface-text" style="color: #fff;">亗SHADOW亗</div>
+              </div>
+              <div class="surface-box-light">
+                <div id="surface-light-text" class="surface-text" style="color: #0f172a;">亗SHADOW亗</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Context: Squad Preview -->
+          <div class="squad-preview-box">
+            <div class="squad-title">Squad Presence Preview</div>
+            <div class="squad-slots">
+              <div id="squad-slot-selected" class="squad-slot selected">亗SHADOW亗</div>
+              <div class="squad-slot">NOVA</div>
+              <div class="squad-slot">GHOST</div>
+              <div class="squad-slot">VORTEX</div>
+            </div>
+          </div>
+
+          <!-- Variants Section -->
+          <div>
+            <div class="squad-title">Style Variants</div>
+            <div id="modal-variants-list" class="variants-list"></div>
+          </div>
+
+          <!-- Two-Way Relational Discovery Buttons -->
+          <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+            <button id="btn-explore-more-styles" class="btn-step" style="flex: 1;">
+              <span>✨</span> More Like This Style
+            </button>
+            <button id="btn-explore-more-names" class="btn-step" style="flex: 1;">
+              <span>🎯</span> Other Names in This Style
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style Lab Drawer / Modal (Interactive Adjustments) -->
+    <div id="style-lab-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🛠</span> Style Lab
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Live Preview Box -->
+          <div class="lab-preview-box">
+            <div id="lab-preview-text" class="lab-preview-text">亗SHADOW亗</div>
+            <div id="lab-preview-meta" class="lab-preview-meta">Pro • Medium Decoration</div>
+          </div>
+
+          <button id="btn-lab-copy" class="btn-copy-nickname" style="margin-bottom: 1.25rem;">
+            <span>📋</span> Copy Name
+          </button>
+
+          <!-- Base Name Preview Input -->
+          <div class="lab-field-group">
+            <label for="lab-base-input" class="lab-field-label">Base Name Preview</label>
+            <input type="text" id="lab-base-input" class="lab-text-input" value="Shadow" maxlength="16">
+            <a href="../" class="lab-home-link">Need full custom generation? Open Nickname Studio →</a>
+          </div>
+
+          <!-- Style Intensity Slider -->
+          <div class="slider-control-group">
+            <div class="slider-label-row">
+              <span>Style Intensity</span>
+              <strong id="intensity-val-label">Level 3 (Pro)</strong>
+            </div>
+            <input type="range" id="lab-intensity-slider" class="intensity-slider" min="1" max="5" value="3">
+            <div class="intensity-ticks">
+              <span>Clean</span>
+              <span>Minimal</span>
+              <span>Pro</span>
+              <span>Decorated</span>
+              <span>Extreme</span>
+            </div>
+          </div>
+
+          <!-- Frame Builder -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Frame / Bracket Builder</label>
+            <select id="lab-frame-select" class="lab-text-input">
+              <option value="none">No Frame</option>
+              <option value="f-japanese">『 』 Japanese Brackets</option>
+              <option value="f-bold">【 】 Bold Brackets</option>
+              <option value="f-corner">〘 〙 Corner Brackets</option>
+              <option value="f-wings">꧁ ꧂ Wing Scrolls</option>
+              <option value="f-royal-wings">༺ ༻ Royal Wings</option>
+              <option value="f-angles">《 》 Double Angles</option>
+              <option value="f-vector">⟨ ⟩ Vector Brackets</option>
+              <option value="f-stars">★ ★ Star Shield</option>
+              <option value="f-crowns">♛ ♛ Crown Guard</option>
+              <option value="f-tridents">亗 亗 Trident Guard</option>
+            </select>
+          </div>
+
+          <!-- Prefix & Suffix Mini-Picker -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Quick Symbol Mini-Picker</label>
+            <div id="lab-symbol-palette" class="mini-symbol-palette"></div>
+            <a href="../free-fire-symbols/" class="lab-home-link">Explore all gaming symbols →</a>
+          </div>
+
+          <!-- Mix & Match Controls -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Mix &amp; Match</label>
+            <div class="mix-match-grid">
+              <div class="mix-match-col">
+                <span style="font-size: 0.7rem; color: var(--text-muted);">LEFT</span>
+                <select id="mix-left-select" class="mix-match-select">
+                  <option value="">None</option>
+                  <option value="亗" selected>亗 Trident</option>
+                  <option value="乂">乂 Cross</option>
+                  <option value="♛">♛ Crown</option>
+                  <option value="☠">☠ Skull</option>
+                  <option value="★">★ Star</option>
+                  <option value="⚡">⚡ Thunder</option>
+                  <option value="〆">〆 Slash</option>
+                  <option value="『">『 Bracket</option>
+                </select>
+              </div>
+              <div class="mix-match-col">
+                <span style="font-size: 0.7rem; color: var(--text-muted);">CASING</span>
+                <select id="mix-casing-select" class="mix-match-select">
+                  <option value="uppercase" selected>UPPERCASE</option>
+                  <option value="none">Standard</option>
+                  <option value="spaced">S P A C E D</option>
+                  <option value="smallcaps">sᴍᴀʟʟ ᴄᴀᴘs</option>
+                </select>
+              </div>
+              <div class="mix-match-col">
+                <span style="font-size: 0.7rem; color: var(--text-muted);">RIGHT</span>
+                <select id="mix-right-select" class="mix-match-select">
+                  <option value="">None</option>
+                  <option value="亗" selected>亗 Trident</option>
+                  <option value="乂">乂 Cross</option>
+                  <option value="♛">♛ Crown</option>
+                  <option value="☠">☠ Skull</option>
+                  <option value="★">★ Star</option>
+                  <option value="⚡">⚡ Thunder</option>
+                  <option value="〆">〆 Slash</option>
+                  <option value="』">』 Bracket</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Random Action Buttons -->
+          <div class="random-actions-row">
+            <button id="btn-lab-random-style" class="btn-random-sub">
+              🎲 Random Style
+            </button>
+            <button id="btn-lab-random-name" class="btn-random-sub">
+              🎲 Random Name
+            </button>
+            <button id="btn-lab-surprise" class="btn-random-sub">
+              🎉 Surprise Me
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Bottom Sheet / Modal -->
+    <div id="filter-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>🌪</span> Style Filters
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Decoration Level -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Decoration Level</label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="decorationLevel" data-val="all">All</button>
+              <button class="btn-step filter-btn" data-filter="decorationLevel" data-val="low">Low</button>
+              <button class="btn-step filter-btn" data-filter="decorationLevel" data-val="medium">Medium</button>
+              <button class="btn-step filter-btn" data-filter="decorationLevel" data-val="high">High</button>
+            </div>
+          </div>
+
+          <!-- Structure -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Structure</label>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="structure" data-val="all">Any Structure</button>
+              <button class="btn-step filter-btn" data-filter="structure" data-val="both">Both Sides</button>
+              <button class="btn-step filter-btn" data-filter="structure" data-val="framed">Framed / Bordered</button>
+              <button class="btn-step filter-btn" data-filter="structure" data-val="prefix">Prefix Only</button>
+              <button class="btn-step filter-btn" data-filter="structure" data-val="suffix">Suffix Only</button>
+            </div>
+          </div>
+
+          <!-- Base Name Length -->
+          <div class="lab-field-group">
+            <label class="lab-field-label">Base Name Length</label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;">
+              <button class="btn-step filter-btn active" data-filter="length" data-val="all">Any</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="short">Short (&le;6)</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="medium">Med (7-10)</button>
+              <button class="btn-step filter-btn" data-filter="length" data-val="long">Long (&gt;10)</button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+            <button id="btn-reset-filters" class="btn-step" style="flex: 1;">
+              Reset Filters
+            </button>
+            <button id="btn-apply-filters" class="btn-copy-nickname" style="flex: 1; margin-bottom: 0;">
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Drawer / Modal (Two Tabs: Saved Nicknames & Saved Styles) -->
+    <div id="saved-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>♡</span> My Saved Library
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="saved-tabs">
+            <button id="tab-saved-names" class="saved-tab-btn active">
+              Saved Nicknames (<span id="count-saved-names">0</span>)
+            </button>
+            <button id="tab-saved-styles" class="saved-tab-btn">
+              Saved Styles (<span id="count-saved-styles">0</span>)
+            </button>
+          </div>
+
+          <div id="saved-nicknames-container" class="saved-list">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div id="saved-styles-container" class="saved-list" style="display: none;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortlist Drawer / Modal -->
+    <div id="shortlist-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>★</span> My Shortlist
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="shortlist-container" class="saved-list" style="margin-bottom: 1.25rem;"></div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+            <button id="btn-shortlist-compare" class="btn-copy-nickname" style="margin-bottom: 0; font-size: 0.78rem;">
+              ⚖ Compare
+            </button>
+            <button id="btn-shortlist-copy-all" class="btn-step" style="font-size: 0.78rem;">
+              📋 Copy All
+            </button>
+            <button id="btn-shortlist-share" class="btn-step" style="font-size: 0.78rem;">
+              🔗 Share
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side-by-Side Style Comparison Modal -->
+    <div id="compare-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-panel" style="max-width: 720px;">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span>⚖</span> Style Comparison
+          </div>
+          <button class="modal-close-btn" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="compare-grid" class="compare-grid">
+            <!-- 4 comparative styles injected here -->
+          </div>
+          <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+            Choose the visual silhouette that best fits your competitive identity.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="stylish-toast" class="stylish-toast" role="status" aria-live="polite">
+      <span>✓</span>
+      <span id="toast-message">Stylish nickname copied.</span>
+    </div>
+
+    <!-- Clean Gaming Footer -->
+    <footer class="site-footer" style="margin-top: 3.5rem;">
+      <div class="container">
+        <div class="footer-disclaimer-box">
+          <strong>Disclaimer:</strong> This website is an independent fan-made gaming tool and is not affiliated with, sponsored by, or endorsed by Garena, Free Fire, or any of its affiliates. All trademarks and brand names are property of their respective owners.
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Free Fire Nickname Studio. Built for competitive players worldwide.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/stylish-data.js?v=2"></script>
+  <script src="js/stylish-engine.js?v=2"></script>
+  <script src="js/stylish-app.js?v=2"></script>
+</body>
+</html>
