@@ -2,7 +2,6 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3456;
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -42,6 +41,23 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+let currentPort = parseInt(process.env.PORT, 10) || 3456;
+
+function startServer(port) {
+  server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+  });
+}
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.warn(`Port ${currentPort} is in use, trying port ${currentPort + 1}...`);
+    currentPort += 1;
+    startServer(currentPort);
+  } else {
+    console.error('Server error:', err);
+    process.exit(1);
+  }
 });
+
+startServer(currentPort);

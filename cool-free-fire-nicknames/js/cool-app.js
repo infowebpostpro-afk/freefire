@@ -155,11 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div class="cool-card-name" title="${escapedName}">${escapedName}</div>
           <div class="cool-card-actions">
-            <button type="button" class="btn-cool-card-copy" data-copy="${escapedName}">
-              <span>📋</span> COPY
+            <button type="button" class="btn-cool-card-copy" data-copy="${escapedName}" aria-label="Copy ${escapedName}">
+              <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span>COPY</span>
             </button>
-            <button type="button" class="btn-cool-card-custom" data-plain="${escapedPlain}" data-name="${escapedName}">
-              <span>♛</span> CUSTOMIZE
+            <button type="button" class="btn-cool-card-custom" data-plain="${escapedPlain}" data-name="${escapedName}" aria-label="Customize ${escapedName}">
+              <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <span>CUSTOMIZE</span>
             </button>
           </div>
         </div>
@@ -256,11 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="cool-card-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div>
             <div class="cool-card-actions">
-              <button type="button" class="btn-cool-card-copy" data-copy="${escapeHtml(item.name)}">
-                <span>📋</span> COPY
+              <button type="button" class="btn-cool-card-copy" data-copy="${escapeHtml(item.name)}" aria-label="Copy ${escapeHtml(item.name)}">
+                <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>COPY</span>
               </button>
-              <button type="button" class="btn-cool-card-custom" data-plain="${escapeHtml(item.plain)}" data-name="${escapeHtml(item.name)}">
-                <span>♛</span> CUSTOMIZE
+              <button type="button" class="btn-cool-card-custom" data-plain="${escapeHtml(item.plain)}" data-name="${escapeHtml(item.name)}" aria-label="Customize ${escapeHtml(item.name)}">
+                <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <span>CUSTOMIZE</span>
               </button>
             </div>
           </div>
@@ -457,6 +461,26 @@ document.addEventListener('DOMContentLoaded', function() {
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
   }
+
+  // --- FAQ Accordion Interactivity ---
+  const faqItems = document.querySelectorAll('.cool-faq-item');
+  if (faqItems.length > 0) {
+    faqItems[0].classList.add('active');
+  }
+  faqItems.forEach(item => {
+    item.addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+  });
+
+  // --- Interactive Click-to-Copy for Pill Tags & Styled Cells in Article ---
+  document.querySelectorAll('.cool-pill-item, .styled-cell').forEach(pill => {
+    pill.setAttribute('title', 'Click to copy');
+    pill.addEventListener('click', function() {
+      const cleanText = this.textContent.trim().replace(/^📋\s*/, '');
+      copyTextToClipboard(cleanText, this, 'COPIED!');
+    });
+  });
 
   // Initial Grid Render
   renderGrid();
