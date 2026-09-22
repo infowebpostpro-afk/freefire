@@ -10,6 +10,8 @@
   <meta name="keywords" content="Free Fire Nickname, Free Fire name, stylish Free Fire nickname, Free Fire nickname generator, FF symbols, gaming nickname studio">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://freefirenicknamepro.com/">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -40,60 +42,48 @@
         "@id": "https://freefirenicknamepro.com/#website",
         "url": "https://freefirenicknamepro.com/",
         "name": "Free Fire Nickname Pro",
-        "description": "Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.",
+        "description": "A web-based Free Fire nickname tool for finding ready-made nickname ideas and creating styled versions of names.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://freefirenicknamepro.com/#webpage",
+        "url": "https://freefirenicknamepro.com/",
+        "name": "Free Fire Nickname Generator",
+        "description": "Find Free Fire nickname ideas or enter your own name to create stylish versions that are easy to copy.",
+        "isPartOf": {
+          "@id": "https://freefirenicknamepro.com/#website"
+        },
+        "mainEntity": {
+          "@id": "https://freefirenicknamepro.com/#nickname-generator"
+        },
         "inLanguage": "en-US"
       },
       {
         "@type": "WebApplication",
-        "@id": "https://freefirenicknamepro.com/#webapp",
+        "@id": "https://freefirenicknamepro.com/#nickname-generator",
         "name": "Free Fire Nickname Generator",
         "url": "https://freefirenicknamepro.com/",
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "All",
-        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "description": "A browser-based tool for discovering Free Fire nickname ideas and creating multiple styled versions of a user's name.",
+        "applicationCategory": "UtilitiesApplication",
+        "applicationSubCategory": "Nickname Generator",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser",
+        "isAccessibleForFree": true,
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Generate Free Fire nickname ideas",
+          "Create styled versions of a name",
+          "Browse nickname categories",
+          "Copy nickname results"
+        ],
+        "isPartOf": {
+          "@id": "https://freefirenicknamepro.com/#website"
         }
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://freefirenicknamepro.com/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is this a nickname generator or a stylish text generator?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "It does both parts of the nickname workflow. You can enter an existing name and explore styled versions, or start with name ideas when you do not yet know what to use. After choosing a base name, you can customize and copy the final result."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Are these “fonts” actually fonts?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Many effects commonly called fancy fonts are made from different Unicode characters rather than a downloadable font applied to ordinary letters. Unicode includes encoded letter-like and mathematical alphanumeric characters with visual forms such as bold, script, Fraktur, and double-struck. Because they are characters, they can be copied as text. Their appearance and acceptance can still vary between software."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Will every generated nickname work in Free Fire?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Do not assume that every Unicode character or decoration will be accepted. A character can work in your browser and still be rejected or displayed differently in another application. Try your preferred version in the game's nickname field before confirming a rename, and keep the clean version available as a fallback."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What should I do if my nickname shows boxes or is rejected?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Try the simpler version first. Remove unusual symbols or emoji, reduce decoration, switch to a cleaner character style, and shorten the name if necessary. If the decorated version still fails, use the plain base name and add styling back one element at a time."
-            }
-          }
-        ]
       }
     ]
   }
@@ -109,9 +99,11 @@
     <header class="site-header">
       <div class="container nav-container">
         <a href="./" class="brand-logo" aria-label="Free Fire Nickname Pro">
-          <div class="brand-icon">🔥</div>
+          <div class="brand-icon">
+            <img src="images/logo.svg" alt="Free Fire Nickname Pro Emblem" class="brand-logo-img" width="40" height="40">
+          </div>
           <div class="brand-text">
-            <span class="brand-title">FreeFireNicknamePro</span>
+            <span class="brand-title">Free Fire <span class="brand-accent">Nickname</span> <span class="brand-pro-pill">PRO</span></span>
           </div>
         </a>
 
@@ -826,10 +818,12 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand-col">
-            <a href="./" class="brand-logo" style="margin-bottom: 0.75rem;">
-              <div class="brand-icon">🔥</div>
+            <a href="./" class="brand-logo" style="margin-bottom: 0.75rem;" aria-label="Free Fire Nickname Pro">
+              <div class="brand-icon">
+                <img src="images/logo.svg" alt="Free Fire Nickname Pro Emblem" class="brand-logo-img" width="40" height="40">
+              </div>
               <div class="brand-text">
-                <span class="brand-title">FreeFireNicknamePro</span>
+                <span class="brand-title">Free Fire <span class="brand-accent">Nickname</span> <span class="brand-pro-pill">PRO</span></span>
               </div>
             </a>
             <p class="footer-brand-desc">
