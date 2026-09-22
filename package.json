@@ -1,0 +1,13 @@
+{
+  "name": "freefire-nickname",
+  "version": "1.0.0",
+  "description": "Free Fire Nickname Generator & Symbols Website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
