@@ -133,8 +133,12 @@ function initFindMode() {
   // Category Filter Chips
   catChips.forEach(chip => {
     chip.addEventListener('click', () => {
-      catChips.forEach(c => c.classList.remove('active'));
+      catChips.forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
       chip.classList.add('active');
+      chip.setAttribute('aria-selected', 'true');
       AppState.findCategory = chip.getAttribute('data-find-cat') || 'all';
       AppState.findLimit = 20;
       renderFindNicknames();
@@ -143,6 +147,29 @@ function initFindMode() {
       chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
   });
+
+  // Event Delegation for 1-Tap Copy & Save (Works on Prerendered & Dynamic Rows)
+  const findList = document.getElementById('find-results-list');
+  if (findList) {
+    findList.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.btn-copy-action');
+      const nickText = e.target.closest('.nick-text');
+      const favBtn = e.target.closest('.btn-fav-action');
+      const row = e.target.closest('.nick-row');
+      if (!row) return;
+
+      const name = row.getAttribute('data-name') || row.querySelector('.nick-text')?.textContent.trim();
+      if (!name) return;
+
+      if (copyBtn || nickText) {
+        e.stopPropagation();
+        copyNicknameAction(name, row, copyBtn || row.querySelector('.btn-copy-action'));
+      } else if (favBtn) {
+        e.stopPropagation();
+        toggleFavorite(name, favBtn);
+      }
+    });
+  }
 
   // Show More Names Button
   if (showMoreBtn) {
@@ -188,6 +215,13 @@ function renderFindNicknames(isAppend = false) {
 
   const allNames = typeof READY_MADE_NICKNAMES !== 'undefined' ? READY_MADE_NICKNAMES : [];
   
+  // If initial load with default state and prerendered rows exist, preserve DOM for zero CLS!
+  if (!isAppend && AppState.findCategory === 'all' && !AppState.findQuery && listContainer.children.length >= 20) {
+    syncListFavorites(listContainer);
+    if (showMoreBtn) showMoreBtn.style.display = 'inline-flex';
+    return;
+  }
+
   // Filter by category
   let filtered = allNames;
   if (AppState.findCategory !== 'all') {
@@ -290,8 +324,12 @@ function initStyleMode() {
   // Style Category Chips (All, Clean, Symbols, Fancy, Bold)
   styleChips.forEach(chip => {
     chip.addEventListener('click', () => {
-      styleChips.forEach(c => c.classList.remove('active'));
+      styleChips.forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
       chip.classList.add('active');
+      chip.setAttribute('aria-selected', 'true');
       AppState.styleCategory = chip.getAttribute('data-style-cat') || 'all';
       AppState.styleLimit = 24;
       handleStyleGeneration();
@@ -299,6 +337,29 @@ function initStyleMode() {
       chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
   });
+
+  // Event Delegation for Style Results 1-Tap Copy & Save
+  const styleList = document.getElementById('style-results-list');
+  if (styleList) {
+    styleList.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.btn-copy-action');
+      const nickText = e.target.closest('.nick-text');
+      const favBtn = e.target.closest('.btn-fav-action');
+      const row = e.target.closest('.nick-row');
+      if (!row) return;
+
+      const name = row.getAttribute('data-name') || row.querySelector('.nick-text')?.textContent.trim();
+      if (!name) return;
+
+      if (copyBtn || nickText) {
+        e.stopPropagation();
+        copyNicknameAction(name, row, copyBtn || row.querySelector('.btn-copy-action'));
+      } else if (favBtn) {
+        e.stopPropagation();
+        toggleFavorite(name, favBtn);
+      }
+    });
+  }
 
   // Show More Styles Button
   if (showMoreBtn) {
@@ -521,6 +582,50 @@ function initCustomizationOptions() {
    ROW CREATION & 1-TAP COPY INTERACTION
    =================================================================== */
 
+function copyNicknameAction(name, row, copyBtn) {
+  copyToClipboard(name);
+
+  // Tactile haptic feedback on supported mobile devices
+  if (navigator.vibrate) {
+    try { navigator.vibrate(35); } catch (err) {}
+  }
+
+  if (row) row.classList.add('row-copied');
+  if (copyBtn) {
+    copyBtn.classList.add('copied');
+    const label = copyBtn.querySelector('.copy-label');
+    if (label) label.textContent = '✓ Copied';
+  }
+
+  showToast(`✓ Copied "${name}" to clipboard!`, 'success');
+
+  setTimeout(() => {
+    if (row) row.classList.remove('row-copied');
+    if (copyBtn) {
+      copyBtn.classList.remove('copied');
+      const label = copyBtn.querySelector('.copy-label');
+      if (label) label.textContent = 'Copy';
+    }
+  }, 1600);
+}
+
+function syncListFavorites(container) {
+  if (!container) return;
+  const rows = container.querySelectorAll('.nick-row');
+  rows.forEach(row => {
+    const name = row.getAttribute('data-name');
+    if (!name) return;
+    const isFav = AppState.favorites.includes(name);
+    const favBtn = row.querySelector('.btn-fav-action');
+    if (favBtn) {
+      favBtn.classList.toggle('favorited', isFav);
+      favBtn.title = isFav ? 'Remove from saved' : 'Save to favorites';
+      const icon = favBtn.querySelector('.fav-icon');
+      if (icon) icon.textContent = isFav ? '♥' : '♡';
+    }
+  });
+}
+
 function createNicknameRow(name) {
   const row = document.createElement('div');
   row.className = 'nick-row';
@@ -539,43 +644,6 @@ function createNicknameRow(name) {
       </button>
     </div>
   `;
-
-  const copyBtn = row.querySelector('.btn-copy-action');
-  const favBtn = row.querySelector('.btn-fav-action');
-  const nickText = row.querySelector('.nick-text');
-
-  // 1-Tap Copy Interaction
-  function triggerCopy(e) {
-    if (e) e.stopPropagation();
-    copyToClipboard(name);
-
-    // Tactile haptic feedback on supported mobile devices
-    if (navigator.vibrate) {
-      try { navigator.vibrate(35); } catch (err) {}
-    }
-
-    row.classList.add('row-copied');
-    copyBtn.classList.add('copied');
-    const label = copyBtn.querySelector('.copy-label');
-    if (label) label.textContent = '✓ Copied';
-
-    showToast(`✓ Copied "${name}" to clipboard!`, 'success');
-
-    setTimeout(() => {
-      row.classList.remove('row-copied');
-      copyBtn.classList.remove('copied');
-      if (label) label.textContent = 'Copy';
-    }, 1600);
-  }
-
-  copyBtn.addEventListener('click', triggerCopy);
-  nickText.addEventListener('click', triggerCopy);
-
-  // Secondary Save / Favorite
-  favBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleFavorite(name, favBtn);
-  });
 
   return row;
 }

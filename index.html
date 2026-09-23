@@ -25,12 +25,16 @@
   <meta name="twitter:title" content="Free Fire Nickname Generator – Create Stylish FF Names">
   <meta name="twitter:description" content="Create a Free Fire nickname from your name or a new idea. Explore stylish text, symbols and clean designs, preview favorites, customize and copy.">
 
-  <!-- Google Fonts Preconnect & Styles -->
+  <!-- Google Fonts Preconnect & Optimized Async Loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+  </noscript>
   
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.min.css">
 
   <!-- Structured Data / JSON-LD -->
   <script type="application/ld+json">
@@ -229,17 +233,156 @@
 
             <!-- Compact Category Chips Row -->
             <div class="category-chip-row" role="tablist" aria-label="Nickname Categories">
-              <button type="button" class="btn-cat-chip active" data-find-cat="all">All</button>
-              <button type="button" class="btn-cat-chip" data-find-cat="cool">Cool</button>
-              <button type="button" class="btn-cat-chip" data-find-cat="stylish">Stylish</button>
-              <button type="button" class="btn-cat-chip" data-find-cat="attitude">Attitude</button>
-              <button type="button" class="btn-cat-chip" data-find-cat="boys">Boys</button>
-              <button type="button" class="btn-cat-chip" data-find-cat="girls">Girls</button>
+              <button type="button" class="btn-cat-chip active" data-find-cat="all" role="tab" aria-selected="true">All</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="cool" role="tab" aria-selected="false">Cool</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="stylish" role="tab" aria-selected="false">Stylish</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="attitude" role="tab" aria-selected="false">Attitude</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="boys" role="tab" aria-selected="false">Boys</button>
+              <button type="button" class="btn-cat-chip" data-find-cat="girls" role="tab" aria-selected="false">Girls</button>
             </div>
 
-            <!-- Ready-Made Results Container -->
+            <!-- Ready-Made Results Container (Prerendered for Zero CLS & Instant LCP) -->
             <div id="find-results-list" class="nicknames-list" aria-live="polite">
-              <!-- Dynamically populated with nickname rows on page load -->
+              <div class="nick-row" data-name="亗 GHOST 亗">
+                <div class="nick-text" title="Tap to copy">亗 GHOST 亗</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 亗 GHOST 亗"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 亗 GHOST 亗" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="❄ F R O S T ❄">
+                <div class="nick-text" title="Tap to copy">❄ F R O S T ❄</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy ❄ F R O S T ❄"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save ❄ F R O S T ❄" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="『I C E B O U N D』">
+                <div class="nick-text" title="Tap to copy">『I C E B O U N D』</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 『I C E B O U N D』"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 『I C E B O U N D』" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="⚡ BLIZZARD ⚡">
+                <div class="nick-text" title="Tap to copy">⚡ BLIZZARD ⚡</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy ⚡ BLIZZARD ⚡"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save ⚡ BLIZZARD ⚡" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="亗 ZERO-DEGREE 亗">
+                <div class="nick-text" title="Tap to copy">亗 ZERO-DEGREE 亗</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 亗 ZERO-DEGREE 亗"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 亗 ZERO-DEGREE 亗" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="꧁༺ GLACIER ༻꧂">
+                <div class="nick-text" title="Tap to copy">꧁༺ GLACIER ༻꧂</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy ꧁༺ GLACIER ༻꧂"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save ꧁༺ GLACIER ༻꧂" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="𓊈 G H O S T 𓊉">
+                <div class="nick-text" title="Tap to copy">𓊈 G H O S T 𓊉</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 𓊈 G H O S T 𓊉"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 𓊈 G H O S T 𓊉" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="乂 P H A N T O M 乂">
+                <div class="nick-text" title="Tap to copy">乂 P H A N T O M 乂</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 乂 P H A N T O M 乂"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 乂 P H A N T O M 乂" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="『S H A D O W』">
+                <div class="nick-text" title="Tap to copy">『S H A D O W』</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 『S H A D O W』"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 『S H A D O W』" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="✦ S P E C T E R ✦">
+                <div class="nick-text" title="Tap to copy">✦ S P E C T E R ✦</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy ✦ S P E C T E R ✦"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save ✦ S P E C T E R ✦" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="亗 M I R A G E 亗">
+                <div class="nick-text" title="Tap to copy">亗 M I R A G E 亗</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 亗 M I R A G E 亗"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 亗 M I R A G E 亗" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="⚡ C Y B E R ⚡">
+                <div class="nick-text" title="Tap to copy">⚡ C Y B E R ⚡</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy ⚡ C Y B E R ⚡"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save ⚡ C Y B E R ⚡" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="『M A T R I X』">
+                <div class="nick-text" title="Tap to copy">『M A T R I X』</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 『M A T R I X』"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 『M A T R I X』" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="👑 V O R T E X 👑">
+                <div class="nick-text" title="Tap to copy">👑 V O R T E X 👑</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 👑 V O R T E X 👑"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 👑 V O R T E X 👑" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="『A P E X』">
+                <div class="nick-text" title="Tap to copy">『A P E X』</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 『A P E X』"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 『A P E X』" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="亗 T I T A N 亗">
+                <div class="nick-text" title="Tap to copy">亗 T I T A N 亗</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 亗 T I T A N 亗"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 亗 T I T A N 亗" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="🎯 D E A D E Y E 🎯">
+                <div class="nick-text" title="Tap to copy">🎯 D E A D E Y E 🎯</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 🎯 D E A D E Y E 🎯"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 🎯 D E A D E Y E 🎯" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="『H E A D S H O T』">
+                <div class="nick-text" title="Tap to copy">『H E A D S H O T』</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 『H E A D S H O T』"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 『H E A D S H O T』" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="亗 A W M - K I N G 亗">
+                <div class="nick-text" title="Tap to copy">亗 A W M - K I N G 亗</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 亗 A W M - K I N G 亗"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 亗 A W M - K I N G 亗" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
+              <div class="nick-row" data-name="𒆜 H U N T E R 𒆜">
+                <div class="nick-text" title="Tap to copy">𒆜 H U N T E R 𒆜</div>
+                <div class="nick-actions">
+                  <button type="button" class="btn-copy-action" aria-label="Copy 𒆜 H U N T E R 𒆜"><span class="copy-label">Copy</span></button>
+                  <button type="button" class="btn-fav-action" aria-label="Save 𒆜 H U N T E R 𒆜" title="Save to favorites"><span class="fav-icon">♡</span></button>
+                </div>
+              </div>
             </div>
 
             <!-- Pagination & Surprise Me Controls -->
@@ -280,11 +423,11 @@
 
             <!-- Optional Style Category Filter Chips -->
             <div id="style-filter-bar" class="category-chip-row" role="tablist" aria-label="Style Categories" style="display: none;">
-              <button type="button" class="btn-style-chip active" data-style-cat="all">All</button>
-              <button type="button" class="btn-style-chip" data-style-cat="clean">Clean</button>
-              <button type="button" class="btn-style-chip" data-style-cat="symbols">Symbols</button>
-              <button type="button" class="btn-style-chip" data-style-cat="fancy">Fancy</button>
-              <button type="button" class="btn-style-chip" data-style-cat="bold">Bold</button>
+              <button type="button" class="btn-style-chip active" data-style-cat="all" role="tab" aria-selected="true">All</button>
+              <button type="button" class="btn-style-chip" data-style-cat="clean" role="tab" aria-selected="false">Clean</button>
+              <button type="button" class="btn-style-chip" data-style-cat="symbols" role="tab" aria-selected="false">Symbols</button>
+              <button type="button" class="btn-style-chip" data-style-cat="fancy" role="tab" aria-selected="false">Fancy</button>
+              <button type="button" class="btn-style-chip" data-style-cat="bold" role="tab" aria-selected="false">Bold</button>
             </div>
 
             <!-- Empty State -->
@@ -888,10 +1031,10 @@
     </footer>
   </div>
 
-  <!-- Scripts -->
-  <script src="js/site-config.js"></script>
-  <script src="js/nav.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Scripts (deferred for zero render-blocking) -->
+  <script src="js/site-config.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
