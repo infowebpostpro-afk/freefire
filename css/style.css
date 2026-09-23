@@ -2230,6 +2230,8 @@ body {
   }
 }
 
+/* Mobile Responsiveness & Bottom-sheet (90% Mobile Users Optimization) */
+@media (max-width: 768px) {
   .hero-section {
     padding: 1.5rem 0 0.75rem;
   }
