@@ -17,6 +17,29 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
+  const host = (req.headers.host || '').split(':')[0].toLowerCase();
+
+  // 1. Permanent redirect www host to non-www canonical host
+  if (host === 'www.freefirenicknamepro.com' || host.startsWith('www.')) {
+    const targetHost = host === 'www.freefirenicknamepro.com' ? 'freefirenicknamepro.com' : host.replace(/^www\./, '');
+    res.writeHead(301, {
+      'Location': `https://${targetHost}${req.url}`
+    });
+    res.end();
+    return;
+  }
+
+  // 2. Permanent redirect /copyright-dmca/ alias to canonical /dmca/
+  const urlPath = req.url.split('?')[0];
+  if (urlPath === '/copyright-dmca' || urlPath === '/copyright-dmca/') {
+    const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+    res.writeHead(301, {
+      'Location': `/dmca/${qs}`
+    });
+    res.end();
+    return;
+  }
+
   let filePath = path.join(__dirname, req.url.split('?')[0]);
   if (filePath.endsWith(path.sep) || fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
     filePath = path.join(filePath, 'index.html');

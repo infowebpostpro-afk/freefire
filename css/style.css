@@ -193,6 +193,7 @@ body {
 .brand-accent {
   background: var(--fire-gradient-gold);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -445,6 +446,7 @@ body {
 .hero-title .gradient-text {
   background: linear-gradient(135deg, #ffffff 10%, #ffaa00 50%, #ff5722 90%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

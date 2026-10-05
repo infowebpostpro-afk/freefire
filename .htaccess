@@ -1,0 +1,26 @@
+# FreeFireNicknamePro - Apache / LiteSpeed Web Server Configuration
+# Enforce Canonical Host: https://freefirenicknamepro.com/
+# Single-hop permanent 301 consolidation for all www and HTTP traffic
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Permanent redirect for alternate DMCA slug to canonical URL
+  RewriteRule ^copyright-dmca/?$ /dmca/ [R=301,L]
+
+  # 2. Consolidate www host to non-www canonical host (single hop)
+  RewriteCond %{HTTP_HOST} ^www\.freefirenicknamepro\.com$ [NC]
+  RewriteRule ^(.*)$ https://freefirenicknamepro.com/$1 [R=301,L,NE]
+
+  # 3. Enforce HTTPS for non-SSL requests (single hop)
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP:X-Forwarded-Proto} =http
+  RewriteRule ^(.*)$ https://freefirenicknamepro.com/$1 [R=301,L,NE]
+</IfModule>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Security & Character Encoding Defaults
+AddDefaultCharset UTF-8

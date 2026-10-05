@@ -42,11 +42,21 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Organization",
+        "@id": "https://freefirenicknamepro.com/#organization",
+        "name": "FreeFireNicknamePro",
+        "url": "https://freefirenicknamepro.com/",
+        "logo": "https://freefirenicknamepro.com/images/logo.svg"
+      },
+      {
         "@type": "WebSite",
         "@id": "https://freefirenicknamepro.com/#website",
         "url": "https://freefirenicknamepro.com/",
         "name": "Free Fire Nickname Pro",
         "description": "A web-based Free Fire nickname tool for finding ready-made nickname ideas and creating styled versions of names.",
+        "publisher": {
+          "@id": "https://freefirenicknamepro.com/#organization"
+        },
         "inLanguage": "en-US"
       },
       {

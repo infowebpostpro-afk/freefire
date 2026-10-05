@@ -166,13 +166,8 @@
 
           <h2>Ways to Reach Us</h2>
           <p>
-            You can reach us directly via email or by completing the contact form below:
+            You can send feedback, bug reports, editorial corrections, privacy inquiries, and copyright notices using the contact form below. All incoming communications are reviewed systematically by our technical and editorial team.
           </p>
-          <ul>
-            <li><strong>General Inquiries &amp; Feedback:</strong> <code>[OWNER: INSERT EMAIL ADDRESS]</code></li>
-            <li><strong>Privacy Inquiries:</strong> <code>[OWNER: INSERT PRIVACY EMAIL]</code></li>
-            <li><strong>Copyright &amp; DMCA:</strong> <code>[OWNER: INSERT COPYRIGHT EMAIL]</code></li>
-          </ul>
 
           <div class="legal-notice-box info">
             <strong>Privacy &amp; Security Note:</strong> Please do NOT include sensitive personal information, passwords, game login credentials, payment details, or financial data in your message. We do not require or request account credentials for any reason.
@@ -181,9 +176,13 @@
           <!-- Contact Form -->
           <div class="contact-form-container">
             <h3 style="margin-top: 0; color: #fff;">Send Us a Message</h3>
-            <p style="font-size: 0.9rem; color: var(--text-med); margin-bottom: 1.5rem;">
+            <p style="font-size: 0.9rem; color: var(--text-med); margin-bottom: 1.25rem;">
               Fill out the form below and our editorial and technical team will review your inquiry.
             </p>
+
+            <div class="legal-notice-box info" style="margin-bottom: 1.5rem;">
+              <strong>System Notice:</strong> Automated email dispatch is temporarily offline pending administrator mail-gateway configuration. Submissions through this form are logged in local session storage and will require re-submission once direct email routing is fully active.
+            </div>
 
             <form id="contact-form" novalidate>
               <div class="contact-form-group">
@@ -242,8 +241,8 @@
                 <span>✉</span> Send Message
               </button>
 
-              <div id="contact-success" class="contact-success-msg" role="status" aria-live="polite">
-                <strong>Thank you!</strong> Your message has been received. Our team will review your inquiry and respond if necessary.
+              <div id="contact-status" class="contact-status-msg" role="status" aria-live="polite" style="display: none; margin-top: 1.25rem; padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid rgba(255, 170, 0, 0.3); background: rgba(255, 170, 0, 0.08); color: #f5f5f5; font-size: 0.95rem; line-height: 1.6;">
+                <strong style="color: #ffaa00;">Submission Captured Locally:</strong> Your inquiry has been validated and saved in local session memory. External email dispatch is pending site owner mail server configuration, so no remote message was transmitted. Please keep a copy of your inquiry.
               </div>
             </form>
           </div>
@@ -354,7 +353,7 @@
     // Client-side Contact Form Handler
     document.addEventListener('DOMContentLoaded', function() {
       var form = document.getElementById('contact-form');
-      var successMsg = document.getElementById('contact-success');
+      var statusMsg = document.getElementById('contact-status');
       var submitBtn = document.getElementById('btn-submit-contact');
 
       if (form) {
@@ -370,19 +369,27 @@
             return;
           }
 
-          // Visual feedback
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<span>⏳</span> Sending...';
+          // Capture locally in session storage for visitor reference without faking remote delivery
+          try {
+            var draft = {
+              name: name,
+              email: email,
+              subject: subject,
+              message: message,
+              timestamp: new Date().toISOString()
+            };
+            sessionStorage.setItem('ffnp_last_contact_draft', JSON.stringify(draft));
+          } catch (err) {
+            // ignore storage quota errors
+          }
 
-          setTimeout(function() {
-            form.reset();
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>✉</span> Send Another Message';
-            if (successMsg) {
-              successMsg.style.display = 'block';
-              successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-          }, 600);
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>ℹ</span> Recorded in Local Session';
+
+          if (statusMsg) {
+            statusMsg.style.display = 'block';
+            statusMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         });
       }
     });

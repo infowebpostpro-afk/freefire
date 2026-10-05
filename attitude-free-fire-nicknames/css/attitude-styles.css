@@ -91,6 +91,7 @@
 .attitude-gradient-text {
   background: linear-gradient(135deg, #ff2a5f 0%, #ff5722 50%, #ffaa00 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
