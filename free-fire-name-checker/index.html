@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Metadata -->
+  <title>Free Fire Name Checker – Unicode &amp; Length</title>
+  <meta name="description" content="Check your Free Fire name's length, Unicode symbols, hidden spaces, and formatting. Inspect characters and copy a simpler version.">
+  <meta name="keywords" content="Free Fire Name Checker, Free Fire name checker online, check Free Fire name, Free Fire nickname character counter, Free Fire Unicode inspector, Free Fire invisible character detector, Free Fire name length, test Free Fire nickname">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://freefirenicknamepro.com/free-fire-name-checker/">
+  <link rel="icon" type="image/svg+xml" href="../images/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://freefirenicknamepro.com/free-fire-name-checker/">
+  <meta property="og:title" content="Free Fire Name Checker – Unicode &amp; Length">
+  <meta property="og:description" content="Check your Free Fire name's length, Unicode symbols, hidden spaces, and formatting. Inspect characters and copy a simpler version.">
+  <meta property="og:site_name" content="Free Fire Nickname Pro">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Fire Name Checker – Unicode &amp; Length">
+  <meta name="twitter:description" content="Check your Free Fire name's length, Unicode symbols, hidden spaces, and formatting. Inspect characters and copy a simpler version.">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/name-checker.css">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://freefirenicknamepro.com/free-fire-name-checker/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://freefirenicknamepro.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Free Fire Name Checker",
+            "item": "https://freefirenicknamepro.com/free-fire-name-checker/"
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://freefirenicknamepro.com/free-fire-name-checker/#webpage",
+        "url": "https://freefirenicknamepro.com/free-fire-name-checker/",
+        "name": "Free Fire Name Checker – Unicode & Length",
+        "description": "Check your Free Fire name's length, Unicode symbols, hidden spaces, and formatting. Inspect characters and copy a simpler version.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://freefirenicknamepro.com/free-fire-name-checker/#webapp",
+        "name": "Free Fire Name Checker & Unicode Inspector",
+        "url": "https://freefirenicknamepro.com/free-fire-name-checker/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://freefirenicknamepro.com/free-fire-name-checker/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I check a stylish Free Fire name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Paste the styled text into the checker to inspect its Unicode characters, hidden formatting, and text counts. The results do not guarantee in-game compatibility."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the checker tell me whether a name is taken?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The checker does not have a verified live nickname-availability connection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why are different character counts shown?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Unicode code points, UTF-16 code units, and visually perceived character groups are different ways to measure text. A decorated name may produce different counts under each method."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can the checker remove special characters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tool can offer a simplified version of your name. Review the result before copying it because removing decoration or changing Unicode text can alter the name you intended."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the tool need my Free Fire UID or password?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Text inspection does not require account credentials or player identification."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Ambient Embers Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="ambient-grid"></div>
+
+  <div class="site-wrapper checker-page-wrapper">
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../" class="brand-logo" aria-label="Free Fire Nickname Pro">
+          <div class="brand-icon">
+            <img src="../images/logo.svg" alt="Free Fire Nickname Pro Emblem" class="brand-logo-img" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Free Fire <span class="brand-accent">Nickname</span> <span class="brand-pro-pill">PRO</span></span>
+          </div>
+        </a>
+
+        <!-- Desktop & Mobile Navigation -->
+        <nav class="site-nav" aria-label="Main Navigation">
+          <ul class="nav-links" id="main-nav-links">
+            <li><a href="../" class="nav-link">Home</a></li>
+
+            <!-- Nicknames Dropdown -->
+            <li class="nav-item-dropdown">
+              <button 
+                type="button" 
+                class="nav-link nav-dropdown-btn" 
+                aria-expanded="false" 
+                aria-haspopup="true" 
+                aria-controls="nav-dropdown-nicknames"
+                id="btn-nicknames-dropdown"
+              >
+                <span>Nicknames</span>
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="nav-dropdown-menu" id="nav-dropdown-nicknames" role="region" aria-labelledby="btn-nicknames-dropdown">
+                <ul class="dropdown-links-list">
+                  <li><a href="../free-fire-name-ideas/" class="dropdown-link">Name Ideas</a></li>
+                  <li><a href="../free-fire-nicknames-for-boys/" class="dropdown-link">Boys Nicknames</a></li>
+                  <li><a href="../free-fire-nicknames-for-girls/" class="dropdown-link">Girls Nicknames</a></li>
+                  <li><a href="../cool-free-fire-nicknames/" class="dropdown-link">Cool Nicknames</a></li>
+                  <li><a href="../stylish-free-fire-nicknames/" class="dropdown-link">Stylish Nicknames</a></li>
+                  <li><a href="../attitude-free-fire-nicknames/" class="dropdown-link">Attitude Nicknames</a></li>
+                </ul>
+              </div>
+            </li>
+
+            <li><a href="../free-fire-symbols/" class="nav-link">Symbols</a></li>
+            <li><a href="../free-fire-invisible-space/" class="nav-link">Invisible Space</a></li>
+            <li><a href="./" class="nav-link active">Name Checker</a></li>
+            <li><a href="../free-fire-guild-name-generator/" class="nav-link">Guild Names</a></li>
+            <li><a href="../free-fire-bio-copy/" class="nav-link">Bio</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Mobile Hamburger Toggle Button -->
+          <button 
+            type="button" 
+            class="mobile-menu-toggle" 
+            id="mobile-menu-toggle" 
+            aria-label="Toggle mobile menu" 
+            aria-expanded="false" 
+            aria-controls="main-nav-links"
+          >
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section: Heading + Subtitle + PAS Intro -->
+      <section class="checker-hero-section">
+        <div class="container">
+          <div class="hero-pill-badge">
+            <span>🔍</span>
+            <span>Unicode Inspector &amp; Length Studio</span>
+          </div>
+
+          <!-- Section 28 & 29 Recommended H1 & Subtitle -->
+          <h1 class="checker-hero-title">
+            <span class="gradient-text">Free Fire Name Checker</span>
+          </h1>
+          <p class="checker-hero-subtitle">
+            Inspect your nickname, spot hidden characters, and compare simpler versions before testing in-game.
+          </p>
+
+          <!-- Publication-Ready PAS Intro Paragraphs (Section 19) -->
+          <div class="hero-pas-container">
+            <p class="hero-pas-text">
+              A Free Fire nickname can look short and simple while containing hidden spaces, decorative symbols, or Unicode characters that are difficult to identify. When a name does not behave as expected, it can be hard to tell which part needs attention.
+            </p>
+            <p class="hero-pas-text">
+              Paste your nickname into the Free Fire Name Checker below to inspect its characters, compare different text counts, identify hidden formatting, and create a simpler version. <strong>The tool analyzes text in your browser.</strong> It does not check whether the name is available or guarantee that Free Fire will accept it.
+            </p>
+          </div>
+
+          <!-- WORKBENCH TOOL CONTAINER -->
+          <div class="checker-workbench-card" id="name-checker-tool">
+
+            <!-- INPUT BAR & ACTIONS -->
+            <div class="checker-input-section">
+              <div class="checker-input-label-row">
+                <label for="checker-nickname-input" class="checker-input-label">
+                  <span>🎮</span> Nickname to Inspect
+                </label>
+                <span class="checker-input-label-hint">Paste styled text, invisible spacing, or gaming tags</span>
+              </div>
+
+              <div class="checker-input-console">
+                <span class="checker-input-icon">⚡</span>
+                <input 
+                  type="text" 
+                  id="checker-nickname-input" 
+                  class="checker-text-input" 
+                  placeholder="Enter or paste a Free Fire nickname (e.g. ꧁Shadow꧂, 𝓢𝓱𝓪𝓭𝓸𝔀, ShadowㅤX)..." 
+                  value="꧁Shadow꧂"
+                  autocomplete="off"
+                  spellcheck="false"
+                >
+                <div class="checker-input-actions">
+                  <button type="button" class="btn-input-action" id="btn-input-paste" title="Paste from clipboard">
+                    <span>📋</span> Paste
+                  </button>
+                  <button type="button" class="btn-input-action btn-input-clear" id="btn-input-clear" title="Clear input">
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Presets for Instant Testing -->
+              <div class="checker-quick-examples">
+                <span class="quick-examples-title">Test Scenarios:</span>
+                <button type="button" class="btn-sample-chip" data-sample="Shadow">
+                  <strong>Shadow</strong>
+                  <span class="chip-label">Plain Latin</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="꧁Shadow꧂">
+                  <strong>꧁Shadow꧂</strong>
+                  <span class="chip-label">Brackets</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="𝓢𝓱𝓪𝓭𝓸𝔀">
+                  <strong>𝓢𝓱𝓪𝓭𝓸𝔀</strong>
+                  <span class="chip-label">Math Script</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="S̶h̶a̶d̶o̶w̶">
+                  <strong>S̶h̶a̶d̶o̶w̶</strong>
+                  <span class="chip-label">Combining Marks</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="Shadow&#x3164;X">
+                  <strong>ShadowㅤX</strong>
+                  <span class="chip-label">U+3164 Space</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="⚡VAMPIRE⚡">
+                  <strong>⚡VAMPIRE⚡</strong>
+                  <span class="chip-label">Symbols</span>
+                </button>
+                <button type="button" class="btn-sample-chip" data-sample="亗KING亗">
+                  <strong>亗KING亗</strong>
+                  <span class="chip-label">FF Clan Tag</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- THREE CLEARLY SEPARATED RESULTS SECTIONS -->
+            <div class="results-trio-container">
+
+              <!-- SECTION 1: TEXT ANALYSIS (WHAT THE TOOL CAN MEASURE) -->
+              <div class="trio-card">
+                <div class="trio-card-header">
+                  <h2 class="trio-card-title">
+                    <span>📊</span> 1. Text Analysis
+                  </h2>
+                  <span class="trio-card-badge badge-measured">Local Measurement</span>
+                </div>
+
+                <!-- 3 Distinct Count Metrics -->
+                <div class="metrics-grid">
+                  <div class="metric-box">
+                    <div class="metric-value" id="metric-code-points">8</div>
+                    <div class="metric-name">Code Points</div>
+                    <div class="metric-desc">Unicode elements (Array.from)</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value" id="metric-graphemes">8</div>
+                    <div class="metric-name">Grapheme Clusters</div>
+                    <div class="metric-desc">Visually perceived characters</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value" id="metric-utf16">8</div>
+                    <div class="metric-name">UTF-16 Units</div>
+                    <div class="metric-desc">JavaScript string length</div>
+                  </div>
+                </div>
+
+                <!-- Community Length Reference Progress Bar -->
+                <div class="community-ref-box">
+                  <div class="community-ref-header">
+                    <div class="community-ref-title">
+                      <span>📏</span> Community Length Reference:
+                    </div>
+                    <span class="community-ref-fraction" id="community-ref-count">8 / 12</span>
+                  </div>
+                  <div class="community-progress-track">
+                    <div class="community-progress-bar" id="community-ref-bar" style="width: 66%;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted);">Player-reported 12-char reference</span>
+                    <span class="diag-badge diag-badge-ok" id="community-ref-badge">Within Guideline</span>
+                  </div>
+                  <p class="community-ref-note">
+                    <strong>Note:</strong> Garena Free Fire does not publish an official technical Unicode length specification. Player-reported length limits vary depending on character encoding in current game versions.
+                  </p>
+                </div>
+
+                <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+                  <span>UTF-8 Memory Size: <strong id="metric-utf8-bytes" style="color: var(--neon-cyan);">8</strong> bytes</span>
+                  <span>Evaluated in browser</span>
+                </div>
+              </div>
+
+              <!-- SECTION 2: POTENTIAL ISSUES (CHARACTERS & FORMATTING WORTH REVIEWING) -->
+              <div class="trio-card">
+                <div class="trio-card-header">
+                  <h2 class="trio-card-title">
+                    <span>⚠️</span> 2. Potential Issues
+                  </h2>
+                  <span class="trio-card-badge badge-warning">Formatting Diagnostics</span>
+                </div>
+
+                <div class="diagnostics-list">
+                  <!-- Invisible Character Diagnostic Item -->
+                  <div class="diag-item" id="diag-invisible-item" style="display: none;">
+                    <div class="diag-icon">👻</div>
+                    <div class="diag-content">
+                      <div class="diag-title">
+                        <span>Invisible Spacing Detected</span>
+                        <span class="diag-badge diag-badge-warn">Found</span>
+                      </div>
+                      <p class="diag-desc">
+                        Contains non-standard whitespace or blank filler characters. In-game rendering depends on Free Fire version support.
+                      </p>
+                      <div class="diag-chars-found"></div>
+                    </div>
+                  </div>
+
+                  <!-- Combining Marks Diagnostic Item -->
+                  <div class="diag-item" id="diag-combining-item" style="display: none;">
+                    <div class="diag-icon">⚡</div>
+                    <div class="diag-content">
+                      <div class="diag-title">
+                        <span>Combining Marks Detected</span>
+                        <span class="diag-badge diag-badge-warn">Found</span>
+                      </div>
+                      <p class="diag-desc">
+                        Contains stacked accents, diacritics, or strike-through lines that inflate underlying code-point count beyond visible characters.
+                      </p>
+                      <div class="diag-chars-found"></div>
+                    </div>
+                  </div>
+
+                  <!-- Mathematical Styled Letters Diagnostic Item -->
+                  <div class="diag-item" id="diag-styled-item" style="display: none;">
+                    <div class="diag-icon">✒️</div>
+                    <div class="diag-content">
+                      <div class="diag-title">
+                        <span>Mathematical Styled Alphanumerics</span>
+                        <span class="diag-badge diag-badge-warn">Found</span>
+                      </div>
+                      <p class="diag-desc">
+                        Uses mathematical bold, script, or fraktur Unicode points (U+1D400+). May display as blank boxes on older Android/iOS devices.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Decorative Ornaments Item -->
+                  <div class="diag-item" id="diag-ornaments-item" style="display: none;">
+                    <div class="diag-icon">✨</div>
+                    <div class="diag-content">
+                      <div class="diag-title">
+                        <span>Decorative Brackets &amp; Wings</span>
+                        <span class="diag-badge diag-badge-warn">Found</span>
+                      </div>
+                      <p class="diag-desc">
+                        Contains ornamental symbols (e.g. ꧁, ꧂, 亗). If Free Fire rejects the name, try testing the core name without brackets.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Clean State (shown if 0 issues) -->
+                  <div class="diag-item diag-clean" id="diag-clean-state">
+                    <div class="diag-icon">✓</div>
+                    <div class="diag-content">
+                      <div class="diag-title">
+                        <span>Clean Formatting Profile</span>
+                        <span class="diag-badge diag-badge-ok">Passed</span>
+                      </div>
+                      <p class="diag-desc">
+                        No hidden spaces, nonstandard combining marks, or styled mathematical letters detected. This name uses standard characters.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 3: IN-GAME VERIFICATION (WHAT USER MUST TEST IN-GAME) -->
+              <div class="trio-card verification-card">
+                <div class="trio-card-header">
+                  <h2 class="trio-card-title">
+                    <span>🛡️</span> 3. In-Game Verification Required
+                  </h2>
+                  <span class="trio-card-badge badge-verify">Client-Side Validation Only</span>
+                </div>
+
+                <div class="verification-notice-banner">
+                  <strong>Important Distinction:</strong> This browser-based tool measures text properties in your browser. It cannot check whether a nickname is currently taken by another player, nor guarantee that Free Fire's server-side filters will accept it.
+                </div>
+
+                <div class="verification-steps-grid">
+                  <div class="verif-step-box">
+                    <span class="verif-step-num">Step 1 • Copy &amp; Open</span>
+                    <strong class="verif-step-title">Paste in Free Fire</strong>
+                    <p class="verif-step-desc">Open your Free Fire profile, tap the edit nickname pencil icon, and paste your prepared name.</p>
+                  </div>
+                  <div class="verif-step-box">
+                    <span class="verif-step-num">Step 2 • Check Availability</span>
+                    <strong class="verif-step-title">Verify Name Is Not Taken</strong>
+                    <p class="verif-step-desc">The live game server will check if another player already owns this exact nickname.</p>
+                  </div>
+                  <div class="verif-step-box">
+                    <span class="verif-step-num">Step 3 • Check Character Glyphs</span>
+                    <strong class="verif-step-title">Inspect In-Game Font</strong>
+                    <p class="verif-step-desc">Verify that symbols render clearly without showing missing-glyph replacement boxes ( or □).</p>
+                  </div>
+                  <div class="verif-step-box">
+                    <span class="verif-step-num">Step 4 • Confirm Rename</span>
+                    <strong class="verif-step-title">Finalize with Diamonds / Card</strong>
+                    <p class="verif-step-desc">Confirm the rename using 390 Diamonds or a Name Change Card once you are satisfied.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- SIMPLIFIED ALTERNATIVE (PRACTICAL FALLBACK) -->
+            <div class="simplified-recommendation-card">
+              <div class="simplified-header">
+                <div>
+                  <h3 class="simplified-title">
+                    <span>🔄</span> Suggested Simplified Alternative
+                  </h3>
+                  <p class="simplified-subtitle">
+                    A clean fallback version with decorative marks, complex brackets, and mathematical styling resolved.
+                  </p>
+                </div>
+              </div>
+
+              <div class="simplified-comparison-grid">
+                <!-- Original Card -->
+                <div class="sim-box sim-box-original">
+                  <div>
+                    <div class="sim-box-tag">Original Nickname</div>
+                    <div class="sim-nickname-display" id="sim-original-text">꧁Shadow꧂</div>
+                    <div class="sim-box-stats" id="sim-original-stats">
+                      <span>Code points: <strong class="sim-stat-val">8</strong></span>
+                      <span>Graphemes: <strong class="sim-stat-val">8</strong></span>
+                    </div>
+                  </div>
+                  <div class="sim-actions-row">
+                    <button type="button" class="btn-sim-copy" id="btn-copy-original">
+                      <span>📋</span> Copy Original
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Simplified Card -->
+                <div class="sim-box sim-box-simplified">
+                  <div>
+                    <div class="sim-box-tag">Simplified Alternative (Fallback)</div>
+                    <div class="sim-nickname-display" id="sim-simplified-text">Shadow</div>
+                    <div class="sim-box-stats" id="sim-simplified-stats">
+                      <span>Code points: <strong class="sim-stat-val">6</strong></span>
+                      <span>Graphemes: <strong class="sim-stat-val">6</strong></span>
+                    </div>
+                  </div>
+                  <div class="sim-actions-row">
+                    <button type="button" class="btn-sim-copy btn-primary-sim" id="btn-copy-simplified">
+                      <span>✨</span> Copy Simplified
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sim-diff-explanation" id="sim-diff-note">
+                <strong>Changes applied:</strong> Removed 2 decorative ornaments / brackets.
+              </div>
+            </div>
+
+            <!-- DETAILED INSPECTION TABS (CODE POINTS & NORMALIZATION) -->
+            <div class="inspector-details-section">
+              <div class="inspector-tabs-nav">
+                <button type="button" class="btn-inspect-tab active" data-tab="tab-code-points">
+                  <span>🔬</span> Code-Point Breakdown
+                </button>
+                <button type="button" class="btn-inspect-tab" data-tab="tab-normalization">
+                  <span>📐</span> Unicode Normalization
+                </button>
+                <button type="button" class="btn-inspect-tab" data-tab="tab-raw">
+                  <span>💻</span> Raw Hex &amp; Escapes
+                </button>
+              </div>
+
+              <!-- Tab 1: Code-Point-by-Code-Point View -->
+              <div class="tab-pane active" id="tab-code-points">
+                <div class="code-points-table-wrap">
+                  <table class="code-points-table">
+                    <thead>
+                      <tr>
+                        <th>Pos</th>
+                        <th>Glyph</th>
+                        <th>Hex Code</th>
+                        <th>Character Name / Description</th>
+                        <th>Unicode Block</th>
+                        <th>Category</th>
+                      </tr>
+                    </thead>
+                    <tbody id="code-points-table-body">
+                      <!-- Rendered by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Tab 2: Normalization Inspector -->
+              <div class="tab-pane" id="tab-normalization">
+                <div class="normalization-grid">
+                  <div class="norm-card">
+                    <div class="norm-card-header">
+                      <span class="norm-form-name">NFC</span>
+                      <span class="norm-form-badge">Canonical Composition</span>
+                    </div>
+                    <div class="norm-result-display" id="norm-nfc-text"></div>
+                    <p class="norm-explanation">Standard Unicode canonical composition. Preserves styled letters while composing accents where possible.</p>
+                  </div>
+
+                  <div class="norm-card">
+                    <div class="norm-card-header">
+                      <span class="norm-form-name">NFD</span>
+                      <span class="norm-form-badge">Canonical Decomposition</span>
+                    </div>
+                    <div class="norm-result-display" id="norm-nfd-text"></div>
+                    <p class="norm-explanation">Decomposes accented characters into separate base letter + combining mark code points.</p>
+                  </div>
+
+                  <div class="norm-card">
+                    <div class="norm-card-header">
+                      <span class="norm-form-name">NFKC</span>
+                      <span class="norm-form-badge">Compatibility Composition</span>
+                    </div>
+                    <div class="norm-result-display" id="norm-nfkc-text"></div>
+                    <p class="norm-explanation">Decomposes compatibility characters (such as Mathematical Styled Script letters into plain ASCII Latin).</p>
+                  </div>
+
+                  <div class="norm-card">
+                    <div class="norm-card-header">
+                      <span class="norm-form-name">NFKD</span>
+                      <span class="norm-form-badge">Compatibility Decomposition</span>
+                    </div>
+                    <div class="norm-result-display" id="norm-nfkd-text"></div>
+                    <p class="norm-explanation">Complete compatibility decomposition. Converts mathematical characters and separates combining accents.</p>
+                  </div>
+                </div>
+
+                <div class="content-note-callout" id="norm-alert-note" style="margin-top: 1rem;">
+                  <strong>✓ Canonical Integrity:</strong> Evaluated in browser.
+                </div>
+              </div>
+
+              <!-- Tab 3: Raw Hex & Escapes -->
+              <div class="tab-pane" id="tab-raw">
+                <div class="raw-box">
+                  <div class="raw-row">
+                    <label>Hex Code Point Sequence:</label>
+                    <div class="raw-code-output" id="raw-hex-text">U+0053 U+0068 U+0061 U+0064 U+006F U+0077</div>
+                  </div>
+                  <div class="raw-row">
+                    <label>JavaScript Unicode Escape String (\uXXXX):</label>
+                    <div class="raw-code-output" id="raw-escape-text">\u0053\u0068\u0061\u0064\u006F\u0077</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PUBLICATION-READY SUPPORTING CONTENT (SECTION 19) -->
+      <section class="checker-article-section">
+        <div class="container">
+
+          <!-- Block 1: How to Check Your Free Fire Name -->
+          <article class="content-block">
+            <h2 class="content-h2">How to Check Your Free Fire Name</h2>
+            <p class="content-p">
+              Checking a nickname starts with the exact text you plan to use.
+            </p>
+            <ul class="content-step-list">
+              <li>
+                <span class="step-number-bullet">1</span>
+                <div>Paste or type your proposed nickname into the checker.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">2</span>
+                <div>Review its Unicode code-point count and other text measurements.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">3</span>
+                <div>Look for invisible characters, combining marks, and decorative symbols.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">4</span>
+                <div>Open the detailed inspection to see the characters individually.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">5</span>
+                <div>Compare the original name with the suggested simplified version.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">6</span>
+                <div>Copy the version you prefer and test it in your current Free Fire client.</div>
+              </li>
+              <li>
+                <span class="step-number-bullet">7</span>
+                <div>You can repeat the process after changing a symbol or removing part of the name.</div>
+              </li>
+            </ul>
+            <div class="content-note-callout">
+              <div>
+                <strong>Security Guarantee:</strong> The checker works with the text you enter. It does not need your Free Fire password, player ID, or account login.
+              </div>
+            </div>
+          </article>
+
+          <!-- Block 2: What Does the Free Fire Name Checker Measure? -->
+          <article class="content-block">
+            <h2 class="content-h2">What Does the Free Fire Name Checker Measure?</h2>
+            <p class="content-p">
+              The checker examines how your nickname is represented as text. That matters because the number of characters you see is not always the same as the number of units stored in a string.
+            </p>
+
+            <h3 class="content-h3">Unicode Code Points</h3>
+            <p class="content-p">
+              A Unicode code point identifies an individual character or text element in the Unicode standard. For example, a decorative letter may look like a regular letter while using a different Unicode code point. The checker can count these code points and identify the ones present in your nickname.
+            </p>
+
+            <h3 class="content-h3">Visible Character Groups</h3>
+            <p class="content-p">
+              Some displayed characters are made from multiple code points. For example, a letter with an added combining accent can appear as one visible character even though the underlying string contains more than one code point. A grapheme-cluster count helps explain these visual groups. It should not be confused with an official Free Fire nickname limit.
+            </p>
+
+            <h3 class="content-h3">UTF-16 Code Units</h3>
+            <p class="content-p">
+              JavaScript represents strings using UTF-16 code units. Some Unicode characters require two UTF-16 code units, so a basic JavaScript string length may differ from the number of Unicode code points or visible character groups. The checker displays these measurements separately so you can understand why they differ.
+            </p>
+          </article>
+
+          <!-- Block 3: Why Unicode Names Can Be Confusing -->
+          <article class="content-block">
+            <h2 class="content-h2">Why Unicode Names Can Be Confusing</h2>
+            <p class="content-p">
+              Stylish Free Fire names often contain decorative characters that look different from ordinary letters. Consider these examples:
+            </p>
+
+            <div class="content-table-wrapper">
+              <table class="content-table">
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>What to inspect</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Shadow</code></td>
+                    <td>Ordinary Latin letters</td>
+                  </tr>
+                  <tr>
+                    <td><code>꧁Shadow꧂</code></td>
+                    <td>Decorative brackets</td>
+                  </tr>
+                  <tr>
+                    <td><code>𝓢𝓱𝓪𝓭𝓸𝔀</code></td>
+                    <td>Mathematical styled letters</td>
+                  </tr>
+                  <tr>
+                    <td><code>S̶h̶a̶d̶o̶w̶</code></td>
+                    <td>Combining marks</td>
+                  </tr>
+                  <tr>
+                    <td><code>ShadowㅤX</code></td>
+                    <td>A possible nonstandard spacing character (U+3164)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="content-p">
+              These examples illustrate different text structures, not confirmed Free Fire compatibility. The checker helps you understand the difference before copying a name into the game.
+            </p>
+          </article>
+
+          <!-- Block 4: Invisible Characters and Combining Marks -->
+          <article class="content-block">
+            <h2 class="content-h2">Invisible Characters and Combining Marks</h2>
+            <p class="content-p">
+              Invisible characters can be difficult to notice because they may create spacing or affect text without displaying an obvious symbol. If your nickname contains one, the inspector should identify its Unicode code point and show where it occurs.
+            </p>
+            <p class="content-p">
+              Combining marks are different. They may change the appearance of nearby characters, such as adding an accent, underline, or strike-through effect. The checker can highlight these marks and help you compare the original name with a simplified alternative.
+            </p>
+            <div class="content-note-callout">
+              <div>
+                <strong>Review Before Removal:</strong> Do not remove characters automatically without reviewing the result. A hidden character or combining mark may be an intentional part of your chosen name.
+              </div>
+            </div>
+          </article>
+
+          <!-- Block 5: What to Do If Free Fire Rejects Your Name -->
+          <article class="content-block">
+            <h2 class="content-h2">What to Do If Free Fire Rejects Your Name</h2>
+            <p class="content-p">
+              A text checker cannot determine the exact reason a game rejects a nickname, but it can help you investigate possible text-related issues.
+            </p>
+
+            <h3 class="content-h3">Try a Simpler Version</h3>
+            <p class="content-p">
+              Remove decorative symbols temporarily and try the underlying name. For example:
+            </p>
+            <div class="content-sub-block" style="text-align: center;">
+              <code style="font-size: 1.15rem; color: #ffaa00;">꧁Shadow꧂</code>
+              <div style="margin: 0.5rem 0; color: var(--text-muted); font-size: 0.9rem;">can be simplified to:</div>
+              <code style="font-size: 1.15rem; color: #00e676;">Shadow</code>
+            </div>
+            <p class="content-p" style="margin-top: 1rem;">
+              If you want decoration, add it back gradually and check the result in-game.
+            </p>
+
+            <h3 class="content-h3">Inspect Hidden Spacing</h3>
+            <p class="content-p">
+              If the name contains unusual spaces, review their Unicode values. Try a version without invisible formatting to see whether the behavior changes.
+            </p>
+
+            <h3 class="content-h3">Review Combining Marks</h3>
+            <p class="content-p">
+              A decorated name may contain more underlying code points than you expect. Inspect the individual marks and compare the original with a plain-text version.
+            </p>
+
+            <h3 class="content-h3">Check the Game's Current Requirements</h3>
+            <p class="content-p">
+              A local text analysis cannot establish the current game's complete naming rules. If Free Fire reports a specific error, use that message and the current in-game interface as your primary reference. Avoid assuming that a character is supported simply because another website displays it correctly.
+            </p>
+          </article>
+
+          <!-- Block 6: Can This Tool Check Free Fire Name Availability? -->
+          <article class="content-block">
+            <h2 class="content-h2">Can This Tool Check Free Fire Name Availability?</h2>
+            <p class="content-p">
+              <strong>No. This checker does not verify nickname availability.</strong>
+            </p>
+            <p class="content-p">
+              It analyzes the characters you enter. It does not connect to Free Fire's live nickname registration or validation system.
+            </p>
+            <p class="content-p">
+              A name may be structurally simple but already in use, or it may contain characters that the current game client does not accept. The checker therefore separates text analysis from in-game verification.
+            </p>
+            <p class="content-p">
+              If you need a new name instead, use the site's <a href="../" style="color: var(--fire-gold); font-weight: 700;">Free Fire nickname generator</a> or <a href="../free-fire-name-ideas/" style="color: var(--fire-gold); font-weight: 700;">Free Fire name ideas</a> tool, then return here to inspect your preferred result.
+            </p>
+          </article>
+
+          <!-- Block 7: Free Fire Name Checker FAQ -->
+          <article class="content-block">
+            <h2 class="content-h2">Free Fire Name Checker FAQ</h2>
+            <div class="faq-accordion">
+              <div class="faq-item">
+                <button type="button" class="faq-question">
+                  <span>Can I check a stylish Free Fire name?</span>
+                  <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                  <p>Yes. Paste the styled text into the checker to inspect its Unicode characters, hidden formatting, and text counts. The results do not guarantee in-game compatibility.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button type="button" class="faq-question">
+                  <span>Does the checker tell me whether a name is taken?</span>
+                  <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                  <p>No. The checker does not have a verified live nickname-availability connection.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button type="button" class="faq-question">
+                  <span>Why are different character counts shown?</span>
+                  <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                  <p>Unicode code points, UTF-16 code units, and visually perceived character groups are different ways to measure text. A decorated name may produce different counts under each method.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button type="button" class="faq-question">
+                  <span>Can the checker remove special characters?</span>
+                  <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                  <p>The tool can offer a simplified version of your name. Review the result before copying it because removing decoration or changing Unicode text can alter the name you intended.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button type="button" class="faq-question">
+                  <span>Does the tool need my Free Fire UID or password?</span>
+                  <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                  <p>No. Text inspection does not require account credentials or player identification.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Block 8: Check Your Name Before You Use It -->
+          <article class="content-block" style="text-align: center;">
+            <h2 class="content-h2" style="justify-content: center;">Check Your Name Before You Use It</h2>
+            <p class="content-p" style="max-width: 760px; margin: 0 auto 1.5rem;">
+              Use the checker to understand your nickname's text structure, identify hidden formatting, and compare simpler alternatives. Once you have a version you like, copy it and verify the result inside Free Fire. The checker can explain the text, but the game determines whether the final nickname is accepted.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+              <a href="#name-checker-tool" class="btn btn-primary">
+                <span>🔍</span> Check Name Above
+              </a>
+              <a href="../" class="btn btn-secondary">
+                <span>⚡</span> Generate New Nickname
+              </a>
+            </div>
+          </article>
+
+          <!-- Internal Links Grid (Sections 20-21) -->
+          <section class="internal-links-section">
+            <h3 class="internal-links-title">Explore Related Free Fire Tools</h3>
+            <p class="content-p" style="font-size: 0.92rem; margin-bottom: 1rem;">
+              Generate, decorate, or style your gaming identity using our dedicated utilities:
+            </p>
+            <div class="internal-links-grid">
+              <a href="../" class="internal-link-card">
+                <span class="internal-link-title">Free Fire Nickname Generator</span>
+                <span class="internal-link-desc">Create battle-ready gaming names with 1-tap presets and custom styles.</span>
+              </a>
+              <a href="../free-fire-name-ideas/" class="internal-link-card">
+                <span class="internal-link-title">Free Fire Name Ideas</span>
+                <span class="internal-link-desc">Discover and shortlist names filtered by playstyle, vibe, and theme.</span>
+              </a>
+              <a href="../stylish-free-fire-nicknames/" class="internal-link-card">
+                <span class="internal-link-title">Stylish Free Fire Nicknames</span>
+                <span class="internal-link-desc">Transform ordinary letters into stylish fonts, brackets, and designs.</span>
+              </a>
+              <a href="../free-fire-symbols/" class="internal-link-card">
+                <span class="internal-link-title">Free Fire Symbols</span>
+                <span class="internal-link-desc">Browse and copy gaming symbols, wings, crowns, and badges.</span>
+              </a>
+              <a href="../free-fire-invisible-space/" class="internal-link-card">
+                <span class="internal-link-title">Free Fire Invisible Space</span>
+                <span class="internal-link-desc">Understand blank characters and copy verified invisible Unicode spacing.</span>
+              </a>
+              <a href="../free-fire-guild-name-generator/" class="internal-link-card">
+                <span class="internal-link-title">Guild Name Generator</span>
+                <span class="internal-link-desc">Generate squad and clan names with matching clan tags and symbols.</span>
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="../" class="brand-logo" style="margin-bottom: 0.75rem;" aria-label="Free Fire Nickname Pro">
+              <div class="brand-icon">
+                <img src="../images/logo.svg" alt="Free Fire Nickname Pro Emblem" class="brand-logo-img" width="40" height="40">
+              </div>
+              <div class="brand-text">
+                <span class="brand-title">Free Fire <span class="brand-accent">Nickname</span> <span class="brand-pro-pill">PRO</span></span>
+              </div>
+            </a>
+            <p class="footer-brand-desc">
+              Free Fire nickname and gaming identity tools. Generate, customize, and style battle-ready nicknames, symbols, and guild names.
+            </p>
+          </div>
+
+          <!-- 1. NICKNAME TOOLS -->
+          <div class="footer-col">
+            <h4>Nickname Tools</h4>
+            <ul class="footer-links">
+              <li><a href="../">Free Fire Nickname Generator</a></li>
+              <li><a href="../free-fire-symbols/">Free Fire Symbols</a></li>
+              <li><a href="../free-fire-invisible-space/">Invisible Space</a></li>
+              <li><a href="./">Free Fire Name Checker</a></li>
+              <li><a href="../free-fire-guild-name-generator/">Guild Name Generator</a></li>
+              <li><a href="../free-fire-bio-copy/">Free Fire Bio</a></li>
+            </ul>
+          </div>
+
+          <!-- 2. NICKNAME IDEAS -->
+          <div class="footer-col">
+            <h4>Nickname Ideas</h4>
+            <ul class="footer-links">
+              <li><a href="../free-fire-name-ideas/">Free Fire Name Ideas</a></li>
+              <li><a href="../free-fire-nicknames-for-boys/">Nicknames for Boys</a></li>
+              <li><a href="../free-fire-nicknames-for-girls/">Nicknames for Girls</a></li>
+              <li><a href="../cool-free-fire-nicknames/">Cool Nicknames</a></li>
+              <li><a href="../stylish-free-fire-nicknames/">Stylish Nicknames</a></li>
+              <li><a href="../attitude-free-fire-nicknames/">Attitude Nicknames</a></li>
+            </ul>
+          </div>
+
+          <!-- 3. RESOURCES -->
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+              <li><a href="../about-us/">About Us</a></li>
+              <li><a href="../contact-us/">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- 4. LEGAL -->
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="../privacy-policy/">Privacy Policy</a></li>
+              <li><a href="../terms-and-conditions/">Terms &amp; Conditions</a></li>
+              <li><a href="../cookie-policy/">Cookie Policy</a></li>
+              <li><a href="../disclaimer/">Disclaimer</a></li>
+              <li><a href="../dmca/">Copyright &amp; DMCA</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer-box">
+          <strong>Independence Disclosure:</strong> FreeFireNicknamePro.com is an independent utility website and is not affiliated with, endorsed by, sponsored by, or officially associated with Garena or Free Fire. Free Fire and Garena are trademarks or registered trademarks of Garena International.
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 FreeFireNicknamePro.com. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/nav.js"></script>
+  <script src="js/checker-engine.js"></script>
+  <script src="js/checker-app.js"></script>
+</body>
+</html>
