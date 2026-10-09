@@ -83,6 +83,13 @@ const StylishApp = {
     const randomBtn = document.getElementById('btn-random-name-input');
 
     if (input) {
+      // Check query param for cross-tool handoff
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryName = urlParams.get('name') || urlParams.get('nickname');
+      if (queryName) {
+        this.state.baseName = queryName.trim();
+      }
+
       // Set initial value
       input.value = this.state.baseName;
 
